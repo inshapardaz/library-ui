@@ -3,10 +3,15 @@ import Image from 'next/image'
 
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import LanguageSwitcher from '../components/languageSwitcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
 function HomePage() {
+  const { t } = useTranslation('common')
   return (
     <>
       <Head>
@@ -20,23 +25,10 @@ function HomePage() {
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.js</code>
+            <span>{t('app')}</span>
           </p>
           <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+              <LanguageSwitcher />
           </div>
         </div>
 
@@ -122,5 +114,15 @@ function HomePage() {
     </>
   )
 }
+
+export const getStaticProps = async ({
+  locale,
+}) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'en', [
+      'common',
+    ])),
+  },
+})
 
 export default HomePage;

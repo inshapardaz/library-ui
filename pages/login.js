@@ -1,5 +1,9 @@
+import { useTranslation } from 'next-i18next'
+
 function LoginPage() {
-    return <h1>Login Page</h1>;
+  const { t } = useTranslation('common')
+
+    return <h1>{t('login')}</h1>;
 }
 
 export default LoginPage;

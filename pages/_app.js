@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import 'semantic-ui-css/semantic.min.css'
 
+import { appWithTranslation } from 'next-i18next'
+
 const App = ({ Component, pageProps }) => (
   <Component {...pageProps} />
 )
 
-export default App
+export default appWithTranslation(App)
