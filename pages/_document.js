@@ -12,18 +12,29 @@ export const getStaticProps = async ({
   },
 })
 
+const dirFor = (locale) => {
+  switch (locale) {
+    case 'ur': return 'rtl';
+    default: return 'ltr';
+  }
+}
+
 export default function Document(props) {
   const currentLocale =
       props.__NEXT_DATA__.locale ??
       i18nextConfig.i18n.defaultLocale
 
-  const dir = currentLocale === "ur" ? "rtl" : "ltr"
+  const dir = dirFor(currentLocale)
 
   return (
     <Html 
         lang={currentLocale} 
         dir={dir}>
-      <Head />
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/semantic-ui/2.4.1/semantic.rtl.min.css" />
+        {/* <script async src="https://cdn.rtlcss.com/semantic-ui/2.4.1/semantic.min.js"></script> */}
+      </Head>
       <body dir={dir}>
         <Main />
         <NextScript />

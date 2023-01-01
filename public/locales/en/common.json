@@ -1,4 +1,25 @@
 {
     "app" : "Nawistha",
-    "login": "Login"
+    "register" : "Register",
+    "login" : "Login",
+    "header.home": "Home",
+	"header.library": "Library",
+	"header.categories": "Categories",
+	"header.series": "Series",
+	"header.periodicals": "Periodicals",
+	"header.issues": "Issues for {title}",
+	"header.issue": "Issue {issue} of {title} ",
+	"header.articles": "Contents of Issue {issue} for {title}",
+	"header.settings": "Settings",
+	"header.books": "Books",
+	"header.books.list": "All Books",
+	"header.authors": "Authors",
+	"header.poets": "Poets",
+	"header.writers": "Writers",
+	"header.publishing": "Publishing",
+	"header.profile" : "Profile",
+	"header.search" : "Search...",
+	"header.search.placeholder": "Search by title, author, keyword",
+	"header.search.advanced_search": "Advanced Search",
+	"header.administration" : "Administration"
 }
