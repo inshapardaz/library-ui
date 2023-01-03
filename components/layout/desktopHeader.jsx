@@ -3,6 +3,8 @@ import { Media } from './media'
 import {
   Button,
   Container,
+  Dropdown,
+  Icon,
   Input,
   Menu,
   Visibility,
@@ -11,7 +13,47 @@ import { useTranslation } from 'next-i18next'
 import LanguageSwitcher from '../languageSwitcher'
 import Image from 'next/image'
 import { useState } from 'react'
+import Link from 'next/link'
 
+import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
+import { useLogout } from "../../hooks/auth/useLogout";
+import { useRouter } from 'next/router'
+
+
+function UserMenu({fixed}) {
+  const { user } = useCurrentUser();
+  const { logout } = useLogout();
+  const router = useRouter();
+  const { t } = useTranslation()
+
+  const logoutClicked = () => {
+    logout()
+    .then(() => router.push("/"));
+  }
+
+  if (user) {
+    return (
+    <Dropdown pointing className="top right" trigger={<Icon name='user circle'/>} >
+      <Dropdown.Menu>
+        <Dropdown.Header content={user.name} />
+        <Dropdown.Item icon="setting" text={t('header.profile')} />
+        <Dropdown.Item icon="lock" text={t('changePassword.title')} as={Link} href="/change-password"/ >
+        <Dropdown.Divider />
+        <Dropdown.Item icon="sign-out" text={t('logout')} onClick={logoutClicked} />
+      </Dropdown.Menu>
+    </Dropdown>);
+  }
+  
+  return (<>
+    <Button as={Link} href="/login" inverted={!fixed} >
+      {t("login")}
+    </Button>
+    <div style={{ marginLeft: '0.5em' }}/> 
+    <Button as={Link} href="/register" inverted={!fixed} primary={fixed}>
+      {t("register")}
+    </Button>
+    </>);
+}
 function DesktopHeader () {
   const { t } = useTranslation()
   const [fixed, setFixed] = useState(false)
@@ -46,15 +88,9 @@ function DesktopHeader () {
                   <Input className='icon' icon='search' placeholder='Search...' />
                 </Menu.Item>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted={!fixed} >
-                    {t("login")}
-                  </Button>
-                  <div style={{ marginLeft: '0.5em' }}/> 
-                  <Button as='a' inverted={!fixed} primary={fixed}>
-                    {t("register")}
-                  </Button>
-                  <div style={{ marginLeft: '0.5em' }}/> 
                   <LanguageSwitcher inverted={!fixed} />
+                  <div style={{ marginLeft: '0.5em' }}/> 
+                  <UserMenu fixed={fixed} />
                 </Menu.Item>
               </Container>
             </Menu>

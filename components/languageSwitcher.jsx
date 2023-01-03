@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from "next/router";
 
 // semantic ui 
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Icon } from 'semantic-ui-react'
 
 const iconFor = (locale) => {
   switch (locale) {
@@ -41,13 +41,10 @@ const LanguageSwitcher = () => {
 
   return (
     <Dropdown
-    button 
-    labeled
-    className='icon'
-    icon='world'
+    pointing
+    trigger={<Icon name="globe" />}
     onChange={setLanguage}
     options={languageOptions}
-    text= {activeLocale }
     />
   );
 };
