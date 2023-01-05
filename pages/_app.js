@@ -9,13 +9,18 @@ import { SessionProvider } from 'next-auth/react';
 import { useState } from 'react';
 import RefreshTokenHandler from '../components/refreshTokenHandler';
 import { MediaContextProvider } from "../components/layout/media"
+import LayoutWithHeader from '../components/layout/layoutWithHeader'
 
 const App = ({ Component, pageProps }) => {
   const [interval, setInterval] = useState(0);
+
+  const Layout = Component.Layout || LayoutWithHeader
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>
       <MediaContextProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         <ToastContainer pauseOnHover={false} draggable={false} limit={4} hideProgressBar={true} position="bottom-right" theme="colored" />
       </MediaContextProvider>
       <RefreshTokenHandler setInterval={setInterval} />

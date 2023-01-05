@@ -1,10 +1,13 @@
 import DesktopHeader from "./desktopHeader";
 import DesktopFooter from "./desktopFooter";
+import { Container } from "semantic-ui-react";
 
 function LayoutWithHeader({ children}) {
     return (<>
         <DesktopHeader />
-        {children}
+        <Container>
+            {children}
+        </Container>
         <DesktopFooter/>
     </>);
 }

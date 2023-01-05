@@ -32,8 +32,6 @@ export default function Document(props) {
         dir={dir}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" href="https://cdn.rtlcss.com/semantic-ui/2.4.1/semantic.rtl.min.css" />
-        {/* <script async src="https://cdn.rtlcss.com/semantic-ui/2.4.1/semantic.min.js"></script> */}
       </Head>
       <body dir={dir}>
         <Main />

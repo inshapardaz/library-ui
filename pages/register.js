@@ -18,6 +18,7 @@ import {
 } from "formik-semantic-ui-react";
 
 import accountService  from '../services/accountService';
+import EmptyLayout from '../components/layout/emptyLayout';
 
 function LinkText({ href, children }) {
   return <Link to={href || ''}>{children}</Link>;
@@ -162,4 +163,5 @@ export const getStaticProps = async ({
   },
 })
 
+RegisterPage.Layout = EmptyLayout;
 export default RegisterPage;

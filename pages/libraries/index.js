@@ -1,10 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import LayoutWithHeader from '../../components/layout/layoutWithHeader'
-
 function LibrariesHomePage() {
     return <>
-        <LayoutWithHeader />
         <h1>Libraries Home Page</h1>
     </>;
 }

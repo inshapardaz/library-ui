@@ -18,15 +18,12 @@ import { useSession } from "next-auth/react"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 
-const regex = /libraries\/([0-9]*)\//gm;
-
 function MainMenu() {
   const { t } = useTranslation()
   const { status } = useSession()
   const router = useRouter();
   if (status === "authenticated") {
     const { libraryId } = router.query
-    console.log(libraryId)
     if (router.pathname.indexOf('/libraries/') >= 0)
     {
       return (
@@ -106,8 +103,9 @@ function DesktopHeader () {
               style={{ backgroundColor: !fixed ? '#1b1c1d' : 'white' }}
             >
               <Container>
-                <Menu.Item>
-                  <Image data-ft="logo" height={24} width={24} alt={t("header.books")} src="/images/logo.png" />
+              `<Menu.Item as={Link} href="/" header>
+                  <Image size='mini' height={24} width={32}  src='/images/logo.png' alt={t("app")} style={{ width: '32px', marginRight: '1.5em' }} />
+                  {t("app")}
                 </Menu.Item>
                 <MainMenu/>
                 <Menu.Item position='right'>

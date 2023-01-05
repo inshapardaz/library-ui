@@ -1,9 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
@@ -14,8 +15,9 @@ import {
   SubmitButton
 } from "formik-semantic-ui-react";
 
-import { signIn } from 'next-auth/react';
 import useAuth from '../hooks/useAuth';
+import EmptyLayout from '../components/layout/emptyLayout';
+
 function LoginPage() {
   const { t } = useTranslation('common')
   const router = useRouter();
@@ -105,4 +107,5 @@ export const getStaticProps = async ({
   },
 })
 
+LoginPage.Layout = EmptyLayout;
 export default LoginPage;

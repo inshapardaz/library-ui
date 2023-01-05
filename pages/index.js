@@ -6,7 +6,6 @@ import styles from '../styles/Home.module.css'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import LayoutWithHeader from '../components/layout/layoutWithHeader'
 const inter = Inter({ subsets: ['latin'] })
 
 function HomePage() {
@@ -16,7 +15,6 @@ function HomePage() {
       <Head>
         <title>{t('app')}</title>
       </Head>
-        <LayoutWithHeader>
         <div className={styles.center}>
           <Image
             className={styles.logo}
@@ -95,7 +93,6 @@ function HomePage() {
             </p>
           </a>
         </div>
-        </LayoutWithHeader>
     </>
   )
 }

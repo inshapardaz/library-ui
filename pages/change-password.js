@@ -99,9 +99,6 @@ function ChangePasswordPage() {
               )}
             </Formik>
           </Card.Content>
-          <Card.Content extra>
-            <Button as={Link} href='/'>{t('action.goto.home')}</Button>
-          </Card.Content>
         </Card>
       </Grid.Column>
     </Grid>);

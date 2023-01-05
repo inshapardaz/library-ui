@@ -14,6 +14,7 @@ import {
 
 import accountService  from '../services/accountService';
 import { useRouter } from 'next/router';
+import EmptyLayout from '../components/layout/emptyLayout';
 
 function ForgotPasswordPage() {
   const { t } = useTranslation('common')
@@ -87,4 +88,5 @@ export const getStaticProps = async ({
   },
 })
 
+ForgotPasswordPage.Layout = EmptyLayout;
 export default ForgotPasswordPage;
