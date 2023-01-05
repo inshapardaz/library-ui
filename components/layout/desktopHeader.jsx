@@ -14,28 +14,25 @@ import LanguageSwitcher from '../languageSwitcher'
 import Image from 'next/image'
 import { useState } from 'react'
 import Link from 'next/link'
-
-import { useCurrentUser } from "../../hooks/auth/useCurrentUser";
-import { useLogout } from "../../hooks/auth/useLogout";
+import { useSession } from "next-auth/react"
+import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 
 
 function UserMenu({fixed}) {
-  const { user } = useCurrentUser();
-  const { logout } = useLogout();
+  const { name, status } = useSession()
   const router = useRouter();
   const { t } = useTranslation()
 
   const logoutClicked = () => {
-    logout()
-    .then(() => router.push("/"));
+    signOut({ callbackUrl: '/' });
   }
 
-  if (user) {
+  if (status === "authenticated") {
     return (
     <Dropdown pointing className="top right" trigger={<Icon name='user circle'/>} >
       <Dropdown.Menu>
-        <Dropdown.Header content={user.name} />
+        <Dropdown.Header content={name} />
         <Dropdown.Item icon="setting" text={t('header.profile')} />
         <Dropdown.Item icon="lock" text={t('changePassword.title')} as={Link} href="/change-password"/ >
         <Dropdown.Divider />

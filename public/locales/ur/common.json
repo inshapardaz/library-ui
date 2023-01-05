@@ -82,7 +82,7 @@
     "register.message.success":"رکنیت کامیاب رہی۔ آپاپنے اکاؤنٹ میں داخل ہو سکتے ہیں۔",
     "register.message.error":"رکنیت ناکام رہی۔ دوبارہ کوشش کریں۔",
     "register.message.acceptTerms.requires" : "تمام اصول اور ضوابط تسلیم کرنا ضروری ہیں۔",
-    "register.acceptTerms.title" : "تمام اصول اور ضوابط تسلیم",
+    "register.acceptTerms.title" : "تمام <0>اصول اور ضوابط</0> تسلیم",
     "register.title.label" : "ٹائٹل",
     "register.name.label" : "نام",
     "register.email.label" : "ای میل",

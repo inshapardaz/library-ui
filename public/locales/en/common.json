@@ -83,7 +83,7 @@
     "register.message.success":"Registration successful, please login with your credentials.",
     "register.message.error":"Unable to register. Please try again.",
     "register.message.acceptTerms.requires" : "Accepting Terms & Conditions is required.",
-    "register.acceptTerms.title" : "Accept Terms & Conditions",
+    "register.acceptTerms.title" : "Accept <0>Terms & Conditions</0>",
     "register.title.label" : "Title",
     "register.name.label" : "Name",
     "register.email.label" : "Email",

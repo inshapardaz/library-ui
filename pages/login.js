@@ -4,24 +4,24 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
 import {
   Form,
-  FormikDebug,
   Input,
   ResetButton,
   SubmitButton
 } from "formik-semantic-ui-react";
 
-import { useLogin } from "../hooks/auth/useLogin";
-
+import { signIn } from 'next-auth/react';
+import useAuth from '../hooks/useAuth';
 function LoginPage() {
   const { t } = useTranslation('common')
-  const { login } = useLogin();
   const router = useRouter();
+  const isAuthenticated = useAuth(false);
+
+  if (isAuthenticated)  router.push('/')
 
   const initialValues = {
     email: "",
@@ -37,10 +37,9 @@ function LoginPage() {
   });
 
   const onSubmit = ({ email, password }, { setSubmitting }) => {
-    login(email, password)
-      .then((res) => router.push("/"))
-      .catch((e) => toast.error(t('login.message.error')))
-      .finally(() => setSubmitting(false));;
+    signIn('credentials', { callbackUrl: '/' , email, password })
+      .catch(() => toast.error(t('login.message.error')))
+      .finally(() => setSubmitting(false));
   };
 
   return (
@@ -60,7 +59,7 @@ function LoginPage() {
                 <Form size="large">
                   <Loader active={isSubmitting}/>
                   <Input
-                    id="input-email"
+                    id="email"
                     name="email"
                     icon="at"
                     placeholder={t('login.email.title')}
@@ -69,7 +68,7 @@ function LoginPage() {
                     errorPrompt
                   />
                   <Input
-                    id="input-password"
+                    id="password"
                     name="password"
                     icon="key"
                     type="password"
