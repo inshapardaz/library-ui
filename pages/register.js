@@ -4,9 +4,9 @@ import { useTranslation, Trans } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link';
 
+// 3rd party libraries
 import { toast } from 'react-toastify';
 import queryString from 'query-string';
-
 import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
 import * as Yup from 'yup';
 import { Formik } from "formik";
@@ -17,8 +17,9 @@ import {
   SubmitButton
 } from "formik-semantic-ui-react";
 
-import accountService  from '../services/accountService';
-import EmptyLayout from '../components/layout/emptyLayout';
+// Internal imports
+import accountService  from '@/services/accountService';
+import EmptyLayout from '@/components/layout/emptyLayout';
 
 function LinkText({ href, children }) {
   return <Link to={href || ''}>{children}</Link>;

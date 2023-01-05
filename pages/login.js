@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
+// 3rd party libraries
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { Formik } from "formik";
@@ -15,8 +16,9 @@ import {
   SubmitButton
 } from "formik-semantic-ui-react";
 
-import useAuth from '../hooks/useAuth';
-import EmptyLayout from '../components/layout/emptyLayout';
+// Internal imports
+import useAuth from '@/hooks/useAuth';
+import EmptyLayout from '@/components/layout/emptyLayout';
 
 function LoginPage() {
   const { t } = useTranslation('common')

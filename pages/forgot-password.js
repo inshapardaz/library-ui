@@ -1,8 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
+// 3rd party libraries
+import { toast } from 'react-toastify';
 import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
 import * as Yup from 'yup';
 import { Formik } from "formik";
@@ -12,9 +14,9 @@ import {
   SubmitButton
 } from "formik-semantic-ui-react";
 
-import accountService  from '../services/accountService';
-import { useRouter } from 'next/router';
-import EmptyLayout from '../components/layout/emptyLayout';
+// Internal imports
+import accountService  from '@/services/accountService';
+import EmptyLayout from '@/components/layout/emptyLayout';
 
 function ForgotPasswordPage() {
   const { t } = useTranslation('common')

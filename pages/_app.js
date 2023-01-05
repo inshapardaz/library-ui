@@ -1,15 +1,18 @@
-import '../styles/globals.css'
-import 'semantic-ui-css/semantic.min.css'
-import { ToastContainer } from 'react-toastify';
-
-import 'react-toastify/dist/ReactToastify.css';
-
+import { useState } from 'react';
 import { appWithTranslation } from 'next-i18next'
 import { SessionProvider } from 'next-auth/react';
-import { useState } from 'react';
-import RefreshTokenHandler from '../components/refreshTokenHandler';
-import { MediaContextProvider } from "../components/layout/media"
-import LayoutWithHeader from '../components/layout/layoutWithHeader'
+
+import '../styles/globals.css'
+
+// 3rd party libraries
+import 'semantic-ui-css/semantic.min.css'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Internal imports
+import RefreshTokenHandler from '@/components/refreshTokenHandler';
+import { MediaContextProvider } from "@/components/layout/media"
+import LayoutWithHeader from '@/components/layout/layoutWithHeader'
 
 const App = ({ Component, pageProps }) => {
   const [interval, setInterval] = useState(0);

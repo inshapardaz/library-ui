@@ -1,11 +1,10 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 
-// 
-import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
+// 3rd party libraries
+import { toast } from 'react-toastify';
+import { Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import {
@@ -14,6 +13,7 @@ import {
   SubmitButton
 } from "formik-semantic-ui-react";
 
+// Internal imports
 import accountService from '../services/accountService';
 
 function ChangePasswordPage() {
