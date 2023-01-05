@@ -1,0 +1,23 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import LayoutWithHeader from '../../components/layout/layoutWithHeader'
+
+function LibrariesHomePage() {
+    return <>
+        <LayoutWithHeader />
+        <h1>Libraries Home Page</h1>
+    </>;
+}
+
+
+export const getStaticProps = async ({
+    locale,
+  }) => ({
+    props: {
+      ...(await serverSideTranslations(locale ?? 'en', [
+        'common',
+      ])),
+    },
+  })
+  
+export default LibrariesHomePage;

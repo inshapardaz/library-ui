@@ -119,6 +119,7 @@
 	"profile.message.delete.confirm" : "کیا آپ اکاؤنٹ کو حذف کرنا چاہیں گے؟",
 	"profile.message.delete.success" : "اکاؤنٹ ضذف کر دیا گیا۔",
     "header.home": "صفحۂ اوّل",
+	"header.libraries": "کتب خانے",
     "header.library": "کتاب خانہ",
     "header.categories": "زمرہ جات",
     "header.series": "سلسلہ جات",
