@@ -9,14 +9,10 @@ function LibraryHomePage() {
     </>;
 }
 
-export const getServerSideProps = async ({
-    locale,
-  }) => ({
-    props: {
-      ...(await serverSideTranslations(locale ?? 'en', [
-        'common',
-      ])),
-    },
-  })
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['common',])),
+  },
+})
 
 export default LibraryHomePage;

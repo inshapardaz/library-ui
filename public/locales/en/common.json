@@ -158,6 +158,7 @@
 	"libraries.header" : "Libraries",
 	"libraries.message.empty" : "No Library found",
 	"libraries.message.loading" : "Loading Libraries...",
+	"libraries.message.loading.error" : "Error loading libraries.",
 	"library.select" : "Select Library",
 	"library.createNew" : "Create Library",
 	"library.assign" : "Add Library...",

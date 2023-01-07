@@ -1,16 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import i18nextConfig from '../next-i18next.config'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-export const getStaticProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
-    ])),
-  },
-})
 
 const dirFor = (locale) => {
   switch (locale) {

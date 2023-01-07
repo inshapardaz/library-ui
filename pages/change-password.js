@@ -14,7 +14,7 @@ import {
 } from "formik-semantic-ui-react";
 
 // Internal imports
-import accountService from '../services/accountService';
+import accountService  from '@/services/accountService';
 
 function ChangePasswordPage() {
   const { t } = useTranslation('common')
@@ -105,7 +105,7 @@ function ChangePasswordPage() {
 }
 
 
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {

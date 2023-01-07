@@ -18,7 +18,7 @@ import {
 } from "formik-semantic-ui-react";
 
 // Internal imports
-import accountService  from '@/services/accountService';
+import accountService from '@/services/accountService';
 import EmptyLayout from '@/components/layout/emptyLayout';
 
 function LinkText({ href, children }) {
@@ -154,7 +154,7 @@ function RegisterPage() {
 }
 
 
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {

@@ -99,7 +99,7 @@ function LoginPage() {
 }
 
 
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
