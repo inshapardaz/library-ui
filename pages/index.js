@@ -43,7 +43,7 @@ function HomePage() {
             className={styles.card}
           >
             <h2 className={inter.className}>
-              Libraries <span>-&gt;</span>
+              {t('libraries.header')} <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
               Browse all public libraries
@@ -102,7 +102,7 @@ export const getServerSideProps = async ({
 }) => ({
   props: {
     ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
+      'common', 'header'
     ])),
   },
 })

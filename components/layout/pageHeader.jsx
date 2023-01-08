@@ -5,7 +5,7 @@ import { Icon, Menu, Breadcrumb } from "semantic-ui-react";
 
   
 function PageHeader ({title, icon}) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('header');
   
     return (<Menu secondary>
         <Menu.Item>
@@ -16,7 +16,7 @@ function PageHeader ({title, icon}) {
         </Menu.Item>
         <Menu.Item position="right">
             <Breadcrumb>
-            <Breadcrumb.Section link>{t('header.home')}</Breadcrumb.Section>
+            <Breadcrumb.Section link>{t('home')}</Breadcrumb.Section>
             </Breadcrumb>
         </Menu.Item>
         </Menu>)

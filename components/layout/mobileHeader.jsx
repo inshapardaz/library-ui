@@ -15,7 +15,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 function MobileHeader () {
-  const { t } = useTranslation()
+  const { t } = useTranslation('header')
   const [sidebarOpened, setSidebarOpened] = useState(false)
   
   const handleSidebarHide = () => setSidebarOpened(false)
@@ -35,10 +35,10 @@ function MobileHeader () {
              <Menu.Item as='a' active>
                 <Image data-ft="logo" height={24} width={24} alt="logo" src="/images/logo.png" />
               </Menu.Item>
-              <Menu.Item as='a'>{t("header.books")}</Menu.Item>
-              <Menu.Item as='a'>{t("header.authors")}</Menu.Item>
-              <Menu.Item as='a'>{t("header.categories")}</Menu.Item>
-              <Menu.Item as='a'>{t("header.series")}</Menu.Item>
+              <Menu.Item as='a'>{t("books")}</Menu.Item>
+              <Menu.Item as='a'>{t("authors")}</Menu.Item>
+              <Menu.Item as='a'>{t("categories")}</Menu.Item>
+              <Menu.Item as='a'>{t("series")}</Menu.Item>
               <Menu.Item as='a'>{t("login")}</Menu.Item>
               <Menu.Item as='a'>{t("register")}</Menu.Item>
             </Sidebar>
