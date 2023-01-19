@@ -1,0 +1,28 @@
+.hero {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 613px;
+    display: grid;
+
+    &__background {
+        padding: 68px 0 28px 0;
+        text-align: center;
+        background-color: rgba(0,0,0,0.50);
+    }
+
+    &__title {
+        padding-top : 100px;
+        color: white;
+    }
+
+    &__searchBox {
+        max-width: 400px;
+        padding-top : 100px;
+        margin: 0 auto;
+    }
+}
+
+.latest {
+    margin: 20px 0;
+}

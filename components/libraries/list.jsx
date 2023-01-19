@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // 3rd party libraries
 import { Grid, Segment,  Button, Header, Icon } from 'semantic-ui-react'
@@ -6,13 +7,14 @@ import { Grid, Segment,  Button, Header, Icon } from 'semantic-ui-react'
 // Internal Imports
 import libraryService from "@/services/libraryService";
 import LibraryCard from "./libraryCard";
-import { useTranslation } from "react-i18next";
+
+// ------------------------------------------------------
 
 function LibrariesList () {
     const { t } = useTranslation();
-    const [busy, setBusy] = useState(false);
+    const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
-    const [libraries, setLibraries] = useState([]);
+    const [libraries, setLibraries] = useState(null);
 
     const loadLibraries = () => {
         console.log('Loading libraries')
@@ -50,23 +52,21 @@ function LibrariesList () {
         )
     }
 
-    if (!busy && libraries && libraries.length < 1) {
-        <Segment placeholder>
+    if (!busy && libraries && (!libraries.data || libraries.data.length < 1)) {
+        return (<Segment placeholder>
             <Header icon>
             <Icon name='inbox' />
                 {t('libraries.message.empty')}
             </Header>
-            <Button primary onClick={loadLibraries}>{t('library.createNew')}</Button>
-        </Segment>
+        </Segment>)
     }
 
     return ( <Grid container columns={3}>
-        { libraries.map(l => (
+        { libraries.data.map(l => (
         <Grid.Column key={l.id} mobile={16} tablet={8} computer={4}>
           <LibraryCard library={l} />
         </Grid.Column>
         ))}
-        
       </Grid>)
 }
 

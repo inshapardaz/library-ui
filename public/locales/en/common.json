@@ -5,6 +5,7 @@
     "login" : "Login",
     "logout": "Logout",
 	"language": "English",
+	"home": "Home",
     "forgot.password" : "Forgot Password",
     "resetPassword" : "Reset Password",
     "welcome.user" : "Welcome {user}",

@@ -3,20 +3,24 @@ import Link from 'next/link';
 // 3rd Party Libraries
 import { Card, Placeholder } from 'semantic-ui-react'
 
+function LoadingLibraryCard () {
+  return (<Placeholder>
+    <Placeholder.Header image>
+      <Placeholder.Line />
+      <Placeholder.Line />
+    </Placeholder.Header>
+    <Placeholder.Paragraph>
+      <Placeholder.Line />
+      <Placeholder.Line />
+      <Placeholder.Line />
+      <Placeholder.Line />
+    </Placeholder.Paragraph>
+  </Placeholder>)
+} 
+
 function LibraryCard({ library, loading = false }) {
     if (loading) {
-        return (<Placeholder>
-            <Placeholder.Header image>
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Header>
-            <Placeholder.Paragraph>
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-              <Placeholder.Line />
-            </Placeholder.Paragraph>
-          </Placeholder>)
+        return <LoadingLibraryCard />;
     }
 
     return (<Card

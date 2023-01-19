@@ -1,6 +1,8 @@
 import axios from 'axios';
 const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/libraries`;
 
+const libraryUrl = libraryId => `${baseUrl}/${libraryId}`;
+
 const getQueryParameter = (query) => (query ? `&query=${query}` : '');
 
 const parseObject = (source) => {
@@ -52,7 +54,11 @@ const get = (url) => {
         method: 'get',
         url: url,
     })
-    .then((response) => parseObject(response.data.data))
+    // .then((response) => {
+    //   console.log(response);
+    //   return response;
+    // })
+    .then((response) => parseObject(response.data))
 };
 
 const handleResponse = (response) => {
@@ -75,6 +81,15 @@ const handleResponse = (response) => {
 class LibraryService {
     getLibraries(query = null, page = 1, pageSize = 12) {
         return get(`${baseUrl}?pageNumber=${page}&pageSize=${pageSize}${getQueryParameter(query)}`)
+    }
+
+    getLibrary(library) {
+      return get(libraryUrl(library))
+    }
+
+    /* --------------- Books ---------------------- */
+    getLatestBooks(library) {
+      return get(`${libraryUrl(library)}/books?pageNumber=1&pageSize=12&sortby=DateCreated&sortDirection=descending`);
     }
 }
 
