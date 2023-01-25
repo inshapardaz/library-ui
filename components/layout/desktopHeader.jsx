@@ -9,7 +9,7 @@ import {
   Menu,
   Visibility,
 } from 'semantic-ui-react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from '../languageSwitcher'
 import Image from 'next/image'
 import { useState } from 'react'

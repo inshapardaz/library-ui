@@ -1,5 +1,5 @@
 import DesktopHeader from "./desktopHeader";
-import DesktopFooter from "./desktopFooter";
+import Footer from "./footer";
 import { Container } from "semantic-ui-react";
 
 function LayoutWithHeader({ children}) {
@@ -8,7 +8,7 @@ function LayoutWithHeader({ children}) {
         <Container style={{ minHeight : 'calc(100vh - 109px)' }}>
             {children}
         </Container>
-        <DesktopFooter/>
+        <Footer/>
     </>);
 }
 

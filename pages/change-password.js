@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router';
 
 // 3rd party libraries
@@ -104,15 +103,5 @@ function ChangePasswordPage() {
     </Grid>);
 }
 
-
-export const getServerSideProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
-    ])),
-  },
-})
 
 export default ChangePasswordPage;

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useTranslation, Trans } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link';
 
 // 3rd party libraries
@@ -19,7 +18,7 @@ import {
 
 // Internal imports
 import accountService from '@/services/accountService';
-import EmptyLayout from '@/components/layout/emptyLayout';
+import LayoutWithFooter from '@/components/layout/layoutWithFooter';
 
 function LinkText({ href, children }) {
   return <Link to={href || ''}>{children}</Link>;
@@ -153,16 +152,5 @@ function RegisterPage() {
     </Grid>);
 }
 
-
-export const getServerSideProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
-    ])),
-  },
-})
-
-RegisterPage.Layout = EmptyLayout;
+RegisterPage.Layout = LayoutWithFooter;
 export default RegisterPage;

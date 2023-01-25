@@ -1,11 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'react-i18next'
 
 // Styles
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -96,15 +95,5 @@ function HomePage() {
     </>
   )
 }
-
-export const getServerSideProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common', 'header'
-    ])),
-  },
-})
 
 export default HomePage;

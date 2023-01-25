@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 // Internal Imports
 import styles from '../../../styles/library.module.scss'
@@ -49,10 +48,5 @@ function LibraryHomePage() {
     </>;
 }
 
-export const getServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['common', 'header', 'library'])),
-  },
-})
 
 export default LibraryHomePage;

@@ -276,3 +276,111 @@
     transform: rotate(0deg);
   }
 }
+
+@import './mixins/breakpoints.scss';
+
+/******************* FOOTER ****************************/
+.footer {
+  display: flex;
+  flex-direction: row;
+}
+.copyrights {
+  flex-grow: 1;
+  margin: 0px 10px;
+}
+
+/********************* Common full screen ******************/
+
+.fullPage_layout {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  &__image {
+    flex-basis: 75%;
+    flex-grow: 0;
+    max-width: 75%;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(https://source.unsplash.com/1600x900/?library,books);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    padding-top: 50px;
+  }
+
+  &__form {
+    flex-basis: 25%;
+    flex-grow: 0;
+    max-width: 25%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    margin-bottom: 10px;
+    align-items: center;
+    gap: 4px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  // Tablet
+  @include when-tablet-device {
+    flex-flow: row;
+    height: unset;
+
+    &__image {
+      flex-basis: 50%;
+      flex-grow: 0;
+      max-width: 50%;
+    }
+
+    &__form {
+      flex-basis: 50%;
+      flex-grow: 0;
+      max-width: 50%;
+    }
+  }
+
+
+  // Mobile
+  @include when-mobile-device {
+    flex-flow: column;
+    height: unset;
+
+    &__image {
+      display: none;
+    }
+
+    &__form {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+/******************** LOGIN Form******************/
+.login-form {
+  
+}
+.login-form-forgot {
+  float: right;
+}
+.ant-col-rtl {
+
+  &.login-form-forgot {
+    float: left;
+  }
+}
+.login-form-button {
+  width: 100%;
+}

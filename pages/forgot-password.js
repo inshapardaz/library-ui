@@ -1,5 +1,4 @@
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -16,7 +15,7 @@ import {
 
 // Internal imports
 import accountService  from '@/services/accountService';
-import EmptyLayout from '@/components/layout/emptyLayout';
+import LayoutWithFooter from '@/components/layout/layoutWithFooter';
 
 function ForgotPasswordPage() {
   const { t } = useTranslation('common')
@@ -79,16 +78,5 @@ function ForgotPasswordPage() {
     </Grid>);
 }
 
-
-export const getServerSideProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
-    ])),
-  },
-})
-
-ForgotPasswordPage.Layout = EmptyLayout;
+ForgotPasswordPage.Layout = LayoutWithFooter;
 export default ForgotPasswordPage;

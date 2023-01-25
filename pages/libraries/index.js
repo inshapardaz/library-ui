@@ -1,5 +1,4 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 
 // Local Imports
 import LibrariesList from '@/components/libraries/list';
@@ -13,15 +12,5 @@ function LibrariesHomePage() {
     <LibrariesList />
   </>);
 }
-
-export const getServerSideProps = async ({
-  locale,
-}) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common', 'header'
-    ])),
-  },
-})
 
 export default LibrariesHomePage;

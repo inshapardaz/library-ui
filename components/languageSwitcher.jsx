@@ -1,51 +1,49 @@
 import React, { useEffect } from 'react';
-import { useRouter } from "next/router";
 
-// semantic ui 
-import { Dropdown, Icon } from 'semantic-ui-react'
+// 3rd party libraries
+import { Dropdown, Typography, Space } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
-const iconFor = (locale) => {
-  switch (locale) {
-    case 'ur': return 'pk';
-    case 'en': return 'gb';
-  }
-}
+// local imports 
 
-const dirFor = (locale) => {
-  switch (locale) {
-    case 'ur': return 'rtl';
-    default: return 'ltr';
-  }
-}
-const LanguageSwitcher = () => {
-  const router = useRouter();
-  const { locales, locale: activeLocale } = router;
+import localeService from '@/services/localeService';
+import { useTranslation } from 'react-i18next';
 
-  const setLanguage = (e, data) => {
-    if (data.value !== activeLocale)
-    { 
-      const { pathname, asPath, query } = router;
-      router.push({ pathname, query }, asPath, { locale: data.value });
-    }
+// -------------------------------------------------
+
+const LanguageSwitcher = () => 
+{
+  const { i18n } = useTranslation();
+  const lang = localeService.getLanguage();
+
+  const setLanguage = ({ key }) => 
+  {
+      localeService.setLanguage(i18n, key)
+      let l = localeService.getLanguage();
+      document.querySelector("html").setAttribute("dir", l.dir);
+      document.querySelector("html").setAttribute("lang", l.locale);
+      document.querySelector("body").setAttribute("dir", l.dir);
   };
 
-  useEffect(() => {
-    let lang = router.locale
-    let dir = dirFor(lang)
-    document.querySelector("html").setAttribute("dir", dir);
-    document.querySelector("html").setAttribute("lang", lang);
-    document.querySelector("body").setAttribute("dir", dir);
-  }, [router.locale]);
-
-  const languageOptions = locales.map( l => ({key: l, text: l, value: l, flag: iconFor(l)}))
-
+  const items = Object.values(localeService.getSupportedLanguages())
+          .map( l => ({key: l.key, label: l.name }))
+  console.log(items);
   return (
     <Dropdown
-    pointing
-    trigger={<Icon name="globe" />}
-    onChange={setLanguage}
-    options={languageOptions}
-    />
+    menu={{
+      languageOptions: items,
+      selectable: true,
+      onSelect : setLanguage,
+      defaultSelectedKeys: [lang.key],
+    }}
+    >
+      <Typography.Link>
+        <Space>
+          Selectable
+          <DownOutlined />
+        </Space>
+      </Typography.Link>
+    </Dropdown>
   );
 };
 

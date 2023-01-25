@@ -1,28 +1,23 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import i18nextConfig from '../next-i18next.config'
 
-const dirFor = (locale) => {
-  switch (locale) {
-    case 'ur': return 'rtl';
-    default: return 'ltr';
-  }
-}
+// 3rd party imports
 
-export default function Document(props) {
-  const currentLocale =
-      props.__NEXT_DATA__.locale ??
-      i18nextConfig.i18n.defaultLocale
+// Local imports
+import localeService from '@/services/localeService';
 
-  const dir = dirFor(currentLocale)
+// --------------------------------------------------------------
+
+export default function Document() {
+  const language = localeService.getLanguage()
 
   return (
     <Html 
-        lang={currentLocale} 
-        dir={dir}>
+        lang={language.locale} 
+        dir={language.dir}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body dir={dir}>
+      <body dir={language.dir}>
         <Main />
         <NextScript />
       </body>
