@@ -17,7 +17,6 @@ function LatestBooks({libraryId}) {
     const [books, setBooks] = useState(null);
 
     const loadBooks = (libId) => {
-        console.log('Loading latest books')
         setBusy(true);
         setError(false);
 
@@ -60,8 +59,6 @@ function LatestBooks({libraryId}) {
             </Header>
         </Segment>)
     }
-
-    console.log(books);
 
     return (<Container className={styles.latest}>
         <Header as='h2'>{t('books.latest.title')}</Header>

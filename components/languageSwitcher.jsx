@@ -1,48 +1,49 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // 3rd party libraries
-import { Dropdown, Typography, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-
+import { Dropdown, Button } from 'antd';
+import { FaGlobe } from 'react-icons/fa';
 // local imports 
 
 import localeService from '@/services/localeService';
-import { useTranslation } from 'react-i18next';
 
 // -------------------------------------------------
 
-const LanguageSwitcher = () => 
+const items = Object.values(localeService.getSupportedLanguages())
+    .map( l => ({key: l.key, label: l.name }));
+
+const LanguageSwitcher = ({ openUp = false}) => 
 {
-  const { i18n } = useTranslation();
+  const router = useRouter();
   const lang = localeService.getLanguage();
 
   const setLanguage = ({ key }) => 
   {
-      localeService.setLanguage(i18n, key)
-      let l = localeService.getLanguage();
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, { locale: key });
+  };
+
+  useEffect(() => {
+    let l = localeService.getLanguage(router.locale);
       document.querySelector("html").setAttribute("dir", l.dir);
       document.querySelector("html").setAttribute("lang", l.locale);
       document.querySelector("body").setAttribute("dir", l.dir);
-  };
+  }, []);
 
-  const items = Object.values(localeService.getSupportedLanguages())
-          .map( l => ({key: l.key, label: l.name }))
-  console.log(items);
   return (
-    <Dropdown
+    <Dropdown 
+    placement={openUp ? 'topLeft' : 'bottomLeft'}
     menu={{
-      languageOptions: items,
+      items,
       selectable: true,
       onSelect : setLanguage,
       defaultSelectedKeys: [lang.key],
     }}
     >
-      <Typography.Link>
-        <Space>
-          Selectable
-          <DownOutlined />
-        </Space>
-      </Typography.Link>
+      <Button >
+        <FaGlobe />
+      </Button>
     </Dropdown>
   );
 };

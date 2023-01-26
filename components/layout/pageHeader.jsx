@@ -5,7 +5,7 @@ import { Icon, Menu, Breadcrumb } from "semantic-ui-react";
 
   
 function PageHeader ({title, icon}) {
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('common');
   
     return (<Menu secondary>
         <Menu.Item>

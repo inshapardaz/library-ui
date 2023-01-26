@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import styles from '../../styles/Home.module.scss'
+import styles from '../../styles/common.module.scss'
 
 // ----------------------------------------------
 
-function FullPageFormContainer ({children}) {
+function FullPageFormContainer ({title, children}) {
     const { t } = useTranslation('common')
 
     return (<div className={styles['fullPage_layout']}>
@@ -12,8 +12,8 @@ function FullPageFormContainer ({children}) {
       <div className={styles['fullPage_layout__form']}>
         <div className={styles['fullPage_layout__logo']}>
             <Image src='/images/logo.png' alt={t("app")} height={40} width={40}/>
-            <span>{t("app")}</span>
         </div>
+        <span className={styles['fullPage_layout__title']}>{title}</span>
         {children}
       </div>
     </div>)

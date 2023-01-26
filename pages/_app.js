@@ -1,43 +1,46 @@
 import { useState } from 'react';
-import {appWithI18Next, useSyncLanguage} from "ni18n";
+import { appWithTranslation } from 'next-i18next'
 import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css'
+
+import { useRouter } from 'next/router';
 
 // 3rd party libraries
 import 'semantic-ui-css/semantic.min.css'
 import { App, ConfigProvider } from 'antd';
+import { IconContext } from "react-icons";
 
 // Internal imports
-import {ni18nConfig} from "../ni18n.config";
-
 import RefreshTokenHandler from '@/components/refreshTokenHandler';
-import { MediaContextProvider } from "@/components/layout/media"
 import LayoutWithHeader from '@/components/layout/layoutWithHeader'
-
 import localeService from '@/services/localeService';
+
 // --------------------------------------------------------------
 
 const MyApp = ({ Component, pageProps }) => {
   const [interval, setInterval] = useState(0);
+  const router = useRouter();  
 
-  const language = localeService.getLanguage();
-  useSyncLanguage(language.locale)
+  const language = localeService.getLanguage(router.locale)
 
   const Layout = Component.Layout || LayoutWithHeader
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>
-      <MediaContextProvider>
-        <ConfigProvider direction={language.dir} locale={language.locale} componentSize="large">
-          <App>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </App>
+        <ConfigProvider 
+            direction={language ? language.dir : 'ltr'} 
+            locale={language ? language.locale : currentLocale} 
+            componentSize="large">
+          <IconContext.Provider value={{ size: '14' }}>
+            <App>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </App>
+          </IconContext.Provider>
         </ConfigProvider>
-      </MediaContextProvider>
       <RefreshTokenHandler setInterval={setInterval} />
     </SessionProvider>
   );
 }
 
-export default appWithI18Next(MyApp, ni18nConfig)
+export default appWithTranslation(MyApp)

@@ -1,0 +1,155 @@
+@import './mixins/breakpoints.scss';
+
+/******************* FOOTER ****************************/
+.footer {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+
+  &__lang {
+    padding: 0 10px;
+  }
+  &__copyrights {
+    flex-grow: 1;
+    margin: 0px 10px;
+  }
+}
+
+/********************* Common full screen ******************/
+
+.fullPage_layout {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  &__image {
+    flex-basis: 75%;
+    flex-grow: 0;
+    max-width: 75%;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(https://source.unsplash.com/1600x900/?library,books);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+    background-position: center;
+    padding-top: 50px;
+  }
+
+  &__form {
+    flex-basis: 25%;
+    flex-grow: 0;
+    max-width: 25%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    margin-bottom: 10px;
+    align-items: center;
+    gap: 4px;
+    padding: 3px;
+    border : 3px solid lightgray;
+    border-radius: 100px;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  &__title{
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+  }
+
+  // Tablet
+  @include when-tablet-device {
+    flex-flow: row;
+    height: unset;
+
+    &__image {
+      flex-basis: 50%;
+      flex-grow: 0;
+      max-width: 50%;
+    }
+
+    &__form {
+      flex-basis: 50%;
+      flex-grow: 0;
+      max-width: 50%;
+    }
+  }
+
+
+  // Mobile
+  @include when-mobile-device {
+    flex-flow: column;
+    height: unset;
+
+    &__image {
+      display: none;
+    }
+
+    &__form {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+/******************** Security Pages Form******************/
+.login-form {
+  
+}
+.login-form-forgot {
+  float: right;
+}
+.ant-col-rtl {
+
+  &.login-form-forgot {
+    float: left;
+  }
+}
+.login-form-button {
+  width: 100%;
+}
+
+/******************** Header ******************/
+
+.header {
+  &__logo {
+      float: left;
+      width: 120px;
+      height: 31px;
+      line-height: 31px;
+      margin: 16px 24px 16px 0;
+      padding-left: 34px;
+      background: url('/images/logo.png') no-repeat;
+      background-size: 24px 24px;
+      color: white;
+      font-weight: bold;
+      &:hover {
+        color: white;
+        filter: brightness(80%)
+      }
+  }
+}
+
+.ant-row-rtl {
+  &.header {
+    .__logo {
+      float: right;
+      margin: 16px 0 16px 24px;
+      background-position-x: right;
+      background-color: green;
+      font-weight: normal;
+      padding-right: 34px;
+    }
+  }
+} 
