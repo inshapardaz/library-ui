@@ -17,7 +17,6 @@ function LibrariesList () {
     const [libraries, setLibraries] = useState(null);
 
     const loadLibraries = () => {
-        console.log('Loading libraries')
         setBusy(true);
         setError(false);
 

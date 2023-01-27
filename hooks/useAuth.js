@@ -9,20 +9,15 @@ export default function useAuth(shouldRedirect) {
 
     useEffect(() => {
         if (session?.error === "RefreshAccessTokenError") {
-            console.log('session has token error')
-
             signOut({ callbackUrl: '/login', redirect: shouldRedirect });
         }
 
         if (session === null) {
-            console.log('session is null')
             if (router.route !== '/login') {
                 router.replace('/login');
             }
             setIsAuthenticated(false);
         } else if (session !== undefined) {
-            console.log('session is undefined')
-
             if (router.route === '/login') {
                 router.replace('/');
             }

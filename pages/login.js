@@ -1,113 +1,92 @@
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // 3rd party libraries
-import { toast } from 'react-toastify';
-import * as Yup from 'yup';
-import { Formik } from "formik";
-import { Button, Card, Grid, Header, Image, Loader } from 'semantic-ui-react'
-import {
-  Form,
-  Input,
-  ResetButton,
-  SubmitButton
-} from "formik-semantic-ui-react";
+import { App, Button, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
 import useAuth from '@/hooks/useAuth';
-import EmptyLayout from '@/components/layout/emptyLayout';
+import styles from '../styles/common.module.scss'
+import LayoutWithFooter from '@/components/layout/layoutWithFooter';
+import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
 
+// ---------------------------------------------------
 function LoginPage() {
-  const { t } = useTranslation('common')
+  const { message } = App.useApp();
+  const { t } = useTranslation()
   const router = useRouter();
   const isAuthenticated = useAuth(false);
+  const [busy, setBusy] = useState(false);
 
   if (isAuthenticated)  router.push('/')
 
-  const initialValues = {
-    email: "",
-    password: ""
-  };
-
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email(t('login.message.email.error'))
-      .required(t('login.message.email.required')),
-    password: Yup.string()
-      .required(t('login.message.password.required')),
-  });
-
-  const onSubmit = ({ email, password }, { setSubmitting }) => {
+  const onSubmit = ({ email, password }) => {
+    setBusy(true);
     signIn('credentials', { callbackUrl: '/' , email, password })
-      .catch(() => toast.error(t('login.message.error')))
-      .finally(() => setSubmitting(false));
+      .catch(() => message.error(t('login.message.error')))
+      .finally(() => setBusy(false));
   };
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' textAlign='center'>
-          <Image alt={t('app')} src='/images/logo.png' /> {t('app')}
-        </Header>
-        <Card className='attached fluid segment'>
-          <Card.Content>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {({ isSubmitting }) => (
-                <Form size="large">
-                  <Loader active={isSubmitting}/>
-                  <Input
-                    id="email"
-                    name="email"
-                    icon="at"
-                    placeholder={t('login.email.title')}
-                    focus
-                    fluid
-                    errorPrompt
-                  />
-                  <Input
-                    id="password"
-                    name="password"
-                    icon="key"
-                    type="password"
-                    placeholder={t('login.password.title')}
-                    autoComplete="on"
-                    focus
-                    fluid
-                    errorPrompt
-                  />
-                  <SubmitButton fluid primary>
-                    {t('login')}
-                  </SubmitButton>
-                </Form>
-              )}
-            </Formik>
-          </Card.Content>
-          <Card.Content extra>
-            <Button as={Link} href='/register'>{t('register')}</Button>
-            <Button as={Link} href='/forgot-password'>{t('forgot.password')}</Button>
-          </Card.Content>
-        </Card>
-      </Grid.Column>
-    </Grid>);
+    <FullPageFormContainer title={t('login')}>
+        <Form name="login" className={styles["login-form"]} onFinish={onSubmit}
+        >
+          <Form.Item name="email"
+            rules={[
+              {
+                required: true,
+                message: t('login.message.email.required'),
+              },
+              {
+                type: 'email',
+                message: t('login.message.email.error'),
+              },
+            ]}
+          >
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder={t('login.email.title')} />
+          </Form.Item>
+          <Form.Item name="password"
+            rules={[
+              {
+                required: true,
+                message: t('login.message.password.required'),
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder={t('login.password.title')}
+            />
+          </Form.Item>
+          <Form.Item>
+            <Link className={styles["login-form-forgot"]} href="/forgot-password">
+              {t('forgot.password')}
+            </Link>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
+              {t('login')}
+            </Button>
+            Or <Link href="/register">{t('register')}</Link>
+          </Form.Item>
+        </Form>
+    </FullPageFormContainer>
+  );
 }
-
-
 export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', [
-      'common',
-    ])),
+    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
   },
 })
 
-LoginPage.Layout = EmptyLayout;
+LoginPage.Layout = LayoutWithFooter;
 export default LoginPage;

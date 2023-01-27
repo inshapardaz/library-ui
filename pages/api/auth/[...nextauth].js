@@ -42,14 +42,12 @@ const providers = [
                     email: credentials.email
                 });
                 
-                console.log('Authentication completed');
                 if (user.data.accessToken) {
                     return user.data;
                 }
 
                 return null;
             } catch (e) {
-                console.log(e)
                 throw new Error(e);
             }
         }

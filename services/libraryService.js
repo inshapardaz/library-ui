@@ -54,15 +54,10 @@ const get = (url) => {
         method: 'get',
         url: url,
     })
-    // .then((response) => {
-    //   console.log(response);
-    //   return response;
-    // })
     .then((response) => parseObject(response.data))
 };
 
 const handleResponse = (response) => {
-    console.log(response)
     const data = response.data;
     
     if (!response.ok) {
@@ -90,6 +85,11 @@ class LibraryService {
     /* --------------- Books ---------------------- */
     getLatestBooks(library) {
       return get(`${libraryUrl(library)}/books?pageNumber=1&pageSize=12&sortby=DateCreated&sortDirection=descending`);
+    }
+
+    /* --------------- Categories ---------------------- */
+    getCategories(library) {
+      return get(`${libraryUrl(library)}/categories`);
     }
 }
 

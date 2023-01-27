@@ -1,15 +1,21 @@
-import DesktopHeader from "./desktopHeader";
-import DesktopFooter from "./desktopFooter";
-import { Container } from "semantic-ui-react";
+// 3rd party libraries
+import { Layout } from "antd";
+
+// Local imports
+import Footer from "./footer";
+import AppHeader from "./appHeader";
+
+ // -----------------------------------------
 
 function LayoutWithHeader({ children}) {
-    return (<>
-        <DesktopHeader />
-        <Container style={{ minHeight : 'calc(100vh - 109px)' }}>
-            {children}
-        </Container>
-        <DesktopFooter/>
-    </>);
+    return (
+        <Layout>
+            <AppHeader />
+            <Layout.Content style={{ minHeight : 'calc(100vh - 175px)' }}>
+                {children}
+            </Layout.Content>
+            <Footer/>
+        </Layout>);
 }
 
 export default LayoutWithHeader;
