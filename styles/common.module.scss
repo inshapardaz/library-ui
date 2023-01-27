@@ -123,6 +123,11 @@
 /******************** Header ******************/
 
 .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+
   &__logo {
       float: left;
       width: 120px;
@@ -138,6 +143,20 @@
         color: white;
         filter: brightness(80%)
       }
+
+      &-text {
+        &--menu {
+          margin-right: 20px;
+        }
+      }
+  }
+
+  &__menu {
+    flex-grow: 1;
+  }
+
+  &__profile {
+    float: right;
   }
 }
 
@@ -153,3 +172,44 @@
     }
   }
 } 
+
+/**********  HERO IMAGE *********************/
+.hero {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 613px;
+  display: grid;
+
+  &__background {
+      padding: 68px 0 28px 0;
+      text-align: center;
+      background-color: rgba(0,0,0,0.50);
+  }
+
+  &__title {
+      padding-top : 100px;
+      color: white;
+  }
+
+  &__content {
+      max-width: 400px;
+      padding-top : 100px;
+      margin: 0 auto;
+      color: white;
+  }
+
+  @include when-mobile-device {
+    min-height: 313px;
+
+    &__title {
+      padding-top : 50px;
+    }
+
+    &__content {
+      max-width: 100%;
+      padding-top : 50px;
+      margin: 0 10px;
+    }
+  }
+}

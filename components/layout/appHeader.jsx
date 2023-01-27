@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 
 // 3rd party imports
-import { Layout, Menu, App } from 'antd';
+import { Layout, Menu, App, Dropdown, Button, Space } from 'antd';
 import { FaBook, FaUser, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { ImBooks, ImLibrary, ImProfile } from 'react-icons/im';
@@ -15,6 +15,7 @@ import { MdPassword } from 'react-icons/md';
 // Local Imports
 import styles from '../../styles/common.module.scss'
 import libraryService from "@/services/libraryService";
+import LanguageSwitcher from "@/components/languageSwitcher";
 
 // ---------------------------------------------------
 
@@ -22,20 +23,37 @@ function AppHeader () {
   const { t } = useTranslation();
   const { message } = App.useApp();
   const { data, status } = useSession()
+  const [libraries, setLibraries] = useState({});
   const [categories, setCategories] = useState({});
   const router = useRouter();
   let items = [];
   const { libraryId } = router.query
 
   useEffect(() => {
-    libraryService.getCategories(libraryId)
-    .then(res => setCategories(res))
-    .catch((e) => {
-      console.error(e)
-      message.error(t('categories.messages.error.loading'))
-    })
-  }, [libraryId, message, t]);
+    const loadLibraries = () => {
+      libraryService.getLibraries()
+          .then(res => setLibraries(res))
+          .catch(_ => message.error(t('libraries.message.loading.error')))
+    }
+  
+    const loadCategories = () => {
+      libraryService.getCategories(libraryId)
+      .then(res => setCategories(res))
+      .catch((e) => {
+        console.error(e)
+        message.error(t('categories.messages.error.loading'))
+      })
+    }
 
+    if ((status === "authenticated")) {
+      loadLibraries();
+    }
+    loadCategories();
+  }, [libraryId, message, t, status]);
+
+  
+
+  const isLibraryPage = () => router.pathname.indexOf('/libraries/') >= 0;
   const onMenuClick = ({key}) => {
     switch (key){
       case 'logout': 
@@ -97,9 +115,23 @@ function AppHeader () {
     icon: <FaTag />,
   }))
 
-  if (router.pathname.indexOf('/libraries/') >= 0)
+  const libItems = libraries && libraries.data && libraries.data.map(l => ({
+    label : (
+      <Link href={`/libraries/${l.id}`}>
+        {l.name}
+      </Link>
+    ),
+    key: l.id,
+    icon: <ImLibrary />,
+  }));
+
+  if (isLibraryPage())
   {
     items = [{
+      key: 'libraries',
+      icon: <ImLibrary />,
+      children: libItems
+    },{
       label: (
         <Link href={`/libraries/${libraryId}`}>
           {t("home")}
@@ -124,11 +156,7 @@ function AppHeader () {
       key: 'authors',
       icon: <FaUser />,
     },{
-      label: (
-        <Link href={`/libraries/${libraryId}/categories`}>
-          {t("header.categories")}
-        </Link>
-      ),
+      label: t("header.categories"),
       key: 'categories',
       icon: <FaTags />,
       children : catItems
@@ -140,10 +168,6 @@ function AppHeader () {
       ),
       key: 'series',
       icon: <ImBooks />,
-    },{
-      label: t('profile.title'),
-      icon: <FaUserCircle />,
-      children: profileItems
     }];
   }
   else {
@@ -157,24 +181,37 @@ function AppHeader () {
       icon: <ImLibrary />,
     },{
       type: 'divider'
-    },{
-      label: t('profile.title'),
-      icon: <FaUserCircle />,
-      children: profileItems
     }];
   }
 
   return (<Layout.Header className={styles.header}>
       <Link href="/" className={styles['header__logo']} >
-        {t("app")}
-      </Link>
+          <span className={styles['header__logo-text']}>{t("app")}</span>
+      </Link>)
       <Menu
+        className={styles['header__menu']}
         theme="dark"
         mode="horizontal"
         selectable={false}
+        expandIcon={true}
         items={items}
         onClick={onMenuClick}
       />
+      <LanguageSwitcher arrow round ghost/>
+      <Dropdown arrow
+        className={styles['header__profile']}
+        placement='bottomRight'
+        menu={{
+          items: profileItems,
+          selectable: false,
+        }}
+      >
+        <Button shape="circle" ghost>
+          <Space>
+            <FaUser />
+          </Space>
+        </Button>
+      </Dropdown>
     </Layout.Header>);
 }
 

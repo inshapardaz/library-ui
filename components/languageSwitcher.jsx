@@ -13,7 +13,7 @@ import localeService from '@/services/localeService';
 const items = Object.values(localeService.getSupportedLanguages())
     .map( l => ({key: l.key, label: l.name }));
 
-const LanguageSwitcher = ({ openUp = false}) => 
+const LanguageSwitcher = ({ openUp = false, round, ghost}) => 
 {
   const router = useRouter();
   const lang = localeService.getLanguage();
@@ -33,7 +33,7 @@ const LanguageSwitcher = ({ openUp = false}) =>
 
   return (
     <Dropdown 
-    placement={openUp ? 'topLeft' : 'bottomLeft'}
+    placement={openUp ? 'topLeft' : 'bottomRight'}
     menu={{
       items,
       selectable: true,
@@ -41,7 +41,7 @@ const LanguageSwitcher = ({ openUp = false}) =>
       defaultSelectedKeys: [lang.key],
     }}
     >
-      <Button >
+      <Button shape={ round ? "circle" : 'default' } ghost={ghost}>
         <FaGlobe />
       </Button>
     </Dropdown>

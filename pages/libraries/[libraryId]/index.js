@@ -7,9 +7,8 @@ import styles from '../../../styles/library.module.scss'
 import SearchBox from '@/components/searchBox';
 import LatestBooks from '@/components/books/latestBooks';
 import libraryService from '@/services/libraryService';
+import HeroImage from '@/components/heroImage';
 // ------------------------------------------------------
-
-const useStaticImage = false;
 
 function LibraryHomePage() {
     const router = useRouter()
@@ -31,19 +30,12 @@ function LibraryHomePage() {
     useEffect(() => loadLibrary(), [])
 
     return <>
-        <div className={styles.hero} style={{
-          backgroundImage: (useStaticImage ? 'url(/images/home_background.jpg)' : 'url(https://source.unsplash.com/1600x900/?library,books)')
-        }}
-        data-ft="home-page"
-      >
-        <div className={styles.hero__background}
-        >
-            <h1 className={styles.hero__title}>{library ? library.name : ''}</h1>
-            <div className={styles.hero__searchBox}>
-              <SearchBox libraryId={libraryId}/>
-            </div>
-        </div>
-      </div>
+      <HeroImage>
+          <h1 className={styles.hero__title}>{library ? library.name : ''}</h1>
+          <div className={styles.hero__content}>
+            <SearchBox libraryId={libraryId}/>
+          </div>
+      </HeroImage>
       <LatestBooks libraryId={libraryId}/>
     </>;
 }

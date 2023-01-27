@@ -9,6 +9,8 @@
     "forgot.password" : "پاسورڈ بھول گئے ہیں",
     "resetPassword" : "پاس ورڈ تبدیل کریں",
     "welcome.user" : "خوش آمدید {user}",
+	"welcome.message" : "نوشتہ میں خوش آمدید۔ یہاں آپ لائیبریوں سے منتفیض ہو سکتے ہیں۔",
+	"welcome.message.button" : "شروع کیجیے",
     "welcome.guest" : "خوش آمدید",
     "forgetPassword" : "پاس ورڈ کھو گیا",
     "changePassword" : "پاس ورڈ کی تبدیلی",
