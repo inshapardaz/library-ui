@@ -24,27 +24,27 @@ function RegisterPage() {
   const router = useRouter()
   const [busy, setBusy] = useState(false);
   
-  // useEffect(() => {
-  //   const { code } = queryString.parse(router.query);
-  //   if (code) {
-  //     accountService.verifyInvite(code)
-  //       .then(() => setBusy(false))
-  //       .catch((e) => {
-  //         setBusy(false);
-  //         if (e.status === 410) {
-  //           message.error(t('invitation.message.expired'));
-  //           router.push('/');
-  //         } else if (e.status === 404) {
-  //           message.error(t('invitation.message.notFound'));
-  //           router.push('/');
-  //         } else {
-  //           router.push('/500');
-  //         }
-  //       });
-  //   } else {
-  //     router.push('/');
-  //   }
-  // }, []);
+  useEffect(() => {
+    const { code } = queryString.parse(router.query);
+    if (code) {
+      accountService.verifyInvite(code)
+        .then(() => setBusy(false))
+        .catch((e) => {
+          setBusy(false);
+          if (e.status === 410) {
+            message.error(t('invitation.message.expired'));
+            router.push('/');
+          } else if (e.status === 404) {
+            message.error(t('invitation.message.notFound'));
+            router.push('/');
+          } else {
+            router.push('/500');
+          }
+        });
+    } else {
+      router.push('/');
+    }
+  }, []);
 
   const onSubmit = (fields, { setSubmitting }) => {
     const { code } = queryString.parse(router.query);
@@ -89,7 +89,7 @@ function RegisterPage() {
               placeholder={t('register.password.label')}
             />
           </Form.Item>
-          <Form.Item name="confirm-password" hasFeedback
+          <Form.Item name="confirmPassword" hasFeedback
             rules={[
               {
                 required: true,
