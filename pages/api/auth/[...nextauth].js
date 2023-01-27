@@ -61,6 +61,8 @@ const callbacks = {
             token.accessToken = user.accessToken;
             token.accessTokenExpiry = getAccessTokenRefreshTime(user.accessToken);
             token.refreshToken = user.refreshToken;
+            token.name = token.name;
+            token.email = token.email;
         }
 
         const shouldRefreshTime = Math.round((token.accessTokenExpiry - 60 * 1000) - Date.now());
@@ -76,6 +78,8 @@ const callbacks = {
     },
     session: async ({ session, token }) => {
         // Here we pass accessToken to the client to be used in authentication with your API
+        session.name = token.name;
+        session.email = token.email;
         session.accessToken = token.accessToken;
         session.accessTokenExpiry = getAccessTokenRefreshTime(token.accessToken);
         session.error = token.error;

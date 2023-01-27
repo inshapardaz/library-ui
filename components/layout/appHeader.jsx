@@ -21,7 +21,7 @@ import libraryService from "@/services/libraryService";
 function AppHeader () {
   const { t } = useTranslation();
   const { message } = App.useApp();
-  const { name, status } = useSession()
+  const { data, status } = useSession()
   const [categories, setCategories] = useState({});
   const router = useRouter();
   let items = [];
@@ -49,7 +49,7 @@ function AppHeader () {
 
   const profileItems = (status === "authenticated") ?
     [{
-      label: name,
+      label: data ? data.name : '',
       key: 'username',
       icon: <FaUserCircle />,
     },{
@@ -64,7 +64,7 @@ function AppHeader () {
       key: 'change-password',
       icon: <MdPassword />,
     },{
-
+      type: 'divider'
     },{
       label: t('logout'),
       key: 'sign-out',
@@ -156,9 +156,7 @@ function AppHeader () {
       key: 'libraries',
       icon: <ImLibrary />,
     },{
-      type: 'divider',
-      label: (<div className="spacer"></div>)
-
+      type: 'divider'
     },{
       label: t('profile.title'),
       icon: <FaUserCircle />,
