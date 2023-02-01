@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 // 3rd party libraries
-import { App, Button, Form, Input } from 'antd';
+import { App, Button, Form, Input, Space, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
@@ -30,7 +30,7 @@ function ForgotPasswordPage() {
 
   return (
     <FullPageFormContainer title={t('forgotPassword.title')}>
-        <Form name="forgot-password" className={styles["login-form"]} onFinish={onSubmit}
+        <Form name="forgot-password" onFinish={onSubmit}
         >
           <Form.Item name="email"
             rules={[
@@ -47,16 +47,16 @@ function ForgotPasswordPage() {
             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder={t('forgotPassword.email.title')} />
           </Form.Item>
           <Form.Item>
-            <Link className={styles["forgot-form-forgot"]} href="/login">
-              {t('login.title')}
-            </Link>
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className={styles["forgot-form-button"]}>
-            {t('forgotPassword.submit')}
-            </Button>
-            Or <Link href="/register">{t('register.title')}</Link>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Button type="primary" htmlType="submit" className={styles["forgot-form-button"]} block>
+              {t('forgotPassword.submit')}
+              </Button>
+              <Divider />
+              <Button className={styles["forgot-form-forgot"]} type="text" block href="/login">
+                {t('login.title')}
+              </Button>
+              <Button href="/register" type="text" block>{t('register.title')}</Button>
+              </Space>
           </Form.Item>
         </Form>
     </FullPageFormContainer>

@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 // 3rd party libraries
-import { App, Button, Form, Input } from 'antd';
+import { App, Button, Form, Input, Space, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
@@ -33,7 +33,7 @@ function LoginPage() {
 
   return (
     <FullPageFormContainer title={t('login.title')}>
-        <Form name="login" className={styles["login-form"]} onFinish={onSubmit}
+        <Form name="login" onFinish={onSubmit}
         >
           <Form.Item name="email"
             rules={[
@@ -64,16 +64,17 @@ function LoginPage() {
             />
           </Form.Item>
           <Form.Item>
-            <Link className={styles["login-form-forgot"]} href="/forgot-password">
-              {t('forgotPassword.title')}
-            </Link>
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
-              {t('login.title')}
-            </Button>
-            Or <Link href="/register">{t('register.title')}</Link>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Button type="primary" htmlType="submit" block>
+                {t('login.title')}
+              </Button>
+              <Divider  />
+              <Button href="/forgot-password" type="text" block>
+                {t('forgotPassword.title')}
+              </Button>
+              <Button href="/" type="text" block>{t('header.home')}</Button>
+              <Button href="/register" type="text" block>{t('register.title')}</Button>
+            </Space>
           </Form.Item>
         </Form>
     </FullPageFormContainer>

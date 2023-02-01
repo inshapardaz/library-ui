@@ -61,6 +61,7 @@ function AppHeader () {
         break;
     }
   }
+
   const logoutClicked = () => {
     signOut({ callbackUrl: '/' });
   }
@@ -70,6 +71,8 @@ function AppHeader () {
       label: data ? data.name : '',
       key: 'username',
       icon: <FaUserCircle />,
+    },{
+      type: 'divider'
     },{
       label: t('profile.title'),
       key: 'profile',
@@ -84,26 +87,28 @@ function AppHeader () {
     },{
       type: 'divider'
     },{
-      label: t('logout'),
+      label: t('header.logout'),
       key: 'sign-out',
       icon: <FiLogOut />,
       onClick: logoutClicked
     }]
   : [{
-    label: (
-      <Link href='/login'>
-        {t('login')}
-      </Link>),
-    key: 'login',
-    icon: <FiLogIn />,
-  },{
-    label: (
-      <Link href='/register'>
-        {t('register')}
-      </Link>),
-    key: 'register',
-    icon: <FaUserCircle />,
-  }];
+      label: (
+        <Link href='/login'>
+          {t('login.title')}
+        </Link>),
+      key: 'login',
+      icon: <FiLogIn />,
+    },{
+      type: 'divider'
+    },{
+      label: (
+        <Link href='/register'>
+          {t('register.title')}
+        </Link>),
+      key: 'register',
+      icon: <FaUserCircle />,
+    }];
 
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
@@ -134,7 +139,7 @@ function AppHeader () {
     },{
       label: (
         <Link href={`/libraries/${libraryId}`}>
-          {t("home")}
+          {t("header.home")}
         </Link>
       ),
       key: 'home',
@@ -174,7 +179,7 @@ function AppHeader () {
     items = [{
       label: (
         <Link href='/libraries'>
-          {t("libraries.header")}
+          {t("header.libraries")}
         </Link>
       ),
       key: 'libraries',

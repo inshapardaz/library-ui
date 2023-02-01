@@ -22,8 +22,8 @@ function HomePage() {
       <HeroImage>
         <h1 className={styles.hero__title}>{t('app')}</h1>
         <div className={styles.hero__content}>
-            <p>{t('welcome.message')}</p>
-            <Button type="primary" icon={<GiRead />}> {t('welcome.message.button')}</Button>
+            <p>{t('home.welcome')}</p>
+            <Button type="primary" icon={<GiRead />}> {t('home.gettingStarted')}</Button>
         </div>
       </HeroImage>
       <LibrariesList />

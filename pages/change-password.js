@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 // 3rd party libraries
-import { App, Button, Form, Input } from 'antd';
+import { App, Button, Form, Input, Space, Divider } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
 // Internal imports
@@ -24,21 +24,21 @@ function ChangePasswordPage() {
   const onSubmit = ({ oldPassword, password }) => {
     setBusy(true);
     accountService.changePassword(oldPassword, password )
-      .then(() => message.success(t('changePassword.message.success')))
+      .then(() => message.success(t('changePassword.success')))
       .then(() => router.push('/'))
-      .catch(() => message.error(t('changePassword.message.error')))
+      .catch(() => message.error(t('changePassword.error')))
       .finally(() => setBusy(false));
   };
 
   return (
     <FullPageFormContainer title={t('changePassword')}>
-        <Form name="forgot-password" className={styles["login-form"]} onFinish={onSubmit}
+        <Form name="forgot-password" onFinish={onSubmit}
         >
           <Form.Item name="oldPassword" hasFeedback
             rules={[
               {
                 required: true,
-                message: t('changePassword.message.oldPassword.required'),
+                message: t('changePassword.oldPassword.required'),
               }
             ]}
           >
@@ -52,12 +52,12 @@ function ChangePasswordPage() {
             rules={[
               {
                 required: true,
-                message: t('changePassword.message.password.required'),
+                message: t('changePassword.password.required'),
               },
               {
                 type: 'string',
                 min: 6,
-                message: t('changePassword.message.password.error.length'),              
+                message: t('changePassword.password.length'),              
               }
             ]}
           >
@@ -71,14 +71,14 @@ function ChangePasswordPage() {
             rules={[
               {
                 required: true,
-                message: t('changePassword.message.confirmPassword.required'),
+                message: t('changePassword.confirmPassword.required'),
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error(t('changePassword.message.confirmPassword.error.match' )));
+                  return Promise.reject(new Error(t('changePassword.confirmPassword.match' )));
                 },
               }),
             ]}
@@ -86,21 +86,24 @@ function ChangePasswordPage() {
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              placeholder={t('register.confirmPassword.label')}
+              placeholder={t('changePassword.confirmPassword.label')}
             />
           </Form.Item>
 
           <Form.Item>
-            <Link className={styles["login-form-forgot"]} href="/login">
-              {t('login')}
-            </Link>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
-              {t('changePassword.submit')}
-            </Button>
-            Or <Link href="/">{t('home')}</Link>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Button type="primary" htmlType="submit" block>
+                {t('changePassword.submit')}
+              </Button>
+              <Divider />
+              <Button href="/login" type="text" block>
+                {t('login.title')}
+              </Button>
+              <Button href="/" type="text" block>{t('header.home')}</Button>
+            </Space>
           </Form.Item>
         </Form>
     </FullPageFormContainer>

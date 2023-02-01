@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 // 3rd party libraries
 import queryString from 'query-string';
-import { App, Button, Form, Input, Checkbox } from 'antd';
+import { App, Button, Form, Input, Checkbox, Space, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
@@ -22,27 +22,27 @@ function RegisterPage() {
   const router = useRouter()
   const [busy, setBusy] = useState(false);
   
-  // useEffect(() => {
-  //   const { code } = queryString.parse(router.query);
-  //   if (code) {
-  //     accountService.verifyInvite(code)
-  //       .then(() => setBusy(false))
-  //       .catch((e) => {
-  //         setBusy(false);
-  //         if (e.status === 410) {
-  //           message.error(t('register.invitation.expired'));
-  //           router.push('/');
-  //         } else if (e.status === 404) {
-  //           message.error(t('register.invitation.notFound'));
-  //           router.push('/');
-  //         } else {
-  //           router.push('/500');
-  //         }
-  //       });
-  //   } else {
-  //     router.push('/');
-  //   }
-  // }, []);
+  useEffect(() => {
+    const { code } = queryString.parse(router.query);
+    if (code) {
+      accountService.verifyInvite(code)
+        .then(() => setBusy(false))
+        .catch((e) => {
+          setBusy(false);
+          if (e.status === 410) {
+            message.error(t('register.invitation.expired'));
+            router.push('/');
+          } else if (e.status === 404) {
+            message.error(t('register.invitation.notFound'));
+            router.push('/');
+          } else {
+            router.push('/500');
+          }
+        });
+    } else {
+      router.push('/');
+    }
+  }, []);
 
   const onSubmit = (fields, { setSubmitting }) => {
     const { code } = queryString.parse(router.query);
@@ -56,7 +56,7 @@ function RegisterPage() {
 
   return (
     <FullPageFormContainer title={t('register.title')}>
-        <Form name="register" className={styles["login-form"]} onFinish={onSubmit}
+        <Form name="register" onFinish={onSubmit}
         >
           <Form.Item name="name" hasFeedback
             rules={[
@@ -123,17 +123,18 @@ function RegisterPage() {
               {t('register.acceptTerms.title')}
             </Checkbox>
           </Form.Item>
-          <Form.Item>
-            <Link className={styles["login-form-forgot"]} href="/login">
-              {t('login.title')}
-            </Link>
-          </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
-              {t('register.submit')}
-            </Button>
-            Or <Link href="/">{t('header.home')}</Link>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Button type="primary" htmlType="submit" block>
+                {t('register.submit')}
+              </Button>
+              <Divider />
+              <Button type="text" block href="/login">
+                {t('login.title')}
+              </Button>
+              <Button href="/" type="text" block> {t('header.home')}</Button>
+            </Space>
           </Form.Item>
         </Form>
     </FullPageFormContainer>
