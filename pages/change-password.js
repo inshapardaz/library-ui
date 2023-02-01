@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // 3rd party libraries
 import { App, Button, Form, Input } from 'antd';
@@ -18,7 +17,7 @@ import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
 
 function ChangePasswordPage() {
   const { message } = App.useApp();
-  const { t } = useTranslation()
+  const t = useTranslations()
   const router = useRouter()
   const [busy, setBusy] = useState(false);
   
@@ -113,7 +112,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    messages: (await import(`../i18n/${locale}.json`)).default
   },
 })
 

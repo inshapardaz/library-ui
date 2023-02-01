@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // 3rd party libraries
 import { App, Button, Form, Input } from 'antd';
@@ -18,7 +17,7 @@ import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
 // ---------------------------------------------------
 function LoginPage() {
   const { message } = App.useApp();
-  const { t } = useTranslation()
+  const t = useTranslations()
   const router = useRouter();
   const isAuthenticated = useAuth(false);
   const [busy, setBusy] = useState(false);
@@ -28,23 +27,23 @@ function LoginPage() {
   const onSubmit = ({ email, password }) => {
     setBusy(true);
     signIn('credentials', { callbackUrl: '/' , email, password })
-      .catch(() => message.error(t('login.message.error')))
+      .catch(() => message.error(t('login.error')))
       .finally(() => setBusy(false));
   };
 
   return (
-    <FullPageFormContainer title={t('login')}>
+    <FullPageFormContainer title={t('login.title')}>
         <Form name="login" className={styles["login-form"]} onFinish={onSubmit}
         >
           <Form.Item name="email"
             rules={[
               {
                 required: true,
-                message: t('login.message.email.required'),
+                message: t('login.email.required'),
               },
               {
                 type: 'email',
-                message: t('login.message.email.error'),
+                message: t('login.email.error'),
               },
             ]}
           >
@@ -54,7 +53,7 @@ function LoginPage() {
             rules={[
               {
                 required: true,
-                message: t('login.message.password.required'),
+                message: t('login.password.required'),
               },
             ]}
           >
@@ -66,15 +65,15 @@ function LoginPage() {
           </Form.Item>
           <Form.Item>
             <Link className={styles["login-form-forgot"]} href="/forgot-password">
-              {t('forgot.password')}
+              {t('forgotPassword.title')}
             </Link>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
-              {t('login')}
+              {t('login.title')}
             </Button>
-            Or <Link href="/register">{t('register')}</Link>
+            Or <Link href="/register">{t('register.title')}</Link>
           </Form.Item>
         </Form>
     </FullPageFormContainer>
@@ -84,7 +83,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    messages: (await import(`../i18n/${locale ?? 'en'}.json`)).default
   },
 })
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl';
 
 // 3rd party libraries
 import { Container, Grid, Segment,  Button, Header, Icon } from 'semantic-ui-react'
@@ -11,7 +11,7 @@ import libraryService from "@/services/libraryService";
 // ------------------------------------------------------
 
 function LatestBooks({libraryId}) {
-    const { t } = useTranslation('library');
+    const t = useTranslations('library');
     const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
     const [books, setBooks] = useState(null);

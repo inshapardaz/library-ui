@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl';
 
 // 3rd party imports
 import { Layout } from 'antd';
@@ -8,7 +8,7 @@ import styles from '../../styles/common.module.scss'
 // ----------------------------------------------
 
 function Footer({stickToBottom = false}) {
-    const { t } = useTranslation();
+    const t = useTranslations();
     const contents = (<div className={styles.footer}>
         <div className={styles['footer__copyrights']}>{t('footer.copyrights')}</div>
         <div className={styles['footer__lang']} >

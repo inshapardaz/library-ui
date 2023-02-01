@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl';
 
 // 3rd party imports
 import { Icon, Menu, Breadcrumb } from "semantic-ui-react";
 
   
 function PageHeader ({title, icon}) {
-  const { t } = useTranslation('common');
+  const t = useTranslations();
   
     return (<Menu secondary>
         <Menu.Item>

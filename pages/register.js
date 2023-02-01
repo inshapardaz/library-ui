@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // 3rd party libraries
 import queryString from 'query-string';
@@ -15,56 +14,55 @@ import accountService from '@/services/accountService';
 import LayoutWithFooter from '@/components/layout/layoutWithFooter';
 import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
 
-function LinkText({ href, children }) {
-  return <Link to={href || ''}>{children}</Link>;
-}
+// ------------------------------------------------------
+
 function RegisterPage() {
   const { message } = App.useApp();
-  const { t } = useTranslation()
+  const t = useTranslations()
   const router = useRouter()
   const [busy, setBusy] = useState(false);
   
-  useEffect(() => {
-    const { code } = queryString.parse(router.query);
-    if (code) {
-      accountService.verifyInvite(code)
-        .then(() => setBusy(false))
-        .catch((e) => {
-          setBusy(false);
-          if (e.status === 410) {
-            message.error(t('invitation.message.expired'));
-            router.push('/');
-          } else if (e.status === 404) {
-            message.error(t('invitation.message.notFound'));
-            router.push('/');
-          } else {
-            router.push('/500');
-          }
-        });
-    } else {
-      router.push('/');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const { code } = queryString.parse(router.query);
+  //   if (code) {
+  //     accountService.verifyInvite(code)
+  //       .then(() => setBusy(false))
+  //       .catch((e) => {
+  //         setBusy(false);
+  //         if (e.status === 410) {
+  //           message.error(t('register.invitation.expired'));
+  //           router.push('/');
+  //         } else if (e.status === 404) {
+  //           message.error(t('register.invitation.notFound'));
+  //           router.push('/');
+  //         } else {
+  //           router.push('/500');
+  //         }
+  //       });
+  //   } else {
+  //     router.push('/');
+  //   }
+  // }, []);
 
   const onSubmit = (fields, { setSubmitting }) => {
     const { code } = queryString.parse(router.query);
 
     accountService.register(code, fields)
-      .then(() => message.success(t('register.message.success')))
+      .then(() => message.success(t('register.success')))
       .then(() => router.push('/'))
-      .catch(() => message.error(t('register.message.error')))
+      .catch(() => message.error(t('register.error')))
       .finally(() => setSubmitting(false));
   };
 
   return (
-    <FullPageFormContainer title={t('forgotPassword.title')}>
-        <Form name="forgot-password" className={styles["login-form"]} onFinish={onSubmit}
+    <FullPageFormContainer title={t('register.title')}>
+        <Form name="register" className={styles["login-form"]} onFinish={onSubmit}
         >
           <Form.Item name="name" hasFeedback
             rules={[
               {
                 required: true,
-                message: t('register.message.name.required'),
+                message: t('register.name.required'),
               },
             ]}
           >
@@ -74,12 +72,12 @@ function RegisterPage() {
             rules={[
               {
                 required: true,
-                message: t('register.message.password.required'),
+                message: t('register.password.required'),
               },
               {
                 type: 'string',
                 min: 6,
-                message: t('register.message.password.error.length'),              
+                message: t('register.password.length'),              
               }
             ]}
           >
@@ -93,14 +91,14 @@ function RegisterPage() {
             rules={[
               {
                 required: true,
-                message: t('register.message.confirmPassword.required'),
+                message: t('register.confirmPassword.required'),
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error(t('register.message.confirmPassword.error.match' )));
+                  return Promise.reject(new Error(t('register.confirmPassword.match' )));
                 },
               }),
             ]}
@@ -117,7 +115,7 @@ function RegisterPage() {
             rules={[
               {
                 validator: (_, value) =>
-                  value ? Promise.resolve() : Promise.reject(new Error(t('register.message.acceptTerms.requires'))),
+                  value ? Promise.resolve() : Promise.reject(new Error(t('register.acceptTerms.requires'))),
               },
             ]}
           >
@@ -127,13 +125,13 @@ function RegisterPage() {
           </Form.Item>
           <Form.Item>
             <Link className={styles["login-form-forgot"]} href="/login">
-              {t('login')}
+              {t('login.title')}
             </Link>
           </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className={styles["login-form-button"]}>
-              {t('forgotPassword.submit')}
+              {t('register.submit')}
             </Button>
             Or <Link href="/">{t('header.home')}</Link>
           </Form.Item>
@@ -145,7 +143,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+    messages: (await import(`../i18n/${locale ?? 'en'}.json`)).default
   },
 })
 

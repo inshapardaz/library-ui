@@ -1,12 +1,8 @@
 {
     "app" : "نوشتہ",
     "slogan": "آج کچھ نیا پڑھیں",
-    "register" : "رکن بنیں",
-    "login" : "داخل ہوں",
     "logout": "اخراج",
     "language": "اردو",
-	"home": "صفحۂ اوّل",
-    "forgot.password" : "پاسورڈ بھول گئے ہیں",
     "resetPassword" : "پاس ورڈ تبدیل کریں",
     "welcome.user" : "خوش آمدید {user}",
 	"welcome.message" : "نوشتہ میں خوش آمدید۔ یہاں آپ لائیبریوں سے منتفیض ہو سکتے ہیں۔",
@@ -40,10 +36,16 @@
 	"action.editContent" : "مندرجات کی تدوین",
     "action.goto.home" : "صفحۃ اوّل کو واپسی",
     "action.download" : "ڈاؤنلوڈ",
-    "header.books": "کتابیں",
-    "header.authors": "مصنّفین",
-    "header.categories": "زمرہ جات",
-    "header.series": "سلسلہ جات",
+	"header" : {
+		"home": "صفحۂ اوّل",
+		"books": "کتابیں",
+		"authors": "مصنّفین",
+		"categories": "زمرہ جات",
+		"series": "سلسلہ جات"
+	},
+	"footer" : {
+		"copyrights" : "نوشتہ۔ تمام حقوق محفوظ ہیں"
+	},
     "message.loading": "لوڈ ہو رہا ہے",
     "message.saving": "تبدیلی محفوظ کی جا رہی ہے۔۔۔۔",
     "message.saved": "تبدیلی محفوظ کر دی گئی ہے۔",
@@ -52,20 +54,66 @@
     "message.image.upload.error" : "تصویر میں ترمیم کرتے ہوئے ناکامی ہوئی",
     "message.error.notfound" :"ہم معزرت خواہ ہیں کہ آپ کا مطلوبہ صفحہ موجود نہیں",
     "message.error.server": "غیر متوقع فنّی خرابی کے لیے ہم معزرت خواہ ہیں",
-    "login.message.email.error" : "ای میل درست نہیں",
-    "login.message.email.required" : "ای میل ضروری ہے",
-    "login.message.password.required" : "پاس ورڈ ضروری ہے",
-    "login.message.error" : "لاگ ان نہیں کر سکے۔ برائے مہربانی یوزر نیم اور پاسورڈ درست کیجیے۔",
-    "login.email.title" : "ای میل",
-    "login.password.title" : "پاس ورڈ",
+	"login" : {
+		"title" : "رکن بنیں",
+		"email" : {
+			"title" : "ای میل",
+			"error" : "ای میل درست نہیں",
+			"required" : "ای میل ضروری ہے"
+		},
+		"password" : {
+			"title" : "پاس ورڈ",
+			"login.password.title" : "پاس ورڈ",
+			"required" : "پاس ورڈ ضروری ہے"
+		},
+		"error" : "لاگ ان نہیں کر سکے۔ برائے مہربانی یوزر نیم اور پاسورڈ درست کیجیے۔"
+	},
+	"forgotPassword" : {
+		"title" : "پاسورڈ بھول گئے ہیں",
+		"submit" : "پاسورڈ حاصل کریں",
+		"email" : { 
+			"title" :  "ای میل",
+			"error" : "ای میل درست نہیں",
+			"required" : "ای میل ضروری ہے"
+		},
+		"success" : "پاس ورڈ تبدیل کرنے کے لیے ای میل ارسال کر دی گئی ہے۔ اس کی ہدایات پر عمل کیجیے۔",
+		"error" : "ہدایت کی تکمیل نہیں ہو سکی۔ برائے مہربانی دوبارہ کوشش کیجیے۔"
+	},
+	"register" : {
+		"title" : "رکنیت اختیار کریں",
+		"submit" : "رکن بنیں",
+		"name" : {
+			"label" : "نام",
+			"required" : "نام ضروری ہے"
+		},
+		"email" : {
+			"label" : "ای میل",
+			"error" :  "ای میل درست نہیں",
+			"required" : "ای میل ضروری ہے"
+		},
+		"password" : {
+			"label" : "پاس ورڈ",
+			"required" : "پاس ورڈ ضروری ہے",
+			"length": "پاس ورڈ کم از کم 6 حروف پر مشتمل ہو"
+		},
+		"confirmPassword" : {
+			"label" : "تصدیق پاس ورڈ",
+			"match":  "پاس ورڈ ایک جیسے ہوں",
+			"required": "پاس ورڈ کی تصدیق ضروری ہے"
+		},
+		"success" : "رکنیت کامیاب رہی۔ آپاپنے اکاؤنٹ میں داخل ہو سکتے ہیں۔",
+		"error": "رکنیت ناکام رہی۔ دوبارہ کوشش کریں۔",
+		"acceptTerms" : {
+			"title" : "تمام اصول اور ضوابط تسلیم",
+			"requires" : "تمام اصول اور ضوابط تسلیم کرنا ضروری ہیں۔"
+		},
+		"invitation" : {
+			"expired": "دعوت نامہ اب قابلِ قبول نہیں۔ نئی دعوت کے لیے ہم سے رابطہ کیجیے",
+			"notFound": "دعوت نامہ درست نہیں"
+		}
+	},
     "color.dark" : "تاریک",
     "color.light" : "اجلا",
-	"forgotPassword.email.title" : "ای میل",
-	"forgotPassword.submit" : "پاسورڈ حاصل کریں",
-    "forgotPassword.message.email.error" : "ای میل درست نہیں",
-    "forgotPassword.message.email.required" :  "ای میل ضروری ہے",
-    "forgotPassword.message.success" : "پاس ورڈ تبدیل کرنے کے لیے ای میل ارسال کر دی گئی ہے۔ اس کی ہدایات پر عمل کیجیے۔",
-    "forgotPassword.message.error" : "ہدایت کی تکمیل نہیں ہو سکی۔ برائے مہربانی دوبارہ کوشش کیجیے۔",
     "changePassword.title" : "پاس ورڈ کی تبدیلی",
 	"changePassword.oldPassword.label" : "پرانا پاس ورڈ",
 	"changePassword.password.label" : "نیا پاس ورڈ",
@@ -78,35 +126,11 @@
     "changePassword.message.confirmPassword.required": "پاس ورڈ کی تصدیق ضروری ہے",
 	"changePassword.message.success" :"پاس ورڈ تبدیل کر دیا گیا ہے۔",
 	"changePassword.message.error" :"پاس ورڈ تبدیل کرنے میں ناکامی ہوئی۔",
-    "register.message.title.required" : "ٹائٹل ضروری ہے",
-    "register.message.Name.required" : "نام ضروری ہے",
-    "register.message.email.error" : "ای میل درست نہیں",
-    "register.message.email.required" : "ای میل ضروری ہے",
-    "register.message.password.required" : "پاس ورڈ ضروری ہے",
-    "register.message.password.error.length": "پاس ورڈ کم از کم 6 حروف پر مشتمل ہو",
-    "register.message.confirmPassword.error.match": "پاس ورڈ ایک جیسے ہوں",
-    "register.message.confirmPassword.required": "پاس ورڈ کی تصدیق ضروری ہے",
-    "register.message.success":"رکنیت کامیاب رہی۔ آپاپنے اکاؤنٹ میں داخل ہو سکتے ہیں۔",
-    "register.message.error":"رکنیت ناکام رہی۔ دوبارہ کوشش کریں۔",
-    "register.message.acceptTerms.requires" : "تمام اصول اور ضوابط تسلیم کرنا ضروری ہیں۔",
-    "register.acceptTerms.title" : "تمام <0>اصول اور ضوابط</0> تسلیم",
-    "register.title.label" : "ٹائٹل",
-    "register.name.label" : "نام",
-    "register.email.label" : "ای میل",
-    "register.password.label" : "پاس ورڈ",
-    "register.confirmPassword.label" : "تصدیق پاس ورڈ",
-    "register.action.title" : "رکنیت اختیار کریں",
-    "register.title.none" : "ٹائٹل چنیں",
-    "register.title.mr":"مسٹر",
-    "register.title.mrs":"مسز",
-    "register.title.miss":"مس",
     "verify.title": "ای میل کی تصدیق",
     "verify.message.verifying": "تصدیق ہو رہی ہے۔۔۔",
     "verify.message.success": "تصدیق کامیاب رہی۔ آپ لاگ ان کر سکتے ہیں",
     "verify.message.failure": "تصدیق کامیاب نہ ہو سکی۔ برائے مہربانی {link} کے صفحے سے دوبارہ کوشش کیجیے۔",
 	"invite.action" : "نئے صارف کو دعوت دیں ",
-	"invitation.message.expired": "دعوت نامہ اب قابلِ قبول نہیں۔ نئی دعوت کے لیے ہم سے رابطہ کیجیے",
-	"invitation.message.notFound": "دعوت نامہ درست نہیں",
 	"resetPassword.title": "پاس ورڈ کی تجدید",
 	"resetPassword.password.label" : "پاس ورڈ",
     "resetPassword.confirmPassword.label" : "تصدیق پاس ورڈ",
@@ -125,7 +149,6 @@
 	"profile.message.error" : "پروفائل میں تبدیلیاں محفوض نہیں ہو سکیں۔",
 	"profile.message.delete.confirm" : "کیا آپ اکاؤنٹ کو حذف کرنا چاہیں گے؟",
 	"profile.message.delete.success" : "اکاؤنٹ ضذف کر دیا گیا۔",
-	"footer.copyrights" : "نوشتہ۔ تمام حقوق محفوظ ہیں",
 	"home.getStarted": "ابتدا کریں",
 	"home.message": "اردو کتابوں کا ایک بڑا خزانہ تا کہ آپ کتابوں سے لطف اندوز ہو سکیں۔",
     "home.latestBooks": "نیا اضافہ",

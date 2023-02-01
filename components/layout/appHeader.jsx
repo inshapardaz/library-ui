@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import { useSession } from "next-auth/react"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
@@ -20,7 +20,7 @@ import LanguageSwitcher from "@/components/languageSwitcher";
 // ---------------------------------------------------
 
 function AppHeader () {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const { message } = App.useApp();
   const { data, status } = useSession()
   const [libraries, setLibraries] = useState({});

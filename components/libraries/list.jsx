@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from 'next-intl';
 
 // 3rd party libraries
 import { Grid, Segment,  Button, Header, Icon } from 'semantic-ui-react'
@@ -11,7 +11,7 @@ import LibraryCard from "./libraryCard";
 // ------------------------------------------------------
 
 function LibrariesList () {
-    const { t } = useTranslation();
+    const t = useTranslations();
     const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
     const [libraries, setLibraries] = useState(null);

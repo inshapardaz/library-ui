@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { appWithTranslation } from 'next-i18next'
+import { NextIntlProvider } from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css'
 
@@ -26,21 +26,23 @@ const MyApp = ({ Component, pageProps }) => {
   const Layout = Component.Layout || LayoutWithHeader
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>
-        <ConfigProvider 
-            direction={language ? language.dir : 'ltr'} 
-            locale={language ? language.locale : currentLocale} 
-            componentSize="large">
-          <IconContext.Provider value={{ size: '14' }}>
-            <App>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </App>
-          </IconContext.Provider>
-        </ConfigProvider>
+       <NextIntlProvider messages={pageProps.messages}>
+          <ConfigProvider 
+              direction={language ? language.dir : 'ltr'} 
+              locale={language ? language.locale : currentLocale} 
+              componentSize="large">
+            <IconContext.Provider value={{ size: '14' }}>
+              <App>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </App>
+            </IconContext.Provider>
+          </ConfigProvider>
+        </NextIntlProvider>
       <RefreshTokenHandler setInterval={setInterval} />
     </SessionProvider>
   );
 }
 
-export default appWithTranslation(MyApp)
+export default MyApp;

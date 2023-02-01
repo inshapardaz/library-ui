@@ -1,18 +1,13 @@
 {
     "app" : "Nawishta",
     "slogan": "Read something new today",
-    "register" : "Register",
-    "login" : "Login",
     "logout": "Logout",
 	"language": "English",
-	"home": "Home",
-    "forgot.password" : "Forgot Password",
     "resetPassword" : "Reset Password",
     "welcome.user" : "Welcome {user}",
 	"welcome.message" : "Welcome to Nawistha. A collection of libraries.",
 	"welcome.message.button" : "Start Exploring",
     "welcome.guest" : "Welcome Guest",
-    "forgetPassword" : "Forgot Password",
     "changePassword" : "Change Password",
     "action.edit" : "Edit",
     "action.delete" : "Delete",
@@ -40,10 +35,16 @@
     "action.card" : "Card",
     "action.goto.home" : "Go Back to home",
     "action.download" : "Download",
-	"header.books": "Books",
-	"header.authors": "Authors",
-	"header.categories": "Categories",
-	"header.series": "Series",
+	"header" : {
+		"home": "Home",
+		"books": "Books",
+		"authors": "Authors",
+		"categories": "Categories",
+		"series": "Series"
+	},
+	"footer" : {
+		"copyrights" : "Copyrights Nawishta. All rights reserved."
+	},
     "message.loading": "Loading...",
     "message.saving": "Saving changes...",
     "message.saved": "Changed saved successfully.",
@@ -52,21 +53,65 @@
     "message.image.upload.error" : "Unable to update image",
     "message.error.notfound" :"We are sorry but the page you are looking for was not found...",
     "message.error.server": "We are sorry but our server encountered an internal error...",
-    "login.message.email.error" : "Email is invalid",
-    "login.message.email.required" : "Email is required",
-    "login.message.password.required" : "Password is required",
-    "login.message.error" : "Unable to login. Please check your username and password.",
-    "login.email.title" : "Email",
-    "login.password.title" : "Password",
+	"login" : {
+		"title" : "Login",
+		"email" : {
+			"title" : "Email",
+			"error" : "Email is invalid",
+			"required" : "Email is required"
+		},
+		"password" : {
+			"title" : "Password",
+			"required" : "Password is required"
+		},
+		"error" : "Unable to login. Please check your username and password."
+	},
+	"forgotPassword" : {
+		"title" : "Forgot Password",
+		"submit" : "Get Password",
+		"email" : { 
+			"title" : "Email",
+			"error" : "Email is invalid",
+			"required" : "Email is required"
+		},
+		"success" : "Please check your email for password reset instructions.",
+		"error" : "Unable to complete request. Please try again."
+	},
+	"register" : {
+		"title" : "Register",
+		"submit" : "Register",
+		"name" : {
+			"label" : "Name",
+			"required" : "Name is required"
+		},
+		"email" : {
+			"label" : "Email",
+			"error" : "Email is invalid",
+			"required" : "Email is required"
+		},
+		"password" : {
+			"label" : "Password",
+			"required" : "Password is required",
+			"length": "Password must be at least 6 characters."
+		},
+		"confirmPassword" : {
+			"label" : "Confirm Password",
+			"match": "Passwords must match",
+			"required": "Confirm Password is required"
+		},
+		"success":"Registration successful, please login with your credentials.",
+		"error":"Unable to register. Please try again.",
+		"acceptTerms" : {
+			"title" : "Accept Terms & Conditions",
+			"requires" : "Accepting Terms & Conditions is required."
+		},
+		"invitation" : {
+			"expired": "Invitation link has expired. Please contact us to resend a new invitation code.",
+			"notFound": "Invitation link is not valid."
+		}
+	},
     "color.dark" : "Dark",
     "color.light" : "Light",
-	"forgotPassword.email.title" : "Email",
-    "forgotPassword.title" : "Get Your Password",
-    "forgotPassword.submit" : "Get Password",
-    "forgotPassword.message.email.error" : "Email is invalid",
-    "forgotPassword.message.email.required" : "Email is required",
-	"forgotPassword.message.success" : "Please check your email for password reset instructions.",
-    "forgotPassword.message.error" : "Unable to complete request. Please try again.",
     "changePassword.title" : "Change Password",
 	"changePassword.oldPassword.label" : "Old Password",
 	"changePassword.password.label" : "New Password",
@@ -79,35 +124,11 @@
     "changePassword.message.confirmPassword.required": "Confirm Password is required",
 	"changePassword.message.success" :"Password updated successfully",
 	"changePassword.message.error" :"Unable to change password. Please try again.",
-    "register.message.title.required" : "Title is required",
-    "register.message.name.required" : "Name is required",
-    "register.message.email.error" : "Email is invalid",
-    "register.message.email.required" : "Email is required",
-    "register.message.password.required" : "Password is required",
-    "register.message.password.error.length": "Password must be at least 6 characters.",
-    "register.message.confirmPassword.error.match": "Passwords must match",
-    "register.message.confirmPassword.required": "Confirm Password is required",
-    "register.message.success":"Registration successful, please login with your credentials.",
-    "register.message.error":"Unable to register. Please try again.",
-    "register.message.acceptTerms.requires" : "Accepting Terms & Conditions is required.",
-    "register.acceptTerms.title" : "Accept <0>Terms & Conditions</0>",
-    "register.title.label" : "Title",
-    "register.name.label" : "Name",
-    "register.email.label" : "Email",
-    "register.password.label" : "Password",
-    "register.confirmPassword.label" : "Confirm Password",
-    "register.action.title" : "Register",
-    "register.title.none" : "Select Title",
-    "register.title.mr":"Mr.",
-    "register.title.mrs":"Mrs.",
-    "register.title.miss":"Miss.",
     "verify.title": "Verify Email",
     "verify.message.verifying": "Verifying...",
     "verify.message.success": "Verification successful, you can now login",
     "verify.message.failure": "Verification failed, you can also verify your account using the {link} page.",
 	"invite.action" : "Invite user",
-	"invitation.message.expired": "Invitation link has expired. Please contact us to resend a new invitation code.",
-	"invitation.message.notFound": "Invitation link is not valid.",
     "resetPassword.title": "Reset Password",
 	"resetPassword.password.label" : "Password",
     "resetPassword.confirmPassword.label" : "Confirm Password",
@@ -180,7 +201,7 @@
 	"user.messages.added.error" : "User cannot be added",
 	"user.messages.updated.success" : "User saved successfully",
 	"user.messages.updated.error" : "User cannot be saved",
-	"footer.copyrights" : "Copyrights Nawishta. All rights reserved.",
+	
 	"home.getStarted": "Get Started",
 	"home.message": "One of the largest collection of unicode books with state of art reader view. Happy reading",
     "home.latestBooks": "Latest Additions",

@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 import styles from '../../styles/common.module.scss'
 
 // ----------------------------------------------
 
 function FullPageFormContainer ({title, children}) {
-    const { t } = useTranslation('common')
+    const t = useTranslations()
 
     return (<div className={styles['fullPage_layout']}>
       <div className={styles['fullPage_layout__image']}></div>

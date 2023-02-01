@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -6,7 +6,7 @@ import { Input } from 'semantic-ui-react'
 
 function SearchBox({ libraryId })
 {   
-    const { t } = useTranslation();
+    const t = useTranslations();
     const router = useRouter();
     const [search, setSearch] = useState('');
 
