@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useTranslations } from 'next-intl';
 
 // 3rd part imports
-import { Button } from 'antd'
+import { Button, Typography } from 'antd'
 import { GiRead } from 'react-icons/gi'
 
 // Local Imports
@@ -20,7 +20,7 @@ function HomePage() {
         <title>{t('app')}</title>
       </Head>
       <HeroImage>
-        <h1 className={styles.hero__title}>{t('app')}</h1>
+        <Typography.Title level={1} className={styles.hero__title} >{t('app')}</Typography.Title>
         <div className={styles.hero__content}>
             <p>{t('home.welcome')}</p>
             <Button type="primary" icon={<GiRead />}> {t('home.gettingStarted')}</Button>

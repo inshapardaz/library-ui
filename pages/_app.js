@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { NextIntlProvider } from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
-import '../styles/globals.css'
 
 import { useRouter } from 'next/router';
 
@@ -11,6 +10,7 @@ import { App, ConfigProvider } from 'antd';
 import { IconContext } from "react-icons";
 
 // Internal imports
+import '../styles/globals.css'
 import RefreshTokenHandler from '@/components/refreshTokenHandler';
 import LayoutWithHeader from '@/components/layout/layoutWithHeader'
 import localeService from '@/services/localeService';

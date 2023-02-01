@@ -8,7 +8,7 @@ function LibrariesHomePage() {
   const t = useTranslations()
 
   return (<>
-    <PageHeader title={t('libraries.header')} icon="building outline" />
+    <PageHeader title={t('libraries.title')} icon="building outline" />
     <LibrariesList />
   </>);
 }

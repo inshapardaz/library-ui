@@ -93,8 +93,22 @@
 	"profile": {
 		"title" : "Profile"
 	},
+	"search": {
+		"title" : "Search...",
+		"placeholder" : "Search by title, author, keyword"
+	},
 	"home" : {
 		"welcome": "Welcome to Nawistha. A collection of libraries.",
 		"gettingStarted" : "Start Exploring"
+	},
+	"libraries" : {
+		"title" : "Libraries"
+	},
+	"books": {
+		"latest" : {
+			"title"  : "Latest books"
+		},
+		"empty" : "No latest book found",
+		"loadingError": "Unable to load books"
 	}
 }

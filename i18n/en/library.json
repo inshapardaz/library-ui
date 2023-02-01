@@ -1,9 +1,4 @@
 {
-    "search" : "Search...",
-	"search.placeholder": "Search by title, author, keyword",
-    "books.latest.title" : "Latest books",
-    "books.latest.message.loading.error": "Unable to load books",
-    "books.latest.message.empty" : "No latest book found",
     "language": "English",
     "resetPassword" : "Reset Password",
     "welcome.user" : "Welcome {user}",

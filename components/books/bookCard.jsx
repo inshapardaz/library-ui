@@ -3,6 +3,11 @@ import Link from 'next/link';
 // 3rd Party Libraries
 import { Card, Placeholder, Image } from 'semantic-ui-react'
 
+// Local Imports
+import ApiContainer from "../common/ApiContainer";
+
+// --------------------------------------------------
+
 function BookCard({ libraryId, book, loading = false }) {
     if (loading) {
         return (<Placeholder>
@@ -23,7 +28,7 @@ function BookCard({ libraryId, book, loading = false }) {
         as={Link}
         href={`/libraries/${libraryId}/books/${book.id}`}
       >
-        <Image src={book.links.image} wrapped ui={false} alt={book.title} />
+         
         <Card.Content>
           <Card.Header>{book.title}</Card.Header>
            <Card.Meta>

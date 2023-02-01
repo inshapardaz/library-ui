@@ -2,16 +2,23 @@ import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 
 // 3rd party libraries
-import { Container, Grid, Segment,  Button, Header, Icon } from 'semantic-ui-react'
+import { Card } from 'antd';
 
 // Internal Imports
-import styles from '../../styles/library.module.scss'
-import BookCard from "./bookCard";
 import libraryService from "@/services/libraryService";
+import ApiContainer from "../common/ApiContainer";
+import Image from "next/image";
+
 // ------------------------------------------------------
 
+const gridStyle = {
+    width: '25%',
+    textAlign: 'center',
+    cursor: 'pointer'
+  };
+
 function LatestBooks({libraryId}) {
-    const t = useTranslations('library');
+    const t = useTranslations();
     const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
     const [books, setBooks] = useState(null);
@@ -28,48 +35,18 @@ function LatestBooks({libraryId}) {
 
     useEffect(() => loadBooks(libraryId), [libraryId])
 
-    if (busy) {
-        return (
-        <Grid container columns={3}>
-        { [1,2,3].map(l => (
-            <Grid.Column key={l} mobile={16} tablet={8} computer={4}>
-                <BookCard loading />
-            </Grid.Column>
-            ))}
-        </Grid>
-      );
-    }
-
-    if (error) {
-        return (<Segment placeholder>
-            <Header icon>
-            <Icon name='warning sign' />
-                {t('books.latest.message.loading.error')}
-            </Header>
-            <Button primary onClick={loadBooks}>{t('action.retry')}</Button>
-        </Segment>
-        )
-    }
-
-    if (!busy && books && books.data && books.data.length < 1) {
-        return (<Segment placeholder>
-            <Header icon>
-            <Icon name='inbox' />
-                {t('books.latest.message.empty')}
-            </Header>
-        </Segment>)
-    }
-
-    return (<Container className={styles.latest}>
-        <Header as='h2'>{t('books.latest.title')}</Header>
-        <Grid container columns={3}>
-        { books.data.map(b => (
-            <Grid.Column key={b.id} mobile={16} tablet={8} computer={4}>
-                <BookCard libraryId={libraryId} book={b} />
-            </Grid.Column>
-        ))}
-        </Grid>
-    </Container>)
+    return (<ApiContainer title={t('books.latest.title')} busy={busy} error={error} empty={books && books.data && books.data.length < 1}>
+    { books && books.data && books.data.map(book => (
+        <Card style={gridStyle} key={book.id} hoverable 
+            cover={<Image src={book.links.image} width="262" height="400" alt={book.title} />}
+            onClick={() => router.push(`/libraries/${l.id}`)}>
+            <Card.Meta
+                title={book.title}
+                description={book.description}
+            />
+        </Card>
+    ))}
+    </ApiContainer>)
 }
 
 export default LatestBooks;

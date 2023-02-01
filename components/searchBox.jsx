@@ -19,7 +19,7 @@ function SearchBox({ libraryId })
                     icon: 'search',
                     onClick: () => onSearch()
                 }} 
-                placeholder={t('library.search.placeholder')}
+                placeholder={t('search.placeholder')}
                 onChange={(e) => setSearch(e.target.value)}
             />);
 }
