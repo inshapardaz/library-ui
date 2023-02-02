@@ -109,6 +109,7 @@
 			"title"  : "Latest books"
 		},
 		"empty" : "No latest book found",
+		"seeMore": "See More۔۔۔",
 		"loadingError": "Unable to load books"
 	}
 }
