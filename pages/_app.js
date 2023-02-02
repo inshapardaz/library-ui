@@ -5,7 +5,6 @@ import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 // 3rd party libraries
-import 'semantic-ui-css/semantic.min.css'
 import { App, ConfigProvider } from 'antd';
 import { IconContext } from "react-icons";
 

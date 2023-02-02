@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 
 // 3rd party libraries
-import { Card } from 'antd';
 
 // Internal Imports
 import libraryService from "@/services/libraryService";
 import ApiContainer from "../common/ApiContainer";
-import Image from "next/image";
+import BookCard from "./bookCard";
 
 // ------------------------------------------------------
 
@@ -37,15 +36,8 @@ function LatestBooks({libraryId}) {
 
     return (<ApiContainer title={t('books.latest.title')} busy={busy} error={error} empty={books && books.data && books.data.length < 1}>
     { books && books.data && books.data.map(book => (
-        <Card style={gridStyle} key={book.id} hoverable 
-            cover={<Image src={book.links.image} width="262" height="400" alt={book.title} />}
-            onClick={() => router.push(`/libraries/${l.id}`)}>
-            <Card.Meta
-                title={book.title}
-                description={book.description}
-            />
-        </Card>
-    ))}
+        <BookCard key={book.id} libraryId={libraryId} book={book} style={gridStyle} />))
+    }
     </ApiContainer>)
 }
 

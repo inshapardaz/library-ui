@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { Input } from 'semantic-ui-react'
+import { Input } from 'antd';
 
 function SearchBox({ libraryId })
 {   
@@ -13,14 +13,9 @@ function SearchBox({ libraryId })
     const onSearch = () => {
         router.push(`libraries\\${libraryId}\\search?q=${search}`)
     }
-    return (<Input 
-                fluid 
-                action={{ 
-                    icon: 'search',
-                    onClick: () => onSearch()
-                }} 
+    return (<Input.Search 
+                onSearch={onSearch} 
                 placeholder={t('search.placeholder')}
-                onChange={(e) => setSearch(e.target.value)}
             />);
 }
 

@@ -1,25 +1,15 @@
 import { useTranslations } from 'next-intl';
 
 // 3rd party imports
-import { Icon, Menu, Breadcrumb } from "semantic-ui-react";
+import { Breadcrumb } from 'antd';
 
   
 function PageHeader ({title, icon}) {
   const t = useTranslations();
   
-    return (<Menu secondary>
-        <Menu.Item>
-            <Icon name={icon} size='large'/>
-        </Menu.Item>
-        <Menu.Item>
-            <h4>{title}</h4>
-        </Menu.Item>
-        <Menu.Item position="right">
-            <Breadcrumb>
-            <Breadcrumb.Section link>{t('home')}</Breadcrumb.Section>
-            </Breadcrumb>
-        </Menu.Item>
-        </Menu>)
+    return (<Breadcrumb>
+            <Breadcrumb.Item link>{t('home')}</Breadcrumb.Item>
+            </Breadcrumb>);
 }
 
 export default PageHeader;

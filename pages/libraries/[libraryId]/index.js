@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+// 3rd party library
+import { Typography } from 'antd';
+
 // Internal Imports
-import styles from '../../../styles/library.module.scss'
+import styles from '../../../styles/common.module.scss'
 import SearchBox from '@/components/searchBox';
 import LatestBooks from '@/components/books/latestBooks';
 import libraryService from '@/services/libraryService';
@@ -28,15 +31,15 @@ function LibraryHomePage() {
 
     useEffect(() => loadLibrary(), [])
 
-    return <>
+    return (<>
       <HeroImage>
-          <h1 className={styles.hero__title}>{library ? library.name : ''}</h1>
-          <div className={styles.hero__content}>
-            <SearchBox libraryId={libraryId}/>
-          </div>
+        <Typography.Title level={1} className={styles.hero__title} >{library ? library.name : ''}</Typography.Title>
+        <div className={styles.hero__content}>
+          <SearchBox libraryId={libraryId}/>
+        </div>
       </HeroImage>
       <LatestBooks libraryId={libraryId}/>
-    </>;
+    </>);
 }
 
 
