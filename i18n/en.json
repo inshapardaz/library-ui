@@ -13,6 +13,9 @@
 	"footer" : {
 		"copyrights" : "Copyrights Nawishta. All rights reserved."
 	},
+	"actions" : {
+		"seeMore": "See More۔۔۔"
+	},
 	"login" : {
 		"title" : "Login",
 		"email" : {
@@ -109,7 +112,11 @@
 			"title"  : "Latest books"
 		},
 		"empty" : "No latest book found",
-		"seeMore": "See More۔۔۔",
 		"loadingError": "Unable to load books"
+	},
+	"author" : {
+		"writer" : "Writer",
+		"poet" : "poet",
+		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}"
 	}
 }

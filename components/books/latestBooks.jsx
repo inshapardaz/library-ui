@@ -3,12 +3,13 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
 
 // 3rd party libraries
-import { Button, List, Space, Toggle } from 'antd';
+import { Button, List, Space, Switch } from 'antd';
 
 // Internal Imports
 import libraryService from "@/services/libraryService";
 import ApiContainer from "../common/ApiContainer";
 import BookCard from "./bookCard";
+import BookListItem from "./bookListItem";
 
 // ------------------------------------------------------
 
@@ -16,7 +17,7 @@ function ShowMoreButton ({ libraryId, t}) {
     const { router } = useRouter();
     return(<Space block="true" align="center">
         <Button onClick={() => router.push(`/libraries/${libraryId}/books?sortBy=latest`)}>
-            {t('books.seeMore')}
+            {t('actions.seeMore')}
         </Button>
     </Space>);
 }
@@ -39,12 +40,16 @@ function LatestBooks({libraryId}) {
     }
 
     useEffect(() => loadBooks(libraryId), [libraryId])
+    
+    const toggleView = (checked) => {
+        setShowList(checked);
+      };
 
     return (<ApiContainer title={t('books.latest.title')} 
         busy={busy} 
         error={error} 
         empty={books && books.data && books.data.length < 1}
-        extra={<Toggle checked={showList} onChange={(checked) => setShowList(checked)}/>}>
+        actions={(<Switch checked={showList} onChange={toggleView} />) }>
         <List
             grid={{
                 gutter: 4,
@@ -60,7 +65,9 @@ function LatestBooks({libraryId}) {
             loadMore={<ShowMoreButton t={t} libraryId={libraryId} />}
             renderItem={(book) => (
             <List.Item>
-                <BookCard key={book.id} libraryId={libraryId} book={book} />
+                { showList ?  
+                    <BookListItem key={book.id} libraryId={libraryId} book={book} t={t} /> : 
+                    <BookCard key={book.id} libraryId={libraryId} book={book} t={t} /> }
             </List.Item>
             )}
         />
