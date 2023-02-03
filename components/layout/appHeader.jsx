@@ -48,7 +48,10 @@ function AppHeader () {
     if ((status === "authenticated")) {
       loadLibraries();
     }
-    loadCategories();
+
+    if (libraryId) {
+      loadCategories();
+    }
   }, [libraryId, message, t, status]);
 
   
@@ -192,7 +195,7 @@ function AppHeader () {
   return (<Layout.Header className={styles.header}>
       <Link href="/" className={styles['header__logo']} >
           <span className={styles['header__logo-text']}>{t("app")}</span>
-      </Link>)
+      </Link>
       <Menu
         className={styles['header__menu']}
         theme="dark"

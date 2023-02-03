@@ -14,12 +14,19 @@ import BookListItem from "./bookListItem";
 // ------------------------------------------------------
 
 function ShowMoreButton ({ libraryId, t}) {
-    const { router } = useRouter();
-    return(<Space block="true" align="center">
-        <Button onClick={() => router.push(`/libraries/${libraryId}/books?sortBy=latest`)}>
+    const router = useRouter();
+    return(<div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px',
+        }}
+      >
+        <Button size="small" onClick={() => router.push(`/libraries/${libraryId}/books?sortBy=latest`)}>
             {t('actions.seeMore')}
         </Button>
-    </Space>);
+    </div>);
 }
 
 function LatestBooks({libraryId}) {
@@ -45,22 +52,26 @@ function LatestBooks({libraryId}) {
         setShowList(checked);
       };
 
+    const grid = {
+        gutter: 4,
+        xs: 1,
+        sm: 2,
+        md: 3,
+        lg: 3,
+        xl: 4,
+        xxl: 5,
+    };
+
     return (<ApiContainer title={t('books.latest.title')} 
         busy={busy} 
         error={error} 
         empty={books && books.data && books.data.length < 1}
         actions={(<Switch checked={showList} onChange={toggleView} />) }>
         <List
-            grid={{
-                gutter: 4,
-                xs: 1,
-                sm: 2,
-                md: 3,
-                lg: 3,
-                xl: 4,
-                xxl: 5,
-            }}
+            grid={ showList ? null : grid}
             loading={busy}
+            size="large"
+            itemLayout={ showList ? "vertical": "horizontal" }
             dataSource={books ? books.data : []}
             loadMore={<ShowMoreButton t={t} libraryId={libraryId} />}
             renderItem={(book) => (

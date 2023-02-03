@@ -114,6 +114,10 @@
 		"empty" : "No latest book found",
 		"loadingError": "Unable to load books"
 	},
+	"book" : {
+		"series": "Book of {name} series",
+		"seriesAndIndex": "Book {index} of {name} series"
+	},
 	"author" : {
 		"writer" : "Writer",
 		"poet" : "poet",

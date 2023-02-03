@@ -115,6 +115,10 @@
 		"empty" : "کوئی کتاب دستیاب نہیں",
 		"loadingError": "کتابوں کے حصول میں ناکامی ہوئی"
 	},
+	"book" : {
+		"series": "{name} سلسلے کی کتاب",
+	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}"
+	},
 	"author" : {
 		"writer" : "لکھاری",
 		"poet" : "شاعر",
