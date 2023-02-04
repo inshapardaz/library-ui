@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { NextIntlProvider } from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
-
 import { useRouter } from 'next/router';
+import { useLocalStorage } from 'usehooks-ts';
 
 // 3rd party libraries
-import { App, ConfigProvider } from 'antd';
+import { App, ConfigProvider, theme } from 'antd';
+
+// 3rd party libraries
 import { IconContext } from "react-icons";
 
 // Internal imports
@@ -16,20 +18,35 @@ import localeService from '@/services/localeService';
 
 // --------------------------------------------------------------
 
+function getThemeAlgorithm(theme, mode) {
+  switch (mode) {
+    case 'dark':
+      return theme.darkAlgorithm;
+    case 'light':
+      return theme.defaultAlgorithm;
+    default: 
+      return theme.defaultAlgorithm;
+  }
+}
+// --------------------------------------------------------------
+
 const MyApp = ({ Component, pageProps }) => {
   const [interval, setInterval] = useState(0);
   const router = useRouter();  
-
   const language = localeService.getLanguage(router.locale)
-
   const Layout = Component.Layout || LayoutWithHeader
+  const [mode] = useLocalStorage('ui-mode')
+
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>
        <NextIntlProvider messages={pageProps.messages}>
           <ConfigProvider 
               direction={language ? language.dir : 'ltr'} 
               locale={language ? language.locale : currentLocale} 
-              componentSize="large">
+              componentSize="large"
+              theme={{
+                algorithm: getThemeAlgorithm(theme, mode),
+              }}>
             <IconContext.Provider value={{ size: '14' }}>
               <App>
                 <Layout>

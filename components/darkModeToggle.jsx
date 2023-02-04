@@ -1,39 +1,26 @@
-import { useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
-import { Button } from "antd";
-import { MdOutlineSettingsBrightness, MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
-
+import { Button, theme } from "antd";
+import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 
 function DarkModeToggle() {
-    const [mode, setMode] = useState('light')
-
-    useEffect(() => {
-        setMode(localStorage.getItem('ui-mode') ?? 'light');
-      }, [])
-
-      
-    const saveUiMode = (newMode) => {
-        setMode(newMode);
-        localStorage.setItem('ui-mode', newMode);
-    }
+    const token = theme.useToken();
+    const [mode, setMode] = useLocalStorage('ui-mode')
     const onClick = () => {
         switch (mode) {
             case 'light':
-                saveUiMode('dark');
+                setMode('dark');
                 break;
             case 'dark':
-                saveUiMode('system');
-                break;
-            case 'system':
-                saveUiMode('light');
+                setMode('system');
                 break;
             default:
-                saveUiMode('dark');
+                setMode('dark');
                 break;
         }
     }
-    const icon = mode === 'dark' ? <MdOutlineDarkMode /> : mode === 'light' ? <MdOutlineWbSunny /> : <MdOutlineSettingsBrightness />
-    return <Button shape="circle" ghost onClick={onClick}>
+    const icon = mode === 'dark' ? <MdOutlineDarkMode /> :  <MdOutlineWbSunny />
+    return <Button shape="circle" onClick={onClick}>
         { icon }
     </Button>
 }

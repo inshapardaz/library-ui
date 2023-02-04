@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useTranslations } from 'next-intl';
 
 // 3rd party libraries
-import { Card } from 'antd';
+import { Button, List } from 'antd';
 import { ImLibrary } from 'react-icons/im';
 
 // Internal Imports
@@ -12,11 +12,22 @@ import ApiContainer from "../common/ApiContainer";
 
 // ------------------------------------------------------
 
-const gridStyle = {
-    width: '25%',
-    textAlign: 'center',
-    cursor: 'pointer'
-  };
+
+function ShowMoreButton ({ t }) {
+    const router = useRouter();
+    return(<div
+        style={{
+          textAlign: 'center',
+          marginTop: 12,
+          height: 32,
+          lineHeight: '32px',
+        }}
+      >
+        <Button size="small" onClick={() => router.push(`/libraries`)}>
+            {t('actions.seeMore')}
+        </Button>
+    </div>);
+}
 
 function LibrariesList () {
     const t = useTranslations();
@@ -37,17 +48,26 @@ function LibrariesList () {
 
     useEffect(() => loadLibraries(), [])
 
-    return (<ApiContainer title={t('libraries.title')} busy={busy} error={error} empty={libraries && libraries.data && libraries.data.length < 1}>
-        { libraries && libraries.data && libraries.data.map(l => (
-            <Card.Grid style={gridStyle} key={l.id} hoverable onClick={() => router.push(`/libraries/${l.id}`)}>
-                <Card.Meta
-                    avatar={<ImLibrary />}
-                    title={l.name}
-                    description={l.description}
-                />
-            </Card.Grid>
-        ))}
-    </ApiContainer>)
+    return (<ApiContainer 
+        busy={busy} 
+        error={error} 
+        empty={libraries && libraries.data && libraries.data.length < 1}>
+        <List
+            loading={busy}
+            size="large"
+            itemLayout="vertical"
+            dataSource={libraries ? libraries.data : []}
+            loadMore={<ShowMoreButton t={t} />}
+            renderItem={(l) => (
+                <List.Item key={l.id} onClick={() => router.push(`/libraries/${l.id}`)} style={{ cursor : 'pointer'}}>
+                    <List.Item.Meta
+                        avatar={<ImLibrary />}
+                        title={l.name}
+                    />
+                </List.Item>
+            )}
+        />
+    </ApiContainer>);
 }
 
 export default LibrariesList;

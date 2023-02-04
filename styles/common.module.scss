@@ -118,12 +118,9 @@
       line-height: 31px;
       margin: 16px 24px 16px 0;
       padding-left: 34px;
-      background: url('/images/logo.png') no-repeat;
-      background-size: 24px 24px;
-      color: white;
       font-weight: bold;
+
       &:hover {
-        color: white;
         filter: brightness(80%)
       }
 
@@ -141,16 +138,17 @@
   &__profile {
     float: right;
   }
+
+  &[dir='rtl'] {
+    background-color: aquamarine;
+  }
 }
 
-body[dir='rtl'] {
+body {
   &.header {
-    background-color: antiquewhite;
     .__logo {
       float: right;
       margin: 16px 0 16px 24px;
-      background-position-x: right;
-      background-color: green;
       font-weight: normal;
       padding-right: 34px;
     }

@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 
 // 3rd party imports
-import { Layout, Menu, App, Dropdown, Button, Space } from 'antd';
+import { Layout, Menu, App, Dropdown, Button, Space, theme, Typography } from 'antd';
 import { FaBook, FaUser, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { ImBooks, ImLibrary, ImProfile } from 'react-icons/im';
@@ -16,11 +16,14 @@ import { MdPassword } from 'react-icons/md';
 import styles from '../../styles/common.module.scss'
 import libraryService from "@/services/libraryService";
 import LanguageSwitcher from "@/components/languageSwitcher";
+import DarkModeToggle from "@/components/darkModeToggle";
+import Image from "next/image";
 
 // ---------------------------------------------------
 
 function AppHeader () {
   const t = useTranslations();
+  const { token } = theme.useToken();
   const { message } = App.useApp();
   const { data, status } = useSession()
   const [libraries, setLibraries] = useState({});
@@ -192,20 +195,23 @@ function AppHeader () {
     }];
   }
 
-  return (<Layout.Header className={styles.header}>
-      <Link href="/" className={styles['header__logo']} >
-          <span className={styles['header__logo-text']}>{t("app")}</span>
+  return (<Layout.Header  className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
+      <Link href="/" className={styles['header__logo']}>
+          <Space size={8}>
+            <Image src="/images/logo.png" alt="logo" height={24} width={24} />
+            <span> {t("app")} </span>
+          </Space>
       </Link>
       <Menu
         className={styles['header__menu']}
-        theme="dark"
         mode="horizontal"
         selectable={false}
         expandIcon={true}
         items={items}
         onClick={onMenuClick}
       />
-      <LanguageSwitcher arrow round ghost/>
+      <DarkModeToggle />
+      <LanguageSwitcher arrow round/>
       <Dropdown arrow
         className={styles['header__profile']}
         placement='bottomRight'
@@ -214,7 +220,7 @@ function AppHeader () {
           selectable: false,
         }}
       >
-        <Button shape="circle" ghost>
+        <Button shape="circle">
           <Space>
             <FaUser />
           </Space>
