@@ -115,12 +115,15 @@
 			"title" : "نئی کتب"
 		},
 		"title" : "کتب",
-		"empty" : "کوئی کتاب دستیاب نہیں",
+		"empty" : "کتاب دستیاب نہیں",
 		"loadingError": "کتابوں کے حصول میں ناکامی ہوئی"
 	},
 	"book" : {
 		"series": "{name} سلسلے کی کتاب",
-	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}"
+	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}",
+		"chapterCount" : "{count, plural, =1 {1 باب} other {# ابواب}}",
+		"pageCount" : "{count, plural, =1 {1 صفحہ} other {# صفحات}}",
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	},
 	"authors" : {
 		"title" : "مصنّفین"
@@ -128,6 +131,12 @@
 	"author" : {
 		"writer" : "لکھاری",
 		"poet" : "شاعر",
-		"bookCount" : "{count, plural, =0 {کوئی کتاب نہیں} =1 {1 کتاب} other {# کتابیں}}"
+		"bookCount" : "{count, plural, =1 {1 کتاب} other {# کتابیں}}",
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
+	},
+	"series" : {
+		"title" : "سیریز",
+		"bookCount" : "{count, plural, =1 {1 کتاب} other {# کتابیں}}",
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	}
 }

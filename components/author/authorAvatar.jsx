@@ -3,10 +3,15 @@ import { FaFeatherAlt } from 'react-icons/fa';
 import { ImBooks } from 'react-icons/im';
 import Link from 'next/link';
 
+// Local imports
+import helpers from '../../helpers';
+
 // --------------------------------------------------
 export function AuthorAvatar({ author, libraryId, t }) {
+  const avatar = (author.links.image ? <Avatar src={author.links.image} onError={helpers.setDefaultAuthorImage}></Avatar> :
+    <Avatar src={helpers.defaultAuthorImage}></Avatar>);
   const popoverTitle = (<Space>
-    <Avatar src={author.links.image} />
+    { avatar }
     <Link href={`/libraries/${libraryId}/authors/${author.id}`}>
       <Typography>{author.name}</Typography>
     </Link>
@@ -18,6 +23,6 @@ export function AuthorAvatar({ author, libraryId, t }) {
   </div>);
   return (
     <Popover key={author.id} content={popoverContent} title={popoverTitle}>
-      <Avatar src={author.links.image} />
+          { avatar }
     </Popover>);
 }

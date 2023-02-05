@@ -119,7 +119,10 @@
 	},
 	"book" : {
 		"series": "Book of {name} series",
-		"seriesAndIndex": "Book {index} of {name} series"
+		"seriesAndIndex": "Book {index} of {name} series",
+		"chapterCount" : "{count, plural, =0 {no chapter} =1 {one chapter} other {# chapters}}",
+		"pageCount" : "{count, plural, =0 {no page} =1 {one page} other {# pages}}",
+		"noDescription" : "No details..."
 	},
 	"authors" : {
 		"title" : "Authors"
@@ -127,6 +130,12 @@
 	"author" : {
 		"writer" : "Writer",
 		"poet" : "poet",
-		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}"
-	}
+		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"noDescription" : "No details..."
+	},
+	"series" : {
+		"title" : "Series",
+		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"noDescription" : "No details..."
+	} 
 }

@@ -114,6 +114,27 @@ const parseReadFilter = (readFilter) => {
   
       return location;
     },
+    buildLinkToSeriesPage: (
+      location,
+      page,
+      pageSize,
+      query
+    ) => {
+      let querystring = '';
+      querystring += page ? `pageNumber=${page}&` : '';
+      querystring += pageSize ? `pageSize=${pageSize}&` : '';
+      querystring += query ? `query=${query}&` : '';
+  
+      if (querystring !== '') {
+        if (querystring.substr(querystring.length - 1) === '&') {
+          querystring = querystring.slice(0, -1);
+        }
+  
+        return `${location}?${querystring}`;
+      }
+  
+      return location;
+    },
     buildLinkToBooksPagesPage: (location,
       page,
       pageSize,
