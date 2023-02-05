@@ -20,9 +20,9 @@ const {Text, Paragraph} = Typography;
 
 function BookListItem({ libraryId, book, t }) 
 {
-  const cover = (<Image src={book.links.image} placeholder={helpers.defaultBookImage} 
-    onError={helpers.setDefaultBookImage} width="98" height="150" alt={book.title}  />);
-    const avatar  = (<Avatar.Group maxCount="2" size="large">
+  const cover = (book.links.image ? <Image src={book.links.image} onError={helpers.setDefaultBookImage} width="98" height="150" alt={book.title}  /> : 
+  <Image src={helpers.defaultBookImage}  width="98" height="150" alt={book.title} />);
+  const avatar  = (<Avatar.Group maxCount="2" size="large">
        { book.authors.map(author => (<AuthorAvatar key={author.id} libraryId={libraryId} author={author} t={t}/>))}
     </Avatar.Group>);
   const title = (<Link href={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Link>);

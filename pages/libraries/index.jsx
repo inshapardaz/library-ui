@@ -6,13 +6,16 @@ import { ImLibrary } from 'react-icons/im';
 // Local Imports
 import LibrariesList from '@/components/libraries/list';
 import PageHeader from '@/components/layout/pageHeader';
+import ContentsContainer from '@/components/layout/contentContainer';
 
 function LibrariesHomePage() {
   const t = useTranslations()
 
   return (<>
     <PageHeader title={t('libraries.title')} icon={<ImLibrary />} />
-    <LibrariesList />
+    <ContentsContainer>
+      <LibrariesList />
+    </ContentsContainer>
   </>);
 }
 

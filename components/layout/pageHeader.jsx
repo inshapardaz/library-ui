@@ -1,13 +1,16 @@
 import { useTranslations } from 'next-intl';
 
 // 3rd party imports
-import { Breadcrumb,  Col, Row, Typography } from 'antd';
+import { Breadcrumb,  Col, Row, Typography, theme } from 'antd';
 import { FaHome } from 'react-icons/fa';
   
 function PageHeader ({title, icon}) {
   const t = useTranslations();
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   
-  return (<Row align="middle" gutter={4} style={{ padding : '20px'}}>
+  return (<Row align="middle" gutter={4} style={{ margin: '16px 0', backgroundColor: 'transparent' }}>
     <Col>{icon}</Col>
     <Col flex="auto">
       <Typography.Title level={2}>{title}</Typography.Title>

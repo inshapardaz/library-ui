@@ -7,6 +7,7 @@ import { ImBooks } from 'react-icons/im';
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
 import SeriesList from '@/components/series/seriesList';
+import ContentsContainer from '@/components/layout/contentContainer';
 
 function SeriesHomePage() {
   const t = useTranslations()
@@ -16,11 +17,13 @@ function SeriesHomePage() {
 
   return (<>
     <PageHeader title={t('series.title')} icon={<ImBooks style={{ width: 36, height: 36 }}/>} />
-    <SeriesList libraryId={libraryId} 
-      query={query}
-      pageNumber={pageNumber}
-      pageSize={pageSize}
-      />
+    <ContentsContainer>
+      <SeriesList libraryId={libraryId} 
+        query={query}
+        pageNumber={pageNumber}
+        pageSize={pageSize}
+        />
+    </ContentsContainer>
   </>);
 }
 

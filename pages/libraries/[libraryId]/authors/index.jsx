@@ -7,6 +7,7 @@ import { FaFeatherAlt } from 'react-icons/fa';
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
 import AuthorsList from '@/components/author/authorsList';
+import ContentsContainer from '@/components/layout/contentContainer';
 
 function AuthorsHomePage() {
   const t = useTranslations()
@@ -16,12 +17,14 @@ function AuthorsHomePage() {
 
   return (<>
     <PageHeader title={t('authors.title')} icon={<FaFeatherAlt style={{ width: 36, height: 36 }}/>} />
-    <AuthorsList libraryId={libraryId} 
-      query={query}
-      authorType={authorType}
-      pageNumber={pageNumber}
-      pageSize={pageSize}
-      />
+    <ContentsContainer>
+      <AuthorsList libraryId={libraryId} 
+        query={query}
+        authorType={authorType}
+        pageNumber={pageNumber}
+        pageSize={pageSize}
+        />
+      </ContentsContainer>
   </>);
 }
 

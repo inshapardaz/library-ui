@@ -144,16 +144,22 @@
   }
 }
 
-body {
-  &.header {
-    .__logo {
-      float: right;
-      margin: 16px 0 16px 24px;
-      font-weight: normal;
-      padding-right: 34px;
+.contents {
+  min-height : 'calc(100vh - 175px)';
+  padding: 0 50px;
+
+  .container {
+    padding: 24px;
+  }
+  @include when-mobile-device {
+    padding: 0 4px;
+
+    .container {
+      padding: 4px;
     }
   }
-} 
+}
+
 
 /**********  HERO IMAGE *********************/
 .hero {

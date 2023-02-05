@@ -7,6 +7,7 @@ import { ImNewspaper } from 'react-icons/im';
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
 import PeriodicalsList from '@/components/periodical/periodicalsList';
+import ContentsContainer from '@/components/layout/contentContainer';
 
 // ----------------------------------------------------
 
@@ -18,11 +19,13 @@ function PeriodicalsHomePage() {
   
     return (<>
       <PageHeader title={t('periodicals.title')} icon={<ImNewspaper style={{ width: 36, height: 36 }}/>} />
-      <PeriodicalsList libraryId={libraryId} 
-        query={query}
-        pageNumber={pageNumber}
-        pageSize={pageSize}
-        />
+      <ContentsContainer>
+        <PeriodicalsList libraryId={libraryId} 
+          query={query}
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          />
+        </ContentsContainer>
     </>);
 }
 
