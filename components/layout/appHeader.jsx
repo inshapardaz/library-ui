@@ -58,11 +58,8 @@ function AppHeader () {
       })
     }
 
-    if ((status === "authenticated")) {
+      if (libraryId) {
       loadLibraries();
-    }
-
-    if (libraryId) {
       loadLibrary();
       loadCategories();
     }
