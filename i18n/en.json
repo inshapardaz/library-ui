@@ -4,10 +4,12 @@
 	"header" : {
 		"home": "Home",
 		"libraries" : "Libraries",
+		"writings": "Writings",
 		"books": "Books",
 		"authors": "Authors",
 		"categories": "Categories",
 		"series": "Series",
+		"periodicals" : "Periodicals",
 		"logout": "Logout"
 	},
 	"footer" : {
@@ -107,7 +109,11 @@
 		"gettingStarted" : "Start Exploring"
 	},
 	"libraries" : {
-		"title" : "Libraries"
+		"title" : "Libraries",
+		"loadingError": "Unable to load libraries"
+	},
+	"library" : {
+		"loadingError": "Unable to load library"
 	},
 	"books": {
 		"latest" : {
@@ -137,5 +143,15 @@
 		"title" : "Series",
 		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
 		"noDescription" : "No details..."
-	} 
+	},
+	"categories" : {
+		"loadingError": "Unable to load categories"
+	},
+	"periodicals" : {
+		"title" : "Periodical"
+	},
+	"periodical" : {
+		"issueCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"noDescription" : "No details..."
+	}
 }

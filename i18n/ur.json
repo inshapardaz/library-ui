@@ -4,10 +4,12 @@
 	"header" : {
 		"home": "صفحۂ اوّل",
 		"libraries" : "کتب خانے",
+		"writings": "تصنیفات",
 		"books": "کتابیں",
 		"authors": "مصنّفین",
 		"categories": "زمرہ جات",
 		"series": "سلسلہ جات",
+		"periodicals" : "جرائد",
 		"logout": "اخراج"
 	},
 	"footer" : {
@@ -108,7 +110,11 @@
 		"gettingStarted" : "ابتدا کیجیے"
 	},
 	"libraries" : {
-		"title" : "کتب خانے"
+		"title" : "کتب خانے",
+		"loadingError": "کتب خانوں کے حصول میں ناکامی ہوئی"
+	},
+	"library" : {
+		"loadingError": "کتاب خانے کی تفصیل حاصل کرنے میں ناکامی ہوئی"
 	},
 	"books": {
 		"latest" : {
@@ -137,6 +143,16 @@
 	"series" : {
 		"title" : "سیریز",
 		"bookCount" : "{count, plural, =1 {1 کتاب} other {# کتابیں}}",
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
+	},
+	"categories" : {
+		"loadingError": "زمرہ جات کے حصول میں ناکامی ہوئی"
+	},
+	"periodicals" : {
+		"title" : "جرائد"
+	},
+	"periodical" : {
+		"issueCount" : "{count, plural, =1 {1 شمارہ} other {# شمارے}}",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	}
 }

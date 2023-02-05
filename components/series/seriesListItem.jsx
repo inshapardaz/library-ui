@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 // 3rd Party Libraries

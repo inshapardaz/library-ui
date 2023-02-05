@@ -26,7 +26,7 @@ function SeriesCard({ libraryId, series, t })
       <IconText icon={ImBooks} text={t('series.bookCount', { count: series.bookCount })} key="series-book-count" />
       </Link>);
   return (
-    <Card key={series.id} hoverable cover={cover} actions={[bookCount]}>
+    <Card key={series.id} cover={cover} actions={[bookCount]}>
       <Card.Meta title={title} description={description}/>
     </Card>);
 }

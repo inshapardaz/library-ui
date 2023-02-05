@@ -7,9 +7,9 @@ import { useRouter } from 'next/router'
 
 // 3rd party imports
 import { Layout, Menu, App, Dropdown, Button, Space, theme, Typography } from 'antd';
-import { FaBook, FaUser, FaFeatherAlt, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
+import { FaBook, FaUser, FaPenFancy, FaFeatherAlt, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
-import { ImBooks, ImLibrary, ImProfile } from 'react-icons/im';
+import { ImBooks, ImLibrary, ImNewspaper, ImProfile } from 'react-icons/im';
 import { MdPassword } from 'react-icons/md';
 
 // Local Imports
@@ -27,6 +27,7 @@ function AppHeader () {
   const { message } = App.useApp();
   const { data, status } = useSession()
   const [libraries, setLibraries] = useState({});
+  const [library, setLibrary] = useState({});
   const [categories, setCategories] = useState({});
   const router = useRouter();
   let items = [];
@@ -36,15 +37,24 @@ function AppHeader () {
     const loadLibraries = () => {
       libraryService.getLibraries()
           .then(res => setLibraries(res))
-          .catch(_ => message.error(t('libraries.message.loading.error')))
+          .catch(_ => message.error(t('libraries.loadingError')))
     }
   
+    const loadLibrary = () => {
+      libraryService.getLibrary(libraryId)
+      .then(res => setLibrary(res))
+      .catch((e) => {
+        console.error(e)
+        message.error(t('library.loadingError'))
+      })
+    }
+
     const loadCategories = () => {
       libraryService.getCategories(libraryId)
       .then(res => setCategories(res))
       .catch((e) => {
         console.error(e)
-        message.error(t('categories.messages.error.loading'))
+        message.error(t('categories.loadingError'))
       })
     }
 
@@ -53,6 +63,7 @@ function AppHeader () {
     }
 
     if (libraryId) {
+      loadLibrary();
       loadCategories();
     }
   }, [libraryId, message, t, status]);
@@ -160,6 +171,14 @@ function AppHeader () {
       icon: <FaBook />,
     },{
       label: (
+        <Link href={`/libraries/${libraryId}/writings`}>
+          {t("header.writings")}
+        </Link>
+      ),
+      key: 'writings',
+      icon: <FaPenFancy />,
+    },{
+      label: (
         <Link href={`/libraries/${libraryId}/authors`}>
           {t("header.authors")}
         </Link>
@@ -180,6 +199,18 @@ function AppHeader () {
       key: 'series',
       icon: <ImBooks />,
     }];
+
+    if (library.supportsPeriodicals)  {
+      items.push({
+        label: (
+          <Link href={`/libraries/${libraryId}/periodicals`}>
+            {t("header.periodicals")}
+          </Link>
+        ),
+        key: 'periodicals',
+        icon: <ImNewspaper />,
+      });
+    }
   }
   else {
     items = [{

@@ -156,6 +156,15 @@ class LibraryService {
         let queryVal = query ? `&query=${query}` : '';
         return get(`${libraryUrl(library)}/series?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
     }
+
+    /* --------------- Series ---------------------- */
+    getPeriodicals(library,
+      query = null,
+      pageNumber = 1,
+      pageSize = 12) {
+        let queryVal = query ? `&query=${query}` : '';
+        return get(`${libraryUrl(library)}/periodicals?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
+    }
 }
 
 const service = new LibraryService();

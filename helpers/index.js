@@ -135,6 +135,27 @@ const parseReadFilter = (readFilter) => {
   
       return location;
     },
+    buildLinkToPeriodicalsPage :  (
+      location,
+      page,
+      pageSize,
+      query
+    ) => {
+      let querystring = '';
+      querystring += page ? `pageNumber=${page}&` : '';
+      querystring += pageSize ? `pageSize=${pageSize}&` : '';
+      querystring += query ? `query=${query}&` : '';
+  
+      if (querystring !== '') {
+        if (querystring.substr(querystring.length - 1) === '&') {
+          querystring = querystring.slice(0, -1);
+        }
+  
+        return `${location}?${querystring}`;
+      }
+  
+      return location;
+    },
     buildLinkToBooksPagesPage: (location,
       page,
       pageSize,
@@ -183,33 +204,6 @@ const parseReadFilter = (readFilter) => {
       querystring += page ? `page=${page}&` : '';
       querystring += query ? `q=${query}&` : '';
       querystring += pageSize && pageSize !== 12 ? `pageSize=${pageSize}&` : '';
-  
-      if (querystring !== '') {
-        if (querystring.substr(querystring.length - 1) === '&') {
-          querystring = querystring.slice(0, -1);
-        }
-  
-        return `${location.pathname}?${querystring}`;
-      }
-  
-      return location.pathname;
-    },
-    buildLinkToPeriodicalsPage: (
-      location,
-      page,
-      query,
-      category,
-      frequencyFilter,
-      sortBy,
-      sortDirection,
-    ) => {
-      let querystring = '';
-      querystring += page ? `page=${page}&` : '';
-      querystring += query ? `query=${query}&` : '';
-      querystring += category ? `category=${category}&` : '';
-      querystring += frequencyFilter && frequencyFilter !== 'All' ? `frequency=${frequencyFilter}&` : '';
-      querystring += sortBy && sortBy !== 'title' ? `sortBy=${sortBy}&` : '';
-      querystring += sortDirection && sortDirection !== 'ascending' ? `sortDirection=${sortDirection}&` : '';
   
       if (querystring !== '') {
         if (querystring.substr(querystring.length - 1) === '&') {
