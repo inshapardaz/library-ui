@@ -129,10 +129,25 @@ class LibraryService {
       return get(`${libraryUrl(library)}/books?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
     }
 
+    /* --------------- Authors ------------------------- */
+
+    getAuthors(library,
+      query = null,
+      authorType = null,
+      pageNumber = 1,
+      pageSize = 12) {
+        let queryVal = query ? `&query=${query}` : '';
+        if (authorType) {
+          queryVal += `authorType=${authorType}`;
+        }
+        return get(`${libraryUrl(library)}/authors?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
+    }
+
     /* --------------- Categories ---------------------- */
     getCategories(library) {
       return get(`${libraryUrl(library)}/categories`);
     }
 }
 
-export default new LibraryService();
+const service = new LibraryService();
+export default service;

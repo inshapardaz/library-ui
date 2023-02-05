@@ -91,6 +91,29 @@ const parseReadFilter = (readFilter) => {
   
       return location;
     },
+    buildLinkToAuthorsPage: (
+      location,
+      page,
+      pageSize,
+      query,
+      authorType
+    ) => {
+      let querystring = '';
+      querystring += page ? `pageNumber=${page}&` : '';
+      querystring += pageSize ? `pageSize=${pageSize}&` : '';
+      querystring += query ? `query=${query}&` : '';
+      querystring += authorType ? `authorType=${authorType}&` : '';
+  
+      if (querystring !== '') {
+        if (querystring.substr(querystring.length - 1) === '&') {
+          querystring = querystring.slice(0, -1);
+        }
+  
+        return `${location}?${querystring}`;
+      }
+  
+      return location;
+    },
     buildLinkToBooksPagesPage: (location,
       page,
       pageSize,

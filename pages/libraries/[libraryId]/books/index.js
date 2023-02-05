@@ -6,7 +6,7 @@ import { ImBooks } from 'react-icons/im';
 
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
-import BooksList from '@/components/books/list';
+import BooksList from '@/components/books/booksList';
 
 function BooksPage() {
   const t = useTranslations()

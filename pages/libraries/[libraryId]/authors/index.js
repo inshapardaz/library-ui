@@ -1,5 +1,36 @@
+import { useTranslations } from 'next-intl';
+import { useRouter } from "next/router";
+
+// 3rd party libraries
+import { FaFeatherAlt } from 'react-icons/fa';
+
+// Local Imports
+import PageHeader from '@/components/layout/pageHeader';
+import AuthorsList from '@/components/author/authorsList';
+
 function AuthorsHomePage() {
-    return <h1>Authors Home Page</h1>;
+  const t = useTranslations()
+  const router = useRouter();
+  const { libraryId, query, authorType, pageNumber, pageSize } = router.query
+
+
+  return (<>
+    <PageHeader title={t('authors.title')} icon={<FaFeatherAlt style={{ width: 36, height: 36 }}/>} />
+    <AuthorsList libraryId={libraryId} 
+      query={query}
+      authorType={authorType}
+      pageNumber={pageNumber}
+      pageSize={pageSize}
+      />
+  </>);
 }
+
+export const getServerSideProps = async ({
+  locale,
+}) => ({
+  props: {
+    messages: (await import(`../../../../i18n/${locale}.json`)).default
+  },
+})
 
 export default AuthorsHomePage;

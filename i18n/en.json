@@ -121,6 +121,9 @@
 		"series": "Book of {name} series",
 		"seriesAndIndex": "Book {index} of {name} series"
 	},
+	"authors" : {
+		"title" : "Authors"
+	},
 	"author" : {
 		"writer" : "Writer",
 		"poet" : "poet",

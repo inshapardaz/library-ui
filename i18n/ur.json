@@ -122,6 +122,9 @@
 		"series": "{name} سلسلے کی کتاب",
 	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}"
 	},
+	"authors" : {
+		"title" : "مصنّفین"
+	},
 	"author" : {
 		"writer" : "لکھاری",
 		"poet" : "شاعر",

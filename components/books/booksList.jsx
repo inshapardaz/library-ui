@@ -15,13 +15,25 @@ import helpers from "../../helpers";
 
 // ------------------------------------------------------
 
-function BooksList({libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber = 1, pageSize = 10 }) {
+const grid = {
+    gutter: 4,
+    xs: 1,
+    sm: 2,
+    md: 3,
+    lg: 3,
+    xl: 4,
+    xxl: 5,
+};
+
+// ------------------------------------------------------
+
+function BooksList({libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber = 1, pageSize = 12 }) {
     const t = useTranslations();
     const router = useRouter();
     const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
     const [books, setBooks] = useState(null);
-    const [showList, setShowList] = useLocalStorage('book-view', false);
+    const [showList, setShowList] = useLocalStorage('book-list-view', false);
 
     useEffect(() => {
         setBusy(true);
@@ -37,33 +49,23 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
         setShowList(checked);
       };
     
-      const onPageChanged = (newPage, newPageSize) => {
-        router.push(helpers.buildLinkToBooksPage(
-            `/libraries/${libraryId}/books`,
-            newPage,
-            newPageSize,
-            query,
-            author,
-            categories,
-            series,
-            sortBy,
-            sortDirection,
-            favorites,
-            read,
-            status,
-          ));
-      }
-
-    const grid = {
-        gutter: 4,
-        xs: 1,
-        sm: 2,
-        md: 3,
-        lg: 3,
-        xl: 4,
-        xxl: 5,
-    };
-
+    const onPageChanged = (newPage, newPageSize) => {
+    router.push(helpers.buildLinkToBooksPage(
+        `/libraries/${libraryId}/books`,
+        newPage,
+        newPageSize,
+        query,
+        author,
+        categories,
+        series,
+        sortBy,
+        sortDirection,
+        favorites,
+        read,
+        status,
+        ));
+    }
+    
     return (<ApiContainer
         busy={busy} 
         error={error} 
@@ -81,7 +83,9 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
                 current: books ? books.currentPageIndex : 0,
                 total: books ? books.totalCount : 0,
                 showSizeChanger: true,
-                responsive: true
+                responsive: true,
+                showQuickJumper: true,
+                pageSizeOptions: [12, 24, 48, 96]
             }}
             renderItem={(book) => (
             <List.Item>

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 // 3rd party imports
 import { Layout, Menu, App, Dropdown, Button, Space, theme, Typography } from 'antd';
-import { FaBook, FaUser, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
+import { FaBook, FaUser, FaFeatherAlt, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { ImBooks, ImLibrary, ImProfile } from 'react-icons/im';
 import { MdPassword } from 'react-icons/md';
@@ -165,7 +165,7 @@ function AppHeader () {
         </Link>
       ),
       key: 'authors',
-      icon: <FaUser />,
+      icon: <FaFeatherAlt />,
     },{
       label: t("header.categories"),
       key: 'categories',
