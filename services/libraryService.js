@@ -87,6 +87,48 @@ class LibraryService {
       return get(`${libraryUrl(library)}/books?pageNumber=1&pageSize=12&sortby=DateCreated&sortDirection=descending`);
     }
 
+    getBooks(library,
+          query = null,
+          author = null,
+          categories = null,
+          series = null,
+          sortBy = null,
+          sortDirection = null,
+          favorite = null,
+          read = null,
+          status = null,
+          pageNumber = 1,
+          pageSize = 12)
+    {
+      let queryVal = query ? `&query=${query}` : '';
+      if (author) {
+        queryVal += `&authorId=${author}`;
+      }
+      if (categories) {
+        queryVal += `&categoryId=${categories}`;
+      }
+      if (series) {
+        queryVal += `&seriesId=${series}`;
+      }
+      if (sortBy) {
+        queryVal += `&sortBy=${sortBy}`;
+      }
+      if (favorite) {
+        queryVal += '&favorite=true';
+      }
+      if (read !== undefined && read !== null) {
+        queryVal += `&read=${read}`;
+      }
+      if (status) {
+        queryVal += `&status=${status}`;
+      }
+      if (sortDirection) {
+        queryVal += `&sortDirection=${sortDirection}`;
+      }
+  
+      return get(`${libraryUrl(library)}/books?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
+    }
+
     /* --------------- Categories ---------------------- */
     getCategories(library) {
       return get(`${libraryUrl(library)}/categories`);

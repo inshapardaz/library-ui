@@ -2,12 +2,13 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 // 3rd Party Libraries
-import { Avatar, List, Space, Typography } from 'antd'
+import { Avatar, List, Typography } from 'antd'
 import { AuthorAvatar } from '../author/authorAvatar';
 import { BookCategory } from './bookCategory';
 import { BookSeriesInfo } from './bookSeriesInfo';
 
 // ------------------------------------------------
+
 function BookListItem({ libraryId, book, t }) 
 {
   const router = useRouter();

@@ -14,7 +14,9 @@
 		"copyrights" : "Copyrights Nawishta. All rights reserved."
 	},
 	"actions" : {
-		"seeMore": "See More۔۔۔"
+		"seeMore": "See More...",
+		"list" : "List",
+		"card" : "Cards"
 	},
 	"login" : {
 		"title" : "Login",
@@ -111,6 +113,7 @@
 		"latest" : {
 			"title"  : "Latest books"
 		},
+		"title"  : "Books",
 		"empty" : "No latest book found",
 		"loadingError": "Unable to load books"
 	},

@@ -19,11 +19,11 @@ function BookCard({ libraryId, book, t })
             { book.authors.map(author => (<AuthorAvatar key={author.id} libraryId={libraryId} author={author} t={t}/>))}
           </Avatar.Group>}
           title={book.title}
-          description={<Space direction="vertical">
-              <Typography.Paragraph ellipsis lines={2}>{book.description}</Typography.Paragraph>
-              <BookCategory book={book} />
-              <BookSeriesInfo book={book} t={t}/>
-            </Space>}
+          // description={<Space direction="vertical">
+          //     <Typography.Paragraph ellipsis lines={2}>{book.description}</Typography.Paragraph>
+          //     <BookCategory book={book} />
+          //     <BookSeriesInfo book={book} t={t}/>
+          //   </Space>}
       />
       </Card>
       </Link>);

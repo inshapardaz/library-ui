@@ -7,7 +7,7 @@ import { FaHome } from 'react-icons/fa';
 function PageHeader ({title, icon}) {
   const t = useTranslations();
   
-  return (<Row align="middle" gutter={4} style={{ padding : '20px 10px'}}>
+  return (<Row align="middle" gutter={4} style={{ padding : '20px'}}>
     <Col>{icon}</Col>
     <Col flex="auto">
       <Typography.Title level={2}>{title}</Typography.Title>

@@ -8,7 +8,7 @@ export function BookSeriesInfo({ book, t }) {
     }
 
     else {
-      return (<Typography>{t('book.series', { name: book.seriesName })}</Typography>);
+      return (<Typography>{t.raw('book.series', { name: book.seriesName })}</Typography>);
     }
   }
 

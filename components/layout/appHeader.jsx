@@ -118,7 +118,7 @@ function AppHeader () {
 
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
-      <Link href={`/libraries/${libraryId}/books?category=${c.id}`}>
+      <Link href={`/libraries/${libraryId}/books?categories=${c.id}`}>
         {c.name}
       </Link>
     ),

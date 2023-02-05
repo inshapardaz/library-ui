@@ -6,8 +6,6 @@ import { useLocalStorage } from 'usehooks-ts';
 
 // 3rd party libraries
 import { App, ConfigProvider, theme } from 'antd';
-
-// 3rd party libraries
 import { IconContext } from "react-icons";
 
 // Internal imports
@@ -42,7 +40,7 @@ const MyApp = ({ Component, pageProps }) => {
        <NextIntlProvider messages={pageProps.messages}>
           <ConfigProvider 
               direction={language ? language.dir : 'ltr'} 
-              locale={language ? language.locale : currentLocale} 
+              locale={language ? language.antdLocale : 'en'} 
               componentSize="large"
               theme={{
                 algorithm: getThemeAlgorithm(theme, mode),
