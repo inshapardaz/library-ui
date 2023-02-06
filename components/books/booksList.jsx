@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useLocalStorage } from "usehooks-ts";
 
 // 3rd party libraries
-import { Button, List, Space, Switch } from 'antd';
+import { List, Switch } from 'antd';
 
 // Internal Imports
 import libraryService from "@/services/libraryService";
@@ -18,11 +18,11 @@ import helpers from "@/helpers/index";
 const grid = {
     gutter: 4,
     xs: 1,
-    sm: 2,
-    md: 3,
-    lg: 3,
-    xl: 4,
-    xxl: 5,
+    sm: 1,
+    md: 1,
+    lg: 2,
+    xl: 3,
+    xxl: 4,
 };
 
 // ------------------------------------------------------
@@ -69,6 +69,7 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
     return (<ApiContainer
         busy={busy} 
         error={error} 
+        bordered={false}
         empty={books && books.data && books.data.length < 1}
         actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>
         <List

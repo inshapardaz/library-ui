@@ -120,6 +120,12 @@
 		"latest" : {
 			"title" : "نئی کتب"
 		},
+		"favorites" : {
+			"title" : "پسندیدہ کتب"
+		},
+		"read" : {
+			"title" : "مطالعہ شدہ کتب"
+		},
 		"title" : "کتب",
 		"empty" : "کتاب دستیاب نہیں",
 		"loadingError": "کتابوں کے حصول میں ناکامی ہوئی"
@@ -146,6 +152,8 @@
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	},
 	"categories" : {
+		"title": "زمرے",
+		"all" : "تمام زمرے",
 		"loadingError": "زمرہ جات کے حصول میں ناکامی ہوئی"
 	},
 	"periodicals" : {

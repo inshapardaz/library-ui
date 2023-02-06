@@ -3,33 +3,46 @@ import { useRouter } from "next/router";
 
 // 3rd party libraries
 import { ImBooks } from 'react-icons/im';
-
+import { Layout, theme } from 'antd';
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
 import BooksList from '@/components/books/booksList';
 import ContentsContainer from '@/components/layout/contentContainer';
+import BooksSideBar from '@/components/books/booksSideBar';
 
+ //--------------------------------------------------------
+ const {  Content, Sider } = Layout;
+ //--------------------------------------------------------
 function BooksPage() {
-  const t = useTranslations()
+  const t = useTranslations();
   const router = useRouter();
+  const { token: { colorBgContainer } } = theme.useToken();
+
   const { libraryId, query, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber, pageSize } = router.query
 
 
   return (<>
     <PageHeader title={t('books.title')} icon={<ImBooks style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
-      <BooksList libraryId={libraryId} 
-        query={query}
-        categories={categories} 
-        series={series}
-        sortBy={sortBy}
-        sortDirection={sortDirection}
-        favorites={favorites}
-        read={read}
-        status={status}
-        pageNumber={pageNumber}
-        pageSize={pageSize}
-        />
+        <Layout style={{ padding: '24px 0', background: colorBgContainer }}>
+          <Sider style={{ background: colorBgContainer }} width={200}>
+            <BooksSideBar />
+          </Sider>
+          <Content style={{ padding: '0 24px', minHeight: 280 }}>
+            <BooksList libraryId={libraryId} 
+              query={query}
+              categories={categories} 
+              series={series}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              favorites={favorites}
+              read={read}
+              status={status}
+              pageNumber={pageNumber}
+              pageSize={pageSize}
+              />
+          </Content>
+        </Layout>
       </ContentsContainer>
   </>);
 }

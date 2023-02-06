@@ -119,6 +119,12 @@
 		"latest" : {
 			"title"  : "Latest books"
 		},
+		"favorites" : {
+			"title" : "Favorites"
+		},
+		"read" : {
+			"title" : "Read books"
+		},
 		"title"  : "Books",
 		"empty" : "No latest book found",
 		"loadingError": "Unable to load books"
@@ -145,6 +151,8 @@
 		"noDescription" : "No details..."
 	},
 	"categories" : {
+		"title": "Categories",
+		"all" : "All Categories",
 		"loadingError": "Unable to load categories"
 	},
 	"periodicals" : {
