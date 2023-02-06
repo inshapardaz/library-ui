@@ -10,7 +10,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
 import useAuth from '@/hooks/useAuth';
-import styles from '../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 import LayoutWithFooter from '@/components/layout/layoutWithFooter';
 import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
 
@@ -84,7 +84,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    messages: (await import(`../i18n/${locale ?? 'en'}.json`)).default
+    messages: (await import(`@/i18n/${locale ?? 'en'}.json`)).default
   },
 })
 

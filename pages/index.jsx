@@ -6,7 +6,7 @@ import { Button, Typography, theme } from 'antd'
 import { GiRead } from 'react-icons/gi'
 
 // Local Imports
-import styles from '../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 import HeroImage from '@/components/heroImage'
 import LibrariesList from '@/components/libraries/list'
 
@@ -37,7 +37,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    messages: (await import(`../i18n/${locale}.json`)).default
+    messages: (await import(`@/i18n/${locale}.json`)).default
   },
 })
 

@@ -4,7 +4,7 @@ import Image from 'next/image';
 // 3rd Party Libraries
 import { List, Typography } from 'antd'
 import { ImBooks } from 'react-icons/im';
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import Link from 'next/link';
 import { IconText } from '../common/iconText';
 

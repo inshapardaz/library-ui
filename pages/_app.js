@@ -9,7 +9,7 @@ import { App, ConfigProvider, theme } from 'antd';
 import { IconContext } from "react-icons";
 
 // Internal imports
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import RefreshTokenHandler from '@/components/refreshTokenHandler';
 import LayoutWithHeader from '@/components/layout/layoutWithHeader'
 import localeService from '@/services/localeService';

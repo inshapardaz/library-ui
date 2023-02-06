@@ -10,7 +10,7 @@ import { AiOutlineCopy } from 'react-icons/ai';
 import { AuthorAvatar } from '../author/authorAvatar';
 import { BookCategory } from './bookCategory';
 import { BookSeriesInfo } from './bookSeriesInfo';
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import { IconText } from '../common/iconText';
 // ------------------------------------------------------
 

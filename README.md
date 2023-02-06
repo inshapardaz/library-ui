@@ -12,4 +12,4 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:4800](http://localhost:4800) with your browser to see the result.
+Open [http://localhost:4200](http://localhost:4200) with your browser to see the result.

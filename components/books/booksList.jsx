@@ -11,7 +11,7 @@ import libraryService from "@/services/libraryService";
 import ApiContainer from "../common/ApiContainer";
 import BookCard from "./bookCard";
 import BookListItem from "./bookListItem";
-import helpers from "../../helpers";
+import helpers from "@/helpers/index";
 
 // ------------------------------------------------------
 

@@ -8,7 +8,6 @@ import { App, Button, Form, Input, Space, Divider } from 'antd';
 import { LockOutlined } from '@ant-design/icons';
 
 // Internal imports
-import styles from '../styles/common.module.scss'
 import accountService  from '@/services/accountService';
 import LayoutWithFooter from '@/components/layout/layoutWithFooter';
 import FullPageFormContainer from '@/components/layout/fullPageFormContainer';
@@ -115,7 +114,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    messages: (await import(`../i18n/${locale}.json`)).default
+    messages: (await import(`@/i18n/${locale}.json`)).default
   },
 })
 

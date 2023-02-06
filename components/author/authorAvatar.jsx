@@ -4,7 +4,7 @@ import { ImBooks } from 'react-icons/im';
 import Link from 'next/link';
 
 // Local imports
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 
 // --------------------------------------------------
 export function AuthorAvatar({ author, libraryId, t }) {

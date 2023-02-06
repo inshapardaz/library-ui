@@ -4,7 +4,7 @@ import { Layout  } from "antd";
 // Local imports
 import Footer from "./footer";
 import AppHeader from "./appHeader";
-import styles from '../../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 
  // -----------------------------------------
 

@@ -3,7 +3,7 @@
 import { theme } from 'antd';
 
 // Internal Imports
-import styles from '../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 
 function HeroImage({ useStaticImage = false, size = 'large', children }) {
     const { token } = theme.useToken();

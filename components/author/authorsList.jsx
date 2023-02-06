@@ -10,7 +10,7 @@ import { List, Switch } from "antd";
 import libraryService from "@/services/libraryService"
 import ApiContainer from "../common/ApiContainer"
 import AuthorCard from './authorCard'
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import AuthorListItem from "./authorListItem";
 
 // ------------------------------------------------------

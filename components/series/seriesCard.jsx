@@ -7,7 +7,7 @@ import { IconText } from '../common/iconText';
 import { ImBooks } from 'react-icons/im';
 
 // Local imports
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 
 // ------------------------------------------------------
 

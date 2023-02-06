@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { Typography } from 'antd';
 
 // Internal Imports
-import styles from '../../../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 import SearchBox from '@/components/searchBox';
 import LatestBooks from '@/components/books/latestBooks';
 import libraryService from '@/services/libraryService';
@@ -47,7 +47,7 @@ export const getServerSideProps = async ({
   locale,
 }) => ({
   props: {
-    messages: (await import(`../../../i18n/${locale}.json`)).default
+    messages: (await import(`@/i18n/${locale}.json`)).default
   },
 })
 

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import styles from '../../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 
 // ----------------------------------------------
 

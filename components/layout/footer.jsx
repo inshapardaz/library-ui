@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 // 3rd party imports
 import { Layout } from 'antd';
 import LanguageSwitcher from "../languageSwitcher";
-import styles from '../../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 
 // ----------------------------------------------
 

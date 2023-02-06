@@ -7,7 +7,7 @@ import { IconText } from '../common/iconText';
 import { BiNews } from 'react-icons/bi';
 
 // Local imports
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 
 // ------------------------------------------------------
 

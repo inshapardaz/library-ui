@@ -4,7 +4,7 @@ import Image from 'next/image';
 // 3rd Party Libraries
 import { Avatar, Card, Space, Typography } from 'antd'
 import { AuthorAvatar } from '../author/authorAvatar';
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import { BookCategory } from './bookCategory';
 import { BookSeriesInfo } from './bookSeriesInfo';
 import { IconText } from '../common/iconText';

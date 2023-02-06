@@ -13,7 +13,7 @@ import { ImBooks, ImLibrary, ImNewspaper, ImProfile } from 'react-icons/im';
 import { MdPassword } from 'react-icons/md';
 
 // Local Imports
-import styles from '../../styles/common.module.scss'
+import styles from '@/styles/common.module.scss'
 import libraryService from "@/services/libraryService";
 import LanguageSwitcher from "@/components/languageSwitcher";
 import DarkModeToggle from "@/components/darkModeToggle";

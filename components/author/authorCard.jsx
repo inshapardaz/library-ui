@@ -9,7 +9,7 @@ import { IconText } from '../common/iconText';
 import { FaPenFancy } from 'react-icons/fa';
 
 // Local Imports
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 
 // ------------------------------------------------------
 

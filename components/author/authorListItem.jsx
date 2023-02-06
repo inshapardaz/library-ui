@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { List, Space, Typography } from 'antd'
 import { ImBooks } from 'react-icons/im';
 import { FaPenFancy } from 'react-icons/fa';
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import { IconText } from '../common/iconText';
 
 // ------------------------------------------------------

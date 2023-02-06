@@ -9,7 +9,7 @@ import { List, Switch } from "antd";
 // Local Imports
 import libraryService from "@/services/libraryService"
 import ApiContainer from "../common/ApiContainer"
-import helpers from '../../helpers';
+import helpers from '@/helpers/index';
 import SeriesListItem from "./seriesListItem";
 import SeriesCard from "./seriesCard";
 
