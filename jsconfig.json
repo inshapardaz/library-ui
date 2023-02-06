@@ -6,8 +6,7 @@
             "@/hooks/*": ["hooks/*"],
             "@/services/*": ["services/*"],
             "@/styles/*": ["styles/*"],
-            "@/helpers/*": ["helpers/*"],         
-            "@/i18n/*": ["i18n/*"]            
+            "@/helpers/*": ["helpers/*"]      
         }
     }
 }
