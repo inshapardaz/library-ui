@@ -9,6 +9,7 @@ import { GiRead } from 'react-icons/gi'
 import styles from '@/styles/common.module.scss'
 import HeroImage from '@/components/heroImage'
 import LibrariesList from '@/components/libraries/list'
+import ContentsContainer from '@/components/layout/contentContainer';
 
 //---------------------------------------------
 
@@ -28,7 +29,9 @@ function HomePage() {
             <Button type="primary" icon={<GiRead />}> {t('home.gettingStarted')}</Button>
         </div>
       </HeroImage>
-      <LibrariesList />
+      <ContentsContainer>
+        <LibrariesList />
+      </ContentsContainer>
     </>
   )
 }

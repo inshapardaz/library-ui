@@ -4,32 +4,35 @@ import { useTranslations } from 'next-intl';
 import { useSession } from "next-auth/react"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
+import { useMediaQuery } from "usehooks-ts";
 
 // 3rd party imports
-import { Layout, Menu, App, Dropdown, Button, Space, theme, Typography } from 'antd';
-import { FaBook, FaUser, FaPenFancy, FaFeatherAlt, FaTags, FaTag, FaHome, FaUserCircle } from 'react-icons/fa';
-import { FiLogIn, FiLogOut } from 'react-icons/fi';
-import { ImBooks, ImLibrary, ImNewspaper, ImProfile } from 'react-icons/im';
-import { MdPassword } from 'react-icons/md';
+import { Menu, App, Button, theme, Drawer, Row, Col } from 'antd';
+import { FaBook, FaPenFancy, FaFeatherAlt, FaTags, FaTag, FaHome, FaBars } from 'react-icons/fa';
+import { ImBooks, ImLibrary, ImNewspaper } from 'react-icons/im';
 
 // Local Imports
 import styles from '@/styles/common.module.scss'
 import libraryService from "@/services/libraryService";
 import LanguageSwitcher from "@/components/languageSwitcher";
 import DarkModeToggle from "@/components/darkModeToggle";
-import Image from "next/image";
+import { Logo } from "./logo";
+import { ProfileMenu } from "./profileMenu";
 
-// ---------------------------------------------------
+//---------------------------------------------
 
 function AppHeader () {
   const t = useTranslations();
   const { token } = theme.useToken();
   const { message } = App.useApp();
-  const { data, status } = useSession()
+  const { status } = useSession()
   const [libraries, setLibraries] = useState({});
   const [library, setLibrary] = useState({});
   const [categories, setCategories] = useState({});
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const isMobile = useMediaQuery(["(max-width: 600px)"], [true], false); 
+
   let items = [];
   const { libraryId } = router.query
 
@@ -74,55 +77,13 @@ function AppHeader () {
         logoutClicked();
         break;
     }
+
+    setMobileMenuOpen(false);
   }
 
   const logoutClicked = () => {
     signOut({ callbackUrl: '/' });
   }
-
-  const profileItems = (status === "authenticated") ?
-    [{
-      label: data ? data.name : '',
-      key: 'username',
-      icon: <FaUserCircle />,
-    },{
-      type: 'divider'
-    },{
-      label: t('profile.title'),
-      key: 'profile',
-      icon: <ImProfile />,
-    },{
-      label: (
-        <Link href='/change-password'>
-          {t('changePassword.title')}
-        </Link>),
-      key: 'change-password',
-      icon: <MdPassword />,
-    },{
-      type: 'divider'
-    },{
-      label: t('header.logout'),
-      key: 'sign-out',
-      icon: <FiLogOut />,
-      onClick: logoutClicked
-    }]
-  : [{
-      label: (
-        <Link href='/login'>
-          {t('login.title')}
-        </Link>),
-      key: 'login',
-      icon: <FiLogIn />,
-    },{
-      type: 'divider'
-    },{
-      label: (
-        <Link href='/register'>
-          {t('register.title')}
-        </Link>),
-      key: 'register',
-      icon: <FaUserCircle />,
-    }];
 
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
@@ -149,7 +110,7 @@ function AppHeader () {
     items = [{
       key: 'libraries',
       icon: <ImLibrary />,
-      children: libItems
+      items: libItems
     },{
       label: (
         <Link href={`/libraries/${libraryId}`}>
@@ -186,7 +147,7 @@ function AppHeader () {
       label: t("header.categories"),
       key: 'categories',
       icon: <FaTags />,
-      children : catItems
+      items : catItems
     },{
       label: (
         <Link href={`/libraries/${libraryId}/series`}>
@@ -223,38 +184,47 @@ function AppHeader () {
     }];
   }
 
-  return (<Layout.Header  className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
-      <Link href="/" className={styles['header__logo']}>
-          <Space size={8}>
-            <Image src="/images/logo.png" alt="logo" height={24} width={24} />
-            <span> {t("app")} </span>
-          </Space>
-      </Link>
-      <Menu
-        className={styles['header__menu']}
-        mode="horizontal"
-        selectable={false}
-        expandIcon={true}
-        items={items}
-        onClick={onMenuClick}
-      />
-      <DarkModeToggle />
-      <LanguageSwitcher arrow round/>
-      <Dropdown arrow
-        className={styles['header__profile']}
-        placement='bottomRight'
-        menu={{
-          items: profileItems,
-          selectable: false,
-        }}
-      >
-        <Button shape="circle">
-          <Space>
-            <FaUser />
-          </Space>
-        </Button>
-      </Dropdown>
-    </Layout.Header>);
+  const menu = (<Menu
+    className={ isMobile ? styles['header__menu'] : null}
+    mode={isMobile ? "vertical" : "horizontal" }
+    selectable={false}
+    expandIcon={true}
+    items={items}
+    onClick={onMenuClick}
+  />);
+
+  if (isMobile) {
+    return (
+      <Row className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
+        <Col><Logo t={t}/></Col>
+        <Col flex="auto"></Col>
+        <Col>
+          <DarkModeToggle />
+          <LanguageSwitcher arrow round/>
+          <ProfileMenu />
+          <Button onClick = { () => setMobileMenuOpen(true) } icon={<FaBars color={token.colorText} />} ghost />
+        </Col>
+        <Drawer
+              title={<Logo t={t}/>}
+              closable={true}
+              width="100%"
+              onClose = { () => setMobileMenuOpen(false) }
+              open={ mobileMenuOpen }
+          >
+              <Menu>{menu}</Menu>
+          </Drawer>
+      </Row>);
+  }
+
+  return (<Row className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
+      <Col><Logo t={t}/></Col>
+      <Col flex="auto">{menu}</Col>
+      <Col>
+        <DarkModeToggle />
+        <LanguageSwitcher arrow round/>
+        <ProfileMenu />
+      </Col>
+    </Row>);
 }
 
 export default AppHeader;

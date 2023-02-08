@@ -72,7 +72,7 @@ function BooksSideBar() {
         key: 'side-bar-categories',
         icon: <FaTags />,
         label: t('categories.title'),
-        children: catItems
+        items: catItems
       }];
     
     if (status === "authenticated") 

@@ -10,6 +10,7 @@ import SearchBox from '@/components/searchBox';
 import LatestBooks from '@/components/books/latestBooks';
 import libraryService from '@/services/libraryService';
 import HeroImage from '@/components/heroImage';
+import ContentsContainer from '@/components/layout/contentContainer';
 // ------------------------------------------------------
 
 function LibraryHomePage() {
@@ -38,7 +39,9 @@ function LibraryHomePage() {
           <SearchBox libraryId={libraryId}/>
         </div>
       </HeroImage>
-      <LatestBooks libraryId={libraryId}/>
+      <ContentsContainer>
+        <LatestBooks libraryId={libraryId}/>
+      </ContentsContainer>
     </>);
 }
 

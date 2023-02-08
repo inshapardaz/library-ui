@@ -20,7 +20,7 @@ function DarkModeToggle() {
         }
     }
     const icon = mode === 'dark' ? <MdOutlineDarkMode /> :  <MdOutlineWbSunny />
-    return <Button shape="circle" onClick={onClick}>
+    return <Button shape="circle" onClick={onClick} >
         { icon }
     </Button>
 }
