@@ -1,28 +1,26 @@
 import { useLocalStorage } from "usehooks-ts";
 
-import { Button, theme } from "antd";
+import { Switch } from "antd";
 import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 
 function DarkModeToggle() {
-    const token = theme.useToken();
     const [mode, setMode] = useLocalStorage('ui-mode')
-    const onClick = () => {
-        switch (mode) {
-            case 'light':
-                setMode('dark');
-                break;
-            case 'dark':
-                setMode('system');
-                break;
-            default:
-                setMode('dark');
-                break;
+    const onClick = (checked) => {
+        console.log(checked)
+        if (checked) {
+            setMode('system');
+        }
+        else {
+            setMode('dark');
         }
     }
-    const icon = mode === 'dark' ? <MdOutlineDarkMode /> :  <MdOutlineWbSunny />
-    return <Button shape="circle" onClick={onClick} >
-        { icon }
-    </Button>
+
+    return (<Switch
+        checkedChildren={<MdOutlineDarkMode />}
+        unCheckedChildren={<MdOutlineWbSunny />}
+        defaultChecked={mode === 'dark'}
+        onChange={onClick}
+    />);
 }
 
 export default DarkModeToggle;

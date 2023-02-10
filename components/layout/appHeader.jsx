@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
-import { useSession } from "next-auth/react"
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 import { useMediaQuery } from "usehooks-ts";
@@ -25,8 +24,6 @@ function AppHeader () {
   const t = useTranslations();
   const { token } = theme.useToken();
   const { message } = App.useApp();
-  const { status } = useSession()
-  const [libraries, setLibraries] = useState({});
   const [library, setLibrary] = useState({});
   const [categories, setCategories] = useState({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,13 +33,7 @@ function AppHeader () {
   let items = [];
   const { libraryId } = router.query
 
-  useEffect(() => {
-    const loadLibraries = () => {
-      libraryService.getLibraries()
-          .then(res => setLibraries(res))
-          .catch(_ => message.error(t('libraries.loadingError')))
-    }
-  
+  useEffect(() => {  
     const loadLibrary = () => {
       libraryService.getLibrary(libraryId)
       .then(res => setLibrary(res))
@@ -62,11 +53,10 @@ function AppHeader () {
     }
 
       if (libraryId) {
-      loadLibraries();
-      loadLibrary();
-      loadCategories();
+        loadLibrary();
+        loadCategories();
     }
-  }, [libraryId, message, t, status]);
+  }, [libraryId, message, t]);
 
   
 
@@ -95,23 +85,9 @@ function AppHeader () {
     icon: <FaTag />,
   }))
 
-  const libItems = libraries && libraries.data && libraries.data.map(l => ({
-    label : (
-      <Link href={`/libraries/${l.id}`}>
-        {l.name}
-      </Link>
-    ),
-    key: l.id,
-    icon: <ImLibrary />,
-  }));
-
   if (isLibraryPage())
   {
     items = [{
-      key: 'libraries',
-      icon: <ImLibrary />,
-      items: libItems
-    },{
       label: (
         <Link href={`/libraries/${libraryId}`}>
           {t("header.home")}
@@ -147,7 +123,7 @@ function AppHeader () {
       label: t("header.categories"),
       key: 'categories',
       icon: <FaTags />,
-      items : catItems
+      children : catItems
     },{
       label: (
         <Link href={`/libraries/${libraryId}/series`}>
@@ -186,7 +162,8 @@ function AppHeader () {
 
   const menu = (<Menu
     className={ isMobile ? styles['header__menu'] : null}
-    mode={isMobile ? "vertical" : "horizontal" }
+    style={{ backgroundColor : 'transparent', border: 'none' }}
+    mode={isMobile ? "inline" : "horizontal" }
     selectable={false}
     expandIcon={true}
     items={items}
@@ -196,7 +173,7 @@ function AppHeader () {
   if (isMobile) {
     return (
       <Row className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
-        <Col><Logo t={t}/></Col>
+        <Col><Logo t={t} /></Col>
         <Col flex="auto"></Col>
         <Col>
           <DarkModeToggle />
@@ -205,7 +182,7 @@ function AppHeader () {
           <Button onClick = { () => setMobileMenuOpen(true) } icon={<FaBars color={token.colorText} />} ghost />
         </Col>
         <Drawer
-              title={<Logo t={t}/>}
+              title={<Logo t={t} showLibrarySwitcher={false}  />}
               closable={true}
               width="100%"
               onClose = { () => setMobileMenuOpen(false) }
@@ -216,12 +193,18 @@ function AppHeader () {
       </Row>);
   }
 
-  return (<Row className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
-      <Col><Logo t={t}/></Col>
+  return (<Row className={styles.header} gutter={{ m:8, s:4 }} style={{ backgroundColor : token.colorBgContainer}}>
+      <Col>
+        <Logo t={t} library={library} />
+      </Col>
       <Col flex="auto">{menu}</Col>
       <Col>
         <DarkModeToggle />
+      </Col>
+      <Col>
         <LanguageSwitcher arrow round/>
+      </Col>
+      <Col>
         <ProfileMenu />
       </Col>
     </Row>);

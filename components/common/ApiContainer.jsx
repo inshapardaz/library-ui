@@ -1,5 +1,8 @@
 import { Card, Empty, Result  } from "antd";
 
+// Local Import 
+import styles from '@/styles/common.module.scss';
+
 // ------------------------------------------------
 
 function ApiContainer ({ title, 
@@ -11,7 +14,7 @@ function ApiContainer ({ title,
                     !!empty ? <Empty image={emptyImage} description={emptyDescription} >{emptyContent}</Empty>  :
                     busy ? null: children;
     return (<Card title={title} extra={actions} bordered={bordered}
-        style={{ padding: 15}} 
+        className={styles['api_container']} 
         loading={busy}
         >
         { content }

@@ -113,15 +113,13 @@
   align-items: center;
   flex-wrap: nowrap;
   gap: 6px;
+  padding: 0 10px;
 
   &__logo {
-      float: left;
-      width: 120px;
-      height: 31px;
       line-height: 31px;
       margin: 16px 24px 16px 0;
-      padding-left: 34px;
       font-weight: bold;
+      align-items: center;
 
       &:hover {
         filter: brightness(80%)
@@ -214,5 +212,12 @@
       padding-top : 50px;
       margin: 0 10px;
     }
+  }
+}
+
+.api_container {
+  padding: 15px;
+  @include when-mobile-device {
+    padding: 4px;
   }
 }
