@@ -49,6 +49,15 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
         setShowList(checked);
     };
 
+    const renderItem = (author) => {
+        if (showList) {
+            return <AuthorListItem key={author.id} libraryId={libraryId} author={author} t={t} />
+        } 
+        else {
+            return <List.Item><AuthorCard key={author.id} libraryId={libraryId} author={author} t={t} /></List.Item>
+        }
+    }
+
     const onPageChanged = (newPage, newPageSize) => {
         router.push(helpers.buildLinkToAuthorsPage(
             `/libraries/${libraryId}/authors`,
@@ -80,14 +89,7 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
                     showQuickJumper: true,
                     pageSizeOptions: [12, 24, 48, 96]
                 }}
-                renderItem={(author) => (
-                <List.Item>
-                    { showList ?  
-                       <AuthorListItem key={author.id} libraryId={libraryId} author={author} t={t} />:
-                       <AuthorCard key={author.id} libraryId={libraryId} author={author} t={t} />
-                    }
-                </List.Item>
-                )}
+                renderItem={renderItem}
             />
         </ApiContainer>);
 }

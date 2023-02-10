@@ -129,6 +129,14 @@ class LibraryService {
       return get(`${libraryUrl(library)}/books?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`);
     }
 
+    getBook(library, book) {
+      return get(`${libraryUrl(library)}/books/${book}`);
+    }
+
+    getBookChapters(library, book) {
+      return get(`${libraryUrl(library)}/books/${book}/chapters`);
+    }
+
     /* --------------- Authors ------------------------- */
 
     getAuthors(library,

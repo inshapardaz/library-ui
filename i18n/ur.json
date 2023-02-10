@@ -135,7 +135,11 @@
 	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}",
 		"chapterCount" : "{count, plural, =1 {1 باب} other {# ابواب}}",
 		"pageCount" : "{count, plural, =1 {1 صفحہ} other {# صفحات}}",
-		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
+		"publishLabel" : "{year} میں شائع ہوئی",
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔",
+		"chapters" : {
+			"title" : "ابواب"
+		}
 	},
 	"authors" : {
 		"title" : "مصنّفین"

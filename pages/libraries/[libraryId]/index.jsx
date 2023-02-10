@@ -1,5 +1,7 @@
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useTranslations } from 'next-intl';
 
 // 3rd party library
 import { Typography } from 'antd';
@@ -14,6 +16,7 @@ import ContentsContainer from '@/components/layout/contentContainer';
 // ------------------------------------------------------
 
 function LibraryHomePage() {
+    const t = useTranslations();
     const router = useRouter()
     const { libraryId } = router.query
     const [busy, setBusy] = useState(true);
@@ -31,8 +34,11 @@ function LibraryHomePage() {
     }
 
     useEffect(() => loadLibrary(), [])
-
+    const title = library ? `- ${library.name}` : ''
     return (<>
+    <Head>
+      <title>{`${t('app')} ${title}`}</title>
+    </Head>
       <HeroImage>
         <Typography.Title level={1} className={styles.hero__title} >{library ? library.name : ''}</Typography.Title>
         <div className={styles.hero__content}>

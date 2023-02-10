@@ -134,7 +134,11 @@
 		"seriesAndIndex": "Book {index} of {name} series",
 		"chapterCount" : "{count, plural, =0 {no chapter} =1 {one chapter} other {# chapters}}",
 		"pageCount" : "{count, plural, =0 {no page} =1 {one page} other {# pages}}",
-		"noDescription" : "No details..."
+		"publishLabel" : "Publishd in {year}",
+		"noDescription" : "No details...",
+		"chapters" : {
+			"title" : "Chapters"
+		}
 	},
 	"authors" : {
 		"title" : "Authors"

@@ -6,7 +6,6 @@ import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 function DarkModeToggle() {
     const [mode, setMode] = useLocalStorage('ui-mode')
     const onClick = (checked) => {
-        console.log(checked)
         if (checked) {
             setMode('system');
         }

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
 
@@ -16,6 +17,9 @@ function SeriesHomePage() {
 
 
   return (<>
+    <Head>
+      <title>{`${t('app')} - ${t('series.title')}`}</title>
+    </Head>
     <PageHeader title={t('series.title')} icon={<ImBooks style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
       <SeriesList libraryId={libraryId} 

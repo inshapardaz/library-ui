@@ -66,6 +66,15 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
         ));
     }
     
+    const renderItem = (book) => {
+        if (showList) {
+            return <BookListItem key={book.id} libraryId={libraryId} book={book} t={t} />
+        } 
+        else {
+            return <List.Item><BookCard key={book.id} libraryId={libraryId} book={book} t={t} /></List.Item>
+        }
+    }
+
     return (<ApiContainer
         busy={busy} 
         error={error} 
@@ -88,13 +97,7 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
                 showQuickJumper: true,
                 pageSizeOptions: [12, 24, 48, 96]
             }}
-            renderItem={(book) => (
-            <List.Item>
-                { showList ?  
-                    <BookListItem key={book.id} libraryId={libraryId} book={book} t={t} /> : 
-                    <BookCard key={book.id} libraryId={libraryId} book={book} t={t} /> }
-            </List.Item>
-            )}
+            renderItem={renderItem}
         />
     </ApiContainer>);
 }

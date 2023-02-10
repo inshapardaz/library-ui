@@ -56,39 +56,42 @@ function PeriodicalsList({libraryId, query, pageNumber, pageSize}) {
             newPageSize,
             query
             ));
-        }
+    }
 
-        return (<ApiContainer
-            busy={busy} 
-            error={error} 
-            empty={periodicals && periodicals.data && periodicals.data.length < 1}
-            actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
-            <List
-                grid={ showList ? null : grid}
-                loading={busy}
-                size="large"
-                itemLayout={ showList ? "vertical": "horizontal" }
-                dataSource={periodicals ? periodicals.data : []}
-                pagination={{
-                    onChange: onPageChanged,
-                    pageSize: periodicals ? periodicals.pageSize : 0,
-                    current: periodicals ? periodicals.currentPageIndex : 0,
-                    total: periodicals ? periodicals.totalCount : 0,
-                    showSizeChanger: true,
-                    responsive: true,
-                    showQuickJumper: true,
-                    pageSizeOptions: [12, 24, 48, 96]
-                }}
-                renderItem={(p) => (
-                <List.Item>
-                    { showList ?  
-                       <PeriodicalListItem key={p.id} libraryId={libraryId} periodical={p} t={t} />:
-                       <PeriodicalCard key={p.id} libraryId={libraryId} periodical={p} t={t} />
-                    }
-                </List.Item>
-                )}
-            />
-        </ApiContainer>);
+    const renderItem = (p) => {
+        if (showList) {
+            return <PeriodicalListItem key={p.id} libraryId={libraryId} periodical={p} t={t} />
+        } 
+        else {
+            return <List.Item><PeriodicalCard key={p.id} libraryId={libraryId} periodical={p} t={t} /></List.Item>
+        }
+    }
+
+
+    return (<ApiContainer
+        busy={busy} 
+        error={error} 
+        empty={periodicals && periodicals.data && periodicals.data.length < 1}
+        actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
+        <List
+            grid={ showList ? null : grid}
+            loading={busy}
+            size="large"
+            itemLayout={ showList ? "vertical": "horizontal" }
+            dataSource={periodicals ? periodicals.data : []}
+            pagination={{
+                onChange: onPageChanged,
+                pageSize: periodicals ? periodicals.pageSize : 0,
+                current: periodicals ? periodicals.currentPageIndex : 0,
+                total: periodicals ? periodicals.totalCount : 0,
+                showSizeChanger: true,
+                responsive: true,
+                showQuickJumper: true,
+                pageSizeOptions: [12, 24, 48, 96]
+            }}
+            renderItem={renderItem}
+        />
+    </ApiContainer>);
 }
 
 export default PeriodicalsList;

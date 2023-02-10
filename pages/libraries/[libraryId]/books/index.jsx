@@ -1,9 +1,11 @@
+import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
 
 // 3rd party libraries
 import { ImBooks } from 'react-icons/im';
 import { Layout, theme } from 'antd';
+
 // Local Imports
 import PageHeader from '@/components/layout/pageHeader';
 import BooksList from '@/components/books/booksList';
@@ -22,6 +24,9 @@ function BooksPage() {
 
 
   return (<>
+    <Head>
+        <title>{`${t('app')} - ${t('books.title')}`}</title>
+    </Head>
     <PageHeader title={t('books.title')} icon={<ImBooks style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
         <Layout style={{ padding: '24px 0', background: colorBgContainer }}>

@@ -49,6 +49,15 @@ function SeriesList({libraryId, query, pageNumber, pageSize}) {
         setShowList(checked);
     };
 
+    const renderItem = (s) => {
+        if (showList) {
+            return <SeriesListItem key={s.id} libraryId={libraryId} series={s} t={t} />
+        } 
+        else {
+            return <List.Item><SeriesCard key={s.id} libraryId={libraryId} series={s} t={t} /></List.Item>
+        }
+    }
+
     const onPageChanged = (newPage, newPageSize) => {
         router.push(helpers.buildLinkToSeriesPage(
             `/libraries/${libraryId}/series`,
@@ -79,14 +88,7 @@ function SeriesList({libraryId, query, pageNumber, pageSize}) {
                     showQuickJumper: true,
                     pageSizeOptions: [12, 24, 48, 96]
                 }}
-                renderItem={(s) => (
-                <List.Item>
-                    { showList ?  
-                       <SeriesListItem key={s.id} libraryId={libraryId} series={s} t={t} />:
-                       <SeriesCard key={s.id} libraryId={libraryId} series={s} t={t} />
-                    }
-                </List.Item>
-                )}
+                renderItem={renderItem}
             />
         </ApiContainer>);
 }

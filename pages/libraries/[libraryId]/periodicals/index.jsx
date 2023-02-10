@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
 
@@ -18,6 +19,9 @@ function PeriodicalsHomePage() {
   
   
     return (<>
+      <Head>
+        <title>{`${t('app')} - ${t('periodicals.title')}`}</title>
+      </Head>
       <PageHeader title={t('periodicals.title')} icon={<ImNewspaper style={{ width: 36, height: 36 }}/>} />
       <ContentsContainer>
         <PeriodicalsList libraryId={libraryId} 

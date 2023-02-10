@@ -29,8 +29,6 @@ export function Logo({ t, library, showLibrarySwitcher = true }) {
     }
   }, [showLibrarySwitcher]);
 
-  console.log(showLibrarySwitcher);
-
   const items = libraries && libraries.data ? libraries.data.map(l => ({
     key: l.id,
     label : (

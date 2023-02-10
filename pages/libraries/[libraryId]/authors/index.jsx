@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
 
@@ -16,6 +17,9 @@ function AuthorsHomePage() {
 
 
   return (<>
+    <Head>
+      <title>{`${t('app')} - ${t('authors.title')}`}</title>
+    </Head>
     <PageHeader title={t('authors.title')} icon={<FaFeatherAlt style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
       <AuthorsList libraryId={libraryId} 
