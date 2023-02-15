@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
 import { useSession } from "next-auth/react";
+import { signOut } from 'next-auth/react';
+
+// 3rd party libraries
 import { Dropdown, Button, Space } from 'antd';
 import { FaUser, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
@@ -11,6 +14,10 @@ import { MdPassword } from 'react-icons/md';
 export function ProfileMenu() {
   const t = useTranslations();
   const { data, status } = useSession();
+
+  const logoutClicked = () => {
+    signOut({ callbackUrl: '/' });
+  }
 
   const profileItems = (status === "authenticated") ?
     [{

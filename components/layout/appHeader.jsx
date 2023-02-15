@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useTranslations } from 'next-intl';
-import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router'
 import { useMediaQuery } from "usehooks-ts";
 
@@ -62,18 +61,9 @@ function AppHeader () {
 
   const isLibraryPage = () => router.pathname.indexOf('/libraries/') >= 0;
   const onMenuClick = ({key}) => {
-    switch (key){
-      case 'logout': 
-        logoutClicked();
-        break;
-    }
-
     setMobileMenuOpen(false);
   }
 
-  const logoutClicked = () => {
-    signOut({ callbackUrl: '/' });
-  }
 
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
