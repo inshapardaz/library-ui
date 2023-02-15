@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from 'next-intl';
 import { useRouter } from "next/router";
-import { useLocalStorage } from "usehooks-ts";
 
 // 3rd party libraries
 import { List, Switch } from 'antd';
 
 // Internal Imports
-import libraryService from "@/services/libraryService";
 import ApiContainer from "../common/ApiContainer";
 import BookCard from "./bookCard";
 import BookListItem from "./bookListItem";
@@ -27,28 +25,20 @@ const grid = {
 
 // ------------------------------------------------------
 
-function BooksList({libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber = 1, pageSize = 12 }) {
+function BooksList({libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, books, pageNumber = 1, pageSize = 12 }) {
     const t = useTranslations();
     const router = useRouter();
-    const [busy, setBusy] = useState(true);
-    const [error, setError] = useState(false);
-    const [books, setBooks] = useState(null);
-    const [showList, setShowList] = useLocalStorage('book-list-view', false);
+    const [showList, setShowList] = useState(false);
 
-    useEffect(() => {
-        setBusy(true);
-        setError(false);
-    
-        libraryService.getBooks(libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber, pageSize)
-            .then(res => setBooks(res))
-            .catch(_ => setError(true))
-            .finally(_ => setBusy(false))
-    }, [libraryId, query, author, categories, series, sortBy, sortDirection, favorites, read, status, pageNumber, pageSize])
-    
     const toggleView = (checked) => {
         setShowList(checked);
+        localStorage.setItem('book-list-view', checked)
       };
     
+    useEffect(() =>  {
+        setShowList (localStorage.getItem('book-list-view') === 'true')
+    }, [])
+
     const onPageChanged = (newPage, newPageSize) => {
     router.push(helpers.buildLinkToBooksPage(
         `/libraries/${libraryId}/books`,
@@ -75,15 +65,12 @@ function BooksList({libraryId, query, author, categories, series, sortBy, sortDi
         }
     }
 
-    return (<ApiContainer
-        busy={busy} 
-        error={error} 
+    return (<ApiContainer 
         bordered={false}
         empty={books && books.data && books.data.length < 1}
         actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>
         <List
             grid={ showList ? null : grid}
-            loading={busy}
             size="large"
             itemLayout={ showList ? "vertical": "horizontal" }
             dataSource={books ? books.data : []}

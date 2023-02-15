@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NextIntlProvider } from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useLocalStorage } from 'usehooks-ts';
 
 // 3rd party libraries
 import { App, ConfigProvider, theme } from 'antd';
@@ -33,7 +32,11 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();  
   const language = localeService.getLanguage(router.locale)
   const Layout = Component.Layout || LayoutWithHeader
-  const [mode] = useLocalStorage('ui-mode')
+  const [mode, setMode] = useState('light')
+
+  useEffect(() =>  {
+    setMode (localStorage.getItem('ui-mode'))
+  }, [])
 
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>

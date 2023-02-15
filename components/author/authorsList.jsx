@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
-import { useLocalStorage } from "usehooks-ts";
 
 // 3rd party libraries
 import { List, Switch } from "antd";
@@ -33,8 +32,12 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
     const [busy, setBusy] = useState(true);
     const [error, setError] = useState(false);
     const [authors, setAuthors] = useState(null);
-    const [showList, setShowList] = useLocalStorage('author-list-view', false);
+    const [showList, setShowList] = useState(false);
     
+    useEffect(() =>  {
+        setShowList (localStorage.getItem('author-list-vie') === 'true')
+    }, [])
+
     useEffect(() => {
         setBusy(true);
         setError(false);
@@ -47,6 +50,7 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
    
     const toggleView = (checked) => {
         setShowList(checked);
+        localStorage.setItem('author-list-view', checked)
     };
 
     const renderItem = (author) => {

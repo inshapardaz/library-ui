@@ -10,7 +10,7 @@ const parseObject = (source) => {
     if (source.links) {
       const newLinks = {};
       source.links.forEach((link) => {
-        newLinks[link.rel.replaceAll('-', '_')] = link.href;
+        newLinks[link.rel.replace(/-/g, '_')] = link.href;
       });
       source.links = newLinks;
     }
