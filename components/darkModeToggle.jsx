@@ -1,33 +1,23 @@
 
 import { useEffect, useState } from "react";
+
+// 3rd party imports
 import { Switch } from "antd";
 import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 
+// Local imports
+import { useThemeContext } from '@/helpers/theme.context';
+
+// -------------------------------------------------
+
 function DarkModeToggle() {
-    const [mode, setMode] = useState('light')
-
-    useEffect(() =>  {
-        setMode (localStorage.getItem('ui-mode'))
-      }, [])
-
-      console.log(mode)
-
-    const onClick = (checked) => {
-        if (checked) {
-            setMode('dark');
-            localStorage.setItem('ui-mode', 'dark')
-        }
-        else {
-            setMode('light');
-            localStorage.setItem('ui-mode', 'light')
-        }
-    }
+    const { darkMode, setThemeMode } = useThemeContext()
 
     return (<Switch
         checkedChildren={<MdOutlineDarkMode />}
         unCheckedChildren={<MdOutlineWbSunny />}
-        defaultChecked={mode === 'dark'}
-        onChange={onClick}
+        checked={darkMode}
+        onChange={setThemeMode}
     />);
 }
 
