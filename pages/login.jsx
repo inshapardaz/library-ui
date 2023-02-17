@@ -60,7 +60,7 @@ function LoginPage() {
             <Input
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
-              placeholder={t('login.password')}
+              placeholder={t('login.password.title')}
             />
           </Form.Item>
           <Form.Item>
