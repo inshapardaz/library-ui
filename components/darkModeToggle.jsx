@@ -1,6 +1,4 @@
 
-import { useEffect, useState } from "react";
-
 // 3rd party imports
 import { Switch } from "antd";
 import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
@@ -11,13 +9,13 @@ import { useThemeContext } from '@/helpers/theme.context';
 // -------------------------------------------------
 
 function DarkModeToggle() {
-    const { darkMode, setThemeMode } = useThemeContext()
+    const { currentTheme, setDarkMode } = useThemeContext()
 
     return (<Switch
         checkedChildren={<MdOutlineDarkMode />}
         unCheckedChildren={<MdOutlineWbSunny />}
-        checked={darkMode}
-        onChange={setThemeMode}
+        checked={currentTheme.darkMode}
+        onChange={setDarkMode}
     />);
 }
 

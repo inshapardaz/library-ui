@@ -26,9 +26,9 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();  
   const language = localeService.getLanguage(router.locale)
   const Layout = Component.Layout || LayoutWithHeader
-  const { darkMode } = useThemeContext()
+  const { currentTheme } = useThemeContext()
 
-  console.log(`Master says dark mode is ${darkMode}`)
+  console.log(`Master says dark mode is ${theme ? theme.darkMode : null }`)
 
   return (
     <SessionProvider session={pageProps.session} refetchInterval={interval}>
@@ -39,7 +39,7 @@ const MyApp = ({ Component, pageProps }) => {
                 locale={language ? language.antdLocale : 'en'} 
                 componentSize="large"
                 theme={{
-                  algorithm: getThemeAlgorithm(theme, darkMode),
+                  algorithm: getThemeAlgorithm(theme, currentTheme.darkMode),
                 }}>
               <IconContext.Provider value={{ size: '14' }}>
                 <App>
