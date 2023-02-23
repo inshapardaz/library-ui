@@ -7,10 +7,10 @@ import './styles/App.css';
 import { useTranslation } from 'react-i18next';
 
 function App() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="App">
-      {t('Welcome to React')}
+      {t('app.title')} - {t('app.slogan')}
       <RouterProvider router={router} />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
