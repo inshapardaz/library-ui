@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+//import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 // 3rd party libraries
-import { App, Button, Form, Input, Space, Divider } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { /*App,*/ Button, Form, Input, Space, Divider } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 // Internal imports
 import styles from '../styles/common.module.scss'
@@ -13,11 +13,11 @@ import FullPageFormContainer from '../components/layout/fullPageFormContainer';
 
 
 function ForgotPassword() {
-  const { message } = App.useApp();
+  //const { message } = App.useApp();
   const { t } = useTranslation()
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   
-  const [busy, setBusy] = useState(false);
+  //const [busy, setBusy] = useState(false);
   
   const onSubmit = ({ email }, { setSubmitting }) => {
     // setBusy(true);

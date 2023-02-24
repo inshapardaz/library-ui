@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect /*, useState*/ } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from "react-router-dom";
+//import { useNavigate, useSearchParams } from "react-router-dom";
 
 // 3rd party libraries
-import { App, Button, Form, Input, Checkbox, Space, Divider } from 'antd';
+import { /*App,*/ Button, Form, Input, Checkbox, Space, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 // Internal imports
-import styles from '../styles/common.module.scss'
+//import styles from '../styles/common.module.scss'
 //import accountService from '@/services/accountService';
 import FullPageFormContainer from '../components/layout/fullPageFormContainer';
 
 // ------------------------------------------------------
 
 function Register() {
-  const { message } = App.useApp();
+  //const { message } = App.useApp();
   const { t } = useTranslation()
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const [busy, setBusy] = useState(false);
+  //const navigate = useNavigate();
+  //const [searchParams] = useSearchParams();
+  //const [busy, setBusy] = useState(false);
   
   useEffect(() => {
-    const { code } = searchParams.has('get') ?  searchParams.get('code') : '';
+    //const { code } = searchParams.has('get') ?  searchParams.get('code') : '';
     //if (code) {
     //   accountService.verifyInvite(code)
     //     .then(() => setBusy(false))
@@ -43,9 +43,7 @@ function Register() {
   }, []);
 
   const onSubmit = (fields, { setSubmitting }) => {
-    const { code } = searchParams.has('get') ?  searchParams.get('code') : '';
-
-
+    //const { code } = searchParams.has('get') ?  searchParams.get('code') : '';
     // accountService.register(code, fields)
     //   .then(() => message.success(t('register.success')))
     //   .then(() => navigate('/'))
