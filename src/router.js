@@ -2,12 +2,15 @@ import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
 import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404, Error500 } from "./pages";
 
+import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
 
 const Router = () => {
     return (<BrowserRouter>
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route element={<LayoutWithHeader />}>
+                <Route path="/" element={<Home />} />
+            </Route>
             <Route element={<LayoutWithFooter />} >
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
