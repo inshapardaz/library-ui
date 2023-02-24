@@ -13,7 +13,7 @@ import styles from '../../styles/common.module.scss';
 // ---------------------------------------------------
 export function Logo({ t, library, showLibrarySwitcher = true }) {
   //const { message } = App.useApp();
-  const [libraries, setLibraries] = useState({});
+  const [libraries] = useState({});
 
   const loadLibraries = () => {
     // libraryService.getLibraries()

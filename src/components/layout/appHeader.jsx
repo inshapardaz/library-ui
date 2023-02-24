@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from "usehooks-ts";
-import { useNavigate, useParams, useLocation, matchPath, Link, NavLink } from "react-router-dom";
+import { useParams, useLocation, matchPath, NavLink } from "react-router-dom";
 
 // 3rd party imports
 import { Menu, App, Button, theme, Drawer, Row, Col } from 'antd';
@@ -21,12 +21,11 @@ import ProfileMenu from "./profileMenu";
 
 function AppHeader () {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const { token } = theme.useToken();
   const { message } = App.useApp();
-  const [library, setLibrary] = useState({});
-  const [categories, setCategories] = useState({});
+  const [library] = useState({});
+  const [categories] = useState({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const { libraryId } = useParams();
