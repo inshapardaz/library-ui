@@ -1,52 +1,29 @@
-import { Counter } from '../features/counter/Counter';
-import logo from '../logo.svg';
+import { useTranslation } from 'react-i18next';
+
+// 3rd part imports
+import { Button, Typography, theme } from 'antd'
+import { GiRead } from 'react-icons/gi'
+
+// Local imports
+import styles from '../styles/common.module.scss'
+import HeroImage from '../components/heroImage';
+import LibrariesList from '../components/libraries/librariesList';
+
+// ------------------------------------------------------------------
 
 const Home = () => {
-    return (      <header className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <Counter />
-    <p>
-      Edit <code>src/App.js</code> and save to reload.
-    </p>
-    <span>
-      <span>Learn </span>
-      <a
-        className="App-link"
-        href="https://reactjs.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        React
-      </a>
-      <span>, </span>
-      <a
-        className="App-link"
-        href="https://redux.js.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Redux
-      </a>
-      <span>, </span>
-      <a
-        className="App-link"
-        href="https://redux-toolkit.js.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Redux Toolkit
-      </a>
-      ,<span> and </span>
-      <a
-        className="App-link"
-        href="https://react-redux.js.org/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        React Redux
-      </a>
-    </span>
-  </header>)
+  const { t } = useTranslation()
+  const { token } = theme.useToken();
+  return (<>
+    <HeroImage>
+      <Typography.Title level={1} style={{ color: token.colorTextLightSolid }}>{t('app')}</Typography.Title>
+      <div className={styles.hero__content}>
+          <p>{t('home.welcome')}</p>
+          <Button type="primary" icon={<GiRead />}> {t('home.gettingStarted')}</Button>
+      </div>
+    </HeroImage>
+    <LibrariesList />
+  </>)
 }
 
 export default Home;

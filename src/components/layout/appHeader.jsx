@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from "usehooks-ts";
-import { useNavigate, useParams, useLocation, matchPath, Link } from "react-router-dom";
+import { useNavigate, useParams, useLocation, matchPath, Link, NavLink } from "react-router-dom";
 
 // 3rd party imports
 import { Menu, App, Button, theme, Drawer, Row, Col } from 'antd';
@@ -68,9 +68,9 @@ function AppHeader () {
 
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
-      <Link href={`/libraries/${libraryId}/books?categories=${c.id}`}>
+      <NavLink href={`/libraries/${libraryId}/books?categories=${c.id}`}>
         {c.name}
-      </Link>
+      </NavLink>
     ),
     key: c.id,
     icon: <FaTag />,
@@ -80,33 +80,33 @@ function AppHeader () {
   {
     items = [{
       label: (
-        <Link href={`/libraries/${libraryId}`}>
+        <NavLink href={`/libraries/${libraryId}`}>
           {t("header.home")}
-        </Link>
+        </NavLink>
       ),
       key: 'home',
       icon: <FaHome />,
     },{
       label: (
-        <Link href={`/libraries/${libraryId}/books`}>
+        <NavLink href={`/libraries/${libraryId}/books`}>
           {t("header.books")}
-        </Link>
+        </NavLink>
       ),
       key: 'books',
       icon: <FaBook />,
     },{
       label: (
-        <Link href={`/libraries/${libraryId}/writings`}>
+        <NavLink href={`/libraries/${libraryId}/writings`}>
           {t("header.writings")}
-        </Link>
+        </NavLink>
       ),
       key: 'writings',
       icon: <FaPenFancy />,
     },{
       label: (
-        <Link href={`/libraries/${libraryId}/authors`}>
+        <NavLink href={`/libraries/${libraryId}/authors`}>
           {t("header.authors")}
-        </Link>
+        </NavLink>
       ),
       key: 'authors',
       icon: <FaFeatherAlt />,
@@ -117,9 +117,9 @@ function AppHeader () {
       children : catItems
     },{
       label: (
-        <Link href={`/libraries/${libraryId}/series`}>
+        <NavLink href={`/libraries/${libraryId}/series`}>
           {t("header.series")}
-        </Link>
+        </NavLink>
       ),
       key: 'series',
       icon: <ImBooks />,
@@ -128,9 +128,9 @@ function AppHeader () {
     if (library.supportsPeriodicals)  {
       items.push({
         label: (
-          <Link href={`/libraries/${libraryId}/periodicals`}>
+          <NavLink href={`/libraries/${libraryId}/periodicals`}>
             {t("header.periodicals")}
-          </Link>
+          </NavLink>
         ),
         key: 'periodicals',
         icon: <ImNewspaper />,
@@ -140,9 +140,9 @@ function AppHeader () {
   else {
     items = [{
       label: (
-        <Link href='/libraries'>
+        <NavLink href='/libraries'>
           {t("header.libraries")}
-        </Link>
+        </NavLink>
       ),
       key: 'libraries',
       icon: <ImLibrary />,
