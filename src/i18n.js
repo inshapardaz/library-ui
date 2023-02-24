@@ -13,6 +13,7 @@ i18n
   .init({
     lng:"ur",
     fallbackLng: 'en',
+    ns: ['common'],
     defaultNS: 'common',
     debug: true,
 
