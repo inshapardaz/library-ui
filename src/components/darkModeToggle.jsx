@@ -1,23 +1,25 @@
 
+import { useDispatch, useSelector } from "react-redux";
+
 // 3rd party imports
 import { Switch } from "antd";
 import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
 
 // Local imports
-//import { useThemeContext } from '@/helpers/theme.context';
+import { uiMode, toggleUiMode } from '../features/ui/uiSlice';
 
 // -------------------------------------------------
 
 function DarkModeToggle() {
-    //const { currentTheme, setDarkMode } = useThemeContext()
-    const currentTheme = 'light'
-    const setDarkMode = () => {}
+    const dispatch = useDispatch();
+    const mode = useSelector(uiMode);
+    const toggleDarkMode = () => dispatch(toggleUiMode())
     
     return (<Switch
         checkedChildren={<MdOutlineDarkMode />}
         unCheckedChildren={<MdOutlineWbSunny />}
-        checked={currentTheme.darkMode}
-        onChange={setDarkMode}
+        checked={mode === 'dark'}
+        onChange={toggleDarkMode}
     />);
 }
 
