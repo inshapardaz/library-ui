@@ -1,32 +1,24 @@
-import { createBrowserRouter, } from "react-router-dom";
+import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
 import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404, Error500 } from "./pages";
 
-  const router = createBrowserRouter([{
-        path: "/",
-        element: <Home />
-    }, {
-        path: "/login",
-        element: <Login />
-    }, {
-        path: "/register",
-        element: <Register />
-    }, {
-        path: "/forget-password",
-        element: <ForgotPassword />
-    }, {
-        path: "/change-password",
-        element: <ChangePassword />
-    }, {
-        path: "/verify",
-        element: <Vrify />
-    }, {
-        path: "/500",
-        element: <Error500 />
-    }, {
-        path: "/404",
-        element: <Error404 />
-    }
-  ]);
+import LayoutWithFooter from './components/layout/layoutWithFooter';
 
-  export default router;
+const Router = () => {
+    return (<BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route element={<LayoutWithFooter />} >
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/change-password" element={<ChangePassword />} />
+                <Route path="/verify" element={<Vrify />} />
+                <Route path="/500" element={<Error500 />} />
+                <Route path="*" element={<Error404 />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>);
+}
+
+  export default Router;

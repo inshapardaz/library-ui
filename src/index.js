@@ -5,6 +5,7 @@ import { store } from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './styles/index.css';
+import 'antd/dist/reset.css';
 
 import './i18n';
 const container = document.getElementById('root');
