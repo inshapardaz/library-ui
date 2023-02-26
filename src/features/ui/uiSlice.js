@@ -7,7 +7,7 @@ import enGB from 'antd/locale/en_GB';
 
 const initialState = {
     mode: window.localStorage.uiMode ?? 'light',
-    locale: window.localStorage.i18nextLng
+    locale: window.localStorage.i18nextLng ?? 'ur'
 };
 
 export const languages = {

@@ -42,7 +42,7 @@ const LibraryCard = ({ library }) => {
     const title = (<Link href={`/libraries/${library.id}`}>{library.name}</Link>);
     const cover = (<img src={helpers.defaultLibraryImage} alt="library" />);
     return (<Card cover={cover}>
-        <Card.Meta title={title} description={t(`language.${library.language}`)}/>
+        <Card.Meta title={title} description={t(`langages.${library.language}`)}/>
       </Card>);
 }
 

@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { axiosPrivate } from "../../helpers/axios.helpers";
 
 // ----------------------------------------------------------
-
-const API_URL = `https://api.nawishta.co.uk/libraries`
 
 const initialState = {
     libraries: null,
@@ -14,7 +12,7 @@ const initialState = {
 
 export const fetchLibraries = createAsyncThunk('libraries/fetchLibraries', async () => {
     try {
-        const response = await axios.get(API_URL)
+        const response = await axiosPrivate.get('libraries')
         return response.data
     } catch (err) {
         return err.message
@@ -23,7 +21,7 @@ export const fetchLibraries = createAsyncThunk('libraries/fetchLibraries', async
 
 export const addNewLibrary = createAsyncThunk('libraries/addNewLibrary', async (initialLibrary) => {
     try {
-        const response = await axios.post(API_URL, initialLibrary)
+        const response = await axiosPrivate.post('libraries', initialLibrary)
         return response.data
     } catch (err) {
         return err.message
@@ -60,5 +58,4 @@ export const getLibraries = (state) => state.libraries.libraries;
 export const getLibrariesStatus = (state) => state.libraries.status;
 export const getLibrariesError = (state) => state.libraries.error;
 
-export const { toggleUiMode, setLocale } = librariesSlice.actions;
 export default librariesSlice.reducer;

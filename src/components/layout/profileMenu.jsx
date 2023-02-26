@@ -1,29 +1,44 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-//import { useSession } from "next-auth/react";
-//import { signOut } from 'next-auth/react';
 
 // 3rd party libraries
-import { Dropdown, Button, Space } from 'antd';
-import { FaUser, FaUserCircle } from 'react-icons/fa';
+import { App, Dropdown, Button, Space } from 'antd';
+import { FaSignOutAlt, FaUser, FaUserCircle } from 'react-icons/fa';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { ImProfile } from 'react-icons/im';
 import { MdPassword } from 'react-icons/md';
 
+ // local imports
+
+import { logout, loggedInUser, isLoggedIn } from '../../features/auth/authSlice'
+
 // --------------------------------------------
 const ProfileMenu = () => {
   const { t } = useTranslation();
-  const data = { name : 'Guest'}
-  const status = "authenticated"
-  //const { data, status } = useState();
+  const navigate = useNavigate();
+  const { modal } = App.useApp();
+  const dispatch = useDispatch();
+  const user = useSelector(loggedInUser)
+  const isUserLoggedIn = useSelector(isLoggedIn)
 
   const logoutClicked = () => {
-    //signOut({ callbackUrl: '/' });
+    modal.confirm({
+      title: t('logout.title'),
+      icon: <FaSignOutAlt />,
+      content: t('logout.confirmation'),
+      okText: t('actions.yes'),
+      cancelText: t('actions.no'),
+      onOk: () => {
+        dispatch(logout())
+        navigate('/')
+      }
+    });
   }
 
-  const profileItems = (status === "authenticated") ?
+  const profileItems = (isUserLoggedIn) ?
     [{
-      label: data ? data.name : '',
+      label: user ? user.name : '',
       key: 'username',
       icon: <FaUserCircle />
     }, {
@@ -34,7 +49,7 @@ const ProfileMenu = () => {
       icon: <ImProfile />
     }, {
       label: (
-        <Link href='/change-password'>
+        <Link to='/change-password'>
           {t('changePassword.title')}
         </Link>),
       key: 'change-password',
@@ -42,14 +57,14 @@ const ProfileMenu = () => {
     }, {
       type: 'divider'
     }, {
-      label: t('header.logout'),
+      label: t('logout.title'),
       key: 'sign-out',
       icon: <FiLogOut />,
       onClick: logoutClicked
     }]
     : [{
       label: (
-        <Link href='/login'>
+        <Link to='/login'>
           {t('login.title')}
         </Link>),
       key: 'login',
@@ -58,7 +73,7 @@ const ProfileMenu = () => {
       type: 'divider'
     }, {
       label: (
-        <Link href='/register'>
+        <Link to='/register'>
           {t('register.title')}
         </Link>),
       key: 'register',

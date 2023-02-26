@@ -9,8 +9,7 @@
 		"authors": "Authors",
 		"categories": "Categories",
 		"series": "Series",
-		"periodicals" : "Periodicals",
-		"logout": "Logout"
+		"periodicals" : "Periodicals"
 	},
 	"footer" : {
 		"copyrights" : "Copyrights Nawishta. All rights reserved."
@@ -18,7 +17,9 @@
 	"actions" : {
 		"seeMore": "See More...",
 		"list" : "List",
-		"card" : "Cards"
+		"card" : "Cards",
+		"yes" : "Yes",
+		"no" : "No"
 	},
 	"login" : {
 		"title" : "Login",
@@ -32,6 +33,10 @@
 			"required" : "Password is required"
 		},
 		"error" : "Unable to login. Please check your username and password."
+	},
+	"logout": {
+		"title": "Logout",
+		"confirmation" : "Are you sure you want to log out?"
 	},
 	"forgotPassword" : {
 		"title" : "Forgot Password",
