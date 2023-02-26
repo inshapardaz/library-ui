@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPublic } from "../../helpers/axios.helpers";
+import helpers from '../../helpers'
 // ----------------------------------------------------------
 
 const initialState = {
-    user: window.localStorage.user ? JSON.parse(window.localStorage.user) : null,
+    user: helpers.isJsonString(window.localStorage.user) ? JSON.parse(window.localStorage.user) : null,
     status: 'idle', // idle || loading || succeeded || failed
     error: null,
     tokenStatus: 'idle',
@@ -66,8 +67,11 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 // TODO: Perform transformation like link replacement
-                state.user = action.payload
-                window.localStorage.user = JSON.stringify(action.payload)
+                if (action.payload)
+                {
+                    state.user = action.payload
+                    window.localStorage.user = JSON.stringify(action.payload)
+                }
             })
             .addCase(login.rejected, (state, action) => {
                 state.status = 'failed'

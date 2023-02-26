@@ -1,49 +1,47 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../../helpers/axios.helpers";
 import { parseResponse } from '../../helpers/parseResponse'
-
 // ----------------------------------------------------------
 
 const initialState = {
-    libraries: null,
+    library: null,
     status: 'idle', // idle || loading || succeeded || failed
     error: null
 };
 
-
-export const fetchLibraries = createAsyncThunk('libraries/fetchLibraries', async () => {
+export const fetchLibrary = createAsyncThunk('libraries/fetchLibrary', async (libraryId) => {
     try {
-        const response = await axiosPrivate.get('libraries')
+        const response = await axiosPrivate.get(`libraries/${libraryId}`)
         return response.data
     } catch (err) {
         return err.message
     }
 })
 
-export const librariesSlice = createSlice({
-    name: 'libraries',
+export const librarySlice = createSlice({
+    name: 'library',
     initialState,
     reducers: {
          
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchLibraries.pending, (state, action) => {
+            .addCase(fetchLibrary.pending, (state, action) => {
                 state.status = 'loading'
             })
-            .addCase(fetchLibraries.fulfilled, (state, action) => {
+            .addCase(fetchLibrary.fulfilled, (state, action) => {
                 state.status = 'succeeded'
-                state.libraries = parseResponse(action.payload)
+                state.library = parseResponse(action.payload)
             })
-            .addCase(fetchLibraries.rejected, (state, action) => {
+            .addCase(fetchLibrary.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
             })
     }
 })
 
-export const getLibraries = (state) => state.libraries.libraries;
-export const getLibrariesStatus = (state) => state.libraries.status;
-export const getLibrariesError = (state) => state.libraries.error;
+export const getLibrary = (state) => state.library.library;
+export const getLibraryStatus = (state) => state.library.status;
+export const getLibraryError = (state) => state.library.error;
 
-export default librariesSlice.reducer;
+export default librarySlice.reducer;

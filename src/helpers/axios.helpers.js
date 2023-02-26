@@ -13,7 +13,6 @@ axiosPrivate.interceptors.request.use(
       let currentDate = new Date();
       if (user?.accessToken) {
         if (new Date(user.accessTokenExpiry) < currentDate.getTime()) {
-          console.log(`dispatch refreshToken`)
           await store.dispatch(refreshToken());
         }
 

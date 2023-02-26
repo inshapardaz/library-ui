@@ -7,18 +7,20 @@ import { Layout  } from "antd";
 import Footer from "./footer";
 import AppHeader from "./appHeader";
 import styles from '../../styles/common.module.scss'
+import LibraryProvider from '../../helpers/library.context';
 
  // -----------------------------------------
 
 function LayoutWithHeader() {
-    return (
+    return (<LibraryProvider>
         <Layout>
             <AppHeader />
             <Layout.Content className={styles.contents} >
                 <Outlet />
             </Layout.Content>
             <Footer/>
-        </Layout>);
+        </Layout>
+    </LibraryProvider>)
 }
 
 export default LayoutWithHeader;

@@ -2,6 +2,9 @@ import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
 import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404, Error500 } from "./pages";
 
+import  LibrariesHome from './pages/libraries'
+import LibraryHome from './pages/libraries/library'
+
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
 
@@ -10,6 +13,8 @@ const Router = () => {
         <Routes>
             <Route element={<LayoutWithHeader />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/libraries/" element={<LibrariesHome />} />
+                <Route path="/libraries/:libraryId" element={<LibraryHome />} />
             </Route>
             <Route element={<LayoutWithFooter />} >
                 <Route path="/login" element={<Login />} />

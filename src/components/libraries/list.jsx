@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // 3rd party libraries
-import { Button, Card, List } from 'antd';
-import { Link, useNavigate } from "react-router-dom";
+import { Button, List } from 'antd';
+import { useNavigate } from "react-router-dom";
 
 // Internal Imports
 import { getLibraries, getLibrariesStatus, getLibrariesError, fetchLibraries } from '../../features/libraries/librariesSlice'
-import helpers from "../../helpers";
+import DataContainer from "../layout/dataContainer";
+import LibraryCard from "./card";
 // ------------------------------------------------------
 
 const grid = {
@@ -37,15 +38,6 @@ function ShowMoreButton ({ t }) {
     </div>);
 }
 
-const LibraryCard = ({ library }) => {
-    const { t } = useTranslation()
-    const title = (<Link href={`/libraries/${library.id}`}>{library.name}</Link>);
-    const cover = (<img src={helpers.defaultLibraryImage} alt="library" />);
-    return (<Card cover={cover}>
-        <Card.Meta title={title} description={t(`langages.${library.language}`)}/>
-      </Card>);
-}
-
 const LibrariesList = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
@@ -62,16 +54,19 @@ const LibrariesList = () => {
     if (status === 'failed') {
         return <p>{error}</p>
     }
-    return (
-        <List
-            loading={status === 'loading'}
-            size="large"
-            grid={ grid }
-            itemLayout="vertical"
-            dataSource={libraries ? libraries.data : []}
-            loadMore={<ShowMoreButton t={t} />}
-            renderItem={(l) => (<LibraryCard key={l.id} library={l} />)}
-        />);
+    return (<DataContainer  busy={status === 'loading'} 
+        error={error} 
+        empty={libraries && libraries.data && libraries.data.length < 1}>
+            <List
+                loading={status === 'loading'}
+                size="large"
+                grid={ grid }
+                itemLayout="vertical"
+                dataSource={libraries ? libraries.data : []}
+                loadMore={<ShowMoreButton t={t} />}
+                renderItem={(l) => (<LibraryCard key={l.id} library={l} />)}
+            />
+        </DataContainer>);
 }
 
 export default LibrariesList;

@@ -1,73 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from "usehooks-ts";
-import { useParams, useLocation, matchPath, NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 // 3rd party imports
-import { Menu, App, Button, theme, Drawer, Row, Col } from 'antd';
+import { Menu, Button, theme, Drawer, Row, Col } from 'antd';
 import { FaBook, FaPenFancy, FaFeatherAlt, FaTags, FaTag, FaHome, FaBars } from 'react-icons/fa';
 import { ImBooks, ImLibrary, ImNewspaper } from 'react-icons/im';
 
 // Local Imports
 import styles from '../../styles/common.module.scss'
-
 import LanguageSwitcher from "../languageSwitcher";
 import DarkModeToggle from "../darkModeToggle";
-
 import { Logo } from "./logo";
 import ProfileMenu from "./profileMenu";
+import { getLibrary }  from '../../features/libraries/librarySlice'
+import { getCategories }  from '../../features/libraries/categoriesSlice'
 
 //---------------------------------------------
 
 function AppHeader () {
   const { t } = useTranslation();
-
   const { token } = theme.useToken();
-  const { message } = App.useApp();
-  const [library] = useState({});
-  const [categories] = useState({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  const { libraryId } = useParams();
-  const { pathname } = useLocation();
-  const isLibraryPage = matchPath("/libraries/*", pathname);
   const isMobile = useMediaQuery(["(max-width: 600px)"], [true], false); 
-
+  const { libraryId } = useParams()
+  const categories = useSelector(getCategories);
+  const library = useSelector(getLibrary)
+  
   let items = [];
-  useEffect(() => {  
-    /*const loadLibrary = () => {
-      libraryService.getLibrary(libraryId)
-      .then(res => setLibrary(res))
-      .catch((e) => {
-        console.error(e)
-        message.error(t('library.loadingError'))
-      })
-    }
-
-    const loadCategories = () => {
-      libraryService.getCategories(libraryId)
-      .then(res => setCategories(res))
-      .catch((e) => {
-        console.error(e)
-        message.error(t('categories.loadingError'))
-      })
-    }
-
-      if (libraryId) {
-        loadLibrary();
-        loadCategories();
-    }*/
-  }, [libraryId, message, t]);
-
 
   const onMenuClick = ({key}) => {
     setMobileMenuOpen(false);
   }
 
-
   const catItems = categories && categories.data && categories.data.map(c => ({
     label : (
-      <NavLink href={`/libraries/${libraryId}/books?categories=${c.id}`}>
+      <NavLink to={`/libraries/${libraryId}/books?categories=${c.id}`}>
         {c.name}
       </NavLink>
     ),
@@ -75,11 +45,11 @@ function AppHeader () {
     icon: <FaTag />,
   }))
 
-  if (isLibraryPage)
+  if (library)
   {
     items = [{
       label: (
-        <NavLink href={`/libraries/${libraryId}`}>
+        <NavLink to={`/libraries/${libraryId}`}>
           {t("header.home")}
         </NavLink>
       ),
@@ -87,7 +57,7 @@ function AppHeader () {
       icon: <FaHome />,
     },{
       label: (
-        <NavLink href={`/libraries/${libraryId}/books`}>
+        <NavLink to={`/libraries/${libraryId}/books`}>
           {t("header.books")}
         </NavLink>
       ),
@@ -95,7 +65,7 @@ function AppHeader () {
       icon: <FaBook />,
     },{
       label: (
-        <NavLink href={`/libraries/${libraryId}/writings`}>
+        <NavLink to={`/libraries/${libraryId}/writings`}>
           {t("header.writings")}
         </NavLink>
       ),
@@ -103,7 +73,7 @@ function AppHeader () {
       icon: <FaPenFancy />,
     },{
       label: (
-        <NavLink href={`/libraries/${libraryId}/authors`}>
+        <NavLink to={`/libraries/${libraryId}/authors`}>
           {t("header.authors")}
         </NavLink>
       ),
@@ -116,7 +86,7 @@ function AppHeader () {
       children : catItems
     },{
       label: (
-        <NavLink href={`/libraries/${libraryId}/series`}>
+        <NavLink to={`/libraries/${libraryId}/series`}>
           {t("header.series")}
         </NavLink>
       ),
@@ -127,7 +97,7 @@ function AppHeader () {
     if (library.supportsPeriodicals)  {
       items.push({
         label: (
-          <NavLink href={`/libraries/${libraryId}/periodicals`}>
+          <NavLink to={`/libraries/${libraryId}/periodicals`}>
             {t("header.periodicals")}
           </NavLink>
         ),
@@ -139,7 +109,7 @@ function AppHeader () {
   else {
     items = [{
       label: (
-        <NavLink href='/libraries'>
+        <NavLink to='/libraries'>
           {t("header.libraries")}
         </NavLink>
       ),

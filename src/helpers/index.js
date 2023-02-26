@@ -262,6 +262,14 @@ const parseReadFilter = (readFilter) => {
   
       return location.pathname;
     },
+    isJsonString: (str) => {
+      try {
+          JSON.parse(str);
+      } catch (e) {
+          return false;
+      }
+      return true;
+    }
   };
   
   export default helpers;
