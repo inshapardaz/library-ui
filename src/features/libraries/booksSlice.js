@@ -27,21 +27,21 @@ export const booksSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(fetchLatestBooks.pending, (state, action) => {
-                state.status = 'loading'
+                state.latestBooksStatus = 'loading'
             })
             .addCase(fetchLatestBooks.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.library = parseResponse(action.payload)
+                state.latestBooksStatus = 'succeeded'
+                state.latestBooks = parseResponse(action.payload)
             })
             .addCase(fetchLatestBooks.rejected, (state, action) => {
-                state.status = 'failed'
-                state.error = action.error.message
+                state.latestBooksStatus = 'failed'
+                state.latestBooksError = action.error.message
             })
     }
 })
 
-export const getLatestBooks = (state) => state.books.latestBooks;
-export const getLatestBooksLoading = (state) => state.books.latestBooksStatus === 'loading';
-export const getLatestBooksError = (state) => state.books.latestBooksError;
+export const getLatestBooks = (state) => state.books.latestBooks
+export const getLatestBooksStatus = (state) => state.books.latestBooksStatus
+export const getLatestBooksError = (state) => state.books.latestBooksError
 
 export default booksSlice.reducer;

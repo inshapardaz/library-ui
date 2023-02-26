@@ -9,7 +9,7 @@ import { Button, List, Switch } from 'antd';
 import DataContainer from "../layout/dataContainer";
 import BookCard from "./bookCard";
 import BookListItem from "./bookListItem";
-import { fetchLatestBooks, getLatestBooks, getLatestBooksError, getLatestBooksLoading } from '../../features/libraries/booksSlice'
+import { fetchLatestBooks, getLatestBooks, getLatestBooksError, getLatestBooksStatus } from '../../features/libraries/booksSlice'
 import { useDispatch, useSelector } from "react-redux";
 
 // ------------------------------------------------------
@@ -45,16 +45,16 @@ function LatestBooks() {
     const { libraryId } = useParams()
     const dispatch = useDispatch()
     const books = useSelector(getLatestBooks)
-    const busy = useSelector(getLatestBooksLoading);
+    const status = useSelector(getLatestBooksStatus);
     const error = useSelector(getLatestBooksError);
     const [showList, setShowList] = useState(false);
 
     useEffect(() => {
-        if (!busy) 
+        if (status === 'idle') 
         {
-            dispatch(fetchLatestBooks())
+            dispatch(fetchLatestBooks(libraryId))
         }
-    }, [dispatch, busy])
+    }, [dispatch, status, libraryId])
     
     const toggleView = (checked) => {
         setShowList(checked);
@@ -62,13 +62,13 @@ function LatestBooks() {
 
 
     return (<DataContainer title={t('books.latest.title')} 
-        busy={busy} 
+        busy={status === 'loading'} 
         error={error} 
         empty={books && books.data && books.data.length < 1}
         actions={(<Switch checked={showList} onChange={toggleView} />) }>
         <List
             grid={ showList ? null : grid}
-            loading={busy}
+            loading={status === 'loading'}
             size="large"
             itemLayout={ showList ? "vertical": "horizontal" }
             dataSource={books ? books.data : []}
