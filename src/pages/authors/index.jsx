@@ -18,7 +18,6 @@ function AuthorsHomePage() {
   const pageNumber = searchParams.get('pageNumber')
   const pageSize = searchParams.get('pageSize')
 
-  console.dir({ query, authorType, pageNumber, pageSize })
   return (<>
     <PageHeader title={t('authors.title')} icon={<FaFeatherAlt style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
