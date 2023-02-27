@@ -140,11 +140,13 @@
 		"loadingError": "کتابوں کے حصول میں ناکامی ہوئی"
 	},
 	"book" : {
-		"series": "{name} سلسلے کی کتاب",
-	    "seriesAndIndex": "{name} سلسلے کی کتاب {index}",
-		"chapterCount" : "{count, plural, =1 {1 باب} other {# ابواب}}",
-		"pageCount" : "{count, plural, =1 {1 صفحہ} other {# صفحات}}",
-		"publishLabel" : "{year} میں شائع ہوئی",
+		"series": "{{name}} سلسلے کی کتاب",
+	    "seriesAndIndex": "{{name}} سلسلے کی کتاب {{index}}",
+		"chapterCount_one" : "1 باب",
+		"chapterCount_other": "{{count}} ابواب",
+		"pageCount_one" : "1 صفحہ",
+		"pageCount_other" : "{{count}} صفحات",
+		"publishLabel" : "{{year}} میں شائع ہوئی",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔",
 		"chapters" : {
 			"title" : "ابواب"
@@ -156,12 +158,14 @@
 	"author" : {
 		"writer" : "لکھاری",
 		"poet" : "شاعر",
-		"bookCount" : "{count, plural, =1 {1 کتاب} other {# کتابیں}}",
+		"bookCount_one" : "1 کتاب",
+		"bookCount_other" : "{{count}} کتابیں",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	},
 	"series" : {
 		"title" : "سیریز",
-		"bookCount" : "{count, plural, =1 {1 کتاب} other {# کتابیں}}",
+		"bookCount_one" : "1 کتاب",
+		"bookCount_other" : "{{count}} کتابیں",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	},
 	"categories" : {
@@ -173,7 +177,8 @@
 		"title" : "جرائد"
 	},
 	"periodical" : {
-		"issueCount" : "{count, plural, =1 {1 شمارہ} other {# شمارے}}",
+		"issueCount_one" : "1 شمارہ",
+		"issueCount_other" : "{{count}} شمارے",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	}
 }

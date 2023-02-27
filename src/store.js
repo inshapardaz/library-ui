@@ -3,6 +3,7 @@ import librariesReducer from './features/libraries/librariesSlice';
 import libraryReducer from './features/libraries/librarySlice';
 import categoriesReducer from './features/libraries/categoriesSlice';
 import booksReducer from './features/libraries/booksSlice';
+import authorsReducer from './features/libraries/authorsSlice';
 import authReducer from './features/auth/authSlice';
 import uiReducer from './features/ui/uiSlice';
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     libraries: librariesReducer,
     library: libraryReducer,
     categories: categoriesReducer,
-    books: booksReducer
+    books: booksReducer,
+    authors: authorsReducer
   },
 });

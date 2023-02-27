@@ -2,8 +2,9 @@ import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
 import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404, Error500 } from "./pages";
 
-import  LibrariesHome from './pages/libraries'
+import LibrariesHome from './pages/libraries'
 import LibraryHome from './pages/libraries/library'
+import AuthorsHomePage from './pages/authors/index'
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
@@ -15,6 +16,7 @@ const Router = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/libraries/" element={<LibrariesHome />} />
                 <Route path="/libraries/:libraryId" element={<LibraryHome />} />
+                <Route path="/libraries/:libraryId/authors" element={<AuthorsHomePage />} />
             </Route>
             <Route element={<LayoutWithFooter />} >
                 <Route path="/login" element={<Login />} />

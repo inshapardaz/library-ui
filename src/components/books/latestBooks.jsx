@@ -11,6 +11,7 @@ import BookCard from "./bookCard";
 import BookListItem from "./bookListItem";
 import { fetchLatestBooks, getLatestBooks, getLatestBooksError, getLatestBooksStatus } from '../../features/libraries/booksSlice'
 import { useDispatch, useSelector } from "react-redux";
+import { useLocalStorage } from "usehooks-ts";
 
 // ------------------------------------------------------
 
@@ -47,7 +48,7 @@ function LatestBooks() {
     const books = useSelector(getLatestBooks)
     const status = useSelector(getLatestBooksStatus);
     const error = useSelector(getLatestBooksError);
-    const [showList, setShowList] = useState(false);
+    const [showList, setShowList] = useLocalStorage('book-list-view', false);
 
     useEffect(() => {
         if (status === 'idle') 

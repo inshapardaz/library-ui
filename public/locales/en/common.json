@@ -114,7 +114,7 @@
 		"placeholder" : "Search by title, author, keyword"
 	},
 	"home" : {
-		"welcome": "Welcome to Nawistha. A collection of libraries.",
+		"welcome": "Welcome to Nawishta. A collection of libraries.",
 		"gettingStarted" : "Start Exploring"
 	},
 	"libraries" : {
@@ -139,11 +139,13 @@
 		"loadingError": "Unable to load books"
 	},
 	"book" : {
-		"series": "Book of {name} series",
-		"seriesAndIndex": "Book {index} of {name} series",
-		"chapterCount" : "{count, plural, =0 {no chapter} =1 {one chapter} other {# chapters}}",
-		"pageCount" : "{count, plural, =0 {no page} =1 {one page} other {# pages}}",
-		"publishLabel" : "Publishd in {year}",
+		"series": "Book of {{name}} series",
+		"seriesAndIndex": "Book {{index}} of {{name}} series",
+		"chapterCount_one" : "1 chapter",
+		"chapterCount_other": "{{count}} chapters",
+		"pageCount_one" : "1 page",
+		"pageCount_other" : "{{count}} pages",
+		"publishLabel" : "Published in {{year}}",
 		"noDescription" : "No details...",
 		"chapters" : {
 			"title" : "Chapters"
@@ -155,12 +157,14 @@
 	"author" : {
 		"writer" : "Writer",
 		"poet" : "poet",
-		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"bookCount_one" : "1 book",
+		"bookCount_other" : "{{count}} books",
 		"noDescription" : "No details..."
 	},
 	"series" : {
 		"title" : "Series",
-		"bookCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"bookCount_one" : "1 book",
+		"bookCount_other" : "{{count}} books",
 		"noDescription" : "No details..."
 	},
 	"categories" : {
@@ -172,7 +176,8 @@
 		"title" : "Periodical"
 	},
 	"periodical" : {
-		"issueCount" : "{count, plural, =0 {no books} =1 {one book} other {# books}}",
+		"issueCount_one" : "1 issue",
+		"issueCount_other" : "{{count}} issues",
 		"noDescription" : "No details..."
 	}
 }
