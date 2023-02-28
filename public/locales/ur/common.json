@@ -160,6 +160,8 @@
 		"poet" : "شاعر",
 		"bookCount_one" : "1 کتاب",
 		"bookCount_other" : "{{count}} کتابیں",
+		"writingCount_one" : "1 تصنیف",
+		"writingCount_other" : "{{count}} تصنیفات",
 		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
 	},
 	"series" : {

@@ -32,8 +32,6 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
     
     const { data : authors, error, isLoading } = useGetAuthorsQuery(libraryId)
 
-    console.log(authors)
-   
     const toggleView = (checked) => {
         setShowList(checked);
     };

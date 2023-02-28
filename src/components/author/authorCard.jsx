@@ -26,7 +26,7 @@ function AuthorCard({ libraryId, author, t })
       <IconText icon={ImBooks} text={t('author.bookCount', { count: author.bookCount })} key="auhtor-book-count" />
       </Link>);
   const writingsCount = (<Link to={`/libraries/${libraryId}/writings?author=${author.id}`}>
-      <IconText icon={FaPenFancy} text="0" key="author-writings-count" />
+      <IconText icon={FaPenFancy} text={t('author.writingCount', { count: 0 })} key="author-writings-count" />
       </Link>);
 
   return (<Card key={author.id} cover={cover} actions={[bookCount, writingsCount]}>

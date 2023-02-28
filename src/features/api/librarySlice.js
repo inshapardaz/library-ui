@@ -1,13 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { axiosBaseQuery } from '../../helpers/axios.helpers'
 // ----------------------------------------------
 export const authorApi = createApi({
     reducerPath: 'author',
-    baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
+    baseQuery: axiosBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
     endpoints: (builder) => ({
       getAuthors: builder.query({
-        query: (libraryId) => `/library/${libraryId}/authors`,
+        query: (libraryId) => ({ url : `/libraries/${libraryId}/authors`, method: 'get' }),
       }),
     }),
   })

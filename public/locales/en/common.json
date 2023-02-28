@@ -159,6 +159,8 @@
 		"poet" : "poet",
 		"bookCount_one" : "1 book",
 		"bookCount_other" : "{{count}} books",
+		"writingCount_one" : "1 writing",
+		"writingCount_other" : "{{count}} writings",
 		"noDescription" : "No details..."
 	},
 	"series" : {

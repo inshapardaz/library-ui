@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 import { store } from "../store";
@@ -34,10 +33,8 @@ export const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: process.env.REACT_APP_API_URL }) =>
   async ({ url, method, data, params }) => {
     try {
-      const result = await axios({ url: baseUrl + url, method, data, params })
-      console.log(result)
-      console.log(result.data)
-      return result.data
+      const result = await axiosPrivate({ url: baseUrl + url, method, data, params })
+      return result
     } catch (axiosError) {
       let err = axiosError
       return {
