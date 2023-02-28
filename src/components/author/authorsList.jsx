@@ -30,7 +30,7 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
     const navigate = useNavigate()
     const [showList, setShowList] = useLocalStorage('author-list-view', false);
     
-    const { data : authors, error, isLoading } = useGetAuthorsQuery(libraryId)
+    const { data : authors, error, isLoading } = useGetAuthorsQuery({libraryId, query, authorType, pageNumber, pageSize})
 
     const toggleView = (checked) => {
         setShowList(checked);
