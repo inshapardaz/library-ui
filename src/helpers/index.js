@@ -120,7 +120,7 @@ const parseReadFilter = (readFilter) => {
       return null;
     },
     buildLinkToSeriesPage: (
-      location,
+      libraryId,
       page,
       pageSize,
       query
@@ -135,10 +135,10 @@ const parseReadFilter = (readFilter) => {
           querystring = querystring.slice(0, -1);
         }
   
-        return `${location}?${querystring}`;
+        return `/libraries/${libraryId}/series?${querystring}`;
       }
   
-      return location;
+      return null;
     },
     buildLinkToPeriodicalsPage :  (
       location,

@@ -3,9 +3,9 @@ import librariesReducer from './features/libraries/librariesSlice';
 import libraryReducer from './features/libraries/librarySlice';
 import categoriesReducer from './features/libraries/categoriesSlice';
 import booksReducer from './features/libraries/booksSlice';
-//import authorsReducer from './features/libraries/authorsSlice';
 import authReducer from './features/auth/authSlice';
-import { authorApi } from './features/api/librarySlice'
+import { authorApi } from './features/api/authorSlice'
+import { seriesApi } from './features/api/seriesSlice'
 import uiReducer from './features/ui/uiSlice';
 
 export const store = configureStore({
@@ -16,9 +16,11 @@ export const store = configureStore({
     library: libraryReducer,
     categories: categoriesReducer,
     books: booksReducer,
-    //authors: authorsReducer,
     [authorApi.reducerPath]: authorApi.reducer,
+    [seriesApi.reducerPath]: seriesApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authorApi.middleware)
+    getDefaultMiddleware()
+      .concat(authorApi.middleware)
+      .concat(seriesApi.middleware)
 });

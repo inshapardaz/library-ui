@@ -19,7 +19,7 @@ const {Text, Paragraph} = Typography;
 function AuthorListItem({ libraryId, author, t }) 
 {
   const avatar = (<img src={author.links.image || helpers.defaultAuthorImage} 
-    onError={helpers.setDefaultAuthorImage} width="110" height="140" alt={author.title}  />);
+    onError={helpers.setDefaultAuthorImage} width="110" height="140" alt={author.name}  />);
   const title = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>{author.name}</Link>);
   const description = author.description ? (<Paragraph ellipsis type="secondary">{author.description}</Paragraph>)
                   :(<Text type="secondary">{t('author.noDescription')}</Text>);

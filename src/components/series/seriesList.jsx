@@ -7,10 +7,10 @@ import { List, Switch } from "antd";
 
 // Local Imports
 import DataContainer from "../layout/dataContainer"
-import AuthorCard from './authorCard'
+import SeriesCard from './seriesCard'
 import helpers from '../../helpers';
-import AuthorListItem from "./authorListItem";
-import { useGetAuthorsQuery } from '../../features/api/authorSlice'
+import SeriesListItem from "./seriesListItem";
+import { useGetSeriesQuery } from '../../features/api/seriesSlice'
 // ------------------------------------------------------
 
 const grid = {
@@ -25,52 +25,51 @@ const grid = {
 
 // ------------------------------------------------------
 
-function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
+function SeriesList({libraryId, query, pageNumber, pageSize}) {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const [showList, setShowList] = useLocalStorage('author-list-view', false);
+    const [showList, setShowList] = useLocalStorage('series-list-view', false);
     
-    const { data : authors, error, isLoading } = useGetAuthorsQuery({libraryId, query, authorType, pageNumber, pageSize})
+    const { data : series, error, isLoading } = useGetSeriesQuery({libraryId, query, pageNumber, pageSize})
 
     const toggleView = (checked) => {
         setShowList(checked);
     };
 
-    const renderItem = (author) => {
+    const renderItem = (s) => {
         if (showList) {
-            return <AuthorListItem key={author.id} libraryId={libraryId} author={author} t={t} />
+            return <SeriesListItem key={s.id} libraryId={libraryId} series={s} t={t} />
         } 
         else {
-            return <List.Item><AuthorCard key={author.id} libraryId={libraryId} author={author} t={t} /></List.Item>
+            return <List.Item><SeriesCard key={s.id} libraryId={libraryId} series={s} t={t} /></List.Item>
         }
     }
 
     const onPageChanged = (newPage, newPageSize) => {
-        navigate(helpers.buildLinkToAuthorsPage(
+        navigate(helpers.buildLinkToSeriesPage(
             libraryId,
             newPage,
             newPageSize,
-            query,
-            authorType
+            query
             ));
         }
 
         return (<DataContainer
             busy={isLoading} 
             error={error} 
-            empty={authors && authors.data && authors.data.length < 1}
+            empty={series && series.data && series.data.length < 1}
             actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
             <List
                 grid={ showList ? null : grid}
                 loading={isLoading}
                 size="large"
                 itemLayout={ showList ? "vertical": "horizontal" }
-                dataSource={authors ? authors.data : []}
+                dataSource={series ? series.data : []}
                 pagination={{
                     onChange: onPageChanged,
-                    pageSize: authors ? authors.pageSize : 0,
-                    current: authors ? authors.currentPageIndex : 0,
-                    total: authors ? authors.totalCount : 0,
+                    pageSize: series ? series.pageSize : 0,
+                    current: series ? series.currentPageIndex : 0,
+                    total: series ? series.totalCount : 0,
                     showSizeChanger: true,
                     responsive: true,
                     showQuickJumper: true,
@@ -81,4 +80,4 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
         </DataContainer>);
 }
 
-export default AuthorsList;
+export default SeriesList;

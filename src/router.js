@@ -5,6 +5,7 @@ import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404,
 import LibrariesHome from './pages/libraries'
 import LibraryHome from './pages/libraries/library'
 import AuthorsHomePage from './pages/authors/index'
+import SeriesHomePage from './pages/series/index'
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
@@ -17,6 +18,7 @@ const Router = () => {
                 <Route path="/libraries/" element={<LibrariesHome />} />
                 <Route path="/libraries/:libraryId" element={<LibraryHome />} />
                 <Route path="/libraries/:libraryId/authors" element={<AuthorsHomePage />} />
+                <Route path="/libraries/:libraryId/series" element={<SeriesHomePage />} />
             </Route>
             <Route element={<LayoutWithFooter />} >
                 <Route path="/login" element={<Login />} />

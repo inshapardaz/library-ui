@@ -18,7 +18,7 @@ const {Text, Paragraph} = Typography;
 function AuthorCard({ libraryId, author, t }) 
 {
   const cover = (<img src={author.links.image || helpers.defaultAuthorImage} 
-    onError={helpers.setDefaultAuthorImage}  width="196" height="300" alt={author.title}  />);
+    onError={helpers.setDefaultAuthorImage}  width="196" height="300" alt={author.name}  />);
   const title = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>{author.name}</Link>);
   const description = author.description ? (<Paragraph ellipsis type="secondary">{author.description}</Paragraph>)
                   :(<Text type="secondary">{t('author.noDescription')}</Text>);
