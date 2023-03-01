@@ -6,11 +6,11 @@ import { useLocalStorage } from "usehooks-ts";
 import { List, Switch } from "antd";
 
 // Local Imports
-import DataContainer from "../layout/dataContainer"
-import SeriesCard from './seriesCard'
 import helpers from '../../helpers';
-import SeriesListItem from "./seriesListItem";
-import { useGetSeriesQuery } from '../../features/api/seriesSlice'
+import DataContainer from "../layout/dataContainer"
+import BookCard from './bookCard'
+import BookListItem from "./bookListItem";
+import { useGetBooksQuery } from '../../features/api/booksSlice'
 // ------------------------------------------------------
 
 const grid = {
@@ -25,51 +25,80 @@ const grid = {
 
 // ------------------------------------------------------
 
-function SeriesList({libraryId, query, pageNumber, pageSize}) {
+function BooksList({libraryId, 
+    query,
+    author,
+    categories,
+    series,
+    sortBy,
+    sortDirection,
+    favorite,
+    read,
+    status,
+    pageNumber, 
+    pageSize}) {
     const { t } = useTranslation()
     const navigate = useNavigate()
-    const [showList, setShowList] = useLocalStorage('series-list-view', false);
+    const [showList, setShowList] = useLocalStorage('books-list-view', false);
     
-    const { data : series, error, isFetching } = useGetSeriesQuery({libraryId, query, pageNumber, pageSize})
-
+    const { data : books, error, isFetching } = useGetBooksQuery({libraryId, 
+        query, 
+        author,
+        categories,
+        series,
+        sortBy,
+        sortDirection,
+        favorite,
+        read,
+        status, 
+        pageNumber, 
+        pageSize})
+    
     const toggleView = (checked) => {
         setShowList(checked);
     };
 
-    const renderItem = (s) => {
+    const renderItem = (book) => {
         if (showList) {
-            return <SeriesListItem key={s.id} libraryId={libraryId} series={s} t={t} />
+            return <BookListItem key={book.id} libraryId={libraryId} book={book} t={t} />
         } 
         else {
-            return <List.Item><SeriesCard key={s.id} libraryId={libraryId} series={s} t={t} /></List.Item>
+            return <List.Item><BookCard key={book.id} libraryId={libraryId} book={book} t={t} /></List.Item>
         }
     }
 
     const onPageChanged = (newPage, newPageSize) => {
-        navigate(helpers.buildLinkToSeriesPage(
+        navigate(helpers.buildLinkToBooksPage(
             libraryId,
             newPage,
             newPageSize,
-            query
+            query,
+            author,
+            categories,
+            series,
+            sortBy,
+            sortDirection,
+            favorite,
+            read
             ));
         }
 
         return (<DataContainer
             busy={isFetching} 
             error={error} 
-            empty={series && series.data && series.data.length < 1}
+            empty={books && books.data && books.data.length < 1}
             actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
             <List
                 grid={ showList ? null : grid}
                 loading={isFetching}
                 size="large"
                 itemLayout={ showList ? "vertical": "horizontal" }
-                dataSource={series ? series.data : []}
+                dataSource={books ? books.data : []}
                 pagination={{
                     onChange: onPageChanged,
-                    pageSize: series ? series.pageSize : 0,
-                    current: series ? series.currentPageIndex : 0,
-                    total: series ? series.totalCount : 0,
+                    pageSize: books ? books.pageSize : 0,
+                    current: books ? books.currentPageIndex : 0,
+                    total: books ? books.totalCount : 0,
                     showSizeChanger: true,
                     responsive: true,
                     showQuickJumper: true,
@@ -80,4 +109,4 @@ function SeriesList({libraryId, query, pageNumber, pageSize}) {
         </DataContainer>);
 }
 
-export default SeriesList;
+export default BooksList;

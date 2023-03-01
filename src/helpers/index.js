@@ -60,7 +60,7 @@ const parseReadFilter = (readFilter) => {
       return null;
     },
     buildLinkToBooksPage: (
-      location,
+      libraryId,
       page,
       pageSize,
       query,
@@ -91,10 +91,10 @@ const parseReadFilter = (readFilter) => {
           querystring = querystring.slice(0, -1);
         }
   
-        return `${location}?${querystring}`;
+        return `/libraries/${libraryId}/books?${querystring}`;
       }
   
-      return location;
+      return null;
     },
     buildLinkToAuthorsPage: (
       libraryId,

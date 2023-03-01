@@ -30,7 +30,7 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
     const navigate = useNavigate()
     const [showList, setShowList] = useLocalStorage('author-list-view', false);
     
-    const { data : authors, error, isLoading } = useGetAuthorsQuery({libraryId, query, authorType, pageNumber, pageSize})
+    const { data : authors, error, isFetching } = useGetAuthorsQuery({libraryId, query, authorType, pageNumber, pageSize})
 
     const toggleView = (checked) => {
         setShowList(checked);
@@ -56,13 +56,13 @@ function AuthorsList({libraryId, query, authorType, pageNumber, pageSize}) {
         }
 
         return (<DataContainer
-            busy={isLoading} 
+            busy={isFetching} 
             error={error} 
             empty={authors && authors.data && authors.data.length < 1}
             actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
             <List
                 grid={ showList ? null : grid}
-                loading={isLoading}
+                loading={isFetching}
                 size="large"
                 itemLayout={ showList ? "vertical": "horizontal" }
                 dataSource={authors ? authors.data : []}

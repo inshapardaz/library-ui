@@ -6,6 +6,7 @@ import booksReducer from './features/libraries/booksSlice';
 import authReducer from './features/auth/authSlice';
 import { authorApi } from './features/api/authorSlice'
 import { seriesApi } from './features/api/seriesSlice'
+import { booksApi } from './features/api/booksSlice'
 import uiReducer from './features/ui/uiSlice';
 
 export const store = configureStore({
@@ -18,9 +19,11 @@ export const store = configureStore({
     books: booksReducer,
     [authorApi.reducerPath]: authorApi.reducer,
     [seriesApi.reducerPath]: seriesApi.reducer,
+    [booksApi.reducerPath]: booksApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(authorApi.middleware)
       .concat(seriesApi.middleware)
+      .concat(booksApi.middleware)
 });

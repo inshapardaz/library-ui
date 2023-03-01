@@ -133,7 +133,7 @@ function AppHeader () {
   if (isMobile) {
     return (
       <Row className={styles.header} style={{ backgroundColor : token.colorBgContainer}}>
-        <Col><Logo t={t} /></Col>
+        <Col><Logo t={t} library={library} /></Col>
         <Col flex="auto"></Col>
         <Col>
           <DarkModeToggle />
