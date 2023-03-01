@@ -8,7 +8,7 @@ import { FaTags, FaTag, FaRegHeart, FaBookOpen } from "react-icons/fa";
 import { MdNewReleases } from "react-icons/md";
 
 // Local Imports
-import { getCategories }  from '../../features/libraries/categoriesSlice'
+import { useGetCategoriesQuery } from '../../features/api/categoriesSlice'
 import { isLoggedIn } from '../../features/auth/authSlice'
 
 // --------------------------------------
@@ -21,10 +21,10 @@ function BooksSideBar({ libraryId,
     read }) {
     
         const { t } = useTranslation()
-        const categories = useSelector(getCategories)
         const isUserLoggedIn = useSelector(isLoggedIn)
+        const { data : categories, error, isFetching } = useGetCategoriesQuery({libraryId})
         
-        let catItems = categories && categories.data && categories.data.map(c => ({
+        let catItems = !error && isFetching && categories && categories.data && categories.data.map(c => ({
         label : (
             <Link to={`/libraries/${libraryId}/books?categories=${c.id}`}>
                 {c.name}

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 // 3rd party imports
 import { Dropdown, Space } from 'antd';
@@ -8,13 +7,13 @@ import { FiGrid } from "react-icons/fi";
 
 // Local import
 import styles from '../../styles/common.module.scss';
-import { getLibraries } from '../../features/libraries/librariesSlice'
+import { useGetLibrariesQuery } from '../../features/api/librariesSlice'
 
 // ---------------------------------------------------
 export function Logo({ t, library, showLibrarySwitcher = true }) {
-  const libraries = useSelector(getLibraries)
+  const { data: libraries, isError, isFetching } = useGetLibrariesQuery()
 
-  const items = libraries && libraries.data ? libraries.data.map(l => ({
+  const items = !isError && !isFetching && libraries && libraries.data ? libraries.data.map(l => ({
     key: l.id,
     label : (
       <Link href={`/libraries/${l.id}`}>

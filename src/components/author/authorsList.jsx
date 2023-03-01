@@ -10,7 +10,7 @@ import DataContainer from "../layout/dataContainer"
 import AuthorCard from './authorCard'
 import helpers from '../../helpers';
 import AuthorListItem from "./authorListItem";
-import { useGetAuthorsQuery } from '../../features/api/authorSlice'
+import { useGetAuthorsQuery } from '../../features/api/authorsSlice'
 // ------------------------------------------------------
 
 const grid = {

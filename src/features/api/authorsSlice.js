@@ -4,8 +4,8 @@ import { axiosBaseQuery } from '../../helpers/axios.helpers'
 
 import { parseResponse } from '../../helpers/parseResponse';
 // ----------------------------------------------
-export const authorApi = createApi({
-    reducerPath: 'author',
+export const authorsApi = createApi({
+    reducerPath: 'authors',
     baseQuery: axiosBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
     endpoints: (builder) => ({
       getAuthors: builder.query({
@@ -23,4 +23,4 @@ export const authorApi = createApi({
   })
 
 
-  export const { useGetAuthorsQuery } = authorApi
+  export const { useGetAuthorsQuery } = authorsApi

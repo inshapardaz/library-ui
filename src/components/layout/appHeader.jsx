@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from "usehooks-ts";
 import { NavLink, useParams } from "react-router-dom";
@@ -15,8 +14,8 @@ import LanguageSwitcher from "../languageSwitcher";
 import DarkModeToggle from "../darkModeToggle";
 import { Logo } from "./logo";
 import ProfileMenu from "./profileMenu";
-import { getLibrary }  from '../../features/libraries/librarySlice'
-import { getCategories }  from '../../features/libraries/categoriesSlice'
+import { useGetLibraryQuery } from '../../features/api/librariesSlice'
+import { useGetCategoriesQuery } from '../../features/api/categoriesSlice'
 
 //---------------------------------------------
 
@@ -26,8 +25,8 @@ function AppHeader () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery(["(max-width: 600px)"], [true], false); 
   const { libraryId } = useParams()
-  const categories = useSelector(getCategories);
-  const library = useSelector(getLibrary)
+  const { date: library } = useGetLibraryQuery()
+  const { data: categories, error, isFetching } = useGetCategoriesQuery({libraryId})
   
   let items = [];
 
@@ -35,7 +34,7 @@ function AppHeader () {
     setMobileMenuOpen(false);
   }
 
-  const catItems = categories && categories.data && categories.data.map(c => ({
+  const catItems = !error && isFetching && categories && categories.data && categories.data.map(c => ({
     label : (
       <NavLink to={`/libraries/${libraryId}/books?categories=${c.id}`}>
         {c.name}

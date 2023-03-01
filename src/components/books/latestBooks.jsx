@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLocalStorage } from "usehooks-ts";
 
 // 3rd party libraries
 import { Button, List, Switch } from 'antd';
@@ -9,9 +9,8 @@ import { Button, List, Switch } from 'antd';
 import DataContainer from "../layout/dataContainer";
 import BookCard from "./bookCard";
 import BookListItem from "./bookListItem";
-import { fetchLatestBooks, getLatestBooks, getLatestBooksError, getLatestBooksStatus } from '../../features/libraries/booksSlice'
-import { useDispatch, useSelector } from "react-redux";
-import { useLocalStorage } from "usehooks-ts";
+import { useGetBooksQuery } from '../../features/api/booksSlice'
+
 
 // ------------------------------------------------------
 
@@ -44,18 +43,10 @@ const grid = {
 function LatestBooks() {
     const { t } = useTranslation();
     const { libraryId } = useParams()
-    const dispatch = useDispatch()
-    const books = useSelector(getLatestBooks)
-    const status = useSelector(getLatestBooksStatus);
-    const error = useSelector(getLatestBooksError);
-    const [showList, setShowList] = useLocalStorage('book-list-view', false);
-
-    useEffect(() => {
-        if (status === 'idle') 
-        {
-            dispatch(fetchLatestBooks(libraryId))
-        }
-    }, [dispatch, status, libraryId])
+    const { data : books, error, isFetching } = useGetBooksQuery({libraryId, 
+        sortBy: 'DateCreated',
+        sortDirection: 'descending' })
+    const [showList, setShowList] = useLocalStorage('books-list-view', false);
     
     const toggleView = (checked) => {
         setShowList(checked);
@@ -63,13 +54,13 @@ function LatestBooks() {
 
 
     return (<DataContainer title={t('books.latest.title')} 
-        busy={status === 'loading'} 
+        busy={isFetching} 
         error={error} 
         empty={books && books.data && books.data.length < 1}
         actions={(<Switch checked={showList} onChange={toggleView} />) }>
         <List
             grid={ showList ? null : grid}
-            loading={status === 'loading'}
+            loading={isFetching}
             size="large"
             itemLayout={ showList ? "vertical": "horizontal" }
             dataSource={books ? books.data : []}

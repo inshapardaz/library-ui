@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 // 3rd party libraries
@@ -7,7 +5,7 @@ import { Button, List } from 'antd';
 import { useNavigate } from "react-router-dom";
 
 // Internal Imports
-import { getLibraries, getLibrariesStatus, getLibrariesError, fetchLibraries } from '../../features/libraries/librariesSlice'
+import { useGetLibrariesQuery } from '../../features/api/librariesSlice'
 import DataContainer from "../layout/dataContainer";
 import LibraryCard from "./card";
 // ------------------------------------------------------
@@ -40,25 +38,13 @@ function ShowMoreButton ({ t }) {
 
 const LibrariesList = () => {
     const { t } = useTranslation()
-    const dispatch = useDispatch()
-    const libraries = useSelector(getLibraries)
-    const status = useSelector(getLibrariesStatus)
-    const error = useSelector(getLibrariesError)
+    const { data: libraries, isError, isFetching } = useGetLibrariesQuery()
 
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchLibraries())
-        }
-    }, [dispatch, status])
-    
-    if (status === 'failed') {
-        return <p>{error}</p>
-    }
-    return (<DataContainer  busy={status === 'loading'} 
-        error={error} 
+    return (<DataContainer  busy={isFetching} 
+        error={isError} 
         empty={libraries && libraries.data && libraries.data.length < 1}>
             <List
-                loading={status === 'loading'}
+                loading={isFetching}
                 size="large"
                 grid={ grid }
                 itemLayout="vertical"

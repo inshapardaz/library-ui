@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 // 3rd party libraries
 import { Spin, Typography } from "antd";
@@ -9,15 +9,15 @@ import ContentsContainer from '../../components/layout/contentContainer';
 import HeroImage from "../../components/heroImage";
 import SearchBox from "../../components/searchBox";
 import LatestBooks from "../../components/books/latestBooks";
-import { getLibrary, getLibraryStatus }  from '../../features/libraries/librarySlice'
+import { useGetLibraryQuery }  from '../../features/api/librariesSlice'
 
 // -------------------------------------------------------
 
 const LibraryHome = () => {
-  const library = useSelector(getLibrary)
-  const libraryStatus = useSelector(getLibraryStatus)
+  const { libraryId } = useParams()
+  const { data: library, isFetching  } = useGetLibraryQuery({libraryId})
 
-  if (libraryStatus === 'loading') {
+  if (isFetching) {
     return <Spin />
   }
 
