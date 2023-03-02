@@ -25,8 +25,8 @@ function AppHeader () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery(["(max-width: 600px)"], [true], false); 
   const { libraryId } = useParams()
-  const { data: library } = useGetLibraryQuery({libraryId})
-  const { data: categories, error, isFetching } = useGetCategoriesQuery({libraryId})
+  const { data: library } = useGetLibraryQuery({libraryId}, { skip : !libraryId })
+  const { data: categories, error, isFetching } = useGetCategoriesQuery({libraryId}, { skip : !libraryId })
   
   let items = [];
 
@@ -49,7 +49,7 @@ function AppHeader () {
     items = [{
       label: (
         <NavLink to={`/libraries/${libraryId}`}>
-          {t("header.home")}
+          {library.name}
         </NavLink>
       ),
       key: 'home',

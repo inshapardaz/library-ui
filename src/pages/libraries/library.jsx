@@ -15,7 +15,7 @@ import { useGetLibraryQuery }  from '../../features/api/librariesSlice'
 
 const LibraryHome = () => {
   const { libraryId } = useParams()
-  const { data: library, isFetching  } = useGetLibraryQuery({libraryId})
+  const { data: library, isFetching  } = useGetLibraryQuery({libraryId}, { skip : libraryId === null})
 
   if (isFetching) {
     return <Spin />
