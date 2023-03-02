@@ -9,7 +9,7 @@ export const librariesApi = createApi({
     baseQuery: axiosBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
     endpoints: (builder) => ({
       getLibraries: builder.query({
-        query: ({query, pageNumber, pageSize}) => {
+        query: (query = null, pageNumber = 1, pageSize = 12) => {
           let queryVal = query ? `&query=${query}` : '';
           return ({ url: `/libraries?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`, method: 'get' });
         },

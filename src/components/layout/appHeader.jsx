@@ -25,7 +25,7 @@ function AppHeader () {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery(["(max-width: 600px)"], [true], false); 
   const { libraryId } = useParams()
-  const { date: library } = useGetLibraryQuery()
+  const { data: library } = useGetLibraryQuery({libraryId})
   const { data: categories, error, isFetching } = useGetCategoriesQuery({libraryId})
   
   let items = [];
@@ -34,7 +34,7 @@ function AppHeader () {
     setMobileMenuOpen(false);
   }
 
-  const catItems = !error && isFetching && categories && categories.data && categories.data.map(c => ({
+  const catItems = !error && !isFetching && categories && categories.data && categories.data.map(c => ({
     label : (
       <NavLink to={`/libraries/${libraryId}/books?categories=${c.id}`}>
         {c.name}

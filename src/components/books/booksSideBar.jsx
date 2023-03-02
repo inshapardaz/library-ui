@@ -23,8 +23,8 @@ function BooksSideBar({ libraryId,
         const { t } = useTranslation()
         const isUserLoggedIn = useSelector(isLoggedIn)
         const { data : categories, error, isFetching } = useGetCategoriesQuery({libraryId})
-        
-        let catItems = !error && isFetching && categories && categories.data && categories.data.map(c => ({
+
+        let catItems = !error && !isFetching && categories && categories.data && categories.data.map(c => ({
         label : (
             <Link to={`/libraries/${libraryId}/books?categories=${c.id}`}>
                 {c.name}
@@ -33,16 +33,6 @@ function BooksSideBar({ libraryId,
             key: `side-bar-category-${c.id}`,
             icon: <FaTag />,
         }))
-        
-        catItems && catItems.unshift({
-            label : (
-                <Link to={`/libraries/${libraryId}/books`}>
-                {t('categories.all')}
-                </Link>
-            ),
-            key: `side-bar-category-`,
-            icon: <FaTag />,
-        });
 
         const items =  [{
             key: 'sidebar-bar-latest',
@@ -51,10 +41,13 @@ function BooksSideBar({ libraryId,
                 {t('books.latest.title')}
             </Link>)
             },{
+                type: 'divider',
+            },{
                 key: 'side-bar-categories',
                 icon: <FaTags />,
                 label: t('categories.title'),
-                children: catItems
+                children: catItems,
+                type: 'group'
         }];
         
         if (isUserLoggedIn) 
@@ -81,7 +74,7 @@ function BooksSideBar({ libraryId,
         {
             selection.push(`side-bar-category-${selectedCategories}`);
         } 
-        else if ( sortBy && sortBy.toLowerCase() ==='datecreated' && 
+        else if (sortBy && sortBy.toLowerCase() ==='datecreated' && 
                     sortDirection && sortDirection.toLowerCase()===`descending`)
         {
             selection.push('sidebar-bar-latest');
@@ -97,7 +90,7 @@ function BooksSideBar({ libraryId,
 
         return (<Menu
             mode="inline"
-            defaultSelectedKeys={selection}
+            selectedKeys={selection}
             defaultOpenKeys={['side-bar-categories']}
             style={{ height: '100%' }}
             items={items}
