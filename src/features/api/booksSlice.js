@@ -51,8 +51,16 @@ export const booksApi = createApi({
           },
         transformResponse: (response) => parseResponse(response)
       }),
+      getBook: builder.query({
+        query: ({libraryId, bookId}) => ({ url: `/libraries/${libraryId}/books/${bookId}`, method: 'get' }),
+        transformResponse: (response) => parseResponse(response)
+      }),
+      getBookChapters: builder.query({
+        query: ({libraryId, bookId}) => ({ url: `/libraries/${libraryId}/books/${bookId}/chapters`, method: 'get' }),
+        transformResponse: (response) => parseResponse(response)
+      })
     }),
   })
 
 
-  export const { useGetBooksQuery } = booksApi
+  export const { useGetBooksQuery, useGetBookQuery, useGetBookChaptersQuery } = booksApi

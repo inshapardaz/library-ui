@@ -5,6 +5,7 @@ import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404,
 import LibrariesHome from './pages/libraries'
 import LibraryHome from './pages/libraries/library'
 import BooksHomePage from './pages/books/index'
+import BookPage from './pages/books/book'
 import AuthorsHomePage from './pages/authors/index'
 import SeriesHomePage from './pages/series/index'
 
@@ -19,6 +20,7 @@ const Router = () => {
                 <Route path="/libraries/" element={<LibrariesHome />} />
                 <Route path="/libraries/:libraryId" element={<LibraryHome />} />
                 <Route path="/libraries/:libraryId/books" element={<BooksHomePage />} />
+                <Route path="/libraries/:libraryId/books/:bookId" element={<BookPage />} />
                 <Route path="/libraries/:libraryId/authors" element={<AuthorsHomePage />} />
                 <Route path="/libraries/:libraryId/series" element={<SeriesHomePage />} />
             </Route>

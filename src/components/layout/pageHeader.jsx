@@ -15,7 +15,7 @@ function PageHeader ({title, icon}) {
   return (<div  className={styles.header}>
     <Row align="middle" gutter={8}>
       <Col>{icon}</Col>
-      <Col flex="auto">
+      <Col flex="1 1auto">
         <Typography.Title level={2}>{title}</Typography.Title>
       </Col>
       <Col>
