@@ -24,8 +24,8 @@ export const login = createAsyncThunk('auth/login', async ({ email, password }) 
 export const refreshToken = createAsyncThunk('auth/refresh-token', async (_, { getState }) => {
     try {
         var state = getState();
-        if (state?.user?.refreshToken) {
-            const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken : state?.user?.refreshToken })
+        if (state?.auth?.user?.refreshToken) {
+            const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken: state?.auth?.user?.refreshToken })
             return response.data
         }
     } catch (err) {
@@ -40,10 +40,11 @@ export const init = createAsyncThunk('auth/init', async (_, { getState }) => {
     let currentDate = new Date();
     if (user?.refreshToken) {
         if (user?.accessToken && new Date(user.accessTokenExpiry) < currentDate.getTime()) {
-            const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken : user.refreshToken })
+            const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken: user.refreshToken })
             return response.data
-        }   
+        }
     }
+    return user
 })
 
 export const authSlice = createSlice({
@@ -56,7 +57,7 @@ export const authSlice = createSlice({
         },
         reset: (state) => {
             state.error = null
-            state.status= 'idle'
+            state.status = 'idle'
         }
     },
     extraReducers(builder) {
@@ -67,8 +68,7 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 // TODO: Perform transformation like link replacement
-                if (action.payload)
-                {
+                if (action.payload) {
                     state.user = action.payload
                     window.localStorage.user = JSON.stringify(action.payload)
                 }
@@ -94,8 +94,7 @@ export const authSlice = createSlice({
             })
             .addCase(init.fulfilled, (state, action) => {
                 state.tokenStatus = 'succeeded'
-                if (action.payload)
-                {
+                if (action.payload) {
                     state.user = action.payload
                     window.localStorage.user = JSON.stringify(action.payload)
                 }
