@@ -7,7 +7,9 @@ import LibraryHome from './pages/libraries/library'
 import BooksHomePage from './pages/books/index'
 import BookPage from './pages/books/book'
 import AuthorsHomePage from './pages/authors/index'
+import AuthorPage from './pages/authors/author';
 import SeriesHomePage from './pages/series/index'
+import SeriesPage from './pages/series/series';
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
@@ -22,7 +24,9 @@ const Router = () => {
                 <Route path="/libraries/:libraryId/books" element={<BooksHomePage />} />
                 <Route path="/libraries/:libraryId/books/:bookId" element={<BookPage />} />
                 <Route path="/libraries/:libraryId/authors" element={<AuthorsHomePage />} />
+                <Route path="/libraries/:libraryId/authors/:authorId" element={<AuthorPage />} />
                 <Route path="/libraries/:libraryId/series" element={<SeriesHomePage />} />
+                <Route path="/libraries/:libraryId/series/:seriesId" element={<SeriesPage />} />
             </Route>
             <Route element={<LayoutWithFooter />} >
                 <Route path="/login" element={<Login />} />

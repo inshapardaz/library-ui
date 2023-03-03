@@ -16,8 +16,13 @@ export const seriesApi = createApi({
           },
         transformResponse: (response) => parseResponse(response)
       }),
+      getSeriesById: builder.query({
+        query: ({libraryId, seriesId}) => 
+          ({ url: `/libraries/${libraryId}/series/${seriesId}`, method: 'get' }),
+        transformResponse: (response) => parseResponse(response)
+      }),
     }),
   })
 
 
-  export const { useGetSeriesQuery } = seriesApi
+  export const { useGetSeriesQuery, useGetSeriesByIdQuery } = seriesApi
