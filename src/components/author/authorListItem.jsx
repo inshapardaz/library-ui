@@ -7,6 +7,7 @@ import { ImBooks } from 'react-icons/im';
 import { FaPenFancy } from 'react-icons/fa';
 
 // Local Imports
+import styles from '../../styles/common.module.scss'
 import helpers from '../../helpers/index';
 import { IconText } from '../common/iconText';
 
@@ -19,7 +20,7 @@ const {Text, Paragraph} = Typography;
 function AuthorListItem({ libraryId, author, t }) 
 {
   const avatar = (<img src={author.links.image || helpers.defaultAuthorImage} 
-    onError={helpers.setDefaultAuthorImage} width="110" height="140" alt={author.name}  />);
+    onError={helpers.setDefaultAuthorImage} className={ styles["author__image--small"]} alt={author.name}  />);
   const title = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>{author.name}</Link>);
   const description = author.description ? (<Paragraph ellipsis type="secondary">{author.description}</Paragraph>)
                   :(<Text type="secondary">{t('author.noDescription')}</Text>);

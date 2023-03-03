@@ -219,3 +219,64 @@
     padding: 4px;
   }
 }
+
+
+.library {
+  &__image {
+    width : 262px;
+    height : 400px;
+    
+    &--small {
+      width: 98px;
+      height: 150px;
+    }
+  }
+}
+
+.book {
+  &__image {
+    width : 262px;
+    height : 400px;
+
+    &--small {
+      width: 98px;
+      height: 150px;
+    }
+  }
+}
+
+.periodical {
+  &__image {
+    width : 262px;
+    height : 400px;
+
+    &--small {
+      width: 98px;
+      height: 150px;
+    }
+  }
+}
+
+.author {
+  &__image {
+    width : 196px;
+    height : 300px;
+    
+    &--small {
+      width: 110px;
+      height: 140px;
+    }
+  }
+}
+
+.series {
+  &__image {
+    width : 196px;
+    height : 300px;
+    
+    &--small {
+      width: 110px;
+      height: 140px;
+    }
+  }
+}

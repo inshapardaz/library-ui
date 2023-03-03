@@ -6,6 +6,7 @@ import { FiLayers } from 'react-icons/fi';
 import { AiOutlineCopy } from 'react-icons/ai';
 
 // Local Imports
+import styles from '../../styles/common.module.scss'
 import { AuthorAvatar } from '../author/authorAvatar';
 import helpers from '../../helpers/index';
 import { BookSeriesInfo } from './bookSeriesInfo';
@@ -19,8 +20,8 @@ const {Text, Paragraph} = Typography;
 function BookCard({ libraryId, book, t }) 
 {
 
-  const cover = (book.links.image ? <img src={book.links.image} onError={helpers.setDefaultBookImage} width="262" height="400" alt={book.title}  /> : 
-            <img src={helpers.defaultBookImage}  width="262" height="400" alt={book.title} />);
+  const cover = (book.links.image ? <img src={book.links.image} onError={helpers.setDefaultBookImage} className={ styles["book__image"]} alt={book.title}  /> : 
+    <img src={helpers.defaultBookImage} className={ styles["book__image"]} alt={book.title} />);
   const avatar  = (<Avatar.Group maxCount="2" size="large">
       { book.authors.map(author => (<AuthorAvatar key={author.id} libraryId={libraryId} author={author} t={t}/>))}
   </Avatar.Group>);

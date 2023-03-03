@@ -180,6 +180,14 @@
 	"periodical" : {
 		"issueCount_one" : "1 issue",
 		"issueCount_other" : "{{count}} issues",
-		"noDescription" : "No details..."
+		"noDescription" : "No details...",
+		"frequency": {
+			"annually": "Annually",
+			"quarterly": "Quarterly",
+			"monthly": "Monthly",
+			"fortnightly" : "Fortnightly",
+			"weekly": "Weekly",
+			"daily": "Daily"
+		}
 	}
 }

@@ -181,6 +181,14 @@
 	"periodical" : {
 		"issueCount_one" : "1 شمارہ",
 		"issueCount_other" : "{{count}} شمارے",
-		"noDescription" : "تفصیل دستیاب نہیں۔۔۔"
+		"noDescription" : "تفصیل دستیاب نہیں۔۔۔",
+		"frequency": {
+			"annually": "سالانہ",
+			"quarterly": "سہ ماہی",
+			"monthly": "ماہانہ",
+			"fortnightly" : "پندرواڑہ",
+			"weekly": "ہفتہ وار",
+			"daily": "روز نامہ"
+		}
 	}
 }

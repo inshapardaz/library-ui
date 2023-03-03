@@ -5,6 +5,7 @@ import { Card, Typography } from 'antd';
 import { ImBooks } from 'react-icons/im';
 
 // Local Imports
+import styles from '../../styles/common.module.scss'
 import { IconText } from '../common/iconText';
 import helpers from '../../helpers/index';
 
@@ -17,7 +18,7 @@ const {Text, Paragraph} = Typography;
 function SeriesCard({ libraryId, series, t }) 
 {
   const cover = (<img src={series.links.image || helpers.defaultSeriesImage} 
-    onError={helpers.setDefaultSeriesImage}  width="196" height="300" alt={series.name}  />);
+    onError={helpers.setDefaultSeriesImage}  className={ styles["series__image"]} alt={series.name}  />);
   const title = (<Link to={`/libraries/${libraryId}/series/${series.id}`}>{series.name}</Link>);
   const description = series.description ? (<Paragraph ellipsis type="secondary">{series.description}</Paragraph>)
                   :(<Text type="secondary">{t('series.noDescription')}</Text>);

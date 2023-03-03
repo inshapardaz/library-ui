@@ -6,6 +6,7 @@ import { List, Typography } from 'antd'
 import { ImBooks } from 'react-icons/im';
 
 // Local Imports
+import styles from '../../styles/common.module.scss'
 import helpers from '../../helpers/index';
 import { IconText } from '../common/iconText';
 
@@ -18,7 +19,7 @@ const {Text, Paragraph} = Typography;
 function SeriesListItem({ libraryId, series, t }) 
 {
   const avatar = (<img src={series.links.image || helpers.defaultSeriesImage} 
-    onError={helpers.setDefaultSeriesImage} width="110" height="140" alt={series.title}  />);
+    onError={helpers.setDefaultSeriesImage} className={ styles["series__image--small"]} alt={series.title}  />);
   const title = (<Link to={`/libraries/${libraryId}/series/${series.id}`}>{series.name}</Link>);
   const description = series.description ? (<Paragraph ellipsis type="secondary">{series.description}</Paragraph>)
                   :(<Text type="secondary">{t('series.noDescription')}</Text>);

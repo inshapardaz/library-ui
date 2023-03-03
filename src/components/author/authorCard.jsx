@@ -6,6 +6,7 @@ import { ImBooks } from 'react-icons/im';
 import { FaPenFancy } from 'react-icons/fa';
 
 // Local Imports
+import styles from '../../styles/common.module.scss'
 import { IconText } from '../common/iconText';
 import helpers from '../../helpers/index';
 
@@ -18,7 +19,7 @@ const {Text, Paragraph} = Typography;
 function AuthorCard({ libraryId, author, t }) 
 {
   const cover = (<img src={author.links.image || helpers.defaultAuthorImage} 
-    onError={helpers.setDefaultAuthorImage}  width="196" height="300" alt={author.name}  />);
+    onError={helpers.setDefaultAuthorImage}  className={ styles["author__image"]} alt={author.name}  />);
   const title = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>{author.name}</Link>);
   const description = author.description ? (<Paragraph ellipsis type="secondary">{author.description}</Paragraph>)
                   :(<Text type="secondary">{t('author.noDescription')}</Text>);

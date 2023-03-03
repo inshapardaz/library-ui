@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 // Internal Imports
 import { useGetLibrariesQuery } from '../../features/api/librariesSlice'
 import DataContainer from "../layout/dataContainer";
-import LibraryCard from "./card";
+import LibraryCard from "./libraryCard";
 // ------------------------------------------------------
 
 const grid = {
