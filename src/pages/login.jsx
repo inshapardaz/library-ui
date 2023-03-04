@@ -78,13 +78,13 @@ const Login = () => {
                             </Button>
                             {errorMessage}
                             <Divider  />
-                            <Button onClick={ () => navigate("/forgot-password")} type="text" block>
+                            <Button onClick={ () => navigate("/account/forgot-password")} type="text" block>
                                 {t('forgotPassword.title')}
                             </Button>
                             <Button onClick={() => navigate("/")} type="text" block>
                                 {t('header.home')}
                             </Button>
-                            <Button onClick={() => navigate("/register")} type="text" block>
+                            <Button onClick={() => navigate("/account/register")} type="text" block>
                                 {t('register.title')}
                             </Button>
                         </Space>

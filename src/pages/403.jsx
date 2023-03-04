@@ -5,15 +5,15 @@ import { Button, Result } from 'antd';
 
 //-----------------------------------------
 
-const Error404 = () => {
+const Error403 = () => {
     const { t } = useTranslation()
         
     return (<Result
-        status="404"
-        title={t('404.title')}
-        subTitle={t('404.description')}
-        extra={<Button href="/" type="primary">{t('404.action')}</Button>}
+        status="403"
+        title={t('403.title')}
+        subTitle={t('403.description')}
+        extra={<Button href="/" type="primary">{t('403.action')}</Button>}
     />)
 }
 
-export default Error404;
+export default Error403;

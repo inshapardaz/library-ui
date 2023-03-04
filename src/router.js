@@ -1,6 +1,17 @@
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
 
-import { Home, Login, Register, ForgotPassword, ChangePassword, Vrify, Error404, Error500 } from "./pages";
+import {
+    Home,
+    Login,
+    Register,
+    ForgotPassword,
+    ResetPassword,
+    ChangePassword,
+    VerifyAccount,
+    Error403,
+    Error404,
+    Error500
+} from "./pages";
 
 import LibrariesHome from './pages/libraries'
 import LibraryHome from './pages/libraries/library'
@@ -14,6 +25,7 @@ import PeriodicalsHomePage from './pages/periodicals/index';
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
+import SecurePage from './components/layout/securePage';
 
 const Router = () => {
     return (<BrowserRouter>
@@ -29,18 +41,22 @@ const Router = () => {
                 <Route path="/libraries/:libraryId/series" element={<SeriesHomePage />} />
                 <Route path="/libraries/:libraryId/series/:seriesId" element={<SeriesPage />} />
                 <Route path="/libraries/:libraryId/periodicals" element={<PeriodicalsHomePage />} />
+                <Route path="/500" element={<Error500 />} />
+                <Route path="/403" element={<Error403 />} />
+                <Route path="*" element={<Error404 />} />
             </Route>
             <Route element={<LayoutWithFooter />} >
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/change-password" element={<ChangePassword />} />
-                <Route path="/verify" element={<Vrify />} />
-                <Route path="/500" element={<Error500 />} />
-                <Route path="*" element={<Error404 />} />
+                <Route element={<SecurePage />}>
+                    <Route path="/change-password" element={<ChangePassword />} />
+                </Route>
+                <Route path="/account/login" element={<Login />} />
+                <Route path="/account/register" element={<Register />} />
+                <Route path="/account/forgot-password" element={<ForgotPassword />} />
+                <Route path="/account/reset-password" element={<ResetPassword />} />
+                <Route path="/account/verify" element={<VerifyAccount />} />
             </Route>
         </Routes>
     </BrowserRouter>);
 }
 
-  export default Router;
+export default Router;

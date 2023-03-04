@@ -127,7 +127,7 @@ function Register() {
                 {t('register.submit')}
               </Button>
               <Divider />
-              <Button type="text" block href="/login">
+              <Button type="text" block href="/account/login">
                 {t('login.title')}
               </Button>
               <Button href="/" type="text" block> {t('header.home')}</Button>

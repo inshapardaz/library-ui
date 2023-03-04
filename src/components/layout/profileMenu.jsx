@@ -64,7 +64,7 @@ const ProfileMenu = () => {
     }]
     : [{
       label: (
-        <Link to='/login'>
+        <Link to='/account/login'>
           {t('login.title')}
         </Link>),
       key: 'login',
@@ -73,7 +73,7 @@ const ProfileMenu = () => {
       type: 'divider'
     }, {
       label: (
-        <Link to='/register'>
+        <Link to='/account/register'>
           {t('register.title')}
         </Link>),
       key: 'register',
