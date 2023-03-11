@@ -1,0 +1,37 @@
+
+@import url(https://urdu-fonts.netlify.app/stylesheet.css);
+
+.readerLayout {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    &__header {
+        padding: 0 10px;
+        height: 50px;
+    }
+}
+
+.reader {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    &__vertical {
+        max-width: 6in;
+        max-height: 9in;
+        text-align: justify;
+        text-justify: inter-word;
+        user-select: none;
+         text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
+    }
+}

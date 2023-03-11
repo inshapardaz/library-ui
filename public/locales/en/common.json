@@ -19,7 +19,8 @@
 		"list" : "List",
 		"card" : "Cards",
 		"yes" : "Yes",
-		"no" : "No"
+		"no" : "No",
+		"close": "Close"
 	},
 	"login" : {
 		"title" : "Login",
@@ -182,6 +183,15 @@
 		"chapters" : {
 			"title" : "Chapters"
 		}
+	},
+	"chapters" : {
+		"title": "Chapters"
+	},
+	
+	"reader" : {
+		"settings": "Theme & Settings",
+		"fontSize": "Font Size", 
+		"lineSpacing": "Line Spacing" 
 	},
 	"authors" : {
 		"title" : "Authors"

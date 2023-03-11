@@ -31,7 +31,7 @@ const BookPage = () => {
                   <BookInfo libraryId={libraryId} book={book} t={t} />
               </Col>
               <Col span={18}>
-                  <ChaptersList libraryId={libraryId} bookId={bookId} t={t} />
+                  <ChaptersList libraryId={libraryId} bookId={bookId} t={t} size="large" />
               </Col>
           </Row>
         </ContentsContainer>

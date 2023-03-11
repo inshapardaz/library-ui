@@ -19,7 +19,8 @@
 		"list" : "فہرست",
 		"card" : "تصاویر",
 		"yes" : "جی ہاں",
-		"no" : "نہیں"
+		"no" : "نہیں",
+		"close": "بند کریں"
 	},
 	"login" : {
 		"title" : "داخل ہوں",
@@ -183,6 +184,14 @@
 		"chapters" : {
 			"title" : "ابواب"
 		}
+	},
+	"chapters" : {
+		"title": "ابواب"
+	},
+	"reader" : {
+		"settings" : "بصری ترجیحات",
+		"fontSize": "متن کا سائز", 
+		"lineSpacing": "سطری فاصلہ"
 	},
 	"authors" : {
 		"title" : "مصنّفین"
