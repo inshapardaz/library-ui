@@ -4,9 +4,8 @@ import { useNavigate, useParams } from "react-router-dom"
 
 // 3rd party libraries
 import { useLocalStorage } from "usehooks-ts";
-import { Button, Layout, Spin, theme, Drawer, Row, Col, Tooltip, Divider, Typography } from 'antd';
+import { Button, Layout, Spin, theme, Drawer, Row, Col, Tooltip, Divider, Typography, Slider } from 'antd';
 import { ImMenu4 } from 'react-icons/im'
-import { BiFont } from 'react-icons/bi'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { MdSettings } from 'react-icons/md'
 
@@ -16,6 +15,7 @@ import { useGetBookQuery, useGetChapterQuery, useGetChapterContentsQuery } from 
 import { languages } from '../../features/ui/uiSlice';
 import Reader from "../../components/reader";
 import ChaptersList from "../../components/books/chapters/chaptersList";
+import FontList from "../../components/reader/fontList";
 //------------------------------------------------
 
 const { Header, Content } = Layout;
@@ -37,9 +37,9 @@ const BookReader = () => {
     const { data : chapter, error: chapterError, isFetching } = useGetChapterQuery({libraryId, bookId, chapterId}, { skip : !libraryId || !bookId || !chapterId })
     const { data : contents, error: contentsError, isFetching: contentsFetching } = useGetChapterContentsQuery({libraryId, bookId, chapterId}, { skip : !libraryId || !bookId || !chapterId })
     
-    const [font, setFont] = useLocalStorage('reader-font', 'Mehr Nastaliq Web')
-    const [size, setSize] = useLocalStorage('reader-font-size', 1.0);
-    // const [lineDistance, setLineDistance] = useLocalStorage('reader-line-distance', 1.0);
+    const [font, setFont] = useLocalStorage('reader-font', 'MehrNastaleeq')
+    const [size, setSize] = useLocalStorage('reader-font-size', 2.0);
+    const [lineHeight, setLineHeight] = useLocalStorage('reader-line-height', 1.5);
     const [showChapters, setShowChapters] = useState(false);
     const [showSetting, setShowSetting] = useState(false);
     const openSettings = () => setShowSetting(true)
@@ -50,9 +50,6 @@ const BookReader = () => {
 
     const onClose = () => navigate(`/libraries/${libraryId}/books/${bookId}`)
 
-    const onSizeIncrease = () => setSize(size + 0.1)
-    const onSizeDecrease = () => setSize(size - 0.1)
-    
     useEffect(() => {
         if (contentsError && contentsError.status === 401)
         {
@@ -94,17 +91,18 @@ const BookReader = () => {
                 </Row>
             </Header>
             <Content>
-                <Reader contents={contents.text} mode="vertical" t={t}  font={font} size={`${size}em`} />
+                <Reader contents={contents.text} mode="vertical" t={t}  font={font} size={`${size}em`} lineHeight={`${lineHeight}em`} />
             </Content>
         </Layout>
         <Drawer title={t('reader.settings')} placement="left" onClose={onCloseSettings} open={showSetting}>
             <Typography>{t('reader.fontSize')}</Typography>
-            <Button onClick={onSizeDecrease}><BiFont style={{ fontSize : '0.75em' }} /></Button>
-            <Button onClick={onSizeIncrease}><BiFont /></Button>
+            <Slider defaultValue={size} min={0.5} max={3.0} step={0.1} onChange={value => setSize(value) } />
             <Divider />
             <Typography>{t('reader.lineSpacing')}</Typography>
-            <Button onClick={onSizeDecrease}><BiFont style={{ fontSize : '0.75em' }} /></Button>
-            <Button onClick={onSizeIncrease}><BiFont /></Button>
+            <Slider defaultValue={lineHeight} min={1.0} max={3.0} step={0.1} onChange={value => setLineHeight(value) } />
+            <Divider />
+            <Typography>{t('reader.font')}</Typography>
+            <FontList selectedFont={font} onChanged={f => setFont(f)} t={t}  />
         </Drawer>
 
         <Drawer title={t('chapters.title')} placement="left" onClose={onCloseChapters} open={showChapters}>

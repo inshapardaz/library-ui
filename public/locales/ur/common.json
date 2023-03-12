@@ -190,6 +190,7 @@
 	},
 	"reader" : {
 		"settings" : "بصری ترجیحات",
+		"font": "خط",
 		"fontSize": "متن کا سائز", 
 		"lineSpacing": "سطری فاصلہ"
 	},
@@ -231,5 +232,21 @@
 			"weekly": "ہفتہ وار",
 			"daily": "روز نامہ"
 		}
+	},
+	"fonts" : {
+		"alviLahoriNastaleeq": "علوی لاہوری نستعلیق",
+        "fajerNooriNastalique": "فجر نوری نستعلیق",
+        "gulzarNastalique": "گلزار نستعلیق",
+        "emadNastaleeq": "عماد نستعلیق",
+        "nafeesWebNaskh": "نفیس ویب نقش",
+        "nafeesNastaleeq": "نفیس نستعلیق",
+        "mehrNastaleeq": "مہر نستعلیق",
+        "adobeArabic": "اڈوبی عریبک",
+        "dubai": "دوبئی",
+        "notoNaskhArabic": "نوٹو نسخ",
+        "notoNastaliqUrdu": "نوٹو نستعلیق",
+        "jameelNooriNastaleeq": "جمیل نوری نستعلیق",
+		"jameelKhushkhati": "جمیل خوشخطی",
+		"jameelNooriNastaleeqKasheeda": "جمیل نوری نستعلیق کشیدہ"
 	}
 }

@@ -15,7 +15,7 @@ const ReaderMode = {
 };
 
 // 1. Mode  vertical or single-page or flip-book
-const Reader = ({ contents, mode, t, font, size }) => {
+const Reader = ({ contents, mode, t, font, size, lineHeight }) => {
 
     if (mode === ReaderMode.SinglePage) {
     }
@@ -24,7 +24,7 @@ const Reader = ({ contents, mode, t, font, size }) => {
     }
 
     return (<div className={styles.reader}>
-        <div className={styles['reader__vertical']} style={{ fontFamily: font, fontSize: size }}>
+        <div className={styles['reader__vertical']} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight }}>
             <Watermark content={t('app')} >
                 <ReactMarkdown children={contents}/>
             </Watermark>
