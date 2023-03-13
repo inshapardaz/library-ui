@@ -3,13 +3,13 @@ import { Button, Result } from "antd";
 
 // ---------------------------------
 
-const Error = () => {
+const Error = ({ t, onCommand }) => {
     return (<Result
         status="warning"
         title="There are some problems with your operation."
         extra={
-          <Button type="primary" key="console">
-            retry
+          <Button type="primary" key="console" onClick={onCommand}>
+            {t('actions.retry')}
           </Button>
         }
       />)

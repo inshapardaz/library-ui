@@ -20,7 +20,8 @@
 		"card" : "Cards",
 		"yes" : "Yes",
 		"no" : "No",
-		"close": "Close"
+		"close": "Close",
+		"retry": "Retry"
 	},
 	"login" : {
 		"title" : "Login",
@@ -192,7 +193,13 @@
 		"settings": "Theme & Settings",
 		"font" : "Font",
 		"fontSize": "Font Size", 
-		"lineSpacing": "Line Spacing"
+		"lineSpacing": "Line Spacing",
+		"view" : {
+			"title" : "View",
+			"vertical": "Vertical",
+			"singlePage": "Single Page",
+			"flipBook": "Flip Book" 
+		}
 	},
 	"authors" : {
 		"title" : "Authors"

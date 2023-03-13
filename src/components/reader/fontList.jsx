@@ -59,7 +59,7 @@ const FontList = ({ selectedFont, t, onChanged }) => {
     },
     {
         key: 'JameelNooriNastaleeqKasheeda',
-        displayName: t('fonts.jameelNooriNastaleeqKasheeda'),
+        label: t('fonts.jameelNooriNastaleeqKasheeda'),
     }];
 
     const onClick = ({ key }) => onChanged(key)

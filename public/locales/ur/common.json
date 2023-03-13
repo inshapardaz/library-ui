@@ -20,7 +20,8 @@
 		"card" : "تصاویر",
 		"yes" : "جی ہاں",
 		"no" : "نہیں",
-		"close": "بند کریں"
+		"close": "بند کریں",
+		"retry": "دوبارہ کوشش کریں"
 	},
 	"login" : {
 		"title" : "داخل ہوں",
@@ -192,7 +193,13 @@
 		"settings" : "بصری ترجیحات",
 		"font": "خط",
 		"fontSize": "متن کا سائز", 
-		"lineSpacing": "سطری فاصلہ"
+		"lineSpacing": "سطری فاصلہ",
+		"view" : {
+			"title" : "پیشکش",
+			"vertical": "عمودی",
+			"singlePage": "صفحہ",
+			"flipBook": "کتاب" 
+		}
 	},
 	"authors" : {
 		"title" : "مصنّفین"
