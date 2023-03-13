@@ -114,12 +114,11 @@ const BookReader = () => {
             </Header>
             <Content className={styles.readerLayout} style={{ background: colorBgContainer }} >
                 {nextButton}
-                <div className={styles['readerLayout__contents']}>
+                <div className={`${styles['readerLayout__contents']} ${styles[`readerLayout__contents--${view}`]}`}>
                     <Reader loading={contentsFetching} contents={contents?.text} mode={view} t={t} font={font} size={`${size}em`} lineHeight={`${lineHeight}em`} />
                 </div>
                 {previousButton}
             </Content>
-            <Footer  style={{ background: colorBgContainer, textAlign: 'center' }} >{ book?.title }</Footer>
         </Layout>
         <Drawer title={t('reader.settings')} placement="left" onClose={onCloseSettings} open={showSetting}>
             <Typography>{t('reader.view.title')}</Typography>

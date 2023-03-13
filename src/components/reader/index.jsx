@@ -17,12 +17,6 @@ const ReaderMode = {
 // 1. Mode  vertical or single-page or flip-book
 const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
 
-    if (mode === ReaderMode.SinglePage) {
-    }
-
-    if (mode === ReaderMode.FlipBook) {
-    }
-
     if (loading) {
         return (<div className={styles.reader}>
             <div className={styles['reader__vertical']}>

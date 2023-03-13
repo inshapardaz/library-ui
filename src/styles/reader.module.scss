@@ -14,9 +14,10 @@
     flex-direction: row;
 
     &__contents {
+        flex: 1;
+
         &--vertical 
         {
-            flex: 1;
             overflow-x: auto;
         }
         
@@ -57,5 +58,15 @@
         flex: 1;
         overflow: hidden;
         margin: 0 auto;
+        width: 6in;
+        height: calc(-67px + 100vh);
+
+        &--contents {
+            text-align: justify;
+            column-count: 1;
+            column-gap: 64px;
+            column-fill: auto;
+            position: relative;
+        }
     }
 }
