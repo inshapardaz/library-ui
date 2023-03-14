@@ -23,7 +23,7 @@ import FontList from "../../components/reader/fontList";
 import ChaptersMenu from "../../components/books/chapters/chaptersMenu";
 //------------------------------------------------
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 //------------------------------------------------
 

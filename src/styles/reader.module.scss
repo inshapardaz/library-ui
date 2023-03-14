@@ -36,6 +36,8 @@
 // Reader control
 
 .reader {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
 
     &__vertical {    
         flex: 1;
@@ -60,13 +62,38 @@
         margin: 0 auto;
         width: 6in;
         height: calc(-67px + 100vh);
+        position: relative;
 
         &--contents {
             text-align: justify;
             column-count: 1;
             column-gap: 64px;
             column-fill: auto;
-            position: relative;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0px;
+        }
+    }
+
+    &__flipBook {
+        flex: 1;
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 12in;
+        height: calc(-67px + 100vh);
+        position: relative;
+        
+        &--contents {
+            text-align: justify;
+            column-count: 1;
+            column-width: 6in;
+            column-gap: 64px;
+            column-fill: auto;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 0px;
         }
     }
 }
