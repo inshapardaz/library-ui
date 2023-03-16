@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 // 3rd party libraries
 import { FloatButton, Skeleton, Watermark } from 'antd';
@@ -9,17 +9,17 @@ import styles from '../../styles/reader.module.scss'
 
 //------------------------------------------------
 
-const ReaderMode = {
-  Vertical: 'vertical',
-  SinglePage: 'single-page',
-  FlipBook: 'flip-book'
-};
+// const ReaderMode = {
+//   Vertical: 'vertical',
+//   SinglePage: 'single-page',
+//   FlipBook: 'flip-book'
+// };
 
 // 1. Mode  vertical or single-page or flip-book
 const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
-
+    const ref = useRef(null);
     const [page, setPage] = useState(0)
-    const pageWidth = 576
+    const pageWidth = ref.current ? ref.current.offsetWidth : 0
 
     if (loading) {
         return (<div className={styles.reader}>
@@ -31,18 +31,19 @@ const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
 
     const onPrevious = () => { 
         if (!canGoPrevious()) return false;
-
+        
+        setPage(page - 1)
         return true;
     }
     const canGoPrevious = () => {
         if (mode === 'vertical') return false;
-        return true;
+        return page > 0;
 
     }
     const onNext = () => {
         if (!canGoNext()) return false;
 
-        setPage(page+1)
+        setPage(page + 1)
         return true;
     }
     const canGoNext = () => {
@@ -50,21 +51,24 @@ const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
         return true;
     }
 
-    const left = `${pageWidth * page} px`;
+    const left = `${pageWidth * page}px`;
 
     const className = `reader ${styles[`reader__${mode}`]}`
-    console.log(left)
+
+    console.log(pageWidth)
     return (
-    <div className={className}>
-        <button onClick={onNext} style={{ position: 'fixed', left: '0' }} type="button"> {page} next</button>
-        <div className={styles[`reader__${mode}--container`]} >
-            <div className={styles[`reader__${mode}--contents`]} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight, left }}>
+    <div className={className} data-ft="1">
+        <button onClick={onPrevious} disabled={!canGoPrevious()} style={{ position: 'fixed', right: '0' }} type="button">previous</button>
+        <div className={styles[`reader__${mode}--container`]} ref={ref}>
+            <div className={styles[`reader__${mode}--contents`]} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight, left: left }}>
                 <Watermark content={t('app')} >
                     <ReactMarkdown children={contents} />
                 </Watermark>
                 <FloatButton.BackTop />
             </div>
         </div>
+        <div className={styles[`reader__${mode}--page-number`]}>{page + 1}</div>
+        <button onClick={onNext} disabled={!canGoNext()} style={{ position: 'fixed', left: '0' }} type="button">next</button>
     </div>)
         
 }

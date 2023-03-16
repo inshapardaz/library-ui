@@ -60,19 +60,30 @@
         flex: 1;
         overflow: hidden;
         margin: 0 auto;
-        width: 6in;
+        max-width: 6in;
         height: calc(-67px + 100vh);
         position: relative;
 
-        &--contents {
+        &--container {
             text-align: justify;
             column-count: 1;
             column-gap: 64px;
             column-fill: auto;
             position: absolute;
-            bottom: 0;
+            bottom: 28px;
             top: 0;
             left: 0px;
+        }
+
+        &--page-number {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(50%);
+        }
+
+        &--contents {
+            position: relative;
         }
     }
 
