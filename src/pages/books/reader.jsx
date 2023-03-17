@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 
 // 3rd party libraries
 import { useLocalStorage } from "usehooks-ts";
-import { Layout , Drawer, Row, Col,  Divider, Typography, Slider, Segmented, theme, Button, Tooltip } from 'antd';
+import { Drawer, Row, Col,  Divider, Typography, Slider, Segmented, theme, Button, Tooltip } from 'antd';
 import { ImMenu4, ImFileText2 } from 'react-icons/im'
 import { IoIosCloseCircle } from 'react-icons/io'
 import { BsFileEarmarkFont } from 'react-icons/bs'
-import { MdSettings, MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import { MdSettings } from 'react-icons/md'
 import { TiDocumentText } from 'react-icons/ti'
 import { VscBook } from 'react-icons/vsc'
 
@@ -21,9 +21,6 @@ import { languages } from '../../features/ui/uiSlice';
 import Reader from "../../components/reader";
 import FontList from "../../components/reader/fontList";
 import ChaptersMenu from "../../components/books/chapters/chaptersMenu";
-//------------------------------------------------
-
-const { Header, Content } = Layout;
 
 //------------------------------------------------
 
