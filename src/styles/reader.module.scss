@@ -1,5 +1,7 @@
 
 @import url(https://urdu-fonts.netlify.app/stylesheet.css);
+@import './mixins/breakpoints.scss';
+
 // Reader page
 .readerPage {
     position: absolute;
@@ -8,103 +10,187 @@
     top: 0;
     bottom: 0;
     overflow: hidden;
-}
-.readerLayout {
-    display: flex;
-    flex-direction: row;
+     
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto 1fr auto;
 
-    &__contents {
-        flex: 1;
 
-        &--vertical 
-        {
-            overflow-x: auto;
-        }
-        
-        &--singlePage {
-            overflow: hidden;
-            margin: 0 auto;
+    .readerHeader {
+        height : 50px;
+    }
+    .readerHeaderTitle {
+        text-align: center;
+        line-height: 50px;
+    }
+    .readerBody {
+        grid-column-start: span 3;
+        overflow: auto;
+        margin-top: 10px 0;
+
+        @include when-mobile-device {
+            margin: 0;
         }
     }
+    
+    .readerFooter {
+        grid-column-start: span 3;
+    }
 
+
+
+}
+.readerLayout {
     &__nav {
         width: 50px;
         align-self: center;
+
+        &--previous {
+            grid-column: 1;
+        }
+        &--next {
+            grid-column: 3;
+        }
+
+        @include when-mobile-device {
+            display: none;
+        }
     }
 }
 
 // Reader control
-
 .reader {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: auto 1fr auto;
 
-    &__vertical {    
-        flex: 1;
-        overflow-x: hidden;
-        overflow-y: auto;
-        margin: 0 auto;
+    h1:first-of-type {
+        text-align: center;
+    }
+    
+    &.vertical {
+        .reader {
+            &__container {
+                grid-column: 2;
+                
+                display: grid;
+                grid-template-rows: 1fr auto;
+                max-width: 6in;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: justify;
+                box-shadow: 0px 8px 8px rgba(27,35,36,.04), 0px 8px 20px -3px rgba(27,35,36,.1), 0px 4px 8px -2px rgba(27,35,36,.06);
+                @include when-mobile-device {
+                    box-shadow: none;
+                }
+            }
 
-        &--contents {
-            max-width: 6in;
-            margin: 0 auto;
-            text-align: justify;
-            text-justify: inter-word;
-            user-select: none;
-            -webkit-user-select: none;
-            text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
+            &--contents {
+                max-width: 6in;
+                margin: 0 auto;
+                text-align: justify;
+                text-justify: inter-word;
+                user-select: none;
+                -webkit-user-select: none;
+                text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
+            }
+            &--page-number {
+                display: none;
+                grid-row: 2;
+                padding: 8px 0;
+            }
         }
     }
+    // &__vertical {   
+    //     grid-row: 1; 
+    //     overflow-x: hidden;
+    //     overflow-y: auto;
+    //     margin: 0 auto;
+    //     padding: 20px;
 
-    &__singlePage {
-        flex: 1;
-        overflow: hidden;
-        margin: 0 auto;
-        max-width: 6in;
-        height: calc(-67px + 100vh);
-        position: relative;
+    //     &--container {
+    //         margin: 0 auto;
+    //     }
+    //     &--contents {
+    //         max-width: 6in;
+    //         margin: 0 auto;
+    //         text-align: justify;
+    //         text-justify: inter-word;
+    //         user-select: none;
+    //         -webkit-user-select: none;
+    //         text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
+    //     }
+    //     &--page-number {
+    //         grid-row: 2;
+    //         padding: 8px 0;
+    //     }
+    // }
 
-        &--container {
-            text-align: justify;
-            column-count: 1;
-            column-gap: 64px;
-            column-fill: auto;
-            position: absolute;
-            bottom: 28px;
-            top: 0;
-            left: 0px;
-        }
+    // &__singlePage {
+    //     flex: 1;
+    //     overflow: hidden;
+    //     margin: 0 auto;
+    //     max-width: 6in;
+    //     height: calc(-67px + 100vh);
+    //     position: relative;
 
-        &--page-number {
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(50%);
-        }
+    //     &--container {
+    //         text-align: justify;
+    //         column-count: 1;
+    //         column-gap: 64px;
+    //         column-fill: auto;
+    //         position: absolute;
+    //         padding: 10px;
+    //         bottom: 28px;
+    //         top: 0;
+    //         left: 0px;
+    //     }
 
-        &--contents {
-            position: relative;
-        }
-    }
+    //     &--page-number {
+    //         position: absolute;
+    //         left: 50%;
+    //         bottom: 0;
+    //         transform: translateX(50%);
+    //     }
 
-    &__flipBook {
-        flex: 1;
-        overflow: hidden;
-        margin: 0 auto;
-        max-width: 12in;
-        height: calc(-67px + 100vh);
-        position: relative;
+    //     &--contents {
+    //         position: relative;
+    //     }
+    // }
+
+    // &__flipBook {
+    //     flex: 1;
+    //     overflow: hidden;
+    //     margin: 0 auto;
+    //     max-width: 12in;
+    //     height: calc(-67px + 100vh);
+    //     position: relative;
         
-        &--contents {
-            text-align: justify;
-            column-count: 1;
-            column-width: 6in;
-            column-gap: 64px;
-            column-fill: auto;
-            position: absolute;
-            bottom: 0;
-            top: 0;
-            left: 0px;
-        }
+    //     &--contents {
+    //         text-align: justify;
+    //         column-count: 1;
+    //         column-width: 6in;
+    //         column-gap: 64px;
+    //         column-fill: auto;
+    //         position: absolute;
+    //         bottom: 0;
+    //         top: 0;
+    //         left: 0px;
+    //     }
+    // }
+
+    // h1, h2 {
+    //     text-align: center;
+    // }
+}
+
+.singlePage {
+    &.reader {
+        background-color: orange;
+    }
+}
+
+.flipBook {
+    &.reader {
+        background-color: lime;
     }
 }

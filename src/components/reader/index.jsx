@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react';
 
 // 3rd party libraries
-import { FloatButton, Skeleton, Watermark } from 'antd';
+import { Button, FloatButton, Skeleton, Watermark } from 'antd';
 import ReactMarkdown from 'react-markdown'
 
 // Local Imports
 import styles from '../../styles/reader.module.scss'
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 //------------------------------------------------
 
@@ -16,7 +17,7 @@ import styles from '../../styles/reader.module.scss'
 // };
 
 // 1. Mode  vertical or single-page or flip-book
-const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
+const Reader = ({ contents, loading, mode, t, font, size, lineHeight, hasPreviousChapter = false, onPreviousChapter = () => {}, hasNextChapter = false, onNextChapter = () => {} }) => {
     const ref = useRef(null);
     const [page, setPage] = useState(0)
     const pageWidth = ref.current ? ref.current.offsetWidth : 0
@@ -37,7 +38,7 @@ const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
     }
     const canGoPrevious = () => {
         if (mode === 'vertical') return false;
-        return page > 0;
+        return page > 0 || hasPreviousChapter;
 
     }
     const onNext = () => {
@@ -48,27 +49,30 @@ const Reader = ({ contents, loading, mode, t, font, size, lineHeight }) => {
     }
     const canGoNext = () => {
         if (mode === 'vertical') return false;
-        return true;
+        return hasNextChapter;
     }
 
     const left = `${pageWidth * page}px`;
 
-    const className = `reader ${styles[`reader__${mode}`]}`
+    const className = `${styles.reader} ${styles[mode]}`
 
-    console.log(pageWidth)
+    const nextButton = canGoPrevious() ? (<Button className={`${styles['reader__nav']} ${styles['reader__nav--previous']}`} shape="circle" icon={<MdChevronLeft />} onClick={onPrevious} />) : null
+    const previousButton = canGoNext() ? (<Button className={`${styles['reader__nav']} ${styles['reader__nav--next']}`} shape="circle" icon={<MdChevronRight />} onClick={onNext} />) : null
+
+
     return (
-    <div className={className} data-ft="1">
-        <button onClick={onPrevious} disabled={!canGoPrevious()} style={{ position: 'fixed', right: '0' }} type="button">previous</button>
-        <div className={styles[`reader__${mode}--container`]} ref={ref}>
-            <div className={styles[`reader__${mode}--contents`]} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight, left: left }}>
+    <div className={className} data-ft="reader-layout">
+        {previousButton}
+        <div className={styles[`reader__container`]} ref={ref} data-ft="reader-container">
+            <div className={styles[`reader__contents`]} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight, left: left }}>
                 <Watermark content={t('app')} >
                     <ReactMarkdown children={contents} />
                 </Watermark>
-                <FloatButton.BackTop />
             </div>
         </div>
-        <div className={styles[`reader__${mode}--page-number`]}>{page + 1}</div>
-        <button onClick={onNext} disabled={!canGoNext()} style={{ position: 'fixed', left: '0' }} type="button">next</button>
+        {nextButton}
+        <div className={styles[`reader__page-number`]}>{page + 1}</div>
+        <FloatButton.BackTop />
     </div>)
         
 }

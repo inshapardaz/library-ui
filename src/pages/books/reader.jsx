@@ -87,39 +87,48 @@ const BookReader = () => {
         return "Contents not found."
     }
 
-    const nextButton = chapter && chapter.links.previous ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronRight />} onClick={onPrevious} />) : null
-    const previousButton = chapter && chapter.links.next ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronLeft />} onClick={onNext} />) : null
+    //const nextButton = chapter && chapter.links.previous ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronRight />} onClick={onPrevious} />) : null
+    //const previousButton = chapter && chapter.links.next ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronLeft />} onClick={onNext} />) : null
 
-    return (<>
-         <Layout className={styles.readerPage} style={{ direction: getDirection(), background: colorBgContainer }}>
-            <Header style={{ background: colorBgContainer }} >
-                <Row>
-                    <Col>
-                        <Tooltip placement="topLeft" title={t('chapters.title')}>
-                            <Button type="text" shape="circle" onClick={openChapters} icon={<ImMenu4 />} />
-                        </Tooltip>
-                    </Col>
-                    <Col>
-                        <Tooltip placement="topLeft" title={t('reader.settings')}>
-                            <Button type="text" shape="circle" onClick={openSettings} icon={<MdSettings />} />
-                        </Tooltip>
-                    </Col>
-                    <Col flex="1" style={{ textAlign: 'center', fontFamily: font }} >{book?.title}</Col>
-                    <Col>
-                        <Tooltip placement="topLeft" title={t('actions.close')}>
-                           <Button type="text" shape="circle" onClick={onClose} icon={<IoIosCloseCircle />} />
-                        </Tooltip>
-                    </Col>
-                </Row>
-            </Header>
-            <Content className={styles.readerLayout} style={{ background: colorBgContainer }} >
-                {nextButton}
-                <div className={`${styles['readerLayout__contents']} ${styles[`readerLayout__contents--${view}`]}`}>
-                    <Reader loading={contentsFetching} contents={contents?.text} mode={view} t={t} font={font} size={`${size}em`} lineHeight={`${lineHeight}em`} />
-                </div>
-                {previousButton}
-            </Content>
-        </Layout>
+    return (<div className={styles.readerPage} style={{ direction: getDirection(), background: colorBgContainer }}>
+        <div className={styles.readerHeader}>
+            <Row>
+                <Col>
+                    <Tooltip placement="topLeft" title={t('chapters.title')}>
+                        <Button type="text" shape="circle" onClick={openChapters} icon={<ImMenu4 />} />
+                    </Tooltip>
+                </Col>
+                <Col>
+                    <Tooltip placement="topLeft" title={t('reader.settings')}>
+                        <Button type="text" shape="circle" onClick={openSettings} icon={<MdSettings />} />
+                    </Tooltip>
+                </Col>
+            </Row>
+        </div>
+        <div className={styles.readerHeader} >
+            <div className={styles.readerHeaderTitle} >
+                {book?.title}
+            </div>
+        </div>
+        <div className={styles.readerHeader}>
+            <Tooltip placement="topLeft" title={t('actions.close')}>
+                <Button type="text" shape="circle" onClick={onClose} icon={<IoIosCloseCircle />} />
+            </Tooltip>
+        </div>
+        <div className={styles.readerBody} data-ft="readerPage-body">
+            <Reader loading={contentsFetching} contents={contents?.text} 
+                mode={view} 
+                t={t} 
+                font={font} 
+                size={`${size}em`} 
+                lineHeight={`${lineHeight}em`} 
+                hasPreviousChapter={chapter && chapter.links.previous}
+                onPreviousChapter={onPrevious}
+                hasNextChapter={chapter && chapter.links.next}
+                onNextChapter={onNext}
+                />
+        </div>
+        <div className={styles.readerFooter}></div>
         <Drawer title={t('reader.settings')} placement="left" onClose={onCloseSettings} open={showSetting}>
             <Typography>{t('reader.view.title')}</Typography>
             <Segmented options={readerViews} block size="large" onChange={ setView } value={view} />
@@ -136,10 +145,7 @@ const BookReader = () => {
         <Drawer title={t('chapters.title')} placement="left" onClose={onCloseChapters} open={showChapters}>
             <ChaptersMenu selectedChapterNumber={chapter?.chapterNumber} t={t} libraryId={libraryId} bookId={bookId} onChanged={gotoChapter} />
         </Drawer>
-
-
-
-    </>)
+    </div>)
 }
 
 export default BookReader
