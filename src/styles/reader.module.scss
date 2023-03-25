@@ -61,7 +61,8 @@
 // Reader control
 .reader {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 64px 1fr 64px;
+    grid-template-rows: 1fr;
 
     h1:first-of-type {
         text-align: center;
@@ -74,7 +75,8 @@
                 
                 display: grid;
                 grid-template-rows: 1fr auto;
-                max-width: 6in;
+                max-width: 750px;
+
                 margin: 0 auto;
                 padding: 20px;
                 text-align: justify;
@@ -84,8 +86,8 @@
                 }
             }
 
-            &--contents {
-                max-width: 6in;
+            &__contents {
+                max-width: 750px;
                 margin: 0 auto;
                 text-align: justify;
                 text-justify: inter-word;
@@ -93,67 +95,103 @@
                 -webkit-user-select: none;
                 text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
             }
-            &--page-number {
+            &__page-number {
                 display: none;
                 grid-row: 2;
                 padding: 8px 0;
             }
         }
     }
-    // &__vertical {   
-    //     grid-row: 1; 
-    //     overflow-x: hidden;
-    //     overflow-y: auto;
-    //     margin: 0 auto;
-    //     padding: 20px;
 
-    //     &--container {
+    &.singlePage {
+        &.reader {
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 750px;
+            height: calc(-50px + 100vh);
+            align-items: center;
+            gap: 10px;
+        }
+         .reader {
+            &__container {
+                grid-column: 2;
+                padding: 20px;
+                text-align: justify;
+                overflow: hidden;
+                align-self: stretch;
+                position: relative;
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: column;
+
+                box-shadow: 0px 8px 8px rgba(27,35,36,.04), 0px 8px 20px -3px rgba(27,35,36,.1), 0px 4px 8px -2px rgba(27,35,36,.06);
+                @include when-mobile-device {
+                    box-shadow: none;
+                }
+            }
+
+            &__page {
+                position: relative;
+                flex: 1;
+            }
+
+            &__contents {
+                display: block;
+                text-align: justify;
+                column-count: 1;
+                column-width: 6in;
+                column-gap: 64px;
+                column-fill: auto;
+                position: absolute;
+                bottom: 0;
+                top: 0;
+            }
+
+            &__page-number {
+                text-align: center;
+            }
+        }
+    }
+    
+    
+    // &.singlePage {
+    //     &.reader {
+    //         overflow: hidden;
     //         margin: 0 auto;
-    //     }
-    //     &--contents {
     //         max-width: 6in;
-    //         margin: 0 auto;
-    //         text-align: justify;
-    //         text-justify: inter-word;
-    //         user-select: none;
-    //         -webkit-user-select: none;
-    //         text-shadow: 1px 1px 1px whitesmoke, 1px 1px 1px whitesmoke;
+    //         height: calc(-67px + 100vh);
+    //         align-items: center;
     //     }
-    //     &--page-number {
-    //         grid-row: 2;
-    //         padding: 8px 0;
-    //     }
-    // }
+    //     .reader {
+    //         &__container {
+    //             grid-column: 2;
+    //             padding: 20px;
+    //             text-align: justify;
+    //             overflow: hidden;
+    //             align-self: stretch;
 
-    // &__singlePage {
-    //     flex: 1;
-    //     overflow: hidden;
-    //     margin: 0 auto;
-    //     max-width: 6in;
-    //     height: calc(-67px + 100vh);
-    //     position: relative;
+    //             box-shadow: 0px 8px 8px rgba(27,35,36,.04), 0px 8px 20px -3px rgba(27,35,36,.1), 0px 4px 8px -2px rgba(27,35,36,.06);
+    //             @include when-mobile-device {
+    //                 box-shadow: none;
+    //             }
+    //         }
 
-    //     &--container {
-    //         text-align: justify;
-    //         column-count: 1;
-    //         column-gap: 64px;
-    //         column-fill: auto;
-    //         position: absolute;
-    //         padding: 10px;
-    //         bottom: 28px;
-    //         top: 0;
-    //         left: 0px;
-    //     }
+    //         &__contents {
+    //             position: absolute;
+    //             left: 0;
+    //             top: 0;
+    //             bottom: 0;
+    //             right: 0;
+    //         }
 
-    //     &--page-number {
-    //         position: absolute;
-    //         left: 50%;
-    //         bottom: 0;
-    //         transform: translateX(50%);
-    //     }
-
-    //     &--contents {
-    //         position: relative;
+    //         &__page-number {
+    //             &--previous {
+    //                 grid-column: 1;
+    //             }
+    //             &--next {
+    //                 grid-column: 3;
+    //             }
+    //         }
     //     }
     // }
 
@@ -181,12 +219,6 @@
     // h1, h2 {
     //     text-align: center;
     // }
-}
-
-.singlePage {
-    &.reader {
-        background-color: orange;
-    }
 }
 
 .flipBook {
