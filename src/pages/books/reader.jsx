@@ -64,9 +64,16 @@ const BookReader = () => {
     const onCloseChapters = () => setShowChapters(false)
     const getDirection = () => languages[contents?.language]?.dir ?? lang.dir
     const onClose = () => navigate(`/libraries/${libraryId}/books/${bookId}`)
-    const gotoChapter = (chapterNumber) => navigate(`/libraries/${libraryId}/books/${bookId}/chapters/${chapterNumber}`)
+    const gotoChapter = (chapterNumber, lastPage = false) => {
+        if (lastPage) {
+            navigate(`/libraries/${libraryId}/books/${bookId}/chapters/${chapterNumber}?p=-1`)
+        }
+        else {
+            navigate(`/libraries/${libraryId}/books/${bookId}/chapters/${chapterNumber}`)
+        }
+    }
     const onNext = () => gotoChapter(chapter?.chapterNumber+1)
-    const onPrevious = () => gotoChapter(chapter?.chapterNumber-1)
+    const onPrevious = () => gotoChapter(chapter?.chapterNumber-1, true)
 
     useEffect(() => {
         if (contentsError && contentsError.status === 401)
@@ -83,10 +90,7 @@ const BookReader = () => {
     if (contentsError && contentsError.status === 404) {
         return "Contents not found."
     }
-
-    //const nextButton = chapter && chapter.links.previous ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronRight />} onClick={onPrevious} />) : null
-    //const previousButton = chapter && chapter.links.next ? (<Button className={styles['readerLayout__nav']} shape="circle" icon={<MdChevronLeft />} onClick={onNext} />) : null
-
+    
     return (<div className={styles.readerPage} style={{ direction: getDirection(), background: colorBgContainer }}>
         <div className={styles.readerHeader}>
             <Row>
@@ -113,17 +117,17 @@ const BookReader = () => {
             </Tooltip>
         </div>
         <div className={styles.readerBody} data-ft="readerPage-body">
-            <Reader loading={contentsFetching} contents={contents?.text} 
-                mode={view} 
-                t={t} 
-                font={font} 
-                size={`${size}em`} 
-                lineHeight={`${lineHeight}em`} 
+            <Reader loading={contentsFetching} contents={contents?.text}
+                mode={view}
+                t={t}
+                font={font}
+                size={`${size}em`}
+                lineHeight={`${lineHeight}em`}
                 hasPreviousChapter={chapter && chapter.links.previous}
                 onPreviousChapter={onPrevious}
                 hasNextChapter={chapter && chapter.links.next}
                 onNextChapter={onNext}
-                />
+                direction={ getDirection() } />
         </div>
         <div className={styles.readerFooter}></div>
         <Drawer title={t('reader.settings')} placement="left" onClose={onCloseSettings} open={showSetting}>

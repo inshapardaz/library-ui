@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 // 3rd party libraries
 import { Button, FloatButton, Skeleton } from 'antd';
@@ -7,7 +8,7 @@ import ReactMarkdown from 'react-markdown'
 // Local Imports
 import styles from '../../styles/reader.module.scss'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-
+import useKeyPress from '../../helpers/useKeyPress';
 //------------------------------------------------
 
 // const ReaderMode = {
@@ -17,28 +18,30 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 // };
 
 // 1. Mode  vertical or single-page or flip-book
-const Reader = ({ contents, loading, mode, font, size, lineHeight, hasPreviousChapter = false, onPreviousChapter = () => {}, hasNextChapter = false, onNextChapter = () => {} }) => {
+const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = 'ltr', hasPreviousChapter = false, onPreviousChapter = () => { }, hasNextChapter = false, onNextChapter = () => { } }) => {
+    const [searchParams] = useSearchParams();
+    const location = useLocation();
+    const navigate = useNavigate()
+    
     const ref = useRef(null);
     const refContents = useRef(null);
-    const [progress, setProgress] = useState(0)
-    const pageWidth = ref.current ? ref.current.offsetWidth + 24 : 0
+    const progress = parseInt(searchParams.get('p') ?? "0")
+    const pageWidth = ref.current ? (ref.current.offsetWidth > 766 ? ref.current.offsetWidth + 24 : ref.current.offsetWidth + 44): 0
     const contentWidth = refContents.current ? refContents.current.scrollWidth : 0;
     const pageCount = Math.round(contentWidth > 0 ? contentWidth / pageWidth : 0);
 
-    console.log(`contentWidth : ${contentWidth}`)
-    useEffect(() => {
-        setProgress(0)
-    }, [mode, contents])
+    const setProgressInUrl = useCallback((newProgress) => {
+        navigate(`${location.pathname}?p=${newProgress}`);
+    }, [location.pathname, navigate])
+    
+    
+    const canGoPrevious = useCallback(() => {
+        if (mode === 'vertical') return false;
+        return progress > 0 || hasPreviousChapter;
 
-    // if (loading) {
-    //     return (<div className={styles.reader}>
-    //         <div className={styles['reader__vertical']}>
-    //             <Skeleton />
-    //         </div>
-    //     </div >)
-    // }
+    }, [hasPreviousChapter, mode, progress])
 
-    const onPrevious = () => { 
+    const onPrevious = useCallback(() => { 
         if (progress <= 0 && hasPreviousChapter) 
         {
             onPreviousChapter()
@@ -47,15 +50,18 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, hasPreviousCh
 
         if (!canGoPrevious()) return false;
         
-        setProgress(progress - 1)
+        setProgressInUrl(progress - 1)
         return true;
-    }
-    const canGoPrevious = () => {
+    }, [canGoPrevious, hasPreviousChapter, onPreviousChapter, progress, setProgressInUrl])
+    
+    const canGoNext = useCallback(() => {
         if (mode === 'vertical') return false;
-        return progress > 0 || hasPreviousChapter;
-
-    }
-    const onNext = () => {
+        console.log(`${progress} < ${pageCount} - 1`)
+        console.log(progress < pageCount - 1 || hasNextChapter)
+        return progress < pageCount - 1 || hasNextChapter; 
+    }, [hasNextChapter, mode, pageCount, progress])
+    
+    const onNext = useCallback(() => {
         if (progress >= pageCount - 1 && hasNextChapter) 
         {
             onNextChapter()
@@ -64,15 +70,60 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, hasPreviousCh
 
         if (!canGoNext()) return false;
 
-        setProgress(progress + 1)
-        return true;
-    }
-    const canGoNext = () => {
-        if (mode === 'vertical') return false;
-        return progress < pageCount - 1 || hasNextChapter; 
-    }
+        setProgressInUrl(progress + 1)
 
-    const left = `${pageWidth * progress}px`;
+        return true;
+    }, [canGoNext, hasNextChapter, onNextChapter, pageCount, progress, setProgressInUrl])
+
+
+    // Keyboard Navigation
+    const leftPressed = useKeyPress('ArrowLeft');
+    const rightPressed = useKeyPress('ArrowRight');
+
+    useEffect(() => {
+        if (leftPressed) {
+            if (direction === 'rtl') {
+                onNext();
+            } else {
+                onPrevious();
+            }
+        }
+    }, [direction, leftPressed, onNext, onPrevious]);
+
+    useEffect(() => {
+        if (rightPressed) {
+            if (direction === 'rtl') {
+                onPrevious();
+            } else {
+                onNext();
+            }
+        }
+    }, [direction, onNext, onPrevious, rightPressed]);
+        
+    // Touch navigation
+    const [touchStart, setTouchStart] = useState(0);
+    const [touchEnd, setTouchEnd] = useState(0);
+
+    const handleTouchStart = (e) => {
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const handleTouchEnd = () => {
+        if (touchStart - touchEnd > 100) {
+            onPrevious();
+        }
+
+        if (touchStart - touchEnd < -100) {
+            onNext();
+        }
+    };
+
+        
+    const left =  `${pageWidth * progress}px`;
 
     const className = `${styles.reader} ${styles[mode]}`
 
@@ -83,7 +134,7 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, hasPreviousCh
     return (
     <div className={className} data-ft="reader-layout">
         {previousButton}
-        <div className={styles[`reader__container`]} ref={ref} data-ft="reader-container" >
+        <div className={styles[`reader__container`]} ref={ref} data-ft="reader-container" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
             <div className={styles[`reader__page`]} style={{ left: left }}>
                     <div className={styles[`reader__contents`]} ref={refContents} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight }}>
                         { loading ? <Skeleton /> : <ReactMarkdown children={contents} />}
