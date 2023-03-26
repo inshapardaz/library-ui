@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useSelector } from "react-redux";
 
 // 3rd party libraries
-import { useLocalStorage } from "usehooks-ts";
+import { useLocalStorage, useWindowSize } from "usehooks-ts";
 import { Drawer, Row, Col,  Divider, Typography, Slider, Segmented, theme, Button, Tooltip } from 'antd';
 import { ImMenu4, ImFileText2 } from 'react-icons/im'
 import { IoIosCloseCircle } from 'react-icons/io'
@@ -44,6 +44,7 @@ const BookReader = () => {
     token: { colorBgContainer },
     } = theme.useToken();
     const navigate = useNavigate()
+    const windowSize = useWindowSize();
     const lang = useSelector(selectedLanguage)
     const { libraryId, bookId, chapterId } = useParams()
     const { data: book, error: bookError } = useGetBookQuery({libraryId, bookId}, { skip : !libraryId || !bookId })
@@ -91,6 +92,11 @@ const BookReader = () => {
         return "Contents not found."
     }
     
+    const getMode = () => {
+        if (view === 'flipBook' & windowSize.width <= 1500)
+            return 'singlePage'
+        return view
+    }
     return (<div className={styles.readerPage} style={{ direction: getDirection(), background: colorBgContainer }}>
         <div className={styles.readerHeader}>
             <Row>
@@ -118,7 +124,7 @@ const BookReader = () => {
         </div>
         <div className={styles.readerBody} data-ft="readerPage-body">
             <Reader loading={contentsFetching} contents={contents?.text}
-                mode={view}
+                mode={getMode()}
                 t={t}
                 font={font}
                 size={`${size}em`}

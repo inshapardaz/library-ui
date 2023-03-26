@@ -7,33 +7,47 @@ import ReactMarkdown from 'react-markdown'
 
 // Local Imports
 import styles from '../../styles/reader.module.scss'
-import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import useKeyPress from '../../helpers/useKeyPress';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
+import useKeyPress from '../../helpers/useKeyPress'
 //------------------------------------------------
 
-// const ReaderMode = {
-//   Vertical: 'vertical',
-//   SinglePage: 'single-page',
-//   FlipBook: 'flip-book'
-// };
+function calculatePageWidth(ref) {
+    if (!ref.current) return 0;
+    
+    if (ref.current.offsetWidth > 533) {
+        return ref.current.offsetWidth + 24;
+    }
+    else {
+        return ref.current.offsetWidth + 44
+    }
+}
 
-// 1. Mode  vertical or single-page or flip-book
+function calculatePageProgress(searchParams) {
+    if (searchParams && searchParams.get('p')) {
+        let p = parseInt(searchParams.get('p'))
+        if (p > 0) return p
+    }
+
+    return 0
+}
+
+//------------------------------------------------
+
 const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = 'ltr', hasPreviousChapter = false, onPreviousChapter = () => { }, hasNextChapter = false, onNextChapter = () => { } }) => {
-    const [searchParams] = useSearchParams();
-    const location = useLocation();
+    const [searchParams] = useSearchParams()
+    const location = useLocation()
     const navigate = useNavigate()
     
     const ref = useRef(null);
     const refContents = useRef(null);
-    const progress = parseInt(searchParams.get('p') ?? "0")
-    const pageWidth = ref.current ? (ref.current.offsetWidth > 766 ? ref.current.offsetWidth + 24 : ref.current.offsetWidth + 44): 0
+    const progress = calculatePageProgress(searchParams)
+    const pageWidth = calculatePageWidth(ref)
     const contentWidth = refContents.current ? refContents.current.scrollWidth : 0;
-    const pageCount = Math.round(contentWidth > 0 ? contentWidth / pageWidth : 0);
-
+    const pageCount = Math.ceil(contentWidth > 0 ? contentWidth / pageWidth : 0);
+    
     const setProgressInUrl = useCallback((newProgress) => {
         navigate(`${location.pathname}?p=${newProgress}`);
     }, [location.pathname, navigate])
-    
     
     const canGoPrevious = useCallback(() => {
         if (mode === 'vertical') return false;
@@ -53,11 +67,9 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = '
         setProgressInUrl(progress - 1)
         return true;
     }, [canGoPrevious, hasPreviousChapter, onPreviousChapter, progress, setProgressInUrl])
-    
+
     const canGoNext = useCallback(() => {
         if (mode === 'vertical') return false;
-        console.log(`${progress} < ${pageCount} - 1`)
-        console.log(progress < pageCount - 1 || hasNextChapter)
         return progress < pageCount - 1 || hasNextChapter; 
     }, [hasNextChapter, mode, pageCount, progress])
     
@@ -74,7 +86,6 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = '
 
         return true;
     }, [canGoNext, hasNextChapter, onNextChapter, pageCount, progress, setProgressInUrl])
-
 
     // Keyboard Navigation
     const leftPressed = useKeyPress('ArrowLeft');
