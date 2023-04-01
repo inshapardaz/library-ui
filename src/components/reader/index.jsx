@@ -33,7 +33,7 @@ function calculatePageProgress(searchParams) {
 
 //------------------------------------------------
 
-const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = 'ltr', hasPreviousChapter = false, onPreviousChapter = () => { }, hasNextChapter = false, onNextChapter = () => { } }) => {
+const Reader = ({ bookTitle, chapterTitle, contents, loading, mode, font, size, lineHeight, direction = 'ltr', hasPreviousChapter = false, onPreviousChapter = () => { }, hasNextChapter = false, onNextChapter = () => { } }) => {
     const [searchParams] = useSearchParams()
     const location = useLocation()
     const navigate = useNavigate()
@@ -134,24 +134,32 @@ const Reader = ({ contents, loading, mode, font, size, lineHeight, direction = '
     };
 
         
-    const left =  `${pageWidth * progress}px`;
+    const left =  `${pageWidth * progress }px`;
 
     const className = `${styles.reader} ${styles[mode]}`
 
     const previousButton = canGoPrevious() ? (<Button className={`${styles['reader__nav']} ${styles['reader__page-number--previous']}`} data-ft="nextButton" shape="circle" icon={<MdChevronRight />} onClick={onPrevious} />) : null
     const nextButton = canGoNext() ? (<Button className={`${styles['reader__nav']} ${styles['reader__page-number--next']}`} data-ft="previousButton" shape="circle" icon={<MdChevronLeft />} onClick={onNext} />) : null
 
-
     return (
     <div className={className} data-ft="reader-layout">
         {previousButton}
-        <div className={styles[`reader__container`]} ref={ref} data-ft="reader-container" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+            <div className={styles[`reader__container`]} ref={ref} data-ft="reader-container" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+            { mode === 'singlePage' && <div className={styles[`reader__title`]}>{ bookTitle }</div> }
+            {mode === 'flipBook' && (<div className={styles[`reader__title`]}>
+                    <div className={styles[`reader__title--book`]}>{ bookTitle }</div>
+                    <div className={styles[`reader__title--chapter`]}>{ chapterTitle }</div>
+                </div>)}    
             <div className={styles[`reader__page`]} style={{ left: left }}>
                     <div className={styles[`reader__contents`]} ref={refContents} style={{ fontFamily: font, fontSize: size, lineHeight: lineHeight }}>
                         { loading ? <Skeleton /> : <ReactMarkdown children={contents} />}
                 </div>
             </div>
-                <div className={styles[`reader__page-number`]}>{progress + 1} / { pageCount }</div>
+            { mode === 'singlePage' && <div className={styles[`reader__page-number`]}>{progress + 1} / { pageCount }</div> }
+            {mode === 'flipBook' && (<div className={styles[`reader__page-number`]}>
+                    <div className={styles[`reader__page-number--first`]}>{ (progress * 2) + 1 }</div>
+                    <div className={styles[`reader__page-number--second`]}>{ (progress * 2) + 2 }</div>
+                </div>)}
         </div>
         {nextButton}
         <FloatButton.BackTop />

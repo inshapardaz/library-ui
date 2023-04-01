@@ -26,7 +26,7 @@
     .readerBody {
         grid-column-start: span 3;
         overflow: auto;
-        margin-top: 10px 0;
+        margin: 10px 0;
 
         @include when-mobile-device {
             margin: 0;
@@ -111,7 +111,6 @@
             height: calc(-50px + 100vh);
             align-items: center;
             gap: 10px;
-
             
             @include when-mobile-device {
                 grid-template-columns: 1fr;
@@ -152,6 +151,10 @@
                 position: absolute;
                 bottom: 0;
                 top: 0;
+
+                img {
+                    max-width: 90%;
+                }
             }
 
             &__page-number {
@@ -195,11 +198,10 @@
                     content: ' ';
                     position: absolute;
                     top: 0;
-                    bottom: 50px;
+                    bottom: 0px;
                     left: 50%;
                     right: 49.9%;
-                    background: linear-gradient(to right, #fff 92%, #9f9f9f 100%);
-                    box-shadow:  inset -5px -5px 5px #888;
+                    box-shadow: -5px -5px 5px #888;
                 }
 
                 box-shadow: 0px 8px 8px rgba(27,35,36,.04), 0px 8px 20px -3px rgba(27,35,36,.1), 0px 4px 8px -2px rgba(27,35,36,.06);
@@ -227,8 +229,34 @@
                 top: 0;
             }
 
+            &__title {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                &--book {
+                    flex-basis: 50%;
+                    text-align: center;
+                }
+                
+                &--chapter {
+                    flex-basis: 50%;
+                    text-align: center;
+                }
+            }
+
             &__page-number {
-                text-align: center;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                &--first {
+                    flex-basis: 50%;
+                    text-align: center;
+                }
+                
+                &--second {
+                    flex-basis: 50%;
+                    text-align: center;
+                }
             }
             
             &__nav {

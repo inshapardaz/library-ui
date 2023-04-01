@@ -123,7 +123,10 @@ const BookReader = () => {
             </Tooltip>
         </div>
         <div className={styles.readerBody} data-ft="readerPage-body">
-            <Reader loading={contentsFetching} contents={contents?.text}
+            <Reader loading={contentsFetching}
+                bookTitle={book?.title}
+                chapterTitle={chapter?.title}
+                contents={contents?.text}
                 mode={getMode()}
                 t={t}
                 font={font}
