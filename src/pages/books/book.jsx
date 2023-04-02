@@ -27,10 +27,10 @@ const BookPage = () => {
         <PageHeader title={book.title} icon={<ImBooks style={{ width: 36, height: 36 }} />} />
         <ContentsContainer>
           <Row gutter={16}>
-              <Col span={6}>
+                <Col md={6} xs={24}>
                   <BookInfo libraryId={libraryId} book={book} t={t} />
               </Col>
-              <Col span={18}>
+              <Col md={18} xs={24}>
                   <ChaptersList libraryId={libraryId} bookId={bookId} t={t} size="large" />
               </Col>
           </Row>

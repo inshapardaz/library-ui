@@ -36,7 +36,7 @@ function BooksHomePage() {
     <PageHeader title={t('books.title')} icon={<FaBook style={{ width: 36, height: 36 }}/>} />
     <ContentsContainer>
       <Layout style={{ padding: '24px 0', background: colorBgContainer }}>
-          <Sider style={{ background: colorBgContainer }} width={200}>
+          <Sider style={{ background: colorBgContainer }} width={200} breakpoint="lg" collapsedWidth={0}>
             <BooksSideBar libraryId={libraryId} 
               selectedCategories={categories}
               sortBy={sortBy}
@@ -44,7 +44,7 @@ function BooksHomePage() {
               favorite={favorite}
               read={read} />
           </Sider>
-          <Content style={{ padding: '0 24px', minHeight: 280 }}>
+          <Content>
             <BooksList libraryId={libraryId} 
               query={query}
               author={author}
