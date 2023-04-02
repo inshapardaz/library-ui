@@ -6,7 +6,7 @@ import styles from '../../styles/common.module.scss'
 
 
 // -----------------------------------------
-const { Title, Paragraph } = Typography;
+const { Paragraph } = Typography;
 // ---------------------------------------------
 
 const BookInfo = ({ libraryId, book, t }) =>
