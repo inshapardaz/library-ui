@@ -266,7 +266,8 @@
 			"detailsLink" : "This is a link to book details page. Please provide link to page where you can read book pages."
 		},
 		"convertToPdf" : {
-			"title" : "Convert To Pdf"
+			"pdf" : "Pdf",
+			"images" : "Images"
 		},
 		"error" : "Unable to download book. Please make sure you have provided link where you can read the book pages."
 	}

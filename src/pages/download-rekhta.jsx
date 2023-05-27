@@ -84,9 +84,11 @@ const DownloadRekhta = () => {
                         }]}>
                         <Input prefix={<GlobalOutlined className="site-form-item-icon" />} placeholder={t('downloader.url.title')} />
                     </Form.Item>
-                    <Form.Item label={t('downloader.convertToPdf.title')} valuePropName="checked"
+                    <Form.Item valuePropName="checked"
                         name="convertToPdf" initialValue="true">
-                        <Switch defaultChecked={true} />
+                        <Switch defaultChecked={true}
+                            checkedChildren={t('downloader.convertToPdf.pdf')}
+                            unCheckedChildren={t('downloader.convertToPdf.images')} />
                     </Form.Item>
                     <Form.Item>
                         <Space direction="vertical" size="middle" style={{ width: '100%' }}>
