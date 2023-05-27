@@ -255,5 +255,19 @@
         "jameelNooriNastaleeq": "Jameel Noori Nastaleeq",
 		"jameelKhushkhati": "Jameel Khushkhati",
 		"jameelNooriNastaleeqKasheeda": "Jameel Noori Nastaleeq Kasheeda"
+	},
+	"downloader" : {
+		"title" : "Download Rekhta Book",
+		"description": "Please provide the book link where you can see the book contents.",
+		"loading": "Downloading Book... It can take a while to download book. Please do not close the browser while waiting for book to download.",
+		"url" : {
+			"title" : "Book Link",
+			"required" : "Book link is required.",
+			"detailsLink" : "This is a link to book details page. Please provide link to page where you can read book pages."
+		},
+		"convertToPdf" : {
+			"title" : "Convert To Pdf"
+		},
+		"error" : "Unable to download book. Please make sure you have provided link where you can read the book pages."
 	}
 }

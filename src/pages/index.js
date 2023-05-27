@@ -8,6 +8,7 @@ import VerifyAccount from './verifyAccount';
 import Error403 from './403';
 import Error404 from './404';
 import Error500 from './500';
+import DownloadRekhta from './download-rekhta';
 
 export {
     Home,
@@ -19,5 +20,6 @@ export {
     ChangePassword,
     Error403,
     Error404,
-    Error500
+    Error500,
+    DownloadRekhta
 } 

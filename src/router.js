@@ -10,7 +10,8 @@ import {
     VerifyAccount,
     Error403,
     Error404,
-    Error500
+    Error500,
+    DownloadRekhta
 } from "./pages";
 
 import LibrariesHome from './pages/libraries'
@@ -56,6 +57,8 @@ const Router = () => {
                 <Route path="/account/forgot-password" element={<ForgotPassword />} />
                 <Route path="/account/reset-password" element={<ResetPassword />} />
                 <Route path="/account/verify" element={<VerifyAccount />} />
+                <Route path="/download/rekhta" element={<DownloadRekhta />} />
+
             </Route>
         </Routes>
     </BrowserRouter>);
