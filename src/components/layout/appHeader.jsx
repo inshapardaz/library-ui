@@ -16,7 +16,7 @@ import { Logo } from "./logo";
 import ProfileMenu from "./profileMenu";
 import { useGetLibraryQuery } from '../../features/api/librariesSlice'
 import { useGetCategoriesQuery } from '../../features/api/categoriesSlice'
-
+import SearchBox from '../searchBox'
 //---------------------------------------------
 
 function AppHeader () {
@@ -157,6 +157,9 @@ function AppHeader () {
         <Logo t={t} library={library} />
       </Col>
       <Col flex="auto">{menu}</Col>
+      <Col>
+        <SearchBox />
+      </Col>
       <Col>
         <DarkModeToggle />
       </Col>

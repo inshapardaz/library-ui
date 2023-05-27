@@ -19,7 +19,9 @@
 		"list" : "List",
 		"card" : "Cards",
 		"yes" : "Yes",
-		"no" : "No"
+		"no" : "No",
+		"close": "Close",
+		"retry": "Retry"
 	},
 	"login" : {
 		"title" : "Login",
@@ -183,6 +185,22 @@
 			"title" : "Chapters"
 		}
 	},
+	"chapters" : {
+		"title": "Chapters"
+	},
+	
+	"reader" : {
+		"settings": "Theme & Settings",
+		"font" : "Font",
+		"fontSize": "Font Size", 
+		"lineSpacing": "Line Spacing",
+		"view" : {
+			"title" : "View",
+			"vertical": "Vertical",
+			"singlePage": "Single Page",
+			"flipBook": "Flip Book" 
+		}
+	},
 	"authors" : {
 		"title" : "Authors"
 	},
@@ -221,5 +239,36 @@
 			"weekly": "Weekly",
 			"daily": "Daily"
 		}
+	},
+	"fonts" : {
+		"alviLahoriNastaleeq": "Alvi Lahori Nastaleeq",
+        "fajerNooriNastalique": "Fajer Noori Nastaleeq",
+        "gulzarNastalique": "Gulzar Nastaleeq",
+        "emadNastaleeq": "Emad Nastaleeq",
+        "nNafeesWebNaskh": "Nafees Web Naskh",
+        "nafeesNastaleeq": "Nafees Nastaleeq",
+        "mehrNastaleeq": "Mehr Nastaleeq",
+        "adobeArabic": "Adobe Arabic",
+        "dubai": "Dubai",
+        "notoNaskhArabic": "Noto Naskh",
+        "notoNastaliqUrdu": "Noto Nastaleeq",
+        "jameelNooriNastaleeq": "Jameel Noori Nastaleeq",
+		"jameelKhushkhati": "Jameel Khushkhati",
+		"jameelNooriNastaleeqKasheeda": "Jameel Noori Nastaleeq Kasheeda"
+	},
+	"downloader" : {
+		"title" : "Download Rekhta Book",
+		"description": "Please provide the book link where you can see the book contents.",
+		"loading": "Downloading Book... It can take a while to download book. Please do not close the browser while waiting for book to download.",
+		"url" : {
+			"title" : "Book Link",
+			"required" : "Book link is required.",
+			"detailsLink" : "This is a link to book details page. Please provide link to page where you can read book pages."
+		},
+		"convertToPdf" : {
+			"pdf" : "Pdf",
+			"images" : "Images"
+		},
+		"error" : "Unable to download book. Please make sure you have provided link where you can read the book pages."
 	}
 }

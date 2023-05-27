@@ -10,7 +10,8 @@ import {
     VerifyAccount,
     Error403,
     Error404,
-    Error500
+    Error500,
+    DownloadRekhta
 } from "./pages";
 
 import LibrariesHome from './pages/libraries'
@@ -22,6 +23,7 @@ import AuthorPage from './pages/authors/author';
 import SeriesHomePage from './pages/series/index'
 import SeriesPage from './pages/series/series';
 import PeriodicalsHomePage from './pages/periodicals/index';
+import BookReader from './pages/books/reader'
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
@@ -45,6 +47,7 @@ const Router = () => {
                 <Route path="/403" element={<Error403 />} />
                 <Route path="*" element={<Error404 />} />
             </Route>
+            <Route path="/libraries/:libraryId/books/:bookId/chapters/:chapterId" element={<BookReader />} />
             <Route element={<LayoutWithFooter />} >
                 <Route element={<SecurePage />}>
                     <Route path="/change-password" element={<ChangePassword />} />
@@ -54,6 +57,8 @@ const Router = () => {
                 <Route path="/account/forgot-password" element={<ForgotPassword />} />
                 <Route path="/account/reset-password" element={<ResetPassword />} />
                 <Route path="/account/verify" element={<VerifyAccount />} />
+                <Route path="/download/rekhta" element={<DownloadRekhta />} />
+
             </Route>
         </Routes>
     </BrowserRouter>);

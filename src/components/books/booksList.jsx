@@ -87,6 +87,7 @@ function BooksList({libraryId,
             busy={isFetching} 
             error={error} 
             empty={books && books.data && books.data.length < 1}
+            bordered={false}
             actions={(<Switch checkedChildren={t('actions.list')} unCheckedChildren={t('actions.card')} checked={showList} onChange={toggleView} />) }>           
             <List
                 grid={ showList ? null : grid}
