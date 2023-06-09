@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 // 3rd party imports
 import { Dropdown, Space } from 'antd';
 import { ImLibrary } from "react-icons/im";
-import { FaChevronDown } from "react-icons/fa";
 
 // Local import
 import styles from '../../styles/common.module.scss';
