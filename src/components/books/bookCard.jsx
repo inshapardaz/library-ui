@@ -25,24 +25,22 @@ function BookCard({ libraryId, book, t })
   const avatar  = (<Avatar.Group maxCount="2" size="large">
       { book.authors.map(author => (<AuthorAvatar key={author.id} libraryId={libraryId} author={author} t={t}/>))}
   </Avatar.Group>);
-  const title = (<Link to={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Link>);
   const description = book.description ? (<Paragraph ellipsis>{book.description}</Paragraph>)
                   :(<Text type="secondary">{t('book.noDescription')}</Text>);
   const chapterCount = (<Link to={`/libraries/${libraryId}/books/${book.id}`}>
       <IconText icon={FiLayers} text={t('book.chapterCount', { count: book.chapterCount })} key="book-chapter-count" />
       </Link>);
   const pageCount = (<IconText icon={AiOutlineCopy} text={t('book.pageCount', { count: book.pageCount })} key="book-page-count" />);
-//   const details = (<Space>
-//     <BookSeriesInfo book={book} t={t} />
-//   </Space>) 
-  return (<Card key={book.id} cover={cover} actions={[chapterCount, pageCount]}>
+  return (<Link to={`/libraries/${libraryId}/books/${book.id}`}>
+    <Card key={book.id} cover={cover} hoverable actions={[chapterCount, pageCount]}>
       <Card.Meta
           avatar={avatar}
-          title={title}
+          title={book.title}
           description={<BookSeriesInfo book={book} t={t} />}
       />
         {description}
-      </Card>);
+      </Card>
+    </Link>);
 }
 
 export default BookCard;

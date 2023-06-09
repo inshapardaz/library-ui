@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 // 3rd party imports
 import { Dropdown, Space } from 'antd';
 import { ImLibrary } from "react-icons/im";
+import { FaChevronDown } from "react-icons/fa";
 
 // Local import
 import styles from '../../styles/common.module.scss';
@@ -10,6 +12,7 @@ import { useGetLibrariesQuery } from '../../features/api/librariesSlice'
 
 // ---------------------------------------------------
 export function Logo({ t, library, showLibrarySwitcher = true }) {
+  const navigate = useNavigate();
   const { data: libraries, isError, isFetching } = useGetLibrariesQuery()
   const items = !isError && !isFetching && libraries && libraries.data ? libraries.data.map(l => ({
     key: l.id,
@@ -25,12 +28,16 @@ export function Logo({ t, library, showLibrarySwitcher = true }) {
   if (showLibrarySwitcher && items.length > 0) {
     const selectedKeys = library ? [library.id] : null
     return (<Space size={8} className={styles['header__logo']}>
-          <Dropdown menu={{ items }}
+          <Dropdown.Button menu={{ items }}
             trigger='click'
+            type="text"
+            size="large"
             selectable={true}
-            selectedKeys= {selectedKeys}>
-            <img src="/images/logo.png" alt="logo" height={24} width={24} />
-          </Dropdown>
+            icon={<ImLibrary />}
+            selectedKeys= {selectedKeys}
+            onClick={() =>  navigate('/') }>
+              <img src="/images/logo.png" alt="logo" height={24} width={24} />
+          </Dropdown.Button>
         </Space>)
   }
   

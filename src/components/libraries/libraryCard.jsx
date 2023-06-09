@@ -11,11 +11,13 @@ import styles from '../../styles/common.module.scss'
 
 const LibraryCard = ({ library }) => {
     const { t } = useTranslation()
-    const title = (<Link to={`/libraries/${library.id}`}>{library.name}</Link>);
+    
     const cover = (<img src={helpers.defaultLibraryImage} className={ styles["library__image"]} alt="library" />);
-    return (<Card cover={cover}>
-        <Card.Meta title={title} description={t(`languages.${library.language}`)}/>
-      </Card>);
+    return (<Link to={`/libraries/${library.id}`}>
+        <Card cover={cover} hoverable>
+          <Card.Meta title={library.name} description={t(`languages.${library.language}`)}/>
+        </Card>
+      </Link>);
 }
 
 

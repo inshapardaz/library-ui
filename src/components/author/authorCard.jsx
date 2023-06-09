@@ -20,19 +20,20 @@ function AuthorCard({ libraryId, author, t })
 {
   const cover = (<img src={author.links.image || helpers.defaultAuthorImage} 
     onError={helpers.setDefaultAuthorImage}  className={ styles["author__image"]} alt={author.name}  />);
-  const title = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>{author.name}</Link>);
   const description = author.description ? (<Paragraph ellipsis type="secondary">{author.description}</Paragraph>)
                   :(<Text type="secondary">{t('author.noDescription')}</Text>);
-  const bookCount = (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>
+  const bookCount = (<Link to={`/libraries/${libraryId}/books?author=${author.id}`}>
       <IconText icon={ImBooks} text={t('author.bookCount', { count: author.bookCount })} key="auhtor-book-count" />
       </Link>);
   const writingsCount = (<Link to={`/libraries/${libraryId}/writings?author=${author.id}`}>
       <IconText icon={FaPenFancy} text={t('author.writingCount', { count: 0 })} key="author-writings-count" />
       </Link>);
 
-  return (<Card key={author.id} cover={cover} actions={[bookCount, writingsCount]}>
-        <Card.Meta title={title} description={description}/>
-      </Card>);
+  return (<Link to={`/libraries/${libraryId}/authors/${author.id}`}>
+    <Card key={author.id} cover={cover} hoverable actions={[bookCount, writingsCount]}>
+        <Card.Meta title={author.name} description={description}/>
+      </Card>
+      </Link>);
 }
 
 export default AuthorCard;
