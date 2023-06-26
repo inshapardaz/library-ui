@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Mutex } from 'async-mutex';
 
 import { store } from "../store";
 import { refreshToken } from '../features/auth/authSlice'
@@ -6,20 +7,30 @@ import { refreshToken } from '../features/auth/authSlice'
 export const axiosPublic = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 export const axiosPrivate = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
+const mutex = new Mutex();
+
 axiosPrivate.interceptors.request.use(
   async (config) => {
-    const user = store?.getState()?.auth?.user;
-    let currentDate = new Date();
-    if (user?.accessToken) {
-      if (new Date(user.accessTokenExpiry) < currentDate.getTime()) {
-        await store.dispatch(refreshToken());
-      }
+    await mutex.waitForUnlock()   
+    const release = await mutex.acquire()
 
-      if (config?.headers) {
-        config.headers["authorization"] = `Bearer ${store?.getState()?.auth?.user?.accessToken
-          }`;
+      try {
+        const user = store?.getState()?.auth?.user;
+        let currentDate = new Date();
+        if (user?.accessToken) {
+          if (new Date(user.accessTokenExpiry) < currentDate.getTime()) {
+            await store.dispatch(refreshToken());
+          }
+
+          if (config?.headers) {
+            config.headers["authorization"] = `Bearer ${store?.getState()?.auth?.user?.accessToken
+              }`;
+          }
+        }
       }
-    }
+      finally {
+        release()
+      }
     return config;
   },
   (error) => {

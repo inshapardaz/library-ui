@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { Mutex } from 'async-mutex';
+
 import { axiosPrivate, axiosPublic } from "../../helpers/axios.helpers";
 import helpers from '../../helpers'
+
+const has_init = false
+
+const initMutex = new Mutex();
 // ----------------------------------------------------------
 
 const initialState = {
@@ -71,7 +77,6 @@ export const verifyCode = createAsyncThunk('auth/verify-code', async ({ code }) 
     }
 })
 
-
 export const resetPassword = createAsyncThunk('auth/reset-password', async ({ code, password, confirmPassword }) => {
     try {
         const response = await axiosPublic.post('/accounts/reset-password', { token: code, password, confirmPassword })
@@ -98,16 +103,24 @@ validateResetToken(token) {
 }*/
 
 export const init = createAsyncThunk('auth/init', async (_, { getState }) => {
-    const user = getState()?.auth?.user;
+    await initMutex.waitForUnlock()
+    const release = await initMutex.acquire()
+    try {
+        const user = getState()?.auth?.user;
+        if (has_init) return user;
 
-    let currentDate = new Date();
-    if (user?.refreshToken) {
-        if (user?.accessToken && new Date(user.accessTokenExpiry) < currentDate.getTime()) {
-            const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken: user.refreshToken })
-            return response.data
+        let currentDate = new Date();
+        if (user?.refreshToken) {
+            if (user?.accessToken && new Date(user.accessTokenExpiry) < currentDate.getTime()) {
+                const response = await axiosPublic.post('/accounts/refresh-token', { refreshToken: user.refreshToken })
+                return response.data
+            }
         }
+        return user
     }
-    return user
+    finally {
+        release()
+    }
 })
 
 export const authSlice = createSlice({
