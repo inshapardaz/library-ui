@@ -24,6 +24,7 @@ import SeriesHomePage from './pages/series/index'
 import SeriesPage from './pages/series/series';
 import PeriodicalsHomePage from './pages/periodicals/index';
 import BookReader from './pages/books/reader'
+import SearchPage from './pages/libraries/search'
 
 import LayoutWithHeader from './components/layout/layoutWithHeader'
 import LayoutWithFooter from './components/layout/layoutWithFooter';
@@ -36,6 +37,7 @@ const Router = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/libraries/" element={<LibrariesHome />} />
                 <Route path="/libraries/:libraryId" element={<LibraryHome />} />
+                <Route path="/libraries/:libraryId/search" element={<SearchPage />} />
                 <Route path="/libraries/:libraryId/books" element={<BooksHomePage />} />
                 <Route path="/libraries/:libraryId/books/:bookId" element={<BookPage />} />
                 <Route path="/libraries/:libraryId/authors" element={<AuthorsHomePage />} />

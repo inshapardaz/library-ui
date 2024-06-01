@@ -246,6 +246,7 @@
       max-width:100%;
       @include when-mobile-device {
         max-width:90%;
+        max-height: 200px;
       }
     }
   }
