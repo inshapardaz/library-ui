@@ -1,26 +1,26 @@
 import { Outlet } from "react-router-dom";
 
 // 3rd party libraries
-import { Layout  } from "antd";
-
+import { AppShell } from '@mantine/core';
 // Local imports
-import Footer from "./footer";
+import AppFooter from "./appFooter";
 import AppHeader from "./appHeader";
-import styles from '../../styles/common.module.scss'
-import LibraryProvider from '../../helpers/library.context';
 
- // -----------------------------------------
+// -----------------------------------------
 
-function LayoutWithHeader() {
-    return (<LibraryProvider>
-        <Layout>
-            <AppHeader />
-            <Layout.Content className={styles.contents} >
-                <Outlet />
-            </Layout.Content>
-            <Footer/>
-        </Layout>
-    </LibraryProvider>)
+const LayoutWithHeader = () => {
+    return (
+        <>
+            <AppShell>
+                <AppShell.Header>
+                    <AppHeader />
+                </AppShell.Header>
+                <AppShell.Main>
+                    <Outlet />
+                </AppShell.Main>
+                <AppFooter />
+            </AppShell>
+        </>)
 }
 
 export default LayoutWithHeader;

@@ -1,26 +1,39 @@
+import { useDispatch } from 'react-redux';
 
-import { useDispatch, useSelector } from "react-redux";
-
-// 3rd party imports
-import { Switch } from "antd";
-import { MdOutlineDarkMode, MdOutlineWbSunny } from 'react-icons/md'
+// Ui Library
+import cx from 'clsx';
+import { ActionIcon, useMantineColorScheme, useComputedColorScheme, Group } from '@mantine/core';
+import { IconSun, IconMoon } from '@tabler/icons-react';
 
 // Local imports
-import { uiMode, toggleUiMode } from '../features/ui/uiSlice';
+import { setUiMode } from '../store/slices/uiSlice';
+import classes from './darkModeToggle.module.css';
 
-// -------------------------------------------------
+// ----------------------------
 
-function DarkModeToggle() {
+const DarkModeToggle = () => {
     const dispatch = useDispatch();
-    const mode = useSelector(uiMode);
-    const toggleDarkMode = () => dispatch(toggleUiMode())
-    
-    return (<Switch
-        checkedChildren={<MdOutlineDarkMode />}
-        unCheckedChildren={<MdOutlineWbSunny />}
-        checked={mode === 'dark'}
-        onChange={toggleDarkMode}
-    />);
+    const { setColorScheme } = useMantineColorScheme();
+    const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
+
+    const onClick = () => {
+        const newMode = computedColorScheme === 'light' ? 'dark' : 'light'
+        dispatch(setUiMode(newMode));
+        setColorScheme(newMode)
+    }
+
+    return (
+        <Group justify="center">
+            <ActionIcon onClick={onClick}
+                variant="default"
+                size="xl"
+                aria-label="Toggle color scheme"
+            >
+                <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+                <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+            </ActionIcon>
+        </Group>
+    );
 }
 
 export default DarkModeToggle;

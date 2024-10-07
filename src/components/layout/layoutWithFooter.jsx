@@ -1,16 +1,16 @@
-import { Layout } from "antd";
-import React from "react";
+// Third party libraries
 import { Outlet } from "react-router-dom";
 
 // local imports
-import Footer from "./footer";
+import AppFooter from "./appFooter";
+
 // -----------------------------------
 
 const LayoutWithFooter = () => {
-    return <Layout>
+    return <>
         <Outlet />
-        <Footer stickToBottom />
-    </Layout>;
+        <AppFooter />
+    </>;
 }
 
 export default LayoutWithFooter;

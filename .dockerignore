@@ -1,6 +1,5 @@
 .github
 .parcel-cache
-dist
 node_modules
 npm-debug.log
 .editorconfig
