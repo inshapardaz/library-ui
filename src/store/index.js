@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 
 // Local Imports
 import { uiSlice } from "./slices/uiSlice";
-// import { authSlice } from "./slices/authSlice";
+import { authSlice } from "./slices/authSlice";
+import { authApi } from "./slices/auth.api";
 // import { librariesApi } from "./slices/librariesSlice";
 // import { accountsApi } from "./slices/accountsSlice";
 // import { booksApi } from "./slices/booksSlice";
@@ -20,7 +21,8 @@ import { uiSlice } from "./slices/uiSlice";
 export const store = configureStore({
     reducer: {
         [uiSlice.name]: uiSlice.reducer,
-        // [authSlice.name]: authSlice.reducer,
+        [authSlice.name]: authSlice.reducer,
+        [authApi.reducerPath]: authApi.reducer,
         // [librariesApi.reducerPath]: librariesApi.reducer,
         // [accountsApi.reducerPath]: accountsApi.reducer,
         // [booksApi.reducerPath]: booksApi.reducer,
@@ -35,15 +37,16 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
-            // .concat(librariesApi.middleware)
-            // .concat(accountsApi.middleware)
-            // .concat(booksApi.middleware)
-            // .concat(authorsApi.middleware)
-            // .concat(seriesApi.middleware)
-            // .concat(categoriesApi.middleware)
-            // .concat(periodicalsApi.middleware)
-            // .concat(issuesApi.middleware)
-            // .concat(issueArticlesApi.middleware)
-            // .concat(articlesApi.middleware)
-            // .concat(toolsApi.middleware),
+            .concat(authApi.middleware)
+    // .concat(librariesApi.middleware)
+    // .concat(accountsApi.middleware)
+    // .concat(booksApi.middleware)
+    // .concat(authorsApi.middleware)
+    // .concat(seriesApi.middleware)
+    // .concat(categoriesApi.middleware)
+    // .concat(periodicalsApi.middleware)
+    // .concat(issuesApi.middleware)
+    // .concat(issueArticlesApi.middleware)
+    // .concat(articlesApi.middleware)
+    // .concat(toolsApi.middleware),
 });

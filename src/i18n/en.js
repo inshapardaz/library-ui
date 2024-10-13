@@ -1,8 +1,43 @@
 const en = {
     app: "Nawishta",
     slogan: "Read something new today",
+    header: {
+        home: "Home",
+        libraries: "Libraries",
+        writings: "Writings",
+        books: "Books",
+        authors: "Authors",
+        categories: "Categories",
+        series: "Series",
+        periodicals: "Periodicals",
+    },
+    footer: {
+        copyrights: "Copyrights Nawishta. All rights reserved.",
+    },
+    actions: {
+        seeMore: "See More...",
+        list: "List",
+        card: "Cards",
+        yes: "Yes",
+        no: "No",
+        close: "Close",
+        retry: "Retry",
+        save: "Save",
+        edit: "Edit",
+        delete: "Delete",
+        cancel: "Cancel",
+        ok: "OK",
+        resizeImage: "Resize Image",
+        zoonIn: "Zoom In",
+        zoonOut: "Zoom Out",
+        next: "Next",
+        previous: "Previous",
+        done: "Done",
+    },
     login: {
         title: "Login",
+        message: 'Welcome back!',
+        registerMessage: 'Do not have an account yet?',
         email: {
             title: "Email",
             error: "Email is invalid",
@@ -20,6 +55,7 @@ const en = {
     },
     forgotPassword: {
         title: "Forgot Password",
+        message: "Enter your email to get a reset link",
         submit: "Get Password",
         email: {
             title: "Email",
@@ -31,6 +67,7 @@ const en = {
     },
     register: {
         title: "Register",
+        loginMessage: "Already registered with us?",
         submit: "Register",
         name: {
             label: "Name",
@@ -114,6 +151,18 @@ const en = {
         title: "Server Error",
         description: "Sorry, something went wrong.",
         action: "Back Home",
+    },
+    languages: {
+        en: "English",
+        ur: "Urdu",
+    },
+    profile: {
+        title: "Profile",
+    },
+    search: {
+        header: "Search",
+        title: "Search...",
+        placeholder: "Search by title, author, keyword",
     },
 };
 

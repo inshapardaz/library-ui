@@ -1,8 +1,43 @@
 const ur = {
     app: "نوشتہ",
     slogan: "آج کچھ نیا پڑھیں",
+    header: {
+        home: "صفحۂ اوّل",
+        libraries: "کتب خانے",
+        writings: "تصنیفات",
+        books: "کتابیں",
+        authors: "مصنّفین",
+        categories: "زمرہ جات",
+        series: "سلسلہ جات",
+        periodicals: "جرائد",
+    },
+    footer: {
+        copyrights: "نوشتہ۔ تمام حقوق محفوظ ہیں",
+    },
+    actions: {
+        seeMore: "مزید دیکھیں۔۔۔",
+        list: "فہرست",
+        card: "تصاویر",
+        yes: "جی ہاں",
+        no: "نہیں",
+        close: "بند کریں",
+        retry: "دوبارہ کوشش کریں",
+        save: "تبدیلی محفوظ کریں",
+        edit: "تدوین",
+        delete: "حذف کیجئے",
+        cancel: "اخراج",
+        ok: "ٹھیک ہے",
+        resizeImage: "تصویر کی تدوین",
+        zoonIn: "زوم ان",
+        zoonOut: "زوم آؤٹ",
+        next: "اگلا",
+        previous: "پچھلا",
+        done: "مکمل",
+    },
     login: {
         title: "داخل ہوں",
+        message: 'خوش آمدید!',
+        registerMessage: 'کیا آپ کا اکاؤنٹ موجود نہیں؟',
         email: {
             title: "ای میل",
             error: "ای میل درست نہیں",
@@ -21,6 +56,7 @@ const ur = {
     },
     forgotPassword: {
         title: "پاسورڈ بھول گئے ہیں",
+        message: "پاسورڈ بذریعہ ای میل حاصل کرنے کے لیے اپنا ای میل ایڈریس فراہم کریں۔",
         submit: "پاسورڈ حاصل کریں",
         email: {
             title: "ای میل",
@@ -33,6 +69,7 @@ const ur = {
     },
     register: {
         title: "رکنیت اختیار کریں",
+        loginMessage: "کیا آپ صارف ہیں؟",
         submit: "رکن بنیں",
         name: {
             label: "نام",
@@ -116,6 +153,18 @@ const ur = {
         title: "تکنکتی خرابی",
         description: "ہم اس غیر متوقع خرابی کے لیے معذرت خواہ ہیں۔",
         action: "صفحۂ اوّل",
+    },
+    languages: {
+        en: "انگریزی",
+        ur: "اردو",
+    },
+    profile: {
+        title: "پروفائل",
+    },
+    search: {
+        header: "تلاش",
+        title: "تلاش۔۔۔",
+        placeholder: "تلاش برائے عنوان، مصنّف، زمرہ",
     },
 };
 

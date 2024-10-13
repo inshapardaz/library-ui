@@ -1,5 +1,6 @@
 // ui library 
 import { Overlay, Container, Title, Button, Text } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 
 // Local imports
 import classes from './homePage.module.css';
@@ -21,7 +22,11 @@ const HomePage = () => {
           more than 120 customizable components and hooks to cover you in any situation
         </Text>
 
-        <Button variant="gradient" size="xl" radius="xl" className={classes.control}>
+        <Button variant="gradient" size="xl" radius="xl" className={classes.control} onClick={() => {
+          notifications.show({
+            message: 'test'
+          })
+        }}>
           Get started
         </Button>
       </Container>
