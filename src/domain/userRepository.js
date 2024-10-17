@@ -1,8 +1,7 @@
-
 const isJsonString = (str) => {
   try {
     JSON.parse(str);
-  } catch (e) {
+  } catch {
     return false;
   }
   return true;

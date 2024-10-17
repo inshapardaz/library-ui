@@ -21,11 +21,12 @@ import {
     Space,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 // Local imports
-import { login, reset, getLoginStatus, getLoginError, isLoggedIn } from '../store/slices/authSlice'
+import { login, reset, getLoginStatus, getLoginError, isLoggedIn } from '@/store/slices/authSlice'
+import { librariesApi } from '@/store/slices/libraries.api';
 import classes from './loginPage.module.css';
+import { IconInfoCircle } from '@/components/icon';
 
 //--------------------------------
 const LoginPage = () => {
@@ -67,14 +68,17 @@ const LoginPage = () => {
     });
 
 
-    const onSubmit = ({ email, password }) => {
-        dispatch(login({ email, password }))
+    const onSubmit = async ({ email, password }) => {
+        await dispatch(login({ email, password }))
+        await dispatch(librariesApi.util.resetApiState());
     };
 
     const errorMessage = error ? (
         <>
             <Space h="md" />
-            <Alert variant="light" color="red" title={t('login.error')} icon={<IconInfoCircle />} type="error" />
+            <Alert variant="light" color="red" title={t('login.error')}
+                icon={<IconInfoCircle />}
+                type="error" />
         </>)
         : null
 

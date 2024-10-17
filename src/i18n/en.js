@@ -164,6 +164,14 @@ const en = {
         title: "Search...",
         placeholder: "Search by title, author, keyword",
     },
+    libraries: {
+        title: "Libraries",
+        loadingError: "Unable to load libraries",
+        search: {
+            placeholder: "Search libraries...",
+        },
+        viewAll: "View All"
+    },
 };
 
 export default en;

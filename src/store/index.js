@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { uiSlice } from "./slices/uiSlice";
 import { authSlice } from "./slices/authSlice";
 import { authApi } from "./slices/auth.api";
-// import { librariesApi } from "./slices/librariesSlice";
+import { librariesApi } from "./slices/libraries.api";
 // import { accountsApi } from "./slices/accountsSlice";
 // import { booksApi } from "./slices/booksSlice";
 // import { authorsApi } from "./slices/authorsSlice";
@@ -23,7 +23,7 @@ export const store = configureStore({
         [uiSlice.name]: uiSlice.reducer,
         [authSlice.name]: authSlice.reducer,
         [authApi.reducerPath]: authApi.reducer,
-        // [librariesApi.reducerPath]: librariesApi.reducer,
+        [librariesApi.reducerPath]: librariesApi.reducer,
         // [accountsApi.reducerPath]: accountsApi.reducer,
         // [booksApi.reducerPath]: booksApi.reducer,
         // [authorsApi.reducerPath]: authorsApi.reducer,
@@ -38,7 +38,7 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat(authApi.middleware)
-    // .concat(librariesApi.middleware)
+            .concat(librariesApi.middleware)
     // .concat(accountsApi.middleware)
     // .concat(booksApi.middleware)
     // .concat(authorsApi.middleware)

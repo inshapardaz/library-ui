@@ -18,12 +18,12 @@ import {
 import { useForm } from '@mantine/form';
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from '@mantine/notifications';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 // Local imports
 import classes from './changePasswordPage.module.css';
 
-import { useChangePasswordMutation } from "/src/store/slices/auth.api";
+import { useChangePasswordMutation } from "@/store/slices/auth.api";
+import { IconInfoCircle } from "@/components/icon";
 
 
 //--------------------------------
@@ -77,7 +77,9 @@ const ChangePasswordPage = () => {
         <>
             <Space h="md" />
 
-            <Alert variant="white" color="red" title={t('changePassword.error')} icon={<IconInfoCircle />} type="error" />
+            <Alert variant="white" color="red" title={t('changePassword.error')}
+                icon={<IconInfoCircle />}
+                type="error" />
         </>
         : null
 

@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 // local Imports
-import axiosBaseQuery from "/src/util/axiosBaseQuery";
+import axiosBaseQuery from "@/utils/axiosBaseQuery";
 // ----------------------------------------------------------
 
 export const authApi = createApi({

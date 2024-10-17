@@ -2,14 +2,22 @@
 
 # dependencies
 /node_modules
+yarn-debug.log*
+yarn-error.log*
 /.pnp
+npm-debug.log*
 .pnp.js
 
 # testing
 /coverage
+/test-results
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 # production
 /build
+/dist
 
 # misc
 .vscode
@@ -19,11 +27,3 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/

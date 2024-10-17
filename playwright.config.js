@@ -20,7 +20,7 @@ const config = {
   ],
 
   webServer: {
-    command: 'npm run dev',
+    command: 'npm start',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     stdout: 'ignore',

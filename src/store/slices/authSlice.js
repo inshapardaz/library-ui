@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // local Imports
-import { getUser, setUser, clearUser } from "/src/domain/userRepository";
-import { axiosPublic } from '/src/util/axios.helpers';
+import { getUser, setUser, clearUser } from "@/domain/userRepository";
+import { axiosPublic } from '@/utils/axios.helpers';
 // ----------------------------------------------------------
 
 const initialState = {
@@ -87,7 +87,7 @@ export const init = createAsyncThunk("auth/init", async (_, { getState }) => {
                 );
 
                 setUser(response.data);
-            } catch (e) {
+            } catch {
                 clearUser();
                 window.location.href = "/account/login";
             }

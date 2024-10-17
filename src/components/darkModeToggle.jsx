@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 // Ui Library
 import cx from 'clsx';
 import { ActionIcon, useMantineColorScheme, useComputedColorScheme, Group } from '@mantine/core';
-import { IconSun, IconMoon } from '@tabler/icons-react';
 
 // Local imports
 import { setUiMode } from '../store/slices/uiSlice';
 import classes from './darkModeToggle.module.css';
+import { IconMoon, IconSun } from './icon';
 
 // ----------------------------
 

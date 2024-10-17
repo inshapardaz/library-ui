@@ -22,11 +22,11 @@ import {
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 // Local imports
 import classes from './loginPage.module.css';
-import { useRegisterMutation } from "/src/store/slices/auth.api";
+import { useRegisterMutation } from "@/store/slices/auth.api";
+import { IconInfoCircle } from '@/components/icon';
 
 //-----------------------------------------
 
@@ -91,7 +91,9 @@ const RegisterPage = () => {
         <>
             <Space h="md" />
 
-            <Alert variant="white" color="red" title={t('register.error')} icon={<IconInfoCircle />} type="error" />
+            <Alert variant="white" color="red" title={t('register.error')}
+                icon={<IconInfoCircle />}
+                type="error" />
         </>
         : null
 

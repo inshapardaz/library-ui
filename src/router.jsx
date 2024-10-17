@@ -1,10 +1,10 @@
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 
-import Pages from "./pages";
+import Pages from "@/pages";
 
-import LayoutWithHeader from "/src/components/layout/layoutWithHeader";
-import LayoutWithFooter from "/src/components/layout/layoutWithFooter";
-import SecurePage from "/src/components/layout/securePage";
+import LayoutWithHeader from "@/layout/layoutWithHeader";
+import LayoutWithFooter from "@/layout/layoutWithFooter";
+import SecurePage from "@/layout/securePage";
 
 // ------------------------------------------------------------------
 
@@ -14,11 +14,8 @@ const Router = () => {
             <Routes>
                 <Route element={<LayoutWithHeader />}>
                     <Route path="/" element={<Pages.HomePage />} />
-                    {/* <Route element={<SecurePage />}>
-                    </Route>
-                    <Route path="/500" element={<Error500 />} />
-                    <Route path="/403" element={<Error403 />} />
-                    <Route path="*" element={<Error404 />} /> */}
+                    <Route path="/libraries/:libraryId" element={<Pages.LibraryPage />} />
+                    <Route path="/libraries" element={<Pages.LibrariesPage />} />
                     <Route element={<SecurePage />}>
                         <Route
                             path="/change-password"

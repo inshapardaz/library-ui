@@ -12,9 +12,9 @@ if (window.location.host.toLocaleLowerCase() == 'editor.nawishta.dev') {
     NODE_ENV = 'production';
     API_URL = 'https://api.nawishta.co.uk';
     console.log('Environment is: production');
-} else{
+} else {
     console.log('Environment is: local');
-} 
+}
 console.log('--------------------------------------------------')
 
 export {

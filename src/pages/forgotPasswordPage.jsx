@@ -14,20 +14,20 @@ import {
     Anchor,
     Center,
     Box,
-    rem,
     Alert,
     LoadingOverlay,
     Loader,
     Space,
+    rem,
 } from '@mantine/core';
-import { IconArrowLeft, IconInfoCircle } from '@tabler/icons-react';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 
 // Local Import
 import classes from './forgotPassword.module.css';
-import { useForgetPasswordMutation } from '/src/store/slices/auth.api';
+import { useForgetPasswordMutation } from '@/store/slices/auth.api';
+import { IconArrowLeft, IconInfoCircle } from '@/components/icon';
 //-------------------------------
 
 const ForgotPasswordPage = () => {
@@ -75,7 +75,9 @@ const ForgotPasswordPage = () => {
     const errorMessage = error ? (
         <>
             <Space h="md" />
-            <Alert variant="light" color="red" title={t('forgotPassword.error')} icon={<IconInfoCircle />} type="error" />
+            <Alert variant="light" color="red" title={t('forgotPassword.error')}
+                icon={<IconInfoCircle />}
+                type="error" />
         </>)
         : null
 

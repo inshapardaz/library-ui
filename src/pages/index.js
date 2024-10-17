@@ -4,12 +4,17 @@ import RegisterPage from "./registerPage";
 import ChangePasswordPage from "./changePasswordPage";
 import ForgotPasswordPage from "./forgotPasswordPage";
 
+import LibrariesPage from "./libraries";
+import LibraryPage from "./libraries/library";
+
 const Pages = {
     HomePage,
     LoginPage,
     RegisterPage,
     ChangePasswordPage,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    LibrariesPage,
+    LibraryPage
 };
 
 export default Pages;

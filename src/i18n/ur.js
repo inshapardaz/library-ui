@@ -166,6 +166,14 @@ const ur = {
         title: "تلاش۔۔۔",
         placeholder: "تلاش برائے عنوان، مصنّف، زمرہ",
     },
+    libraries: {
+        title: "کتب خانے",
+        loadingError: "کتب خانوں کے حصول میں ناکامی ہوئی",
+        search: {
+            placeholder: "تلاش کتب خانے۔۔۔",
+        },
+        viewAll: "تمام دیکھیں"
+    },
 };
 
 export default ur;
