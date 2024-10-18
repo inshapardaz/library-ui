@@ -4,6 +4,9 @@ const en = {
     header: {
         home: "Home",
         libraries: "Libraries",
+        libraryEditor: "Library Editor",
+        dictionaries: "Dictionaries",
+        tools: "Tools",
         writings: "Writings",
         books: "Books",
         authors: "Authors",
@@ -33,6 +36,7 @@ const en = {
         next: "Next",
         previous: "Previous",
         done: "Done",
+        viewAll: "View All"
     },
     login: {
         title: "Login",
@@ -171,6 +175,19 @@ const en = {
             placeholder: "Search libraries...",
         },
         viewAll: "View All"
+    },
+    categories: {
+        title: "Categories",
+        all: "All Categories",
+        errors: {
+            loading: {
+                title: "Error",
+                subTitle: "Unable to load categories",
+            },
+        },
+        empty: {
+            title: "No Categories",
+        },
     },
 };
 

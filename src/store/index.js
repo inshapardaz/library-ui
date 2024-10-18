@@ -9,7 +9,7 @@ import { librariesApi } from "./slices/libraries.api";
 // import { booksApi } from "./slices/booksSlice";
 // import { authorsApi } from "./slices/authorsSlice";
 // import { seriesApi } from "./slices/seriesSlice";
-// import { categoriesApi } from "./slices/categoriesSlice";
+import { categoriesApi } from "./slices/categories.api";
 // import { periodicalsApi } from "./slices/periodicalsSlice";
 // import { issuesApi } from "./slices/issuesSlice";
 // import { issueArticlesApi } from "./slices/issueArticlesSlice";
@@ -28,7 +28,7 @@ export const store = configureStore({
         // [booksApi.reducerPath]: booksApi.reducer,
         // [authorsApi.reducerPath]: authorsApi.reducer,
         // [seriesApi.reducerPath]: seriesApi.reducer,
-        // [categoriesApi.reducerPath]: categoriesApi.reducer,
+        [categoriesApi.reducerPath]: categoriesApi.reducer,
         // [periodicalsApi.reducerPath]: periodicalsApi.reducer,
         // [issuesApi.reducerPath]: issuesApi.reducer,
         // [issueArticlesApi.reducerPath]: issueArticlesApi.reducer,
@@ -39,11 +39,11 @@ export const store = configureStore({
         getDefaultMiddleware()
             .concat(authApi.middleware)
             .concat(librariesApi.middleware)
-    // .concat(accountsApi.middleware)
-    // .concat(booksApi.middleware)
-    // .concat(authorsApi.middleware)
-    // .concat(seriesApi.middleware)
-    // .concat(categoriesApi.middleware)
+            // .concat(accountsApi.middleware)
+            // .concat(booksApi.middleware)
+            // .concat(authorsApi.middleware)
+            // .concat(seriesApi.middleware)
+            .concat(categoriesApi.middleware)
     // .concat(periodicalsApi.middleware)
     // .concat(issuesApi.middleware)
     // .concat(issueArticlesApi.middleware)

@@ -1,21 +1,28 @@
+import { useContext } from "react";
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import cx from 'clsx';
 
 // Ui Library imports
-import { Text, Button, UnstyledButton, Group, ThemeIcon, useMantineTheme, HoverCard, Center, Box, Divider, SimpleGrid, Anchor, rem } from '@mantine/core';
+import { Text, Button, UnstyledButton, Group, ThemeIcon, useMantineTheme, HoverCard, Center, Box, Divider, SimpleGrid, Anchor, rem, Collapse, Title } from '@mantine/core';
 
 // Local Imports
 import { useGetLibrariesQuery } from '@/store/slices/libraries.api'
 import classes from './appHeader.module.css';
 import { IconChevronDown, IconRefreshAlert, IconBooks } from './icon';
+import { LibraryContext } from '@/contexts'
+import { useDisclosure } from '@mantine/hooks';
+import Logo from './logo';
 //------------------------------------
 
 const LibrarySwitcher = () => {
     const { t } = useTranslation();
+    const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: libraries, isError: errorLoadingLibraries, refetch: refetchLibraries } = useGetLibrariesQuery({})
     const { libraryId } = useParams();
     const theme = useMantineTheme();
+    const { library } = useContext(LibraryContext)
+
 
     if (errorLoadingLibraries) {
         return <Button click={refetchLibraries}
@@ -44,15 +51,13 @@ const LibrarySwitcher = () => {
     )) : [];
 
     return (<>
-        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+        <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal visibleFrom="sm">
             <HoverCard.Target>
                 <Center inline>
-                    <Box component="span" mr={5}>
-                        <IconBooks />
-                    </Box>
+                    <Logo showName={!libraryId} />
+                    {libraryId && <Title order={5}>{library?.name}</Title>}
                     <IconChevronDown
-                        width={rem(16)}
-                        height={rem(16)}
+                        size={16}
                     />
                 </Center>
             </HoverCard.Target>
@@ -70,7 +75,21 @@ const LibrarySwitcher = () => {
                     {links}
                 </SimpleGrid>
             </HoverCard.Dropdown>
-        </HoverCard >
+        </HoverCard>
+        <Group h="100%" gap={0} hiddenFrom="sm">
+            <UnstyledButton className={classes.link} onClick={toggleLinks}>
+                <Center inline>
+                    <Box component="span" mr={5}>
+                        {t('header.libraries')}
+                    </Box>
+                    <IconChevronDown
+                        size={16}
+                        style={{ color: theme.colors.blue[6] }}
+                    />
+                </Center>
+            </UnstyledButton>
+            <Collapse in={linksOpened}>{links}</Collapse>
+        </Group>
     </>);
 }
 

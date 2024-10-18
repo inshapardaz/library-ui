@@ -16,7 +16,7 @@ const Logo = ({ showName = false }) => {
             <Group>
                 <i className={classes.logo} />
                 {/* <Space w="xs" /> */}
-                <Title order={4}>{t('app')}</Title>
+                <Title order={5}>{t('app')}</Title>
             </Group>);
     }
 

@@ -4,6 +4,9 @@ const ur = {
     header: {
         home: "صفحۂ اوّل",
         libraries: "کتب خانے",
+        libraryEditor: "تدوین کتب",
+        dictionaries: "لغّات",
+        tools: "اوزار",
         writings: "تصنیفات",
         books: "کتابیں",
         authors: "مصنّفین",
@@ -33,6 +36,7 @@ const ur = {
         next: "اگلا",
         previous: "پچھلا",
         done: "مکمل",
+        viewAll: "تمام دیکھیں"
     },
     login: {
         title: "داخل ہوں",
@@ -173,6 +177,19 @@ const ur = {
             placeholder: "تلاش کتب خانے۔۔۔",
         },
         viewAll: "تمام دیکھیں"
+    },
+    categories: {
+        title: "زمرے",
+        all: "تمام زمرے",
+        errors: {
+            loading: {
+                title: "زمرہ جات لوڈ نہیں ہو سکے",
+                subTitle: "زمرہ جات کے حصول میں ناکامی ہوئی",
+            },
+        },
+        empty: {
+            title: "کوئی زمرہ موجود نہیں",
+        },
     },
 };
 

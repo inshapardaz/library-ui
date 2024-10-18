@@ -57,8 +57,7 @@ const Profile = () => {
                                 {user.name}
                             </Text>
                             <IconChevronDown
-                                width={rem(12)}
-                                height={rem(12)}
+                                size={12}
                                 stroke={1.5}
                             />
                         </Group>
@@ -68,14 +67,14 @@ const Profile = () => {
                     <Menu.Divider />
                     <Menu.Item
                         leftSection={
-                            <IconSettings style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+                            <IconSettings size={16} stroke={1.5} />
                         }
                     >
                         {t('profile.title')}
                     </Menu.Item>
                     <Menu.Item
                         leftSection={
-                            <IconSwitchHorizontal style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
+                            <IconSwitchHorizontal size={16} stroke={1.5} />
                         }
                         component={Link}
                         to='/change-password'
@@ -85,7 +84,7 @@ const Profile = () => {
                     <Menu.Divider />
                     <Menu.Item onClick={logoutClicked}
                         leftSection={
-                            <IconLogout style={{ width: 16, height: 16 }} stroke={1.5} />
+                            <IconLogout size={16} stroke={1.5} />
                         }
                     >
                         {t('logout.title')}

@@ -1,12 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next'
+import propTypes from 'prop-types';
 
 // UI Library
 import { ActionIcon, Avatar, Button, Menu } from "@mantine/core";
 
 // Local Import
 import { languages, selectedLanguage, setLocale } from "@/store/slices/uiSlice";
-import CountryFlag from './flags'
+//----------------------------------
+const LanguageAvatar = ({ language, color = "grey" }) => (<Avatar radius="sm" color={color}>{language ? language.key : '-'}</Avatar>);
+LanguageAvatar.propTypes = {
+    language: propTypes.object,
+    color: propTypes.string
+};
 //----------------------------------
 
 const LanguageSwitch = () => {
@@ -19,24 +25,24 @@ const LanguageSwitch = () => {
         dispatch(setLocale(val));
     }
 
-    const avatar = (<Avatar radius="sm">{lang ? lang.key : '-'}</Avatar>);
     return (
         <>
             <Button.Group hiddenFrom="sm">
                 {Object.values(languages).map(item =>
                     <Button
                         key={item.key}
-                        variant={item?.key == lang?.key ? "transparent" : "default"}
+                        variant="transparent"
+                        disabled={item?.key == lang?.key}
                         onClick={() => onLanguageSelected(item.key)}
                     >
-                        {item.name}
+                        {item.key}
                     </Button>
                 )}
             </Button.Group>
             <Menu shadow="md" width={200} visibleFrom="sm">
                 <Menu.Target>
                     <ActionIcon variant="default" size="xl" aria-label="Select Language">
-                        {avatar}
+                        <LanguageAvatar language={lang} />
                     </ActionIcon>
                 </Menu.Target>
 
@@ -45,7 +51,7 @@ const LanguageSwitch = () => {
                         <Menu.Item
                             key={item.key}
                             onClick={() => onLanguageSelected(item.key)}
-                            leftSection={avatar}
+                            leftSection={<LanguageAvatar language={item} />}
                         >
                             {item.name}
                         </Menu.Item>
