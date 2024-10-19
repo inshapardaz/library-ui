@@ -8,7 +8,9 @@ import BooksSvg from '@/assets/icons/books.svg';
 import BrandInstagramSvg from '@/assets/icons/brand-instagram.svg';
 import BrandTwitterSvg from '@/assets/icons/brand-twitter.svg';
 import BrandYoutubeSvg from '@/assets/icons/brand-youtube.svg';
+import CategorySvg from '@/assets/icons/category.svg';
 import ChevronDownSvg from '@/assets/icons/chevron-down.svg';
+import ChevronUpSvg from '@/assets/icons/chevron-up.svg';
 import FingerprintSvg from '@/assets/icons/fingerprint.svg';
 import InfoCircleSvg from '@/assets/icons/info-circle.svg';
 import LogoutSvg from '@/assets/icons/logout.svg';
@@ -56,7 +58,9 @@ export const IconBooks = (props) => (<Icon src={BooksSvg} {...props} />)
 export const IconBrandInstagram = (props) => (<Icon src={BrandInstagramSvg} {...props} />)
 export const IconBrandTwitter = (props) => (<Icon src={BrandTwitterSvg} {...props} />)
 export const IconBrandYoutube = (props) => (<Icon src={BrandYoutubeSvg} {...props} />)
+export const IconCategory = (props) => (<Icon src={CategorySvg} {...props} />)
 export const IconChevronDown = (props) => (<Icon src={ChevronDownSvg} {...props} />)
+export const IconChevronUp = (props) => (<Icon src={ChevronUpSvg} {...props} />)
 export const IconFingerprint = (props) => (<Icon src={FingerprintSvg} {...props} />)
 export const IconInfoCircle = (props) => (<Icon src={InfoCircleSvg} {...props} />)
 export const IconLogout = (props) => (<Icon src={LogoutSvg} {...props} />)

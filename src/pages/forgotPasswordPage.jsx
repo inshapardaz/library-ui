@@ -18,7 +18,6 @@ import {
     LoadingOverlay,
     Loader,
     Space,
-    rem,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';

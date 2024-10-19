@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Ui Library Imports
 import cx from 'clsx';
-import { Avatar, Button, Group, Menu, rem, Text, UnstyledButton } from "@mantine/core";
+import { Avatar, Button, Group, Menu, Text, UnstyledButton } from "@mantine/core";
 import { modals } from '@mantine/modals';
 
 // Local Imports
 import { logout, loggedInUser, isLoggedIn } from "@/store/slices/authSlice";
 import classes from './profile.module.css';
-import { IconLogout, IconSettings, IconSwitchHorizontal, IconChevronDown } from "./icon";
+import { IconLogout, IconSettings, IconSwitchHorizontal, IconChevronDown } from "../icon";
 //-----------------------------------
 
 const Profile = () => {

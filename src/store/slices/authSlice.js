@@ -112,11 +112,9 @@ export const authSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(login.pending, (state) => {
-                console.log('1')
                 state.status = "loading";
             })
             .addCase(login.fulfilled, (state, action) => {
-                console.log('2')
                 state.status = "succeeded";
                 // TODO: Perform transformation like link replacement
                 if (action.payload) {
@@ -125,7 +123,6 @@ export const authSlice = createSlice({
                 }
             })
             .addCase(login.rejected, (state, action) => {
-                console.log('3')
                 state.status = "failed";
                 state.error = action.error.message;
             })

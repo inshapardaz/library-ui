@@ -2,12 +2,12 @@
 import { Container, Group, ActionIcon } from '@mantine/core';
 
 // Local Imports
-import Logo from './logo';
+import Logo from '../logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
 
 import classes from './appFooter.module.css';
-import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from './icon';
+import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from '@/components/icon';
 //----------------------------------------------
 
 const AppFooter = () => {

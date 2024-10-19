@@ -10,6 +10,7 @@ import { Notifications } from '@mantine/notifications';
 // Local imports
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/spotlight/styles.css';
 
 import Router from "./router";
 import { selectedLanguage } from "@/store/slices/uiSlice";

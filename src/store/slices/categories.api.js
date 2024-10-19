@@ -12,7 +12,7 @@ export const categoriesApi = createApi({
   tagTypes: ["Categories"],
   endpoints: (builder) => ({
     getCategories: builder.query({
-      query: ({ libraryId, query, pageNumber = 1, pageSize = 12 }) => {
+      query: ({ libraryId, query = null, pageNumber = 1, pageSize = 12 }) => {
         let queryVal = query ? `&query=${query}` : "";
         return {
           url: `/libraries/${libraryId}/categories?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`,

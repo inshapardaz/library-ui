@@ -2,7 +2,7 @@
 import { Outlet } from "react-router-dom";
 
 // local imports
-import AppFooter from "@/components/appFooter";
+import AppFooter from "@/components/layout/appFooter";
 
 // -----------------------------------
 

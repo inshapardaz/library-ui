@@ -5,9 +5,9 @@ import cx from 'clsx';
 import { ActionIcon, useMantineColorScheme, useComputedColorScheme, Group } from '@mantine/core';
 
 // Local imports
-import { setUiMode } from '../store/slices/uiSlice';
+import { setUiMode } from '../../store/slices/uiSlice';
 import classes from './darkModeToggle.module.css';
-import { IconMoon, IconSun } from './icon';
+import { IconMoon, IconSun } from '../icon';
 
 // ----------------------------
 

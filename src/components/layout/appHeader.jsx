@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
 import {
@@ -9,7 +10,6 @@ import {
   Drawer,
   ScrollArea,
   rem,
-  Autocomplete,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -17,13 +17,13 @@ import { useDisclosure } from '@mantine/hooks';
 // Local Imports
 import classes from './appHeader.module.css';
 
-import Logo from './logo';
+import Logo from '../logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
 import Profile from './profile';
 import LibrarySwitcher from './librarySwitcher';
-import { IconSearch } from './icon';
-import { useTranslation } from 'react-i18next';
+import { IconBooks } from '@/components/icon';
+import SearchBox from './searchBox';
 //----------------------------------------------
 
 const AppHeader = () => {
@@ -34,20 +34,24 @@ const AppHeader = () => {
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Group hiddenFrom="sm">
+          <Group>
             <Logo showName />
           </Group>
-          <Group visibleFrom="sm">
-            <LibrarySwitcher />
+          <Group hiddenFrom="sm" >
+            <SearchBox />
           </Group>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link to="/" className={classes.link}>
               {t('header.home')}
             </Link>
-            <Link href="https://editor.nawishta.co.uk" className={classes.link}>
+            <LibrarySwitcher className={classes.link}>
+              <IconBooks />
+              {t('header.libraries')}
+            </LibrarySwitcher>
+            <Link to="https://editor.nawishta.co.uk" className={classes.link}>
               {t('header.libraryEditor')}
             </Link>
-            <Link href="https://dictionaries.nawishta.co.uk" className={classes.link}>
+            <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
               {t('header.dictionaries')}
             </Link>
             <Link to="https://tools.nawishta.co.uk" className={classes.link}>
@@ -55,13 +59,9 @@ const AppHeader = () => {
             </Link>
           </Group>
           <Group visibleFrom="sm">
-            <Autocomplete
-              className={classes.search}
-              placeholder="Search"
-              leftSection={<IconSearch size={16} stroke={1.5} />}
-              data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
-              visibleFrom="xs"
-            />
+            <SearchBox />
+          </Group>
+          <Group visibleFrom="sm">
             <LanguageSwitch />
             <DarkModeToggle />
             <Profile />
@@ -86,10 +86,10 @@ const AppHeader = () => {
           <Link to="/" className={classes.link}>
             {t('header.home')}
           </Link>
-          <Link href="https://editor.nawishta.co.uk" className={classes.link}>
+          <Link to="https://editor.nawishta.co.uk" className={classes.link}>
             {t('header.libraryEditor')}
           </Link>
-          <Link href="https://dictionaries.nawishta.co.uk" className={classes.link}>
+          <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
             {t('header.dictionaries')}
           </Link>
           <Link to="https://tools.nawishta.co.uk" className={classes.link}>
@@ -98,9 +98,10 @@ const AppHeader = () => {
 
           <Divider my="sm" />
 
-          <Group my="sm">
-            <LibrarySwitcher />
-          </Group>
+          <LibrarySwitcher className={classes.link}>
+            <IconBooks />
+            {t('header.libraries')}
+          </LibrarySwitcher>
 
           <Divider my="sm" />
 

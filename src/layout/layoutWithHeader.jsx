@@ -4,11 +4,11 @@ import { Outlet, useParams } from "react-router-dom";
 import { AppShell, rem } from '@mantine/core';
 
 // Local imports
-import AppFooter from "@/components/appFooter";
-import AppHeader from "@/components/appHeader";
+import AppFooter from "@/components/layout/appFooter";
+import AppHeader from "@/components/layout/appHeader";
+import LibraryHeader from "@/components/layout/libraryHeader";
 import { useGetLibraryQuery } from '@/store/slices/libraries.api';
 import { LibraryContext } from '@/contexts'
-import LibraryHeader from "@/components/libraryHeader";
 // -----------------------------------------
 
 const LayoutWithHeader = () => {

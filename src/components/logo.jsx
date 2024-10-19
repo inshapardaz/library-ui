@@ -9,14 +9,13 @@ import classes from './logo.module.css';
 
 // --------------------------------------------
 
-const Logo = ({ showName = false }) => {
+const Logo = ({ showName = false, title }) => {
     const { t } = useTranslation()
     if (showName) {
         return (
             <Group>
                 <i className={classes.logo} />
-                {/* <Space w="xs" /> */}
-                <Title order={5}>{t('app')}</Title>
+                <Title order={4} visibleFrom="sm">{title ? title : t('app')}</Title>
             </Group>);
     }
 
@@ -24,7 +23,8 @@ const Logo = ({ showName = false }) => {
 }
 
 Logo.propTypes = {
-    showName: PropTypes.bool
+    showName: PropTypes.bool,
+    title: PropTypes.string
 };
 
 export default Logo;
