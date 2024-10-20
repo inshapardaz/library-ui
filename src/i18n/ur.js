@@ -191,6 +191,15 @@ const ur = {
             title: "کوئی زمرہ موجود نہیں",
         },
     },
+    books: {
+        empty: "کوئی کتاب موجود نہیں"
+    },
+    book: {
+        latestBooks: "نئی کتب",
+        lastRead: "زیر مطالعہ کتب",
+        favorites: "پسندیدہ",
+        noDescription: "تفصیل دستیاب نہیں۔۔۔"
+    }
 };
 
 export default ur;

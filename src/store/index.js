@@ -6,7 +6,7 @@ import { authSlice } from "./slices/authSlice";
 import { authApi } from "./slices/auth.api";
 import { librariesApi } from "./slices/libraries.api";
 // import { accountsApi } from "./slices/accountsSlice";
-// import { booksApi } from "./slices/booksSlice";
+import { booksApi } from "./slices/books.api";
 // import { authorsApi } from "./slices/authorsSlice";
 // import { seriesApi } from "./slices/seriesSlice";
 import { categoriesApi } from "./slices/categories.api";
@@ -25,7 +25,7 @@ export const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
         [librariesApi.reducerPath]: librariesApi.reducer,
         // [accountsApi.reducerPath]: accountsApi.reducer,
-        // [booksApi.reducerPath]: booksApi.reducer,
+        [booksApi.reducerPath]: booksApi.reducer,
         // [authorsApi.reducerPath]: authorsApi.reducer,
         // [seriesApi.reducerPath]: seriesApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
@@ -40,7 +40,7 @@ export const store = configureStore({
             .concat(authApi.middleware)
             .concat(librariesApi.middleware)
             // .concat(accountsApi.middleware)
-            // .concat(booksApi.middleware)
+            .concat(booksApi.middleware)
             // .concat(authorsApi.middleware)
             // .concat(seriesApi.middleware)
             .concat(categoriesApi.middleware)

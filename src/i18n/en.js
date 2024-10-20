@@ -189,6 +189,15 @@ const en = {
             title: "No Categories",
         },
     },
+    books: {
+        empty: "No books found."
+    },
+    book: {
+        latestBooks: "Latest Additions",
+        lastRead: "Recent Reads",
+        favorites: "Favorites",
+        noDescription: "No details..."
+    }
 };
 
 export default en;

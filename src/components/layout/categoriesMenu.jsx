@@ -64,7 +64,7 @@ const CategoriesMenu = ({ library, children }) => {
                     {error ?
                         <>
                             <Text c="dimmed">{t('categories.errors.loading.subTitle')}</Text>
-                            <Button rightSection={<IconRefreshAlert />}>{t('action.retry')}</Button>
+                            <Button rightSection={<IconRefreshAlert />}>{t('actions.retry')}</Button>
                         </> :
                         <>
                             <Group justify="space-between" px="md">
