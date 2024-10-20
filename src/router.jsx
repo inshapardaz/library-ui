@@ -14,6 +14,8 @@ const Router = () => {
             <Routes>
                 <Route element={<LayoutWithHeader />}>
                     <Route path="/" element={<Pages.HomePage />} />
+                    <Route path="/libraries/:libraryId/books/:bookId" element={<Pages.BookPage />} />
+                    <Route path="/libraries/:libraryId/books" element={<Pages.BooksPage />} />
                     <Route path="/libraries/:libraryId" element={<Pages.LibraryPage />} />
                     <Route path="/libraries" element={<Pages.LibrariesPage />} />
                     <Route element={<SecurePage />}>
@@ -22,6 +24,9 @@ const Router = () => {
                             element={<Pages.ChangePasswordPage />}
                         />
                     </Route>
+                    <Route path="/403" element={<Pages.Error403Page />} />
+                    <Route path="/500" element={<Pages.Error500Page />} />
+                    <Route path="*" element={<Pages.Error404Page />} />
                 </Route>
                 <Route element={<LayoutWithFooter />}>
                     <Route path="/account/login" element={<Pages.LoginPage />} />
