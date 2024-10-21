@@ -162,6 +162,13 @@ const ur = {
         en: "انگریزی",
         ur: "اردو",
     },
+    copyrights: {
+        Copyright: "جملہ حقوق محفوظ",
+        PublicDomain: "مفت عوامی کتاب",
+        Open: "آزاد",
+        CreativeCommons: "کریئیٹو کامن",
+        Unknown: "حقوق نا معلوم",
+    },
     profile: {
         title: "پروفائل",
     },
@@ -198,7 +205,21 @@ const ur = {
         latestBooks: "نئی کتب",
         lastRead: "زیر مطالعہ کتب",
         favorites: "پسندیدہ",
-        noDescription: "تفصیل دستیاب نہیں۔۔۔"
+        noDescription: "تفصیل دستیاب نہیں۔۔۔",
+        series: {
+            label: "سلسلہ",
+            placeholder: "کتاب  کس سلسے سے ہے",
+            indexLabel: "{{name}} سلسلے کی کتاب",
+            seriesAndIndexLabel: "{{name}} سلسلے کی کتاب {{index}}",
+        },
+        chapterCount_one: "1 باب",
+        chapterCount_other: "{{count}} ابواب",
+        pageCount_one: "1 صفحہ",
+        pageCount_other: "{{count}} صفحات",
+        fileCount_one: "1 دستاویز",
+        fileCount_other: "{{count}} دستاویزات",
+        publishLabel: "{{year}} میں شائع ہوئی",
+        isPublic: "عوامی کتاب خانہ",
     }
 };
 

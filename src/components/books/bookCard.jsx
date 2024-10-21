@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // Ui Library import
 import { Card, Image, Text, Group, Tooltip, rem } from '@mantine/core';
 
 // Local imports
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
-import { useTranslation } from 'react-i18next';
 
 //---------------------------------------
 

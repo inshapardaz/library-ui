@@ -160,6 +160,13 @@ const en = {
         en: "English",
         ur: "Urdu",
     },
+    copyrights: {
+        Copyright: "Rights Reserved",
+        PublicDomain: "Public Domain",
+        Open: "Open",
+        CreativeCommons: "Creative Commons",
+        Unknown: "Unknown Copyrights",
+    },
     profile: {
         title: "Profile",
     },
@@ -196,7 +203,21 @@ const en = {
         latestBooks: "Latest Additions",
         lastRead: "Recent Reads",
         favorites: "Favorites",
-        noDescription: "No details..."
+        noDescription: "No details...",
+        series: {
+            label: "Series",
+            placeholder: "Select series",
+            indexLabel: "Book of {{name}} series",
+            seriesAndIndexLabel: "Book {{index}} of {{name}} series",
+        },
+        chapterCount_one: "1 chapter",
+        chapterCount_other: "{{count}} chapters",
+        pageCount_one: "1 page",
+        pageCount_other: "{{count}} pages",
+        fileCount_one: "1 file",
+        fileCount_other: "{{count}} files",
+        publishLabel: "Published in {{year}}",
+        isPublic: "Is Public",
     }
 };
 
