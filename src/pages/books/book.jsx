@@ -9,6 +9,7 @@ import {
     Image,
     SimpleGrid,
     Skeleton,
+    Space,
     Stack,
     Text,
     Title,
@@ -20,6 +21,7 @@ import { useGetBookQuery } from '@/store/slices/books.api';
 import AuthorsList from '@/components/authors/authorsList';
 import CategoriesList from '@/components/categories/categoriesList';
 import BookSeriesInfo from '@/components/series/bookSeriesInfo';
+import BookChaptersList from '@/components/books/bookChaptersList';
 import IconText from '@/components/iconText';
 import {
     IconPublisher,
@@ -90,6 +92,7 @@ const BookPage = () => {
         libraryId,
         bookId
     });
+
     const SECONDARY_COL_HEIGHT = `calc(${PRIMARY_COL_HEIGHT} / 2 - var(--mantine-spacing-md) / 2)`;
 
     if (errorLoadingBook) {
@@ -126,12 +129,10 @@ const BookPage = () => {
                     fit="contain"
                     fallbackSrc="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
                 />}
-            <Grid gutter="md">
-                <Grid.Col>
-                    <BookInfo book={book} isLoading={{ loadingBook }} />
-                </Grid.Col>
-            </Grid>
+            <BookInfo book={book} isLoading={{ loadingBook }} />
         </SimpleGrid>
+        <Space h="md" />
+        <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
     </Container>);
 }
 

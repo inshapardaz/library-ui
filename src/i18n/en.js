@@ -210,6 +210,8 @@ const en = {
             indexLabel: "Book of {{name}} series",
             seriesAndIndexLabel: "Book {{index}} of {{name}} series",
         },
+        chapters: "Chapters",
+        chapterCount_zero: "No chapter",
         chapterCount_one: "1 chapter",
         chapterCount_other: "{{count}} chapters",
         pageCount_one: "1 page",

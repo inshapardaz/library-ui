@@ -212,6 +212,8 @@ const ur = {
             indexLabel: "{{name}} سلسلے کی کتاب",
             seriesAndIndexLabel: "{{name}} سلسلے کی کتاب {{index}}",
         },
+        chapters: "ابواب",
+        chapterCount_zero: "باب موجود نہیں",
         chapterCount_one: "1 باب",
         chapterCount_other: "{{count}} ابواب",
         pageCount_one: "1 صفحہ",
