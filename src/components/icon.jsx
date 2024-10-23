@@ -7,12 +7,14 @@ import BooksSvg from '@/assets/icons/books.svg';
 import BrandInstagramSvg from '@/assets/icons/brand-instagram.svg';
 import BrandTwitterSvg from '@/assets/icons/brand-twitter.svg';
 import BrandYoutubeSvg from '@/assets/icons/brand-youtube.svg';
+import BuildingArchSvg from '@/assets/icons/building-arch.svg';
 import CategorySvg from '@/assets/icons/category.svg';
 import ChevronDownSvg from '@/assets/icons/chevron-down.svg';
 import ChevronUpSvg from '@/assets/icons/chevron-up.svg';
 import CopyrightsSvg from '@/assets/icons/copyright.svg';
 import FingerprintSvg from '@/assets/icons/fingerprint.svg';
 import FilesSvg from '@/assets/icons/files.svg';
+import HomeSvg from '@/assets/icons/home.svg';
 import InfoCircleSvg from '@/assets/icons/info-circle.svg';
 import LanguageSvg from '@/assets/icons/language.svg';
 import LogoutSvg from '@/assets/icons/logout.svg';
@@ -24,7 +26,10 @@ import SettingsSvg from '@/assets/icons/settings.svg';
 import SunSvg from '@/assets/icons/sun.svg';
 import SwitchHorizontalSvg from '@/assets/icons/switch-horizontal.svg';
 import TagsSvg from '@/assets/icons/tags.svg';
+import ToolsSvg from '@/assets/icons/tools.svg';
+import TypographySvg from '@/assets/icons/typography.svg';
 import VersionsSvg from '@/assets/icons/versions.svg';
+import VocabularySvg from '@/assets/icons/vocabulary.svg';
 import WorldSvg from '@/assets/icons/world.svg';
 //-------------------------------------
 
@@ -33,7 +38,6 @@ const Icon = ({ src, width = '24px', height = '24px', className = '', style = {}
     return (
         <img
             src={src}
-            alt="icon"
             width={width}
             height={height}
             className={className}
@@ -66,10 +70,13 @@ export const IconCategory = (props) => (<Icon src={CategorySvg} {...props} />)
 export const IconChevronDown = (props) => (<Icon src={ChevronDownSvg} {...props} />)
 export const IconChevronUp = (props) => (<Icon src={ChevronUpSvg} {...props} />)
 export const IconCopyrights = (props) => (<Icon src={CopyrightsSvg} {...props} />)
+export const IconDictionary = (props) => (<Icon src={VocabularySvg} {...props} />)
 export const IconFiles = (props) => (<Icon src={FilesSvg} {...props} />)
 export const IconFingerprint = (props) => (<Icon src={FingerprintSvg} {...props} />)
+export const IconHome = (props) => (<Icon src={HomeSvg} {...props} />)
 export const IconInfoCircle = (props) => (<Icon src={InfoCircleSvg} {...props} />)
 export const IconLanguage = (props) => (<Icon src={LanguageSvg} {...props} />)
+export const IconLibrary = (props) => (<Icon src={BuildingArchSvg} {...props} />)
 export const IconLogout = (props) => (<Icon src={LogoutSvg} {...props} />)
 export const IconMoon = (props) => (<Icon src={MoonSvg} {...props} />)
 export const IconPublisher = (props) => (<Icon src={PublisherSvg} {...props} />)
@@ -79,5 +86,7 @@ export const IconSettings = (props) => (<Icon src={SettingsSvg} {...props} />)
 export const IconSun = (props) => (<Icon src={SunSvg} {...props} />)
 export const IconSwitchHorizontal = (props) => (<Icon src={SwitchHorizontalSvg} {...props} />)
 export const IconTags = (props) => (<Icon src={TagsSvg} {...props} />)
+export const IconTools = (props) => (<Icon src={ToolsSvg} {...props} />)
+export const IconFont = (props) => (<Icon src={TypographySvg} {...props} />)
 export const IconVersions = (props) => (<Icon src={VersionsSvg} {...props} />)
 export const IconWorld = (props) => (<Icon src={WorldSvg} {...props} />)

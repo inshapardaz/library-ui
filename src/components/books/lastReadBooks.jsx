@@ -65,7 +65,7 @@ const LastReadBooks = ({ libraryId }) => {
 }
 
 LastReadBooks.propTypes = {
-    libraryId: PropTypes.str
+    libraryId: PropTypes.string
 };
 
 export default LastReadBooks;

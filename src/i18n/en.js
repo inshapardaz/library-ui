@@ -1,10 +1,11 @@
 const en = {
     app: "Nawishta",
-    slogan: "Read something new today",
+    slogan: "A comprehensive collection of urdu text and tools, presented brilliantly.",
     header: {
         home: "Home",
         libraries: "Libraries",
         libraryEditor: "Library Editor",
+        fonts: "Fonts",
         dictionaries: "Dictionaries",
         tools: "Tools",
         writings: "Writings",

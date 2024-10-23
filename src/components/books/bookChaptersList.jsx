@@ -33,7 +33,7 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
         return (<Skeleton height={PRIMARY_COL_HEIGHT} radius="md" />);
     }
 
-    if (chapters === null || chapters.data === null || chapters.data.length < 1) {
+    if (!chapters || !chapters.data || chapters.data.length < 1) {
         return (<Center h={100}><Text>{t('book.chapterCount', { count: 0 })}</Text></Center>);
     }
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
@@ -10,6 +10,7 @@ import {
   Drawer,
   ScrollArea,
   rem,
+  Space,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -22,8 +23,8 @@ import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
 import Profile from './profile';
 import LibrarySwitcher from './librarySwitcher';
-import { IconBooks } from '@/components/icon';
 import SearchBox from './searchBox';
+import { IconHome, IconLibrary, IconDictionary, IconFont, IconTools } from '@/components/icon';
 //----------------------------------------------
 
 const AppHeader = () => {
@@ -34,27 +35,45 @@ const AppHeader = () => {
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Group>
-            <Logo showName />
+          <Group h="100%" gap={0}>
+            <NavLink to={`/`} className={classes.link}>
+              <Logo />
+              <Space w="md" />
+              {t('app')}
+            </NavLink >
           </Group>
           <Group hiddenFrom="sm" >
             <SearchBox />
           </Group>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link to="/" className={classes.link}>
+              <IconHome />
+              <Space w="md" />
               {t('header.home')}
             </Link>
             <LibrarySwitcher className={classes.link}>
-              <IconBooks />
+              <IconLibrary />
+              <Space w="md" />
               {t('header.libraries')}
             </LibrarySwitcher>
             <Link to="https://editor.nawishta.co.uk" className={classes.link}>
+              <IconLibrary />
+              <Space w="md" />
               {t('header.libraryEditor')}
             </Link>
             <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
+              <IconDictionary size={18} stroke={1.5} />
+              <Space w="md" />
               {t('header.dictionaries')}
             </Link>
+            <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
+              <IconFont size={18} stroke={1.5} />
+              <Space w="md" />
+              {t('header.fonts')}
+            </Link>
             <Link to="https://tools.nawishta.co.uk" className={classes.link}>
+              <IconTools size={18} stroke={1.5} />
+              <Space w="md" />
               {t('header.tools')}
             </Link>
           </Group>
@@ -84,23 +103,38 @@ const AppHeader = () => {
           <Divider my="sm" />
 
           <Link to="/" className={classes.link}>
+            <IconHome />
+            <Space w="md" />
             {t('header.home')}
           </Link>
           <Link to="https://editor.nawishta.co.uk" className={classes.link}>
+            <IconDictionary size={18} stroke={1.5} />
+            <Space w="md" />
             {t('header.libraryEditor')}
           </Link>
           <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
+            <IconDictionary size={18} stroke={1.5} />
+            <Space w="md" />
             {t('header.dictionaries')}
           </Link>
+          <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
+            <IconFont size={18} stroke={1.5} />
+            <Space w="md" />
+            {t('header.fonts')}
+          </Link>
           <Link to="https://tools.nawishta.co.uk" className={classes.link}>
+            <IconTools size={18} stroke={1.5} />
+            <Space w="md" />
             {t('header.tools')}
           </Link>
 
           <Divider my="sm" />
 
-          <LibrarySwitcher className={classes.link}>
-            <IconBooks />
-            {t('header.libraries')}
+          <LibrarySwitcher >
+            <Group className={classes.link}>
+              <IconLibrary />
+              {t('header.libraries')}
+            </Group>
           </LibrarySwitcher>
 
           <Divider my="sm" />

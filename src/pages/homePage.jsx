@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 // ui library 
 import { Overlay, Container, Title, Button, Text } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 
 // Local imports
 import classes from './homePage.module.css';
@@ -8,6 +10,7 @@ import classes from './homePage.module.css';
 // ------------------------------------------------------------------
 
 const HomePage = () => {
+  const { t } = useTranslation();
   return (<>
     <div className={classes.hero}>
       <Overlay
@@ -16,18 +19,16 @@ const HomePage = () => {
         zIndex={0}
       />
       <Container className={classes.container} size="md">
-        <Title className={classes.title}>A fully featured React components library</Title>
+        <Title className={classes.title}>
+          {t('app')}
+        </Title>
         <Text className={classes.description} size="xl" mt="xl">
-          Build fully functional accessible web applications faster than ever – Mantine includes
-          more than 120 customizable components and hooks to cover you in any situation
+          {t('slogan')}
         </Text>
 
-        <Button variant="gradient" size="xl" radius="xl" className={classes.control} onClick={() => {
-          notifications.show({
-            message: 'test'
-          })
-        }}>
-          Get started
+        <Button variant="gradient" size="xl" radius="xl" className={classes.control}
+          component={Link} to="https://libraries.nawishta.co.uk/">
+          {t('actions.seeMore')}
         </Button>
       </Container>
     </div>

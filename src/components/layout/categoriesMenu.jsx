@@ -28,7 +28,7 @@ import { IconCategory, IconRefreshAlert } from '../icon';
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, children }) => {
+const CategoriesMenu = ({ library, className, children }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -53,7 +53,7 @@ const CategoriesMenu = ({ library, children }) => {
     if (!library) return null;
     return (
         <>
-            <HoverCard width={600} position="bottom" radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm">
+            <HoverCard width={600} position="bottom" radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm" className={className}>
                 <HoverCard.Target>
                     <Center>
                         {children}
@@ -69,9 +69,9 @@ const CategoriesMenu = ({ library, children }) => {
                         <>
                             <Group justify="space-between" px="md">
                                 <Text fw={500}>{t('header.categories')}</Text>
-                                <Link to={`/libraries/${library.id}/categories`} fz="xs">
+                                <Text component={Link} to={`/libraries/${library.id}/categories`} fz="sm">
                                     {t('categories.all')}
-                                </Link>
+                                </Text>
                             </Group>
 
                             <Divider my="sm" />
@@ -95,6 +95,7 @@ CategoriesMenu.propTypes = {
         id: PropTypes.number,
         name: PropTypes.string
     }),
+    className: PropTypes.any,
     children: PropTypes.any
 };
 

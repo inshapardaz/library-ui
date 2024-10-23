@@ -1,11 +1,12 @@
 const ur = {
     app: "نوشتہ",
-    slogan: "آج کچھ نیا پڑھیں",
+    slogan: "اردو کی کتابیں اور بہت کچھ ، بہترین انداز میں",
     header: {
         home: "صفحۂ اوّل",
         libraries: "کتب خانے",
         libraryEditor: "تدوین کتب",
         dictionaries: "لغّات",
+        fonts: "فونٹ",
         tools: "اوزار",
         writings: "تصنیفات",
         books: "کتابیں",

@@ -12,6 +12,7 @@ import {
     ScrollArea,
     rem,
     useMantineTheme,
+    Space,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -19,7 +20,7 @@ import { useDisclosure } from '@mantine/hooks';
 // Local imports
 import classes from './appHeader.module.css';
 
-import { IconBooks, IconChevronDown } from '@/components/icon';
+import { IconBooks, IconLibrary, IconChevronDown } from '@/components/icon';
 import Logo from '@/components/logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
@@ -39,18 +40,22 @@ const LibraryHeader = ({ library }) => {
         <Box>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
-                    <Group>
-                        <Logo title={library.name} />
+                    <Group h="100%" gap={0}>
+                        <NavLink to={`/`} className={classes.link}>
+                            <Logo />
+                            <Space w="md" />
+                            {t('app')}
+                        </NavLink >
                     </Group>
                     <Group hiddenFrom="sm" >
                         <SearchBox />
                     </Group>
 
                     <Group h="100%" gap={0} visibleFrom="sm">
-                        <NavLink to={`/`} className={classes.link}>
-                            {t('header.home')}
+                        <NavLink to={`/libraries/${library.id}`} className={classes.link}>
+                            {library.name}
                         </NavLink >
-                        <CategoriesMenu library={library}>
+                        <CategoriesMenu library={library} className={classes.link}>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks /> {t('header.books')}
                                 <IconChevronDown
@@ -77,7 +82,7 @@ const LibraryHeader = ({ library }) => {
                         <LanguageSwitch />
                         <DarkModeToggle />
                         <LibrarySwitcher visibleFrom="sm">
-                            <IconBooks />
+                            <IconLibrary />
                         </LibrarySwitcher>
                         <Profile />
                     </Group>
@@ -98,11 +103,11 @@ const LibraryHeader = ({ library }) => {
                 <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
                     <Divider my="sm" />
 
-                    <NavLink to={'/'} className={classes.link}>
+                    <NavLink to={`/libraries/${library.id}`} className={classes.link}>
                         {t('header.home')}
                     </NavLink >
                     <CategoriesMenu library={library}>
-                        <NavLink to={`/ libraries / ${library.id} /books`} className={classes.link}>
+                        <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                             <Box component="span" mr={5}>
                                 <IconBooks /> {t('header.books')}
                             </Box>
