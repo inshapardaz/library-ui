@@ -184,6 +184,9 @@ const en = {
         },
         viewAll: "View All"
     },
+    library: {
+        noDescription: "No Description"
+    },
     categories: {
         title: "Categories",
         all: "All Categories",

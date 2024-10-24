@@ -4,6 +4,46 @@ import { ProcessStatus } from "@/models";
 import { axiosPrivate, axiosPublic } from "./axios.helpers";
 
 // --------------------------------------------------------------
+export const isJsonString = (str) => {
+    try {
+        JSON.parse(str);
+    } catch {
+        return false;
+    }
+    return true;
+};
+
+// --------------------------------------------------------------
+export const updateLinkToLibrariesPage = (
+    location,
+    { query, pageNumber, pageSize, statusFilter, sortDirection }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (statusFilter) {
+        searchParams.set("status", statusFilter);
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
+// --------------------------------------------------------------
+// FUNCTION USED IN THIS APP ABOVE THIS LINE
+// --------------------------------------------------------------
+
+
 const defaultLibraryImage = "@/assets/images/library_placeholder.png";
 const defaultAuthorImage = "@/assets/images/author_placeholder.jpg";
 const defaultSeriesImage = "@/assets/images/series_placeholder.jpg";
@@ -27,16 +67,6 @@ const parseReadFilter = (readFilter) => {
 
 // --------------------------------------------------------------
 
-export const isJsonString = (str) => {
-    try {
-        JSON.parse(str);
-    } catch {
-        return false;
-    }
-    return true;
-};
-
-// --------------------------------------------------------------
 export const libraryPlaceholderImage = defaultLibraryImage;
 export const setDefaultLibraryImage = (ev) => {
     ev.target.src = libraryPlaceholderImage;
@@ -71,42 +101,6 @@ export const setDefaultIssueImage = (ev) => {
 };
 // --------------------------------------------------------------
 
-export const grid = {
-    gutter: 8,
-    xs: 1,
-    sm: 2,
-    md: 2,
-    lg: 3,
-    xl: 4,
-    xxl: 6,
-};
-
-// --------------------------------------------------------------
-export const updateLinkToLibrariesPage = (
-    location,
-    { query, pageNumber, pageSize, statusFilter, sortDirection }
-) => {
-    var searchParams = new URLSearchParams(location.search);
-    if (pageNumber) {
-        searchParams.set("pageNumber", pageNumber);
-    }
-    if (pageSize) {
-        searchParams.set("pageSize", pageSize);
-    }
-    if (statusFilter) {
-        searchParams.set("status", statusFilter);
-    }
-    if (sortDirection) {
-        searchParams.set("sortDirection", sortDirection);
-    }
-    if (query) {
-        searchParams.set("query", query);
-    } else if (query === "") {
-        searchParams.delete("query");
-    }
-
-    return `${location.pathname}?${searchParams.toString()}`;
-};
 
 export const buildLinkToAuthorsPage = (
     location,

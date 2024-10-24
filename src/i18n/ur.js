@@ -186,6 +186,9 @@ const ur = {
         },
         viewAll: "تمام دیکھیں"
     },
+    library: {
+        noDescription: "نفصیل موجود نہیں"
+    },
     categories: {
         title: "زمرے",
         all: "تمام زمرے",
