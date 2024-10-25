@@ -223,7 +223,7 @@ const en = {
         fileCount_one: "1 file",
         fileCount_other: "{{count}} files",
         publishLabel: "Published in {{year}}",
-        isPublic: "Is Public",
+        isPublic: "Is Public"
     }
 };
 

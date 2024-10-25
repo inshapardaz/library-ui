@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Card, Group, Text } from '@mantine/core';
+import { Card, Center, Group, Text, useMantineTheme } from '@mantine/core';
 
 // Local Imports
 import classes from './libraryCard.module.css';
 import librarySvg from '@/assets/icons/building-arch.svg';
+import { IconWorld } from '@/components/icon';
 //-------------------------------------
 
 const LibraryCard = ({ library }) => {
     const { t } = useTranslation();
+    const theme = useMantineTheme();
 
     return (<Card
         p="lg"
@@ -44,26 +46,16 @@ const LibraryCard = ({ library }) => {
                     </Text>
 
                     <Group gap="lg">
-                        {/*<Center>
-                            <IconBooks
-                                style={{ width: rem(16), height: rem(16) }}
+                        <Center>
+                            <IconWorld
+                                size={16}
                                 stroke={1.5}
                                 color={theme.colors.dark[2]}
                             />
                             <Text size="sm" className={classes.bodyText}>
-                                7847
+                                {t(`languages.${library.language}`)}
                             </Text>
                         </Center>
-                         <Center>
-                            <IconUser
-                                style={{ width: rem(16), height: rem(16) }}
-                                stroke={1.5}
-                                color={theme.colors.dark[2]}
-                            />
-                            <Text size="sm" className={classes.bodyText}>
-                                5
-                            </Text>
-                        </Center> */}
                     </Group>
                 </Group>
             </div>
@@ -76,6 +68,7 @@ LibraryCard.propTypes = {
         id: PropTypes.number,
         name: PropTypes.string,
         description: PropTypes.string,
+        language: PropTypes.string,
         links: PropTypes.shape({
             image: PropTypes.string
         })

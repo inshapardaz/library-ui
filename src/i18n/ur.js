@@ -203,7 +203,7 @@ const ur = {
         },
     },
     books: {
-        empty: "کوئی کتاب موجود نہیں"
+        empty: "کتب موجود نہیں",
     },
     book: {
         latestBooks: "نئی کتب",

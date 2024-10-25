@@ -75,7 +75,6 @@ const DataView = ({
                     </Table.Tbody>
                 </Table>)
         }
-        // } else if (true) {
     } else if (isError) {
         content = (
             <Center h={500}>

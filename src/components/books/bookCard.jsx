@@ -3,30 +3,11 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Image, Text, Group, Tooltip, rem } from '@mantine/core';
+import { Card, Text, Group, Tooltip } from '@mantine/core';
 
 // Local imports
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
-
-//---------------------------------------
-
-const BookImage = ({ book }) => {
-    return (<Image
-        src={book?.links?.image}
-        h={rem(400)}
-        alt={book?.title}
-        fallbackSrc="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
-    />);
-};
-
-BookImage.propTypes = {
-    book: PropTypes.shape({
-        title: PropTypes.string,
-        links: PropTypes.shape({
-            image: PropTypes.string
-        })
-    })
-};
+import { BookImage } from './BookImage';
 //---------------------------------------
 
 const BookCard = ({ libraryId, book }) => {
