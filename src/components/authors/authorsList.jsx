@@ -1,32 +1,81 @@
 import PropTypes from 'prop-types';
-import { Link, useParams } from 'react-router-dom';
-
-// Ui Library Import
-import { Avatar, Group, Stack, Text } from "@mantine/core";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 // Local imports
-import UserEditSvg from '@/assets/icons/user-edit.svg';
-//-----------------------------------------
+import { useGetAuthorsQuery } from "@/store/slices/authors.api";
+import AuthorCard from './authorCard';
+import AuthorListItem from './authorListItem';
+import DataView from '@/components/dataView';
+import { updateLinkToAuthorsPage } from '@/utils';
+//------------------------------
 
-const AuthorsList = ({ authors }) => {
-    const { libraryId } = useParams();
-    return (
-        <Stack>
-            {authors.map((author) => (
-                <Group key={author.id} component={Link} to={`/libraries/${libraryId}/authors/${author.id}`}>
-                    <Avatar src={author?.links?.image || UserEditSvg} />
-                    <Text c="dimmed">{author.name}</Text>
-                </Group>
-            ))}
-        </Stack>)
+const AuthorsList = ({
+    libraryId,
+    query = null,
+    authorType = null,
+    sortBy = null,
+    sortDirection = null,
+    status,
+    pageNumber,
+    pageSize,
+    showSearch = true,
+}) => {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const {
+        refetch,
+        data: authors,
+        isError,
+        isFetching,
+    } = useGetAuthorsQuery({
+        libraryId,
+        query,
+        authorType,
+        sortBy,
+        sortDirection,
+        status,
+        pageNumber,
+        pageSize,
+    });
+
+    return <DataView
+        title={t('header.authors')}
+        emptyText={t('authors.empty')}
+        dataSource={authors}
+        isFetching={isFetching}
+        isErro={isError}
+        showViewToggle={true}
+        viewToggleKey='authors-list-view'
+        cardRender={author => (<AuthorCard libraryId={libraryId} key={author.id} author={author} />)}
+        listItemRender={author => (<AuthorListItem libraryId={libraryId} key={author.id} author={author} />)}
+        onReload={refetch}
+        onPageChanged={(index) => navigate(updateLinkToAuthorsPage(location, {
+            pageNumber: index,
+            pageSize: pageSize,
+        }))}
+        showSearch={showSearch}
+        searchValue={query}
+        onSearchChanged={search => navigate(updateLinkToAuthorsPage(location, {
+            pageNumber: 1,
+            query: search,
+        }))}
+    />;
 }
 
-
 AuthorsList.propTypes = {
-    authors: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string
-    }))
-};
+
+    libraryId: PropTypes.string,
+    query: PropTypes.string,
+    authorType: PropTypes.string,
+    sortBy: PropTypes.string,
+    sortDirection: PropTypes.string,
+    status: PropTypes.string,
+    pageNumber: PropTypes.string,
+    pageSize: PropTypes.number,
+    showSearch: PropTypes.bool,
+}
 
 export default AuthorsList;

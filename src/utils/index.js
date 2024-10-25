@@ -97,6 +97,37 @@ export const updateLinkToBooksPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+
+export const updateLinkToAuthorsPage = (
+    location,
+    { pageNumber, pageSize, query, authorType, sortBy, sortDirection }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (authorType) {
+        searchParams.set("author", authorType);
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
 // --------------------------------------------------------------
 // FUNCTION USED IN THIS APP ABOVE THIS LINE
 // --------------------------------------------------------------
@@ -182,37 +213,6 @@ export const buildLinkToAuthorsPage = (
     }
 
     return location;
-};
-
-export const updateLinkToAuthorsPage = (
-    location,
-    { pageNumber, pageSize, query, authorType, sortBy, sortDirection }
-) => {
-    var searchParams = new URLSearchParams(location.search);
-    if (pageNumber) {
-        searchParams.set("pageNumber", pageNumber);
-    }
-    if (pageSize) {
-        searchParams.set("pageSize", pageSize);
-    }
-    if (query) {
-        searchParams.set("query", query);
-    } else if (query === "") {
-        searchParams.delete("query");
-    }
-    if (authorType) {
-        searchParams.set("author", authorType);
-    }
-    if (sortBy) {
-        searchParams.set("sortBy", sortBy);
-    } else if (sortBy === "") {
-        searchParams.delete("sortBy");
-    }
-    if (sortDirection) {
-        searchParams.set("sortDirection", sortDirection);
-    }
-
-    return `${location.pathname}?${searchParams.toString()}`;
 };
 
 

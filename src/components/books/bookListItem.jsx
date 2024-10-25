@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Group, Image, Stack, Table, Text, Tooltip } from '@mantine/core';
 
 // Local Imports
-import AuthorsList from '@/components/authors/authorsList';
+import BookAuthorsList from '@/components/authors/authorsList';
 //-------------------------------------
 
 const BookListItem = ({ libraryId, book }) => {
@@ -32,7 +32,7 @@ const BookListItem = ({ libraryId, book }) => {
         </Table.Td>
         <Table.Td>
             <Group>
-                <AuthorsList authors={book?.authors} />
+                <BookAuthorsList authors={book?.authors} />
             </Group>
         </Table.Td>
     </Table.Tr>)

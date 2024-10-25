@@ -18,7 +18,7 @@ import {
 
 // Local imports
 import { useGetBookQuery } from '@/store/slices/books.api';
-import AuthorsList from '@/components/authors/authorsList';
+import BookAuthorsList from '@/components/authors/authorsList';
 import CategoriesList from '@/components/categories/categoriesList';
 import BookSeriesInfo from '@/components/series/bookSeriesInfo';
 import BookChaptersList from '@/components/books/bookChaptersList';
@@ -41,7 +41,7 @@ const BookInfo = ({ book, isLoading }) => {
     return (<Stack>
         <Title order={3}>{book.title}</Title>
         {book?.description && <Text order={3}>{book.description}</Text>}
-        <AuthorsList authors={book?.authors} />
+        <BookAuthorsList authors={book?.authors} />
         <CategoriesList categories={book?.categories} />
         <BookSeriesInfo book={book} />
         {book.publisher != null ? (<IconText icon={<IconPublisher />} text={book.publisher} />) : null}
