@@ -4,23 +4,28 @@ import { useTranslation } from 'react-i18next';
 // Ui Library Imports
 import { useLocalStorage } from '@mantine/hooks';
 import {
+    ActionIcon,
     Button,
     Center,
     Divider,
+    Grid,
     Group,
     Pagination,
     Paper,
+    rem,
     SimpleGrid,
     Skeleton,
     Stack,
     Table,
     Text,
+    TextInput,
     Title
 } from "@mantine/core";
 
 // Local imports
-import { IconRefreshAlert, IllustrationError } from '@/components/icon'
+import { IconRefreshAlert, IllustrationError, IconSearch } from '@/components/icon'
 import LayoutToggle from '@/components/layoutToggle';
+import { useState } from 'react';
 //------------------------------
 
 const DataView = ({
@@ -31,6 +36,9 @@ const DataView = ({
     isError = false,
     showViewToggle = true,
     viewToggleKey,
+    showSearch,
+    searchValue,
+    onSearchChanged = () => { },
     cardRender = () => null,
     listItemRender = () => null,
     onReload = () => { },
@@ -41,6 +49,7 @@ const DataView = ({
         key: viewToggleKey,
         defaultValue: 'card',
     });
+    const [query, setQuery] = useState(searchValue || '');
 
     const toggleViewType = () =>
         setViewType((current) =>
@@ -115,15 +124,35 @@ const DataView = ({
     }
     return (<Paper p="xl" m="xl" withBorder>
         <Stack>
-            <Group justify="space-between">
-                <Title order={3}>{title}</Title>
-                {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
-            </Group>
+            <Grid>
+                <Grid.Col span="auto">
+                    <Title order={3}>{title}</Title>
+                </Grid.Col>
+                <Grid.Col span={6}>
+
+                </Grid.Col>
+                <Grid.Col span="auto">
+                    <Group justify="space-between">
+                        {showSearch && <TextInput
+                            placeholder={t('search.title')}
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                            rightSectionWidth={42}
+                            rightSection={
+                                <ActionIcon size={32} variant="transparent" disabled={!query || query == ''} onClick={() => onSearchChanged(query)} >
+                                    <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+                                </ActionIcon>
+                            }
+                        />}
+                        {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
+                    </Group>
+                </Grid.Col>
+            </Grid>
             <Divider />
             {content}
             <Divider my="md" />
         </Stack>
-    </Paper>)
+    </Paper >)
 }
 
 DataView.propTypes = {
@@ -140,6 +169,9 @@ DataView.propTypes = {
     isError: PropTypes.bool,
     showViewToggle: PropTypes.bool,
     viewToggleKey: PropTypes.string,
+    showSearch: PropTypes.bool,
+    searchValue: PropTypes.string,
+    onSearchChanged: PropTypes.func,
     cardRender: PropTypes.func,
     listItemRender: PropTypes.func,
     onReload: PropTypes.func,

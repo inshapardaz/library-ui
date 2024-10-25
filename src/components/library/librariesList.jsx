@@ -15,7 +15,8 @@ const LibrariesList = ({
     sortBy,
     sortDirection,
     pageNumber,
-    pageSize
+    pageSize,
+    showSearch
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -43,6 +44,12 @@ const LibrariesList = ({
         onPageChanged={(index) => navigate(updateLinkToLibrariesPage(location, {
             pageNumber: index,
             pageSize: pageSize,
+        }))}
+        showSearch={showSearch}
+        searchValue={query}
+        onSearchChanged={search => navigate(updateLinkToLibrariesPage(location, {
+            pageNumber: 1,
+            query: search,
         }))}
     />;
 }

@@ -7,7 +7,7 @@ import { useGetBooksQuery } from "@/store/slices/books.api";
 import BookCard from './bookCard';
 import BookListItem from './bookListItem';
 import DataView from '@/components/dataView';
-import { updateLinkToLibrariesPage } from '@/utils';
+import { updateLinkToBooksPage } from '@/utils';
 //------------------------------
 
 const BooksList = ({
@@ -60,11 +60,16 @@ const BooksList = ({
         cardRender={book => (<BookCard libraryId={libraryId} key={book.id} book={book} />)}
         listItemRender={book => (<BookListItem libraryId={libraryId} key={book.id} book={book} />)}
         onReload={refetch}
-        onPageChanged={(index) => navigate(updateLinkToLibrariesPage(location, {
+        onPageChanged={(index) => navigate(updateLinkToBooksPage(location, {
             pageNumber: index,
             pageSize: pageSize,
         }))}
         showSearch={showSearch}
+        searchValue={query}
+        onSearchChanged={search => navigate(updateLinkToBooksPage(location, {
+            pageNumber: 1,
+            query: search,
+        }))}
     />;
 }
 

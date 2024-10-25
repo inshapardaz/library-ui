@@ -33,15 +33,16 @@ import TypographySvg from '@/assets/icons/typography.svg';
 import VersionsSvg from '@/assets/icons/versions.svg';
 import VocabularySvg from '@/assets/icons/vocabulary.svg';
 import WorldSvg from '@/assets/icons/world.svg';
+import { rem } from '@mantine/core';
 //-------------------------------------
 
-const Icon = ({ src, width = '24px', height = '24px', className = '', style = {}, stroke = 1 }) => {
+const Icon = ({ src, size = 24, className = '', style = {}, stroke = 1 }) => {
 
     return (
         <img
             src={src}
-            width={width}
-            height={height}
+            width={rem(size)}
+            height={rem(size)}
             className={className}
             style={style}
             stroke={stroke}
@@ -54,8 +55,7 @@ export default Icon;
 
 Icon.propTypes = {
     src: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    size: PropTypes.number,
     className: PropTypes.string,
     style: PropTypes.object,
     stroke: PropTypes.number,

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Avatar, Group, Stack, Table, Text, Tooltip } from '@mantine/core';
+import { Group, Image, Stack, Table, Text, Tooltip } from '@mantine/core';
 
 // Local Imports
 import AuthorsList from '@/components/authors/authorsList';
@@ -15,7 +15,7 @@ const BookListItem = ({ libraryId, book }) => {
     return (<Table.Tr>
         <Table.Td>
             <Group gap="sm">
-                <Avatar size={198} radius="sm" src={book?.links?.image} />
+                <Image h={200} radius="sm" src={book?.links?.image} />
                 <Stack>
                     <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`} truncate="end" fw={500}>{book.title}</Text>
                     {book?.description ?

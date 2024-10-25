@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Image, rem } from "@mantine/core";
 
 //---------------------------------------
-export const BookImage = ({ book, height = 40 }) => {
+export const BookImage = ({ book, height = 450 }) => {
     return (<Image
         src={book?.links?.image}
         h={rem(height)}

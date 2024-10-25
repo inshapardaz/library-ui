@@ -187,7 +187,7 @@ const ur = {
         viewAll: "تمام دیکھیں"
     },
     library: {
-        noDescription: "نفصیل موجود نہیں"
+        noDescription: "تفصیل موجود نہیں"
     },
     categories: {
         title: "زمرے",
