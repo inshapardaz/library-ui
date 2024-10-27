@@ -226,6 +226,14 @@ const ur = {
         fileCount_other: "{{count}} دستاویزات",
         publishLabel: "{{year}} میں شائع ہوئی",
         isPublic: "عوامی کتاب خانہ",
+    },
+    author: {
+        bookCount_zero: "کوئی کتاب موجود نہیں",
+        bookCount_one: "1 کتاب",
+        bookCount_other: "{{count}} کتب",
+        articleCount_zero: "کوئی مضمون نہیں",
+        articleCount_one: "1 مضمون",
+        articleCount_other: "{{count}} مضامین",
     }
 };
 

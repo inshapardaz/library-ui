@@ -224,6 +224,14 @@ const en = {
         fileCount_other: "{{count}} files",
         publishLabel: "Published in {{year}}",
         isPublic: "Is Public"
+    },
+    author: {
+        bookCount_zero: "No books",
+        bookCount_one: "1 book",
+        bookCount_other: "{{count}} books",
+        articleCount_zero: "No article",
+        articleCount_one: "1 article",
+        articleCount_other: "{{count}} articles",
     }
 };
 

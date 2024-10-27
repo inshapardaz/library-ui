@@ -3,17 +3,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 
 // Local imports
-import { useGetAuthorsQuery } from "@/store/slices/authors.api";
-import AuthorCard from './authorCard';
-import AuthorListItem from './authorListItem';
+import { useGetSeriesQuery } from "@/store/slices/series.api";
+import SeriesCard from './seriesCard';
+import SeriesListItem from './seriesListItem';
 import DataView from '@/components/dataView';
-import { updateLinkToAuthorsPage } from '@/utils';
+import { updateLinkToSeriesPage } from '@/utils';
 //------------------------------
 
-const AuthorsList = ({
+const SeriesList = ({
     libraryId,
     query = null,
-    authorType = null,
     sortBy = null,
     sortDirection = null,
     status,
@@ -27,13 +26,12 @@ const AuthorsList = ({
 
     const {
         refetch,
-        data: authors,
+        data: series,
         isError,
         isFetching,
-    } = useGetAuthorsQuery({
+    } = useGetSeriesQuery({
         libraryId,
         query,
-        authorType,
         sortBy,
         sortDirection,
         status,
@@ -42,40 +40,39 @@ const AuthorsList = ({
     });
 
     return <DataView
-        title={t('header.authors')}
-        emptyText={t('authors.empty')}
-        dataSource={authors}
+        title={t('header.series')}
+        emptyText={t('series.empty')}
+        dataSource={series}
         isFetching={isFetching}
         isErro={isError}
         showViewToggle={true}
-        viewToggleKey='authors-list-view'
-        cardRender={author => (<AuthorCard libraryId={libraryId} key={author.id} author={author} />)}
-        listItemRender={author => (<AuthorListItem libraryId={libraryId} key={author.id} author={author} />)}
+        viewToggleKey='series-list-view'
+        cardRender={series => (<SeriesCard libraryId={libraryId} key={series.id} series={series} />)}
+        listItemRender={series => (<SeriesListItem libraryId={libraryId} key={series.id} series={series} />)}
         onReload={refetch}
-        onPageChanged={(index) => navigate(updateLinkToAuthorsPage(location, {
+        onPageChanged={(index) => navigate(updateLinkToSeriesPage(location, {
             pageNumber: index,
             pageSize: pageSize,
         }))}
         showSearch={showSearch}
         searchValue={query}
-        onSearchChanged={search => navigate(updateLinkToAuthorsPage(location, {
+        onSearchChanged={search => navigate(updateLinkToSeriesPage(location, {
             pageNumber: 1,
             query: search,
         }))}
     />;
 }
 
-AuthorsList.propTypes = {
+SeriesList.propTypes = {
 
     libraryId: PropTypes.string,
     query: PropTypes.string,
-    authorType: PropTypes.string,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
     status: PropTypes.string,
     pageNumber: PropTypes.string,
-    pageSize: PropTypes.string,
+    pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
 }
 
-export default AuthorsList;
+export default SeriesList;

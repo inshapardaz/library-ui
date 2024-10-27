@@ -128,6 +128,33 @@ export const updateLinkToAuthorsPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+export const updateLinkToSeriesPage = (
+    location,
+    { pageNumber, pageSize, query, sortBy, sortDirection }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
 // --------------------------------------------------------------
 // FUNCTION USED IN THIS APP ABOVE THIS LINE
 // --------------------------------------------------------------
@@ -267,33 +294,7 @@ export const buildLinkToCategoriesList = (libraryId, page, pageSize, query) => {
     return null;
 };
 
-export const updateLinkToSeriesPage = (
-    location,
-    { pageNumber, pageSize, query, sortBy, sortDirection }
-) => {
-    var searchParams = new URLSearchParams(location.search);
-    if (pageNumber) {
-        searchParams.set("pageNumber", pageNumber);
-    }
-    if (pageSize) {
-        searchParams.set("pageSize", pageSize);
-    }
-    if (query) {
-        searchParams.set("query", query);
-    } else if (query === "") {
-        searchParams.delete("query");
-    }
-    if (sortBy) {
-        searchParams.set("sortBy", sortBy);
-    } else if (sortBy === "") {
-        searchParams.delete("sortBy");
-    }
-    if (sortDirection) {
-        searchParams.set("sortDirection", sortDirection);
-    }
 
-    return `${location.pathname}?${searchParams.toString()}`;
-};
 
 export const buildLinkToBooksPagesPage = (
     location,
