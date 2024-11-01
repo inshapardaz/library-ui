@@ -77,8 +77,8 @@ const ChangePasswordPage = () => {
         <>
             <Space h="md" />
 
-            <Alert variant="white" color="red" title={t('changePassword.error')}
-                icon={<IconInfoCircle />}
+            <Alert variant="filled" color="red" title={t('changePassword.error')}
+                icon={<IconInfoCircle height={24} />}
                 type="error" />
         </>
         : null
@@ -112,11 +112,12 @@ const ChangePasswordPage = () => {
                             {...form.getInputProps('confirmPassword')}
                         />
 
+                        {errorMessage}
+
                         <Button fullWidth mt="xl" type='submit'>
                             {t('changePassword.submit')}
                         </Button>
 
-                        {errorMessage}
                     </Paper>
                 </Container>
             </form>

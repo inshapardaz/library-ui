@@ -29,8 +29,8 @@ const DarkModeToggle = () => {
                 size="xl"
                 aria-label="Toggle color scheme"
             >
-                <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
-                <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+                <IconSun height="24px" className={cx(classes.icon, classes.light)} stroke={1.5} />
+                <IconMoon height="24px" className={cx(classes.icon, classes.dark)} stroke={1.5} />
             </ActionIcon>
         </Group>
     );

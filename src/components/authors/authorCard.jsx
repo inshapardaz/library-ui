@@ -3,19 +3,26 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, Divider } from '@mantine/core';
+import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@mantine/core';
 
 // Local imports
-import { AuthorImage } from './AuthorImage';
-import { IconBooks, IconBlockQuote } from '@/components/icon';
+import { IconBooks, IconArticle, IconAuthor } from '@/components/icon';
+import IconText from '../iconText';
 //---------------------------------------
 
 const AuthorCard = ({ libraryId, author }) => {
     const { t } = useTranslation();
+    const theme = useMantineTheme();
+
+    const icon = <Center h={450}><IconAuthor width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                <AuthorImage author={author} />
+                {author.links?.image ?
+                    <Image h={450} radius="sm" src={author?.links?.image} /> :
+                    icon
+                }
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
@@ -23,11 +30,9 @@ const AuthorCard = ({ libraryId, author }) => {
             </Group>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <IconBooks />
-                <Text>{t('author.bookCount', { count: author.bookCount })}</Text>
+                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
                 <Divider />
-                <IconBlockQuote />
-                <Text>{t('author.articleCount', { count: author.articleCount })}</Text>
+                <IconText icon={<IconArticle height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
             </Group>
         </Card>
     )

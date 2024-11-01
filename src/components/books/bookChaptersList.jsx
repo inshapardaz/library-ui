@@ -8,6 +8,7 @@ import {
     List,
     Skeleton,
     Space,
+    Stack,
     Text,
     Title,
     rem
@@ -37,7 +38,7 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
         return (<Center h={100}><Text>{t('book.chapterCount', { count: 0 })}</Text></Center>);
     }
 
-    return (<>
+    return (<Stack>
         <Title order={3}>{t('book.chapters')}</Title>
         <Space h="md" />
         <List size="lg" spacing="md"> {chapters.data.map((chapter =>
@@ -51,7 +52,7 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
             </List.Item>
         ))}
         </List>
-    </>
+    </Stack>
     );
 }
 

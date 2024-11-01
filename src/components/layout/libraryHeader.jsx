@@ -20,7 +20,7 @@ import { useDisclosure } from '@mantine/hooks';
 // Local imports
 import classes from './appHeader.module.css';
 
-import { IconBooks, IconLibrary, IconChevronDown } from '@/components/icon';
+import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPeriodicals } from '@/components/icon';
 import Logo from '@/components/logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
@@ -53,11 +53,15 @@ const LibraryHeader = ({ library }) => {
 
                     <Group h="100%" gap={0} visibleFrom="sm">
                         <NavLink to={`/libraries/${library.id}`} className={classes.link}>
+                            <IconLibrary height="24px" />
+                            <Space w="md" />
                             {library.name}
                         </NavLink >
                         <CategoriesMenu library={library} className={classes.link}>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
-                                <IconBooks /> {t('header.books')}
+                                <IconBooks height="24px" />
+                                <Space w="md" />
+                                {t('header.books')}
                                 <IconChevronDown
                                     width={rem(16)}
                                     height={rem(16)}
@@ -66,12 +70,18 @@ const LibraryHeader = ({ library }) => {
                             </NavLink >
                         </CategoriesMenu>
                         <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
+                            <IconAuthors height="24px" />
+                            <Space w="md" />
                             {t('header.authors')}
                         </NavLink >
                         <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
+                            <IconSeries height="24px" />
+                            <Space w="md" />
                             {t('header.series')}
                         </NavLink >
                         <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
+                            <IconPeriodicals height="24px" />
+                            <Space w="md" />
                             {t('header.periodicals')}
                         </NavLink >
                     </Group>
@@ -96,7 +106,12 @@ const LibraryHeader = ({ library }) => {
                 onClose={closeDrawer}
                 size="100%"
                 padding="md"
-                title="Navigation"
+                title={
+                    <Group><IconLibrary height="24px" />
+                        <Space w="md" />
+                        {library.name}
+                    </Group>
+                }
                 hiddenFrom="sm"
                 zIndex={1000000}
             >
@@ -104,13 +119,15 @@ const LibraryHeader = ({ library }) => {
                     <Divider my="sm" />
 
                     <NavLink to={`/libraries/${library.id}`} className={classes.link}>
+                        <IconLibrary height="24px" />
+                        <Space w="md" />
                         {t('header.home')}
                     </NavLink >
                     <CategoriesMenu library={library}>
                         <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
-                            <Box component="span" mr={5}>
-                                <IconBooks /> {t('header.books')}
-                            </Box>
+                            <IconBooks height="24px" />
+                            <Space w="md" />
+                            {t('header.books')}
                             <IconChevronDown
                                 width={rem(16)}
                                 height={rem(16)}
@@ -119,19 +136,28 @@ const LibraryHeader = ({ library }) => {
                         </NavLink >
                     </CategoriesMenu>
                     <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
+                        <IconAuthors height="24px" />
+                        <Space w="md" />
                         {t('header.authors')}
                     </NavLink >
                     <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
+                        <IconSeries height="24px" />
+                        <Space w="md" />
                         {t('header.series')}
                     </NavLink >
                     <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
+                        <IconPeriodicals height="24px" />
+                        <Space w="md" />
                         {t('header.periodicals')}
                     </NavLink >
 
                     <Divider my="sm" />
                     <LibrarySwitcher className={classes.link}>
-                        <IconBooks />
-                        {t('header.libraries')}
+                        <Group>
+                            <IconLibrary height="24px" />
+                            <Space w="md" />
+                            {t('header.libraries')}
+                        </Group>
                     </LibrarySwitcher>
 
                     <Divider my="sm" />

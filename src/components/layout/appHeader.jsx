@@ -24,7 +24,7 @@ import DarkModeToggle from './darkModeToggle';
 import Profile from './profile';
 import LibrarySwitcher from './librarySwitcher';
 import SearchBox from './searchBox';
-import { IconHome, IconLibrary, IconDictionary, IconFont, IconTools } from '@/components/icon';
+import { IconHome, IconLibrary, IconLibraryEditor, IconDictionary, IconFont, IconTools } from '@/components/icon';
 //----------------------------------------------
 
 const AppHeader = () => {
@@ -47,32 +47,32 @@ const AppHeader = () => {
           </Group>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link to="/" className={classes.link}>
-              <IconHome />
+              <IconHome height="24px" />
               <Space w="md" />
               {t('header.home')}
             </Link>
             <LibrarySwitcher className={classes.link}>
-              <IconLibrary />
+              <IconLibrary height="24px" />
               <Space w="md" />
               {t('header.libraries')}
             </LibrarySwitcher>
             <Link to="https://editor.nawishta.co.uk" className={classes.link}>
-              <IconLibrary />
+              <IconLibraryEditor height="24px" />
               <Space w="md" />
               {t('header.libraryEditor')}
             </Link>
             <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
-              <IconDictionary size={18} stroke={1.5} />
+              <IconDictionary height="24px" />
               <Space w="md" />
               {t('header.dictionaries')}
             </Link>
             <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
-              <IconFont size={18} stroke={1.5} />
+              <IconFont height="24px" />
               <Space w="md" />
               {t('header.fonts')}
             </Link>
             <Link to="https://tools.nawishta.co.uk" className={classes.link}>
-              <IconTools size={18} stroke={1.5} />
+              <IconTools height="24px" />
               <Space w="md" />
               {t('header.tools')}
             </Link>
@@ -95,7 +95,11 @@ const AppHeader = () => {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title={<Group>
+          <Logo />
+          <Space w="md" />
+          {t('app')}
+        </Group>}
         hiddenFrom="sm"
         zIndex={1000000}
       >
@@ -103,39 +107,39 @@ const AppHeader = () => {
           <Divider my="sm" />
 
           <Link to="/" className={classes.link}>
-            <IconHome />
+            <IconHome height="24px" />
             <Space w="md" />
             {t('header.home')}
           </Link>
+          <LibrarySwitcher >
+            <Group className={classes.link}>
+              <IconLibrary height="24px" />
+              {t('header.libraries')}
+            </Group>
+          </LibrarySwitcher>
           <Link to="https://editor.nawishta.co.uk" className={classes.link}>
-            <IconDictionary size={18} stroke={1.5} />
+            <IconLibraryEditor height="24px" />
             <Space w="md" />
             {t('header.libraryEditor')}
           </Link>
           <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
-            <IconDictionary size={18} stroke={1.5} />
+            <IconDictionary height="24px" />
             <Space w="md" />
             {t('header.dictionaries')}
           </Link>
           <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
-            <IconFont size={18} stroke={1.5} />
+            <IconFont height="24px" />
             <Space w="md" />
             {t('header.fonts')}
           </Link>
           <Link to="https://tools.nawishta.co.uk" className={classes.link}>
-            <IconTools size={18} stroke={1.5} />
+            <IconTools height="24px" />
             <Space w="md" />
             {t('header.tools')}
           </Link>
 
           <Divider my="sm" />
 
-          <LibrarySwitcher >
-            <Group className={classes.link}>
-              <IconLibrary />
-              {t('header.libraries')}
-            </Group>
-          </LibrarySwitcher>
 
           <Divider my="sm" />
 

@@ -185,7 +185,8 @@ const en = {
         viewAll: "View All"
     },
     library: {
-        noDescription: "No Description"
+        noDescription: "No Description",
+        isPublic: "Public Library"
     },
     categories: {
         title: "Categories",
@@ -223,7 +224,7 @@ const en = {
         fileCount_one: "1 file",
         fileCount_other: "{{count}} files",
         publishLabel: "Published in {{year}}",
-        isPublic: "Is Public"
+        isPublic: "Public Book"
     },
     author: {
         bookCount_zero: "No books",
@@ -232,6 +233,10 @@ const en = {
         articleCount_zero: "No article",
         articleCount_one: "1 article",
         articleCount_other: "{{count}} articles",
+    },
+    series: {
+        empty: "No series",
+        noDescription: "No details..."
     }
 };
 

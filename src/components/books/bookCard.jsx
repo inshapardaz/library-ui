@@ -3,20 +3,26 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, Tooltip } from '@mantine/core';
+import { Card, Text, Group, Tooltip, useMantineTheme, Center, Image } from '@mantine/core';
 
 // Local imports
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
-import { BookImage } from './BookImage';
+import { IconBook } from '@/components/icon';
 //---------------------------------------
 
 const BookCard = ({ libraryId, book }) => {
     const { t } = useTranslation();
+    const theme = useMantineTheme();
+
+    const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                <BookImage book={book} />
+                {book.links?.image ?
+                    <Image h={450} radius="sm" src={book?.links?.image} /> :
+                    icon
+                }
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
@@ -46,7 +52,10 @@ BookCard.propTypes = {
         id: PropTypes.number,
         title: PropTypes.string,
         description: PropTypes.string,
-        authors: PropTypes.array
+        authors: PropTypes.array,
+        links: PropTypes.shape({
+            image: PropTypes.string
+        })
     })
 };
 

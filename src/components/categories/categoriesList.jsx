@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Anchor, Pill, Stack } from "@mantine/core";
 
 // Local imports
-import { IconTags } from '@/components/icon';
+import { IconCategory } from '@/components/icon';
 //-----------------------------------------
 
 const CategoriesList = ({ categories }) => {
@@ -15,7 +15,7 @@ const CategoriesList = ({ categories }) => {
         <Stack>
             {categories.map((category) => (
                 <Anchor key={category.id} component={Link} to={`/libraries/${libraryId}/books?category=${category.id}`}>
-                    <IconTags />
+                    <IconCategory />
 
                     <Pill>{category.name}</Pill >
                 </Anchor>

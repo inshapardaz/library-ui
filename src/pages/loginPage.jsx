@@ -76,8 +76,8 @@ const LoginPage = () => {
     const errorMessage = error ? (
         <>
             <Space h="md" />
-            <Alert variant="light" color="red" title={t('login.error')}
-                icon={<IconInfoCircle />}
+            <Alert variant="filled" color="red" title={t('login.error')}
+                icon={<IconInfoCircle height={24} />}
                 type="error" />
         </>)
         : null

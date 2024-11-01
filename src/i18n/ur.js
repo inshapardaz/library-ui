@@ -187,7 +187,8 @@ const ur = {
         viewAll: "تمام دیکھیں"
     },
     library: {
-        noDescription: "تفصیل موجود نہیں"
+        noDescription: "تفصیل موجود نہیں",
+        isPublic: "عوامی کتب خانہ",
     },
     categories: {
         title: "زمرے",
@@ -225,7 +226,7 @@ const ur = {
         fileCount_one: "1 دستاویز",
         fileCount_other: "{{count}} دستاویزات",
         publishLabel: "{{year}} میں شائع ہوئی",
-        isPublic: "عوامی کتاب خانہ",
+        isPublic: "عوامی کتاب",
     },
     author: {
         bookCount_zero: "کوئی کتاب موجود نہیں",
@@ -234,6 +235,10 @@ const ur = {
         articleCount_zero: "کوئی مضمون نہیں",
         articleCount_one: "1 مضمون",
         articleCount_other: "{{count}} مضامین",
+    },
+    series: {
+        empty: "سلسلہ موجود نہیں",
+        noDescription: "تفصیل دستیاب نہیں۔۔۔",
     }
 };
 

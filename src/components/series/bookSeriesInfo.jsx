@@ -7,20 +7,23 @@ import { Link, useParams } from 'react-router-dom';
 // Local imports
 import { IconBooks } from '@/components/icon';
 import IconText from '@/components/iconText';
+import { useMantineTheme } from '@mantine/core';
 //-----------------------------------------
 
 const BookSeriesInfo = ({ book }) => {
     const { libraryId } = useParams();
     const { t } = useTranslation();
+    const theme = useMantineTheme();
+
     if (book && book.seriesName) {
         if (book.seriesIndex && book.seriesIndex > 0) {
             return (<IconText component={Link} to={`/libraries/${libraryId}/books?series=${book.seriesId}`}
-                icon={<IconBooks />}
+                icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.seriesAndIndexLabel", { name: book.seriesName, index: book.seriesIndex })}
             />);
         } else {
             return (<IconText component={Link} to={`/libraries/${libraryId}/books?series=${book.seriesId}`}
-                icon={<IconBooks />}
+                icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.indexLabel", { name: book.seriesName })}
             />);
         }

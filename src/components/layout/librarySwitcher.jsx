@@ -8,7 +8,6 @@ import {
     Button,
     UnstyledButton,
     Group,
-    useMantineTheme,
     rem,
     Collapse,
     Center,
@@ -33,7 +32,6 @@ const LibrarySwitcher = ({ className, children }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: libraries, isFetching, isError: errorLoadingLibraries, refetch: refetchLibraries } = useGetLibrariesQuery({})
-    const theme = useMantineTheme();
 
 
     if (errorLoadingLibraries) {
@@ -46,7 +44,7 @@ const LibrarySwitcher = ({ className, children }) => {
         <UnstyledButton key={item.id} className={classes.item}
             component={Link} to={`/libraries/${item.id}`}>
             <IconLibrary style={{
-                width: rem(22), height: rem(22), color: theme.colors.blue[6]
+                width: rem(22), height: rem(22)
             }} />
             <Text size="xs" mt={7}>
                 {item.name}

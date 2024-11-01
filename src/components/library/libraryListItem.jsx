@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Avatar, Group, Stack, Table, Text, Tooltip } from '@mantine/core';
+import { Avatar, Group, Stack, Table, Text, Tooltip, useMantineTheme } from '@mantine/core';
 
 // Local Imports
 import { IconWorld, IconLibrary } from '@/components/icon';
@@ -11,6 +11,7 @@ import { IconWorld, IconLibrary } from '@/components/icon';
 
 const LibraryListItem = ({ library }) => {
     const { t } = useTranslation();
+    const theme = useMantineTheme();
 
     return (<Table.Tr>
         <Table.Td>
@@ -32,8 +33,14 @@ const LibraryListItem = ({ library }) => {
         </Table.Td>
         <Table.Td>
             <Group>
-                <IconWorld />
-                {t(`languages.${library.language}`)}
+                <IconWorld
+                    height={16}
+                    stroke={1.5}
+                    style={{ color: theme.colors.dark[2] }}
+                />
+                <Text size="xs" c="dimmed">
+                    {t(`languages.${library.language}`)}
+                </Text>
             </Group>
         </Table.Td>
     </Table.Tr>)

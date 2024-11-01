@@ -7,13 +7,15 @@ import { Card, Center, Group, Text, useMantineTheme } from '@mantine/core';
 
 // Local Imports
 import classes from './libraryCard.module.css';
-import librarySvg from '@/assets/icons/building-arch.svg';
 import { IconWorld } from '@/components/icon';
+import { IconLibrary } from '@/components/icon';
 //-------------------------------------
 
 const LibraryCard = ({ library }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+
+    const icon = <Center> <IconLibrary height={200} style={{ color: theme.colors.dark[2] }} /></Center>;
 
     return (<Card
         p="lg"
@@ -23,14 +25,17 @@ const LibraryCard = ({ library }) => {
         component={Link}
         to={`/libraries/${library.id}`}
     >
-        <div
-            className={classes.image}
-            style={{
-                backgroundImage:
-                    `url(${library?.links?.image || librarySvg})`,
-            }}
-        />
-        <div className={classes.overlay} />
+        {library?.links?.image ?
+            (<div
+                className={classes.image}
+                style={{
+                    backgroundImage:
+                        `url(${library?.links?.image})`,
+                }}
+            />) :
+            (<div className={classes.image}>
+                {icon}
+            </div>)}
 
         <div className={classes.content}>
             <div>
@@ -40,17 +45,12 @@ const LibraryCard = ({ library }) => {
 
                 <Group justify="space-between" gap="xs">
 
-                    <Text size="sm" className={classes.author}
-                        truncate="end" >
-                        {library?.description || t('library.noDescription')}
-                    </Text>
-
                     <Group gap="lg">
                         <Center>
                             <IconWorld
-                                size={16}
+                                height={16}
                                 stroke={1.5}
-                                color={theme.colors.dark[2]}
+                                style={{ color: theme.colors.dark[2] }}
                             />
                             <Text size="sm" className={classes.bodyText}>
                                 {t(`languages.${library.language}`)}

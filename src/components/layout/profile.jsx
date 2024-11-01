@@ -11,7 +11,7 @@ import { modals } from '@mantine/modals';
 // Local Imports
 import { logout, loggedInUser, isLoggedIn } from "@/store/slices/authSlice";
 import classes from './profile.module.css';
-import { IconLogout, IconSettings, IconSwitchHorizontal, IconChevronDown } from "../icon";
+import { IconLogout, IconSettings, IconChangePassword, IconChevronDown } from "../icon";
 //-----------------------------------
 
 const Profile = () => {
@@ -52,7 +52,7 @@ const Profile = () => {
                         className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
                     >
                         <Group gap={7}>
-                            <Avatar src={user.image} alt={user.name} radius="xl" size={20} />
+                            <Avatar src={user.image} alt={user.name} radius="xl" size={24} />
                             <Text fw={500} size="sm" lh={1} mr={3}>
                                 {user.name}
                             </Text>
@@ -64,7 +64,6 @@ const Profile = () => {
                     </UnstyledButton>
                 </Menu.Target>
                 <Menu.Dropdown>
-                    <Menu.Divider />
                     <Menu.Item
                         leftSection={
                             <IconSettings size={16} stroke={1.5} />
@@ -74,7 +73,7 @@ const Profile = () => {
                     </Menu.Item>
                     <Menu.Item
                         leftSection={
-                            <IconSwitchHorizontal size={16} stroke={1.5} />
+                            <IconChangePassword size={16} stroke={1.5} />
                         }
                         component={Link}
                         to='/change-password'

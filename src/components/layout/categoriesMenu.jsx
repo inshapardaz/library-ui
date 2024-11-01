@@ -12,8 +12,6 @@ import {
     ThemeIcon,
     Divider,
     Collapse,
-    rem,
-    useMantineTheme,
     Button,
     Center,
 } from '@mantine/core';
@@ -30,7 +28,6 @@ import { IconCategory, IconRefreshAlert } from '../icon';
 
 const CategoriesMenu = ({ library, className, children }) => {
     const { t } = useTranslation();
-    const theme = useMantineTheme();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
@@ -39,7 +36,7 @@ const CategoriesMenu = ({ library, className, children }) => {
         <UnstyledButton className={classes.subLink} key={item.name} component={Link} to={`/libraries/${library.id}/books?category=${item.id}`}>
             <Group wrap="nowrap" align="flex-start">
                 <ThemeIcon size={34} variant="default" radius="md">
-                    <IconCategory style={{ width: rem(22), height: rem(22) }} color={theme.colors.blue[6]} />
+                    <IconCategory height={22} />
                 </ThemeIcon>
                 <div>
                     <Text size="sm" fw={500}>
