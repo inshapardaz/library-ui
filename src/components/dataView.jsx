@@ -7,6 +7,7 @@ import { useLocalStorage } from '@mantine/hooks';
 import {
     ActionIcon,
     Button,
+    Card,
     Center,
     CloseButton,
     Divider,
@@ -14,7 +15,6 @@ import {
     Group,
     Input,
     Pagination,
-    Paper,
     rem,
     SimpleGrid,
     Skeleton,
@@ -72,7 +72,7 @@ const SearchInpout = ({ query, onQueryChanged }) => {
 
 SearchInpout.propTypes = {
     query: PropTypes.string,
-    onQueryChanged: PropTypes.string
+    onQueryChanged: PropTypes.func
 }
 //------------------------------
 
@@ -168,27 +168,25 @@ const DataView = ({
     } else {
         content = (<Center h={100}><Text>{emptyText}</Text></Center>)
     }
-    return (<Paper p="xl" m="xl" withBorder>
-        <Stack>
-            <Grid>
-                <Grid.Col span="auto">
-                    <Title order={3}>{title}</Title>
-                </Grid.Col>
-                <Grid.Col span="auto">
+    return (<Card m="sm" withBorder>
+        <Grid>
+            <Grid.Col span="auto">
+                <Title order={3}>{title}</Title>
+            </Grid.Col>
+            <Grid.Col span="auto">
 
-                </Grid.Col>
-                <Grid.Col span="contents">
-                    <Group justify="space-between">
-                        {showSearch && <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />}
-                        {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
-                    </Group>
-                </Grid.Col>
-            </Grid>
-            <Divider />
-            {content}
-            <Divider my="md" />
-        </Stack>
-    </Paper >)
+            </Grid.Col>
+            <Grid.Col span="contents">
+                <Group justify="space-between">
+                    {showSearch && <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />}
+                    {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
+                </Group>
+            </Grid.Col>
+        </Grid>
+        <Divider my="sm" />
+        {content}
+        <Divider my="md" />
+    </Card >)
 }
 
 DataView.propTypes = {

@@ -194,6 +194,9 @@ const ur = {
     categories: {
         title: "زمرے",
         all: "تمام زمرے",
+        bookCount_zero: "کوئی کتاب موجود نہیں",
+        bookCount_one: "1 کتاب",
+        bookCount_other: "{{count}} کتب",
         errors: {
             loading: {
                 title: "زمرہ جات لوڈ نہیں ہو سکے",

@@ -66,7 +66,7 @@ const CategoriesMenu = ({ library, className, children }) => {
                         <>
                             <Group justify="space-between" px="md">
                                 <Text fw={500}>{t('header.categories')}</Text>
-                                <Text component={Link} to={`/libraries/${library.id}/categories`} fz="sm">
+                                <Text component={Link} to={`/libraries/${library.id}/books`} fz="sm">
                                     {t('categories.all')}
                                 </Text>
                             </Group>

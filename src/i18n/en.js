@@ -192,6 +192,9 @@ const en = {
     categories: {
         title: "Categories",
         all: "All Categories",
+        bookCount_zero: "No books",
+        bookCount_one: "1 book",
+        bookCount_other: "{{count}} books",
         errors: {
             loading: {
                 title: "Error",

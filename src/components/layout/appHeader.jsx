@@ -11,6 +11,7 @@ import {
   ScrollArea,
   rem,
   Space,
+  Text,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -24,7 +25,7 @@ import DarkModeToggle from './darkModeToggle';
 import Profile from './profile';
 import LibrarySwitcher from './librarySwitcher';
 import SearchBox from './searchBox';
-import { IconHome, IconLibrary, IconLibraryEditor, IconDictionary, IconFont, IconTools } from '@/components/icon';
+import { IconHome, IconLibrary, IconLibraryEditor, IconDictionary, IconFont, IconTools, IconChevronDown } from '@/components/icon';
 //----------------------------------------------
 
 const AppHeader = () => {
@@ -34,7 +35,7 @@ const AppHeader = () => {
   return (
     <Box>
       <header className={classes.header}>
-        <Group justify="space-between" h="100%">
+        <Group justify="space-between" h="100%" wrap="nowrap">
           <Group h="100%" gap={0}>
             <NavLink to={`/`} className={classes.link}>
               <Logo />
@@ -45,42 +46,58 @@ const AppHeader = () => {
           <Group hiddenFrom="sm" >
             <SearchBox />
           </Group>
-          <Group h="100%" gap={0} visibleFrom="sm">
+          <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
             <Link to="/" className={classes.link}>
               <IconHome height="24px" />
               <Space w="md" />
-              {t('header.home')}
+              <Text visibleFrom="lg">
+                {t('header.home')}
+              </Text>
             </Link>
             <LibrarySwitcher className={classes.link}>
               <IconLibrary height="24px" />
               <Space w="md" />
-              {t('header.libraries')}
+              <Text visibleFrom="lg">
+                {t('header.libraries')}
+              </Text>
+              <IconChevronDown
+                width={rem(16)}
+                height={rem(16)}
+              />
             </LibrarySwitcher>
             <Link to="https://editor.nawishta.co.uk" className={classes.link}>
               <IconLibraryEditor height="24px" />
               <Space w="md" />
-              {t('header.libraryEditor')}
+              <Text visibleFrom="lg">
+                {t('header.libraryEditor')}
+              </Text>
             </Link>
             <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
               <IconDictionary height="24px" />
               <Space w="md" />
-              {t('header.dictionaries')}
+              <Text visibleFrom="lg">
+                {t('header.dictionaries')}
+              </Text>
             </Link>
             <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
               <IconFont height="24px" />
               <Space w="md" />
-              {t('header.fonts')}
+              <Text visibleFrom="lg">
+                {t('header.fonts')}
+              </Text>
             </Link>
             <Link to="https://tools.nawishta.co.uk" className={classes.link}>
               <IconTools height="24px" />
               <Space w="md" />
-              {t('header.tools')}
+              <Text visibleFrom="lg">
+                {t('header.tools')}
+              </Text>
             </Link>
           </Group>
           <Group visibleFrom="sm">
             <SearchBox />
           </Group>
-          <Group visibleFrom="sm">
+          <Group visibleFrom="sm" wrap="nowrap">
             <LanguageSwitch />
             <DarkModeToggle />
             <Profile />

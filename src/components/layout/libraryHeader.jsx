@@ -13,6 +13,7 @@ import {
     rem,
     useMantineTheme,
     Space,
+    Text,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -39,7 +40,7 @@ const LibraryHeader = ({ library }) => {
     return (
         <Box>
             <header className={classes.header}>
-                <Group justify="space-between" h="100%">
+                <Group justify="space-between" h="100%" wrap="nowrap">
                     <Group h="100%" gap={0}>
                         <NavLink to={`/`} className={classes.link}>
                             <Logo />
@@ -51,44 +52,53 @@ const LibraryHeader = ({ library }) => {
                         <SearchBox />
                     </Group>
 
-                    <Group h="100%" gap={0} visibleFrom="sm">
+                    <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
                         <NavLink to={`/libraries/${library.id}`} className={classes.link}>
                             <IconLibrary height="24px" />
                             <Space w="md" />
-                            {library.name}
+                            <Text visibleFrom="lg">
+                                {library.name}
+                            </Text>
                         </NavLink >
                         <CategoriesMenu library={library} className={classes.link}>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks height="24px" />
                                 <Space w="md" />
-                                {t('header.books')}
+                                <Text visibleFrom="lg">
+                                    {t('header.books')}
+                                </Text>
                                 <IconChevronDown
                                     width={rem(16)}
                                     height={rem(16)}
-                                    style={{ color: theme.colors.blue[6] }}
                                 />
                             </NavLink >
                         </CategoriesMenu>
                         <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
                             <IconAuthors height="24px" />
                             <Space w="md" />
-                            {t('header.authors')}
+                            <Text visibleFrom="lg">
+                                {t('header.authors')}
+                            </Text>
                         </NavLink >
                         <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
                             <IconSeries height="24px" />
                             <Space w="md" />
-                            {t('header.series')}
+                            <Text visibleFrom="lg">
+                                {t('header.series')}
+                            </Text>
                         </NavLink >
                         <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
                             <IconPeriodicals height="24px" />
                             <Space w="md" />
-                            {t('header.periodicals')}
+                            <Text visibleFrom="lg">
+                                {t('header.periodicals')}
+                            </Text>
                         </NavLink >
                     </Group>
                     <Group visibleFrom="sm">
                         <SearchBox />
                     </Group>
-                    <Group visibleFrom="sm">
+                    <Group visibleFrom="sm" wrap="nowrap">
                         <LanguageSwitch />
                         <DarkModeToggle />
                         <LibrarySwitcher visibleFrom="sm">

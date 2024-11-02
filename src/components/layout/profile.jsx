@@ -51,7 +51,7 @@ const Profile = () => {
                     <UnstyledButton
                         className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
                     >
-                        <Group gap={7}>
+                        <Group gap={7} wrap="nowrap">
                             <Avatar src={user.image} alt={user.name} radius="xl" size={24} />
                             <Text fw={500} size="sm" lh={1} mr={3}>
                                 {user.name}

@@ -42,7 +42,9 @@ const iconTheme = {
         arrowLeft: "arrow-left",
         calendar: "calendar",
         reloadAlert: "refresh-alert",
-        x: "x"
+        x: "x",
+        heart: "heart",
+        heartFill: "heart-filled"
     }
 };
 //-------------------------------------
@@ -91,6 +93,8 @@ export const IconCalendar = (props) => getIcon('calendar', props)
 export const IconRefreshAlert = (props) => getIcon('reloadAlert', props)
 export const IconArticle = (props) => getIcon('article', props)
 export const IconX = (props) => getIcon('x', props)
+export const IconFavorite = (props) => getIcon('heart', props)
+export const IconFavoriteFill = (props) => getIcon('heartFill', props)
 
 //-----------------------------------------------------
 // Old Icons
