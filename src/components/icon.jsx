@@ -21,6 +21,8 @@ const iconTheme = {
         books: "books",
         author: "user",
         authors: "users",
+        writing: "blockquote",
+        writings: "blockquote",
         category: "tag",
         categories: "tags",
         series: "stack-2",
@@ -40,7 +42,7 @@ const iconTheme = {
         arrowLeft: "arrow-left",
         calendar: "calendar",
         reloadAlert: "refresh-alert",
-        article: "blockquote"
+        x: "x"
     }
 };
 //-------------------------------------
@@ -66,6 +68,8 @@ export const IconBook = (props) => getIcon('book', props)
 export const IconBooks = (props) => getIcon('books', props)
 export const IconAuthor = (props) => getIcon('author', props)
 export const IconAuthors = (props) => getIcon('authors', props)
+export const IconWriting = (props) => getIcon('writing', props)
+export const IconWritings = (props) => getIcon('writings', props)
 export const IconCategory = (props) => getIcon('category', props)
 export const IconCategories = (props) => getIcon('categories', props)
 export const IconSeries = (props) => getIcon('series', props)
@@ -86,6 +90,7 @@ export const IconArrowLeft = (props) => getIcon('arrowLeft', props)
 export const IconCalendar = (props) => getIcon('calendar', props)
 export const IconRefreshAlert = (props) => getIcon('reloadAlert', props)
 export const IconArticle = (props) => getIcon('article', props)
+export const IconX = (props) => getIcon('x', props)
 
 //-----------------------------------------------------
 // Old Icons

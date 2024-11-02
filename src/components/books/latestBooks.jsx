@@ -10,6 +10,8 @@ import { Carousel } from '@mantine/carousel';
 import { useGetBooksQuery } from '@/store/slices/books.api';
 import { IconRefreshAlert } from '@/components/icon';
 import BookCard from './bookCard';
+import { SortDirection } from "@/models";
+
 //------------------------------
 const LatestBooks = ({ libraryId }) => {
     const { t } = useTranslation();
@@ -21,7 +23,7 @@ const LatestBooks = ({ libraryId }) => {
     } = useGetBooksQuery({
         libraryId,
         sortBy: "dateCreated",
-        sortDirection: "ascending",
+        sortDirection: SortDirection.Descending,
     });
 
     let content = null;

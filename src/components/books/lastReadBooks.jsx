@@ -8,8 +8,9 @@ import { Carousel } from '@mantine/carousel';
 
 // Local imports
 import { useGetBooksQuery } from '@/store/slices/books.api';
-import BookCard from './bookCard';
+import { SortDirection } from "@/models";
 import { IconRefreshAlert } from '@/components/icon';
+import BookCard from './bookCard';
 //------------------------------
 const LastReadBooks = ({ libraryId }) => {
     const { t } = useTranslation();
@@ -21,7 +22,7 @@ const LastReadBooks = ({ libraryId }) => {
     } = useGetBooksQuery({
         libraryId,
         read: true,
-        sortDirection: "ascending",
+        sortDirection: SortDirection.Descending
     });
 
     let content = null;

@@ -24,7 +24,7 @@ const SeriesListItem = ({ libraryId, series }) => {
                     icon
                 }
                 <Stack>
-                    <Text component={Link} to={`/libraries/${libraryId}/books?series=${series.id}`} truncate="end" fw={500}>{series.name}</Text>
+                    <Text component={Link} to={`/libraries/${libraryId}/series/${series.id}`} truncate="end" fw={500}>{series.name}</Text>
                     {series?.description ?
                         (<Tooltip label={series.description} withArrow>
                             <Text size="sm" c="dimmed" lineClamp={1}>

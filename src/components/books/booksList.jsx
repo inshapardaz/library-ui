@@ -14,7 +14,7 @@ const BooksList = ({
     libraryId,
     query = null,
     author = null,
-    categories = null,
+    category = null,
     series = null,
     sortBy = null,
     sortDirection = null,
@@ -24,6 +24,7 @@ const BooksList = ({
     pageNumber,
     pageSize,
     showSearch = true,
+    showTitle = true
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ const BooksList = ({
         libraryId,
         query,
         author,
-        categories,
+        category,
         series,
         sortBy,
         sortDirection,
@@ -50,7 +51,7 @@ const BooksList = ({
     });
 
     return <DataView
-        title={t('header.books')}
+        title={showTitle ? t('header.books') : null}
         emptyText={t('books.empty')}
         dataSource={books}
         isFetching={isFetching}
@@ -78,16 +79,17 @@ BooksList.propTypes = {
     libraryId: PropTypes.string,
     query: PropTypes.string,
     author: PropTypes.string,
-    categories: PropTypes.string,
+    category: PropTypes.string,
     series: PropTypes.string,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
     favorite: PropTypes.bool,
     read: PropTypes.bool,
     status: PropTypes.string,
-    pageNumber: PropTypes.string,
+    pageNumber: PropTypes.number,
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
+    showTitle: PropTypes.bool,
 }
 
 export default BooksList;

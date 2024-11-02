@@ -175,6 +175,7 @@ const en = {
         header: "Search",
         title: "Search...",
         placeholder: "Search by title, author, keyword",
+        empty: "No result found.",
     },
     libraries: {
         title: "Libraries",
@@ -202,7 +203,9 @@ const en = {
         },
     },
     books: {
-        empty: "No books found."
+        empty: "No books found.",
+        title: "Books",
+        description: "Explore exquisite collection of books"
     },
     book: {
         latestBooks: "Latest Additions",
@@ -233,10 +236,22 @@ const en = {
         articleCount_zero: "No article",
         articleCount_one: "1 article",
         articleCount_other: "{{count}} articles",
+        booksTabLabel: "Books ({{count}})",
+        writingsTabLabel: "Writings ({{count}})"
+    },
+    authors: {
+        empty: "No author",
+        description: "Authors of litrature"
     },
     series: {
+        title: "Series",
+        description: "Collection of series of books",
         empty: "No series",
         noDescription: "No details..."
+    },
+    writings: {
+        title: "Writings",
+        description: "Explore the world of prose"
     }
 };
 

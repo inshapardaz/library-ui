@@ -135,7 +135,6 @@ const BookPage = () => {
                     radius="md"
                     alt={book?.title}
                     fit="contain"
-                    fallbackSrc="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
                 />}
             <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
         </SimpleGrid>

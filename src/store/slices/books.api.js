@@ -14,7 +14,7 @@ export const booksApi = createApi({
                 libraryId,
                 query = null,
                 author = null,
-                categories = null,
+                category = null,
                 series = null,
                 sortBy = null,
                 sortDirection = null,
@@ -28,8 +28,8 @@ export const booksApi = createApi({
                 if (author) {
                     queryVal += `&authorId=${author}`;
                 }
-                if (categories) {
-                    queryVal += `&categoryId=${categories}`;
+                if (category) {
+                    queryVal += `&categoryId=${category}`;
                 }
                 if (series) {
                     queryVal += `&seriesId=${series}`;

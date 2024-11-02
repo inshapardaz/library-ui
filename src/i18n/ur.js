@@ -177,6 +177,7 @@ const ur = {
         header: "تلاش",
         title: "تلاش۔۔۔",
         placeholder: "تلاش برائے عنوان، مصنّف، زمرہ",
+        empty: "تلاش بے نتیجہ رہی۔"
     },
     libraries: {
         title: "کتب خانے",
@@ -205,6 +206,8 @@ const ur = {
     },
     books: {
         empty: "کتب موجود نہیں",
+        title: "کتابیں",
+        description: "کتابوں کے ذخیرے سے انتخاب"
     },
     book: {
         latestBooks: "نئی کتب",
@@ -232,13 +235,25 @@ const ur = {
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",
         bookCount_other: "{{count}} کتب",
-        articleCount_zero: "کوئی مضمون نہیں",
         articleCount_one: "1 مضمون",
         articleCount_other: "{{count}} مضامین",
+        booksTabLabel: "کتب ({{count}})",
+        writingsTabLabel: "مضامین ({{count}})"
+    },
+    authors: {
+        empty: "کوئی مصنّف نہیں",
+        title: "مصنّفین",
+        description: "بہتریں مصنفین میں سے انتخاب"
     },
     series: {
-        empty: "سلسلہ موجود نہیں",
+        title: "سلسلہ جات",
+        description: "کتابوں کے سلسلے",
+        empty: "سلسلہ جات دستیاب نہیں۔",
         noDescription: "تفصیل دستیاب نہیں۔۔۔",
+    },
+    writings: {
+        title: "تصنیفات",
+        description: "نٹر کی دنیا سے انتخاب"
     }
 };
 

@@ -23,7 +23,7 @@ const SeriesCard = ({ libraryId, series }) => {
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <Text component={Link} to={`/libraries/${libraryId}/books?series=${series.id}`} truncate="end" fw={500}>{series.name}</Text>
+                <Text component={Link} to={`/libraries/${libraryId}/series/${series.id}`} truncate="end" fw={500}>{series.name}</Text>
             </Group>
         </Card>
     )

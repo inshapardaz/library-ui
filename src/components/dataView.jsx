@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -7,9 +8,11 @@ import {
     ActionIcon,
     Button,
     Center,
+    CloseButton,
     Divider,
     Grid,
     Group,
+    Input,
     Pagination,
     Paper,
     rem,
@@ -21,11 +24,56 @@ import {
     TextInput,
     Title
 } from "@mantine/core";
+import { getHotkeyHandler } from '@mantine/hooks';
 
 // Local imports
-import { IconRefreshAlert, IllustrationError, IconSearch } from '@/components/icon'
+import { IconRefreshAlert, IconSearch } from '@/components/icon'
 import LayoutToggle from '@/components/layoutToggle';
-import { useState } from 'react';
+//------------------------------
+
+const SearchInpout = ({ query, onQueryChanged }) => {
+    const { t } = useTranslation();
+    const [value, setValue] = useState(query || '');
+    const searchIcon = (<ActionIcon size={32} disabled={!value || value == ''}
+        onClick={() => onQueryChanged(value)} >
+        <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+    </ActionIcon>);
+
+    const onClear = () => {
+        setValue("");
+        onQueryChanged("")
+    }
+
+    const onSubmit = () => {
+        onQueryChanged(value);
+    }
+
+    let closeIcon = null;
+    if (value && value != '') {
+        closeIcon = (<CloseButton onClick={onClear} />);
+    }
+
+    return (<Input.Wrapper>
+        <TextInput
+            placeholder={t('search.title')}
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            leftSection={searchIcon}
+            rightSectionWidth={42}
+            rightSection={<Group>
+                {closeIcon}
+            </Group>}
+            onKeyDown={getHotkeyHandler([
+                ['Enter', onSubmit]
+            ])}
+        />
+    </Input.Wrapper>)
+}
+
+SearchInpout.propTypes = {
+    query: PropTypes.string,
+    onQueryChanged: PropTypes.string
+}
 //------------------------------
 
 const DataView = ({
@@ -49,7 +97,6 @@ const DataView = ({
         key: viewToggleKey,
         defaultValue: 'card',
     });
-    const [query, setQuery] = useState(searchValue || '');
 
     const toggleViewType = () =>
         setViewType((current) =>
@@ -88,7 +135,6 @@ const DataView = ({
         content = (
             <Center h={500}>
                 <Stack>
-                    <IllustrationError />
                     <Button rightSection={<IconRefreshAlert />} variant='light' onClick={onReload}>{t('actions.retry')}</Button>
                 </Stack>
             </Center>)
@@ -128,22 +174,12 @@ const DataView = ({
                 <Grid.Col span="auto">
                     <Title order={3}>{title}</Title>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span="auto">
 
                 </Grid.Col>
-                <Grid.Col span="auto">
+                <Grid.Col span="contents">
                     <Group justify="space-between">
-                        {showSearch && <TextInput
-                            placeholder={t('search.title')}
-                            value={query}
-                            onChange={e => setQuery(e.target.value)}
-                            rightSectionWidth={42}
-                            rightSection={
-                                <ActionIcon size={32} variant="transparent" disabled={!query || query == ''} onClick={() => onSearchChanged(query)} >
-                                    <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-                                </ActionIcon>
-                            }
-                        />}
+                        {showSearch && <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />}
                         {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
                     </Group>
                 </Grid.Col>

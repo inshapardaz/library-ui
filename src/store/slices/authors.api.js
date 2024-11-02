@@ -23,7 +23,7 @@ export const authorsApi = createApi({
       transformResponse: (response) => parseResponse(response),
       providesTags: ["Authors"],
     }),
-    getAuthorById: builder.query({
+    getAuthor: builder.query({
       query: ({ libraryId, authorId }) => ({
         url: `/libraries/${libraryId}/authors/${authorId}`,
         method: "get",
@@ -36,5 +36,5 @@ export const authorsApi = createApi({
 
 export const {
   useGetAuthorsQuery,
-  useGetAuthorByIdQuery,
+  useGetAuthorQuery,
 } = authorsApi;

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@mantine/core';
 
 // Local imports
-import { IconBooks, IconArticle, IconAuthor } from '@/components/icon';
+import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
 import IconText from '../iconText';
 //---------------------------------------
 
@@ -32,7 +32,7 @@ const AuthorCard = ({ libraryId, author }) => {
             <Group justify="space-between" mt="md" mb="xs">
                 <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
                 <Divider />
-                <IconText icon={<IconArticle height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
+                <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
             </Group>
         </Card>
     )

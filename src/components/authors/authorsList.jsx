@@ -46,7 +46,7 @@ const AuthorsList = ({
         emptyText={t('authors.empty')}
         dataSource={authors}
         isFetching={isFetching}
-        isErro={isError}
+        isError={isError}
         showViewToggle={true}
         viewToggleKey='authors-list-view'
         cardRender={author => (<AuthorCard libraryId={libraryId} key={author.id} author={author} />)}

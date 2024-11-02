@@ -1,47 +1,89 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
+
 // UI Libray imports
 import { ActionIcon, rem } from "@mantine/core";
+import { createSpotlight, Spotlight } from "@mantine/spotlight";
 
 // Local imports
-import { IconBooks, IconSearch } from "../icon";
-import { Spotlight, spotlight } from "@mantine/spotlight";
-
-const actions = [
-    {
-        id: 'home',
-        label: 'Home',
-        description: 'Get to home page',
-        onClick: () => console.log('Home'),
-        leftSection: <IconBooks style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
-    },
-    {
-        id: 'dashboard',
-        label: 'Dashboard',
-        description: 'Get full information about current system status',
-        onClick: () => console.log('Dashboard'),
-        leftSection: <IconBooks style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
-    },
-    {
-        id: 'documentation',
-        label: 'Documentation',
-        description: 'Visit documentation to lean more about all features',
-        onClick: () => console.log('Documentation'),
-        leftSection: <IconBooks style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
-    },
-];
+import { IconAuthors, IconBooks, IconSearch, IconWritings, IconSeries } from "../icon";
+// import { useGetBooksQuery } from '@/store/slices/books.api';
+// import { useGetAuthorsQuery } from '@/store/slices/authors.api';
 
 //-----------------------------
 const SearchBox = () => {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+    const { libraryId } = useParams();
+    const [query, setQuery] = useState('');
+    const [searchStore, searchSpotlight] = createSpotlight();
+    // const {
+    //     data: books,
+    //     isError: booksError,
+    //     isFetching: booksLoading,
+    // } = useGetBooksQuery({
+    //     libraryId,
+    //     query,
+    //     pageSize: 3
+    // });
+
+    // const {
+    //     data: authors,
+    //     isError: authorsError,
+    //     isFetching: authorsLoading,
+    // } = useGetAuthorsQuery({
+    //     libraryId,
+    //     query,
+    //     pageSize: 3
+    // });
+
+    const actions = [
+        {
+            id: 'books',
+            label: t('books.title'),
+            description: t('books.description'),
+            onClick: () => navigate(`/libraries/${libraryId}/books`),
+            leftSection: <IconBooks style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
+        },
+        {
+            id: 'writings',
+            label: t('writings.title'),
+            description: t('writings.description'),
+            onClick: () => navigate(`/libraries/${libraryId}/writings`),
+            leftSection: <IconWritings style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
+        },
+        {
+            id: 'authors',
+            label: t('authors.title'),
+            description: t('authors.description'),
+            onClick: () => navigate(`/libraries/${libraryId}/authors`),
+            leftSection: <IconAuthors style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
+        },
+        {
+            id: 'series',
+            label: t('series.title'),
+            description: t('series.description'),
+            onClick: () => navigate(`/libraries/${libraryId}/series`),
+            leftSection: <IconSeries style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,
+        },
+    ];
+
     return (<>
         <Spotlight
             actions={actions}
-            nothingFound="Nothing found..."
+            nothingFound={t('search.empty')}
             highlightQuery
+            scrollable
+            query={query}
+            onQueryChange={setQuery}
+            store={searchStore}
             searchProps={{
                 leftSection: <IconSearch style={{ width: rem(20), height: rem(20) }} stroke={1.5} />,
-                placeholder: 'Search...',
+                placeholder: t('search.placeholder'),
             }}
         />
-        <ActionIcon onClick={spotlight.open}
+        <ActionIcon onClick={searchSpotlight.open}
             variant="default"
             size="xl"
             aria-label="search"

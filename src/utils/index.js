@@ -128,6 +128,36 @@ export const updateLinkToAuthorsPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+export const updateLinkToAuthorPage = (
+    location,
+    { pageNumber, pageSize, query, sortBy, sortDirection, tab }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (tab) {
+        searchParams.set("tab", tab);
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
 export const updateLinkToSeriesPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection }

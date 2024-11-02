@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Group, Image, Stack, Table, Text, useMantineTheme } from '@mantine/core';
 
 // local imports
-import { IconBooks, IconArticle, IconAuthor } from '@/components/icon';
+import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
 import IconText from '../iconText';
 //-------------------------------------
 
@@ -27,7 +27,7 @@ const AuthorListItem = ({ libraryId, author }) => {
                 <Stack>
                     <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
                     <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
-                    <IconText icon={<IconArticle height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
+                    <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
                 </Stack>
             </Group>
         </Table.Td>
