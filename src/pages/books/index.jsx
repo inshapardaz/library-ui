@@ -24,7 +24,10 @@ const BooksPage = () => {
 
     return (<Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
         <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
-            <BooksSideBar selectedCategory={category} />
+            <BooksSideBar
+                selectedCategory={category}
+                favorite={favorite}
+                read={read} />
         </Grid.Col>
         <Grid.Col span="auto">
             <BooksList

@@ -1,9 +1,10 @@
 
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 // Ui Library imports
-import { Box, Button, Center, Divider, Loader, LoadingOverlay, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Box, Button, Center, Divider, Group, Loader, LoadingOverlay, Stack, Text, Title } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
 
 // Local imports
@@ -58,7 +59,10 @@ const LastReadBooks = ({ libraryId }) => {
     }
     return (<Box>
         <Stack>
-            <Title order={3}>{t('book.lastRead')}</Title>
+            <Group justify="space-between">
+                <Title order={3}>{t('book.lastRead')}</Title>
+                <Anchor component={Link} underline="hover" to={`/libraries/${libraryId}/books?read=true`}>{t('actions.viewAll')}</Anchor>
+            </Group>
             {content}
             <Divider my="md" />
         </Stack>

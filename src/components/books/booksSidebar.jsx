@@ -7,10 +7,10 @@ import { Card, Center, Divider, NavLink, SimpleGrid, Skeleton, useMantineTheme }
 
 // Local imports
 import { useGetCategoriesQuery } from '@/store/slices/categories.api';
-import { IconCategory, IconFavorite, IconBook } from '@/components/icon';
+import { IconCategory, IconFavorite, IconBook, IconBooks } from '@/components/icon';
 
 //----------------------------------------------
-const BooksSideBar = ({ selectedCategory }) => {
+const BooksSideBar = ({ selectedCategory, favorite, read }) => {
     const { t } = useTranslation();
     const { libraryId } = useParams();
     const theme = useMantineTheme();
@@ -51,6 +51,7 @@ const BooksSideBar = ({ selectedCategory }) => {
             key="favorites"
             component={Link}
             to={`/libraries/${libraryId}/books?favorite=true`}
+            active={favorite}
             label={t('book.favorites')}
             leftSection={<IconFavorite style={{ color: theme.colors.red[9] }} />}
         />
@@ -58,8 +59,17 @@ const BooksSideBar = ({ selectedCategory }) => {
             key="read"
             component={Link}
             to={`/libraries/${libraryId}/books?read=true`}
+            active={read}
             label={t('book.lastRead')}
             leftSection={<IconBook style={{ color: theme.colors.green[9] }} />}
+        />
+        <NavLink
+            key="all-books"
+            component={Link}
+            to={`/libraries/${libraryId}/books`}
+            label={t('books.allBooks')}
+            active={!selectedCategory && !favorite && !read}
+            leftSection={<IconBooks style={{ color: theme.colors.blue[9] }} />}
         />
         <Divider />
         {
@@ -77,7 +87,9 @@ const BooksSideBar = ({ selectedCategory }) => {
 }
 
 BooksSideBar.propTypes = {
-    selectedCategory: PropTypes.string
+    selectedCategory: PropTypes.string,
+    favorite: PropTypes.string,
+    read: PropTypes.string,
 };
 
 export default BooksSideBar;

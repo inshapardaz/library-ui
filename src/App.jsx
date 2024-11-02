@@ -29,7 +29,7 @@ function App() {
         </Helmet>
         <DirectionProvider >
           <MantineProvider>
-            <Notifications limit={5} position="top-center" />
+            <Notifications limit={5} position="bottom-right" />
             <ModalsProvider>
               <Router />
             </ModalsProvider>

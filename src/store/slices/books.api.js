@@ -130,6 +130,24 @@ export const booksApi = createApi({
             transformResponse: (response) => parseResponse(response),
             providesTags: ["BookPages"],
         }),
+        addBookToFavorite: builder.mutation({
+            query: ({ book }) => {
+                return {
+                    url: book.links.create_favorite,
+                    method: "POST"
+                };
+            },
+            invalidatesTags: ["Books", "Book"],
+        }),
+        removeBookFromFavorite: builder.mutation({
+            query: ({ book }) => {
+                return {
+                    url: book.links.remove_favorite,
+                    method: "DELETE"
+                };
+            },
+            invalidatesTags: ["Books", "Book"],
+        }),
     }),
 });
 
@@ -141,4 +159,6 @@ export const {
     useGetChapterContentsQuery,
     useGetBookPagesQuery,
     useGetBookPageQuery,
+    useAddBookToFavoriteMutation,
+    useRemoveBookFromFavoriteMutation,
 } = booksApi;

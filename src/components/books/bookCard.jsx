@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, Tooltip, useMantineTheme, Center, Image } from '@mantine/core';
+import { Card, Text, Group, Tooltip, useMantineTheme, Center, Image, Divider } from '@mantine/core';
 
 // Local imports
+import { IconBook, IconPages, IconChapters } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
-import { IconBook } from '@/components/icon';
+import FavoriteButton from '@/components/books/favoriteButton';
+import IconText from '@/components/iconText';
 //---------------------------------------
 
 const BookCard = ({ libraryId, book }) => {
@@ -27,10 +29,11 @@ const BookCard = ({ libraryId, book }) => {
 
             <Group justify="space-between" mt="md" mb="xs">
                 <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`} truncate="end" fw={500}>{book.title}</Text>
+                <FavoriteButton book={book} readonly />
             </Group>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <AuthorsAvatar authors={book?.authors} />
+                <AuthorsAvatar libraryId={libraryId} authors={book?.authors} />
             </Group>
 
             {book?.description ?
@@ -42,6 +45,12 @@ const BookCard = ({ libraryId, book }) => {
                 (<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
                     {t('book.noDescription')}
                 </Text>)}
+
+            <Group mt="md">
+                {book.pageCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={book.pageCount} />) : null}
+                <Divider orientation="vertical" />
+                {book.chapterCount != null ? (<IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={book.chapterCount} />) : null}
+            </Group>
         </Card>
     )
 }
@@ -53,6 +62,8 @@ BookCard.propTypes = {
         title: PropTypes.string,
         description: PropTypes.string,
         authors: PropTypes.array,
+        pageCount: PropTypes.number,
+        chapterCount: PropTypes.number,
         links: PropTypes.shape({
             image: PropTypes.string
         })

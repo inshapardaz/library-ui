@@ -208,7 +208,8 @@ const en = {
     books: {
         empty: "No books found.",
         title: "Books",
-        description: "Explore exquisite collection of books"
+        description: "Explore exquisite collection of books",
+        allBooks: "All Books"
     },
     book: {
         latestBooks: "Latest Additions",
@@ -230,7 +231,17 @@ const en = {
         fileCount_one: "1 file",
         fileCount_other: "{{count}} files",
         publishLabel: "Published in {{year}}",
-        isPublic: "Public Book"
+        isPublic: "Public Book",
+        actions: {
+            addFavorite: {
+                success: 'Book added to favorites.',
+                error: 'Error adding book to favorites.'
+            },
+            removeFavorite: {
+                success: 'Book removed from favorites.',
+                error: 'Error removing book from favorites.'
+            },
+        }
     },
     author: {
         bookCount_zero: "No books",

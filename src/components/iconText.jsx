@@ -9,9 +9,9 @@ import { Group, Text } from "@mantine/core";
 
 const IconText = ({ text, icon, link, type = 'dimmed' }) => {
     if (link) {
-        return (<Group component={Link} to={link} gap="sm">
+        return (<Group wrap='nowrap' component={Link} to={link} gap="sm" style={{ textDecoration: 'none' }}>
             {icon}
-            <Text c={type}>{text}</Text>
+            <Text truncate="end" c={type}>{text}</Text>
         </Group>);
     }
 

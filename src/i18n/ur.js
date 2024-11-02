@@ -210,7 +210,8 @@ const ur = {
     books: {
         empty: "کتب موجود نہیں",
         title: "کتابیں",
-        description: "کتابوں کے ذخیرے سے انتخاب"
+        description: "کتابوں کے ذخیرے سے انتخاب",
+        allBooks: "تمام کتب"
     },
     book: {
         latestBooks: "نئی کتب",
@@ -233,6 +234,16 @@ const ur = {
         fileCount_other: "{{count}} دستاویزات",
         publishLabel: "{{year}} میں شائع ہوئی",
         isPublic: "عوامی کتاب",
+        actions: {
+            addFavorite: {
+                success: 'کتاب پسندیدہ کتب میں داخل کر دی  گئی ہے۔',
+                error: 'کتاب پسندیدہ کتب میں داخل نہیں کی جا سکی۔'
+            },
+            removeFavorite: {
+                success: 'کتاب پسندیدہ کتب سے خارج کر دی گئی ہے۔',
+                error: 'کتاب پسندیدہ کتب سے نکالی نہیں جا سکی۔'
+            },
+        }
     },
     author: {
         bookCount_zero: "کوئی کتاب موجود نہیں",
