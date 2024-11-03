@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { Card, Text, Group, useMantineTheme, Center, Image } from '@mantine/core';
 
 // Local imports
-import { IconSeries } from '@/components/icon';
+import { IconSeries, IconBooks } from '@/components/icon';
+import IconText from '../iconText';
 //---------------------------------------
 
 const SeriesCard = ({ libraryId, series }) => {
@@ -25,6 +26,10 @@ const SeriesCard = ({ libraryId, series }) => {
             <Group justify="space-between" mt="md" mb="xs">
                 <Text component={Link} to={`/libraries/${libraryId}/series/${series.id}`} truncate="end" fw={500}>{series.name}</Text>
             </Group>
+
+            <Group mt="md">
+                {series.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={series.bookCount} />) : null}
+            </Group>
         </Card>
     )
 }
@@ -34,6 +39,7 @@ SeriesCard.propTypes = {
     series: PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
+        bookCount: PropTypes.number,
         links: PropTypes.shape({
             image: PropTypes.string
         })

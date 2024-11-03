@@ -22,7 +22,7 @@ import { PRIMARY_COL_HEIGHT } from "@/pages/books/book";
 import FavoriteButton from './favoriteButton';
 //------------------------------------------------------
 
-export const BookInfo = ({ libraryId, book, isLoading }) => {
+const BookInfo = ({ libraryId, book, isLoading }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
@@ -77,3 +77,5 @@ BookInfo.propTypes = {
         chapterCount: PropTypes.number,
     })
 };
+
+export default BookInfo;

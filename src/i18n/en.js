@@ -209,7 +209,13 @@ const en = {
         empty: "No books found.",
         title: "Books",
         description: "Explore exquisite collection of books",
-        allBooks: "All Books"
+        allBooks: "All Books",
+        error: {
+            loading: {
+                title: "Error loading books",
+                detail: "Unexpected error occured loading books. Please retry again."
+            }
+        }
     },
     book: {
         latestBooks: "Latest Additions",
@@ -241,6 +247,12 @@ const en = {
                 success: 'Book removed from favorites.',
                 error: 'Error removing book from favorites.'
             },
+        },
+        error: {
+            loading: {
+                title: "Error loading book",
+                detail: "Unexpected error occured loading book. Please retry again."
+            }
         }
     },
     author: {
@@ -251,17 +263,35 @@ const en = {
         articleCount_one: "1 article",
         articleCount_other: "{{count}} articles",
         booksTabLabel: "Books ({{count}})",
-        writingsTabLabel: "Writings ({{count}})"
+        writingsTabLabel: "Writings ({{count}})",
+        error: {
+            loading: {
+                title: "Error loading author",
+                detail: "Unexpected error occured loading auhtor. Please retry again."
+            }
+        }
     },
     authors: {
         empty: "No author",
-        description: "Authors of litrature"
+        description: "Authors of litrature",
+        error: {
+            loading: {
+                title: "Error loading authors",
+                detail: "Unexpected error occured loading authors. Please retry again."
+            }
+        }
     },
     series: {
         title: "Series",
         description: "Collection of series of books",
         empty: "No series",
-        noDescription: "No details..."
+        noDescription: "No details...",
+        error: {
+            loading: {
+                title: "Error loading series",
+                detail: "Unexpected error occured loading series. Please retry again."
+            }
+        }
     },
     writings: {
         title: "Writings",

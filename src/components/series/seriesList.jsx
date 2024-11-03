@@ -44,7 +44,9 @@ const SeriesList = ({
         emptyText={t('series.empty')}
         dataSource={series}
         isFetching={isFetching}
-        isErro={isError}
+        isError={isError}
+        errorTitle={t('series.error.loading.title')}
+        errorDetail={t('series.error.loading.detail')}
         showViewToggle={true}
         viewToggleKey='series-list-view'
         cardRender={series => (<SeriesCard libraryId={libraryId} key={series.id} series={series} />)}
@@ -70,7 +72,7 @@ SeriesList.propTypes = {
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
     status: PropTypes.string,
-    pageNumber: PropTypes.string,
+    pageNumber: PropTypes.number,
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
 }

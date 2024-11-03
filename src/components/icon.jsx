@@ -44,7 +44,8 @@ const iconTheme = {
         reloadAlert: "refresh-alert",
         x: "x",
         heart: "heart",
-        heartFill: "heart-filled"
+        heartFill: "heart-filled",
+        alert: "alert-triangle"
     }
 };
 //-------------------------------------
@@ -93,6 +94,7 @@ export const IconCalendar = (props) => getIcon('calendar', props)
 export const IconRefreshAlert = (props) => getIcon('reloadAlert', props)
 export const IconArticle = (props) => getIcon('article', props)
 export const IconX = (props) => getIcon('x', props)
+export const IconAlert = (props) => getIcon('alert', props)
 export const IconFavorite = (props) => getIcon('heart', props)
 export const IconFavoriteFill = (props) => getIcon('heartFill', props)
 

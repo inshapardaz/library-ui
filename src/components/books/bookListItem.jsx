@@ -37,9 +37,9 @@ const BookListItem = ({ libraryId, book }) => {
                         </Text>)}
                     <AuthorsAvatar libraryId={libraryId} authors={book?.authors} />
                     <Group mt="md">
-                        {book.pageCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={book.pageCount} />) : null}
+                        {book.pageCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.pageCount', { count: book.pageCount })} />) : null}
                         <Divider orientation="vertical" />
-                        {book.chapterCount != null ? (<IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={book.chapterCount} />) : null}
+                        {book.chapterCount != null ? (<IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.chapterCount', { count: book.chapterCount })} />) : null}
                     </Group>
                 </Stack>
             </Group>

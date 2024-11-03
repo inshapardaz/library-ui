@@ -43,7 +43,7 @@ const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
 
 
 AuthorsAvatar.propTypes = {
-    libraryId: PropTypes.number,
+    libraryId: PropTypes.string,
     authors: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string

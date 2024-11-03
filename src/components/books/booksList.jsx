@@ -55,7 +55,9 @@ const BooksList = ({
         emptyText={t('books.empty')}
         dataSource={books}
         isFetching={isFetching}
-        isErro={isError}
+        isError={isError}
+        errorTitle={t('books.error.loading.title')}
+        errorDetail={t('books.error.loading.detail')}
         showViewToggle={true}
         viewToggleKey='books-list-view'
         cardRender={book => (<BookCard libraryId={libraryId} key={book.id} book={book} />)}

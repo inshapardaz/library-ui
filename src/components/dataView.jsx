@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useLocalStorage } from '@mantine/hooks';
 import {
     ActionIcon,
-    Button,
     Card,
     Center,
     CloseButton,
@@ -27,8 +26,9 @@ import {
 import { getHotkeyHandler } from '@mantine/hooks';
 
 // Local imports
-import { IconRefreshAlert, IconSearch } from '@/components/icon'
+import { IconSearch } from '@/components/icon'
 import LayoutToggle from '@/components/layoutToggle';
+import Error from './error';
 //------------------------------
 
 const SearchInpout = ({ query, onQueryChanged }) => {
@@ -82,6 +82,8 @@ const DataView = ({
     dataSource = null,
     isFetching = false,
     isError = false,
+    errorTitle = '',
+    errorDetail = '',
     showViewToggle = true,
     viewToggleKey,
     showSearch,
@@ -92,7 +94,6 @@ const DataView = ({
     onReload = () => { },
     onPageChanged = () => { }
 }) => {
-    const { t } = useTranslation();
     const [viewType, setViewType] = useLocalStorage({
         key: viewToggleKey,
         defaultValue: 'card',
@@ -133,11 +134,9 @@ const DataView = ({
         }
     } else if (isError) {
         content = (
-            <Center h={500}>
-                <Stack>
-                    <Button rightSection={<IconRefreshAlert />} variant='light' onClick={onReload}>{t('actions.retry')}</Button>
-                </Stack>
-            </Center>)
+            <Error title={errorTitle}
+                detail={errorDetail}
+                onRetry={onReload} />)
     } else if (dataSource && dataSource.data.length > 0) {
         if (viewType == 'card') {
             content = (<Stack>
@@ -201,6 +200,8 @@ DataView.propTypes = {
     }),
     isFetching: PropTypes.bool,
     isError: PropTypes.bool,
+    errorTitle: PropTypes.string,
+    errorDetail: PropTypes.string,
     showViewToggle: PropTypes.bool,
     viewToggleKey: PropTypes.string,
     showSearch: PropTypes.bool,

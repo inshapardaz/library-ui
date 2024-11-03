@@ -47,6 +47,8 @@ const AuthorsList = ({
         dataSource={authors}
         isFetching={isFetching}
         isError={isError}
+        errorTitle={t('authors.error.loading.title')}
+        errorDetail={t('authors.error.loading.detail')}
         showViewToggle={true}
         viewToggleKey='authors-list-view'
         cardRender={author => (<AuthorCard libraryId={libraryId} key={author.id} author={author} />)}

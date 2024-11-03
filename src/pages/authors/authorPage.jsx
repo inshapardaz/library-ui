@@ -24,6 +24,7 @@ import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
 import IconText from "@/components/iconText";
+import Error from '@/components/error';
 
 //------------------------------------------------------
 
@@ -46,6 +47,7 @@ const AuthorPage = () => {
         data: author,
         error: errorLoadingAuthor,
         isFetching: loadingAuthor,
+        refetch
     } = useGetAuthorQuery({
         libraryId,
         authorId
@@ -81,8 +83,13 @@ const AuthorPage = () => {
     }
 
     if (errorLoadingAuthor) {
-        return "Error";
+        return (<Container my="md">
+            <Error title={t('authors.error.loading.title')}
+                detail={t('authors.error.loading.detail')}
+                onRetry={refetch} />
+        </Container>)
     }
+
     return (<Container fluid mt='md'>
         <Grid>
             <Grid.Col span="content">

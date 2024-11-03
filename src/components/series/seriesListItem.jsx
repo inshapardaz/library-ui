@@ -37,6 +37,9 @@ const SeriesListItem = ({ libraryId, series }) => {
                     {series?.bookCount ?
                         <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: series?.bookCount })} />
                         : null}
+                    <Group mt="md">
+                        {series.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={series.bookCount} />) : null}
+                    </Group>
                 </Stack>
             </Group>
         </Table.Td>

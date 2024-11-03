@@ -24,7 +24,7 @@ const IconText = ({ text, icon, link, type = 'dimmed' }) => {
 IconText.propTypes = {
     icon: PropTypes.object,
     link: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.any,
     type: PropTypes.string
 };
 
