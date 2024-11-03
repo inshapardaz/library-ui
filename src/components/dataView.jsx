@@ -18,7 +18,6 @@ import {
     SimpleGrid,
     Skeleton,
     Stack,
-    Table,
     Text,
     TextInput,
     Title
@@ -126,11 +125,11 @@ const DataView = ({
                 </SimpleGrid>)
         } else {
             content = (
-                <Table verticalSpacing="sm">
-                    <Table.Tbody>
-                        {Array(12).fill(1).map((_, index) => <Skeleton key={index} height={75} m={4} />)}
-                    </Table.Tbody>
-                </Table>)
+                <Stack align="stretch"
+                    justify="center"
+                    gap="md">
+                    {Array(12).fill(1).map((_, index) => <Skeleton key={index} height={75} m={4} />)}
+                </Stack>)
         }
     } else if (isError) {
         content = (
@@ -154,11 +153,11 @@ const DataView = ({
         } else {
             content = (
                 <Stack>
-                    <Table verticalSpacing="sm" highlightOnHover>
-                        <Table.Tbody>
-                            {dataSource.data.map(item => listItemRender(item))}
-                        </Table.Tbody>
-                    </Table>
+                    <Stack align="stretch"
+                        justify="center"
+                        gap="md">
+                        {dataSource.data.map(item => <>{listItemRender(item)}<Divider /></>)}
+                    </Stack>
                     <Center>
                         {pageination}
                     </Center>
@@ -184,7 +183,6 @@ const DataView = ({
         </Grid>
         <Divider my="sm" />
         {content}
-        <Divider my="md" />
     </Card >)
 }
 

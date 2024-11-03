@@ -18,10 +18,8 @@ const LibraryCard = ({ library }) => {
     const icon = <Center> <IconLibrary height={200} style={{ color: theme.colors.dark[2] }} /></Center>;
 
     return (<Card
-        p="lg"
-        shadow="lg"
         className={classes.card}
-        radius="md"
+        shadow="sm" padding="lg" radius="md" withBorder
         component={Link}
         to={`/libraries/${library.id}`}
     >

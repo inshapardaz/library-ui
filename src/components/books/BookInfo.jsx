@@ -30,13 +30,13 @@ const BookInfo = ({ libraryId, book, isLoading }) => {
         return (<Skeleton height={PRIMARY_COL_HEIGHT} radius="md" />);
     }
     return (<Stack>
-        <Group>
+        <Group justify="space-between">
             <Title order={3}>{book.title}</Title>
-            <FavoriteButton book={book} />
+            <FavoriteButton book={book} size={24} />
         </Group>
         {book?.description && <Text order={3}>{book.description}</Text>}
         <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
-        <CategoriesList categories={book?.categories} />
+        <CategoriesList categories={book?.categories} size={24} />
         <BookSeriesInfo book={book} />
         {book.yearPublished != null ? (<IconText icon={<IconCalendar height={24} style={{ color: theme.colors.dark[2] }} />} text={book.yearPublished} />) : null}
         {book.publisher != null ? (<IconText icon={<IconPublisher height={24} style={{ color: theme.colors.dark[2] }} />} text={book.publisher} />) : null}

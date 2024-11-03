@@ -10,7 +10,7 @@ import { IconFavorite, IconFavoriteFill } from '@/components/icon';
 import { useAddBookToFavoriteMutation, useRemoveBookFromFavoriteMutation } from '@/store/slices/books.api';
 //---------------------------------------
 
-const FavoriteButton = ({ book, readonly }) => {
+const FavoriteButton = ({ book, readonly, size }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     const [addBookToFavorite, { isLoading: isAdding }] = useAddBookToFavoriteMutation();
@@ -61,11 +61,11 @@ const FavoriteButton = ({ book, readonly }) => {
     let icon = null;
 
     if (book.links.remove_favorite) {
-        icon = (<IconFavoriteFill style={{ color: theme.colors.red[9] }} />);
+        icon = (<IconFavoriteFill height={size} style={{ color: theme.colors.red[9] }} />);
     }
 
     if (book.links.create_favorite) {
-        icon = (<IconFavorite style={{ color: theme.colors.red[9] }} />);
+        icon = (<IconFavorite height={size} style={{ color: theme.colors.dark[3] }} />);
     }
 
     if (icon) {
@@ -87,7 +87,8 @@ FavoriteButton.propTypes = {
             create_favorite: PropTypes.string,
             remove_favorite: PropTypes.string,
         }),
-    })
+    }),
+    size: PropTypes.any,
 };
 
 

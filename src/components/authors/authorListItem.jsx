@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Divider, Group, Image, Stack, Table, Text, useMantineTheme } from '@mantine/core';
+import { Divider, Group, Image, Stack, Text, useMantineTheme } from '@mantine/core';
 
 // local imports
 import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
@@ -17,24 +17,21 @@ const AuthorListItem = ({ libraryId, author }) => {
     if (author == null) return null;
 
     const icon = <IconAuthor height={200} style={{ color: theme.colors.dark[2] }} />;
-    return (<Table.Tr>
-        <Table.Td>
-            <Group wrap="nowrap">
-                {author.links?.image ?
-                    <Image w={200} radius="sm" src={author?.links?.image} /> :
-                    icon
-                }
-                <Stack>
-                    <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
-                    <Group mt="md">
-                        {author.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />) : null}
-                        <Divider orientation="vertical" />
-                        {author.articleCount != null ? (<IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />) : null}
-                    </Group>
-                </Stack>
-            </Group>
-        </Table.Td>
-    </Table.Tr>)
+    return (
+        <Group wrap="nowrap">
+            {author.links?.image ?
+                <Image w={200} radius="sm" src={author?.links?.image} /> :
+                icon
+            }
+            <Stack>
+                <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
+                <Group mt="md">
+                    {author.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />) : null}
+                    <Divider orientation="vertical" />
+                    {author.articleCount != null ? (<IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />) : null}
+                </Group>
+            </Stack>
+        </Group>)
 }
 
 AuthorListItem.propTypes = {
