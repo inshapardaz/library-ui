@@ -12,6 +12,7 @@ import LibrariesPage from "./libraries";
 import LibraryPage from "./libraries/library";
 import BooksPage from "./books";
 import BookPage from "./books/book";
+import BookReaderPage from "./books/reader";
 import AuthorsPage from "./authors";
 import AuthorPage from "./authors/authorPage";
 import SeriesListPage from "./series";
@@ -30,6 +31,7 @@ const Pages = {
     LibraryPage,
     BooksPage,
     BookPage,
+    BookReaderPage,
     AuthorsPage,
     AuthorPage,
     SeriesPage,

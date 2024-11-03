@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // Ui Library Import
 
@@ -17,12 +17,12 @@ const BookSeriesInfo = ({ book }) => {
 
     if (book && book.seriesName) {
         if (book.seriesIndex && book.seriesIndex > 0) {
-            return (<IconText component={Link} to={`/libraries/${libraryId}/books?series=${book.seriesId}`}
+            return (<IconText link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
                 icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.seriesAndIndexLabel", { name: book.seriesName, index: book.seriesIndex })}
             />);
         } else {
-            return (<IconText component={Link} to={`/libraries/${libraryId}/books?series=${book.seriesId}`}
+            return (<IconText link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
                 icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.indexLabel", { name: book.seriesName })}
             />);

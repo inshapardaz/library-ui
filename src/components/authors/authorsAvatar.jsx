@@ -14,7 +14,6 @@ const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
     const icon = <IconAuthor height={200} style={{ color: theme.colors.dark[2] }} />;
 
     if (showNames) {
-
         return (<Group>
             {authors.map((author) => (
                 <IconText key={author.id}
