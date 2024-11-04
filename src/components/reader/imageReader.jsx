@@ -95,7 +95,7 @@ const ImageReader = ({ libraryId, bookId, pageNumber, height, direction }) => {
         </Grid.Col>
         <Grid.Col span="auto" ref={ref}>
             <Center>
-                <Image fit="contain" w={pageWidth} src={page1.links.image} />
+                <Image fit="contain" w={pageWidth} src={page1?.links?.image} />
                 {(numberOfPages == 2 && page2) ? <Image fit="contain" w={pageWidth} src={page2?.links?.image} /> : null}
             </Center>
         </Grid.Col>
