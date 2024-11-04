@@ -10,7 +10,7 @@ import TableOfContents from "@/components/reader/tableOfContents";
 import MarkdownReader from "@/components/reader/markdownReader";
 import ImageReader from "@/components/reader/imageReader";
 import ReadModeToggle from "@/components/reader/readModeToggle";
-import ReadViewToggle from "@/components/reader/ReadViewToggle";
+import ReadViewToggle from "@/components/reader/readViewToggle";
 import Error from '@/components/error';
 import { IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
 //------------------------------------------------------
