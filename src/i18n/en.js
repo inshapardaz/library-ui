@@ -247,12 +247,30 @@ const en = {
                 success: 'Book removed from favorites.',
                 error: 'Error removing book from favorites.'
             },
+            read: {
+                title: "Read book"
+            },
+            download: {
+                title: "Download book"
+            }
         },
         error: {
             loading: {
                 title: "Error loading book",
                 detail: "Unexpected error occured loading book. Please retry again."
-            }
+            },
+            loadingChapters: {
+                title: "Error loading chapters",
+                detail: "Unexpected error occured loading chapters. Please retry again."
+            },
+            loadingChapter: {
+                title: "Error loading chapter",
+                detail: "Unexpected error occured loading chapter. Please retry again."
+            },
+            loadingPage: {
+                title: "Error loading page",
+                detail: "Unexpected error occured loading page. Please retry again."
+            },
         }
     },
     author: {

@@ -77,7 +77,6 @@ const BooksList = ({
 }
 
 BooksList.propTypes = {
-
     libraryId: PropTypes.string,
     query: PropTypes.string,
     author: PropTypes.string,

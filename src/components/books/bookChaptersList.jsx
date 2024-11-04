@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 // UI library imports
 import {
@@ -14,7 +15,7 @@ import {
     rem
 } from '@mantine/core';
 import { useGetBookChaptersQuery } from '@/store/slices/books.api';
-import { Link } from 'react-router-dom';
+import Error from '@/components/error';
 //------------------------------------------------------
 
 const PRIMARY_COL_HEIGHT = rem(300);
@@ -23,8 +24,9 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
     const { t } = useTranslation();
     const {
         data: chapters,
-        //error: errorLoadingChapters,
+        error: errorLoadingChapters,
         isFetching: loadingChapters,
+        refetch
     } = useGetBookChaptersQuery({
         libraryId,
         bookId: book?.id
@@ -33,6 +35,12 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
     if (isLoading === true || loadingChapters) {
         return (<Skeleton height={PRIMARY_COL_HEIGHT} radius="md" />);
     }
+    if (errorLoadingChapters) {
+        return (<Error title={t('book.error.loading.title')}
+            detail={t('book.error.loading.detail')}
+            onRetry={refetch} />)
+    }
+
 
     if (!chapters || !chapters.data || chapters.data.length < 1) {
         return (<Center h={100}><Text>{t('book.chapterCount', { count: 0 })}</Text></Center>);

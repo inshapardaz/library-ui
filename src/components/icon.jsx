@@ -33,6 +33,8 @@ const iconTheme = {
         infoCircle: "info-circle",
         chevronUp: "chevron-up",
         chevronDown: "chevron-down",
+        chevronLeft: "chevron-left",
+        chevronRight: "chevron-right",
         world: "world",
         language: "language",
         copyright: "copyright",
@@ -45,7 +47,14 @@ const iconTheme = {
         x: "x",
         heart: "heart",
         heartFill: "heart-filled",
-        alert: "alert-triangle"
+        alert: "alert-triangle",
+        imageReader: "photo",
+        textReader: "file-text",
+        readerScrollView: "invoice",
+        readerSinglePage: "file-text",
+        readerDoublePage: "book",
+        fullScreen: "arrows-maximize",
+        exitFullScreen: "arrows-minimize",
     }
 };
 //-------------------------------------
@@ -97,6 +106,15 @@ export const IconX = (props) => getIcon('x', props)
 export const IconAlert = (props) => getIcon('alert', props)
 export const IconFavorite = (props) => getIcon('heart', props)
 export const IconFavoriteFill = (props) => getIcon('heartFill', props)
+export const IconReaderImage = (props) => getIcon('imageReader', props)
+export const IconReaderText = (props) => getIcon('textReader', props)
+export const IconLeft = (props) => getIcon('chevronLeft', props)
+export const IconRight = (props) => getIcon('chevronRight', props)
+export const IconReaderViewScroll = (props) => getIcon('readerScrollView', props)
+export const IconReaderViewSinglePage = (props) => getIcon('readerSinglePage', props)
+export const IconReaderViewDoublePage = (props) => getIcon('readerDoublePage', props)
+export const IconFullScreen = (props) => getIcon('fullScreen', props)
+export const IconFullScreenExit = (props) => getIcon('exitFullScreen', props)
 
 //-----------------------------------------------------
 // Old Icons

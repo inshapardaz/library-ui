@@ -32,14 +32,23 @@ const fonts = {
     ],
 };
 
+export const languages = {
+    en: {
+        dir: "ltr"
+    },
+    ur: {
+        dir: "rtl"
+    }
+}
+
 export const getFonts = (t, language) =>
     fonts[language]
         ? fonts[language].map((f) => ({
-              value: f.value,
-              label: t(`fonts.${f.label}`),
-          }))
+            value: f.value,
+            label: t(`fonts.${f.label}`),
+        }))
         : null;
-        
+
 i18n.use(initReactI18next).init({
     lng: window.localStorage.i18nextLng || "ur",
     fallbackLng: "en",

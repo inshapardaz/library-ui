@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // UI library imports
@@ -99,9 +99,9 @@ const BookPage = () => {
                     icon
                 }
                 <Space h="md" />
-                <Button fullWidth leftSection={<IconBook />}>Read</Button>
+                <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.read.title')}</Button>
                 <Space h="md" />
-                <Button fullWidth variant='outline' leftSection={<IconBook />}>Download</Button>
+                <Button fullWidth variant='outline' leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
                 <Space h="md" />
                 <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
             </Grid.Col>
