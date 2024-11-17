@@ -1,0 +1,23 @@
+.imageReader {
+    display: grid;
+    grid-template-areas: 
+    "head"
+    "prev main next";
+}
+
+.imageReaderHeader {
+    grid-area: head;
+}
+
+.imageReaderNavPrevButton {
+    grid-area: prev;
+}
+
+.imageReaderNavNextButton {
+    grid-area: next;
+}
+
+
+.imageReaderPageImage {
+    grid-area: main;
+}

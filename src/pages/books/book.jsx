@@ -99,7 +99,7 @@ const BookPage = () => {
                     icon
                 }
                 <Space h="md" />
-                <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.read.title')}</Button>
+                <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook`}>{t('book.actions.read.title')}</Button>
                 <Space h="md" />
                 <Button fullWidth variant='outline' leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
                 <Space h="md" />

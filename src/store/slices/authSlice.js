@@ -33,6 +33,21 @@ export const login = createAsyncThunk(
     }
 );
 
+export const logout = createAsyncThunk(
+    "auth/logout",
+    async () => {
+        try {
+            const response = await axiosPublic.post("/accounts/revoke-token", {
+                token: getUser()?.accessToken
+            });
+            return response.data;
+        } catch (e) {
+            console.error(e.message);
+            return Promise.reject(e.message);
+        }
+    }
+);
+
 export const verifyCode = createAsyncThunk(
     "auth/verify-code",
     async ({ code }) => {
@@ -100,10 +115,6 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        logout: (state) => {
-            state.user = null;
-            clearUser();
-        },
         reset: (state) => {
             state.error = null;
             state.status = "idle";
@@ -125,6 +136,18 @@ export const authSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message;
+            })
+            .addCase(logout.pending, (state) => {
+                state.logoutStatus = "loading";
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.logoutStatus = "succeeded";
+                state.user = null;
+                clearUser();
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.logoutStatus = "failed";
+                state.logoutUser = action.error.message;
             })
             .addCase(init.pending, (state) => {
                 state.tokenStatus = "loading";
@@ -167,9 +190,11 @@ export const loggedInUser = (state) => state?.auth?.user;
 export const isLoggedIn = (state) => state?.auth?.user != null;
 export const getLoginStatus = (state) => state?.auth?.status;
 export const getLoginError = (state) => state?.auth?.error;
+export const getLogoutStatus = (state) => state.auth.logoutStatus;
+export const getLogoutError = (state) => state.auth.logoutError;
 export const getTokenStatus = (state) => state?.auth?.tokenStatus;
 export const getTokenError = (state) => state?.auth?.tokenError;
 export const getResetPasswordStatus = (state) => state?.auth?.resetPasswordStatus;
 export const getResetPasswordError = (state) => state?.auth?.resetPasswordError;
 
-export const { logout, reset } = authSlice.actions;
+export const { reset } = authSlice.actions;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import cx from 'clsx';
 import { Avatar, Button, Group, Menu, Text, UnstyledButton } from "@mantine/core";
 import { modals } from '@mantine/modals';
+import { notifications } from '@mantine/notifications';
 
 // Local Imports
-import { logout, loggedInUser, isLoggedIn } from "@/store/slices/authSlice";
+import { logout, getLogoutStatus, loggedInUser, isLoggedIn } from "@/store/slices/authSlice";
 import classes from './profile.module.css';
 import { IconLogout, IconSettings, IconChangePassword, IconChevronDown } from "../icon";
 //-----------------------------------
@@ -19,8 +20,21 @@ const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isUserLoggedIn = useSelector(isLoggedIn);
+    const status = useSelector(getLogoutStatus)
     const user = useSelector(loggedInUser)
     const [userMenuOpened, setUserMenuOpened] = useState(false);
+
+    useEffect(() => {
+        if (status == "succeeded") {
+            navigate('/')
+        } else if (status == "failed") {
+            notifications.show({
+                color: 'red',
+                title: t("logout.error")
+            });
+        }
+
+    }, [navigate, status, t])
 
     const logoutClicked = () => modals.openConfirmModal({
         title: t('logout.title'),

@@ -33,7 +33,7 @@ function App() {
             <ModalsProvider>
               <Router />
             </ModalsProvider>
-          </MantineProvider>;
+          </MantineProvider>
         </DirectionProvider>
       </HelmetProvider>
     </>

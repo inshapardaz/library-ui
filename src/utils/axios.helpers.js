@@ -53,3 +53,29 @@ axiosPrivate.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+
+axiosPrivate.interceptors.response.use(
+    response => response, // Directly return successful responses.
+    async error => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            try {
+                const response = await axiosPublic.post(
+                    "/accounts/refresh-token",
+                    {
+                        refreshToken: getUser().refreshToken,
+                    }
+                );
+                setUser(response.data);
+                return axiosPrivate(originalRequest); // Retry the original request with the new access token.
+            } catch (refreshError) {
+                clearUser();
+                window.location.href = "/account/login";
+                return Promise.reject(refreshError);
+            }
+        }
+        return Promise.reject(error);
+    }
+);

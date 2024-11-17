@@ -2,6 +2,7 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 
 import Pages from "@/pages";
 
+import LayoutWithHeaderAndFooter from "@/layout/layoutWithHeaderAndFooter";
 import LayoutWithHeader from "@/layout/layoutWithHeader";
 import LayoutWithFooter from "@/layout/layoutWithFooter";
 import SecurePage from "@/layout/securePage";
@@ -12,13 +13,12 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<LayoutWithHeader />}>
+                <Route element={<LayoutWithHeaderAndFooter />}>
                     <Route path="/" element={<Pages.HomePage />} />
                     <Route path="/libraries/:libraryId/authors/:authorId" element={<Pages.AuthorPage />} />
                     <Route path="/libraries/:libraryId/authors" element={<Pages.AuthorsPage />} />
                     <Route path="/libraries/:libraryId/series/:seriesId" element={<Pages.SeriesPage />} />
                     <Route path="/libraries/:libraryId/series" element={<Pages.SeriesListPage />} />
-                    <Route path="/libraries/:libraryId/books/:bookId/read" element={<Pages.BookReaderPage />} />
                     <Route path="/libraries/:libraryId/books/:bookId" element={<Pages.BookPage />} />
                     <Route path="/libraries/:libraryId/books" element={<Pages.BooksPage />} />
                     <Route path="/libraries/:libraryId" element={<Pages.LibraryPage />} />
@@ -32,6 +32,10 @@ const Router = () => {
                     <Route path="/403" element={<Pages.Error403Page />} />
                     <Route path="/500" element={<Pages.Error500Page />} />
                     <Route path="*" element={<Pages.Error404Page />} />
+                </Route>
+                <Route element={<LayoutWithHeader />}>
+                    <Route path="/libraries/:libraryId/books/:bookId/read" element={<Pages.BookReaderPage />} />
+                    <Route path="/libraries/:libraryId/books/:bookId/ebook" element={<Pages.EBookReaderPage />} />
                 </Route>
                 <Route element={<LayoutWithFooter />}>
                     <Route path="/account/login" element={<Pages.LoginPage />} />

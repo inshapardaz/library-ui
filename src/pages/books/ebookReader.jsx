@@ -1,28 +1,29 @@
+import { ActionIcon, Button, Container, Drawer, Group, rem, Skeleton, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-
-// UI library import
-import { ActionIcon, Button, Container, Drawer, Group, rem, Skeleton, Stack, Text } from "@mantine/core";
-import { useDisclosure, useFullscreen } from '@mantine/hooks';
+import { useDisclosure, useFullscreen, useLocalStorage } from '@mantine/hooks';
 
 // Local imports
 import { useGetBookQuery, useGetBookChaptersQuery } from '@/store/slices/books.api';
-import { languages } from '@/i18n';
 import TableOfContents from "@/components/reader/tableOfContents";
-import ImageReader from "@/components/reader/pages/imageReader";
+import MarkdownReader from "@/components/reader/ebook/markdownReader";
+import ReadViewToggle from "@/components/reader/readViewToggle";
 import Error from '@/components/error';
 import { IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
-import classes from './reader.module.css'
 //------------------------------------------------------
 
-const BookReaderPage = () => {
+const EBookReaderPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { ref, toggle, fullscreen } = useFullscreen();
     const [opened, { open, close }] = useDisclosure(false);
+    const [readerView, setReaderView] = useLocalStorage({
+        key: "reader-view-type",
+        defaultValue: 'scroll',
+    });
     const { libraryId, bookId } = useParams();
     const [searchParams] = useSearchParams();
-    const selectedPageNumber = searchParams.get("page") ?? "1";
+    const selectedChapterNumber = searchParams.get("chapter") ?? 1;
 
     const {
         data: book,
@@ -73,26 +74,25 @@ const BookReaderPage = () => {
         navigate(`/libraries/${libraryId}/books/${book.id}/read?chapter=${item.key}`)
     }
 
-    return (<Container fluid ref={ref} className={classes.reader}>
-        <div className={classes.imageReaderHeader}>
-            <Group justify="space-between">
-                <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Text>
-                <Group>
-                    <Button variant="default" onClick={open} rightSection={<IconChapters />}>{t('book.chapters')}</Button>
-                    <ActionIcon onClick={toggle} size={36} variant="default">
-                        {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
-                    </ActionIcon>
-                </Group>
-            </Group>
-        </div>
-        <div className={classes.contents}>
-            <ImageReader libraryId={libraryId} bookId={bookId} pageNumber={Number(selectedPageNumber)} height={600} direction={languages[book?.language].dir} />
-        </div>
+    const selectedLanguage = book?.language ?? "ur"
 
+    return (<Container fluid ref={ref}>
+        <Group justify="space-between">
+            <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Text>
+            <Group>
+                <ReadViewToggle value={readerView} onChange={setReaderView} />
+                <Button variant="default" onClick={open} rightSection={<IconChapters />}>{t('book.chapters')}</Button>
+                <ActionIcon onClick={toggle} size={36} variant="default">
+                    {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
+                </ActionIcon>
+            </Group>
+        </Group>
+        <MarkdownReader libraryId={libraryId} bookId={bookId} viewType={readerView} chapterNumber={selectedChapterNumber} language={selectedLanguage} />
         <Drawer opened={opened} onClose={close} title={<Group><IconChapters />{t('book.chapters')}</Group>}>
-            <TableOfContents title={book?.title} links={chapterLinks} onSelected={onChapterSelected} />
+            <TableOfContents title={book?.title} links={chapterLinks} selectedKey={selectedChapterNumber}
+                onSelected={onChapterSelected} />
         </Drawer>
     </Container>)
 }
 
-export default BookReaderPage;
+export default EBookReaderPage;
