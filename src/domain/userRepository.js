@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { COOKIE_DOMAIN } from "@/config";
 
 const isJsonString = (str) => {
   try {
@@ -19,7 +20,7 @@ export const getUser = () => {
 };
 
 export const setUser = (user) => {
-  Cookies.set('user', JSON.stringify(user));
+  Cookies.set('user', JSON.stringify(user), { path: '/', domain: COOKIE_DOMAIN, secure: true });
 };
 
 export const clearUser = () => {
