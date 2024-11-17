@@ -54,7 +54,6 @@ const ForgotPasswordPage = () => {
     });
 
     const onSubmit = ({ email }) => {
-        console.log('111')
         handlers.open()
         setError(false)
         forgotPassword({ email })

@@ -54,7 +54,7 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
                 icon={
                     <Avatar color="cyan" radius="xl">{chapter.chapterNumber}</Avatar>
                 }>
-                <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}/read?chapter=${chapter.chapterNumber}`}>
+                <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber}`}>
                     {chapter.title}
                 </Text>
             </List.Item>

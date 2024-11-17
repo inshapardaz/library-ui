@@ -23,7 +23,6 @@ const ImageReader = ({ libraryId, bookId, pageNumber, direction }) => {
     const [numberOfPages, setNumberOfPages] = useState(2);
     const { ref, width, height } = useElementSize();
 
-    console.log(height);
     useEffect(() => {
         setNumberOfPages(Math.floor(width / pageWidth) > 1 ? 2 : 1)
     }, [width]);

@@ -18,6 +18,7 @@ if (window.location.host.toLocaleLowerCase() == 'editor.nawishta.dev') {
     console.log('Environment is: production');
 } else {
     console.log('Environment is: local');
+    API_URL = 'https://api.nawishta.co.uk';
 }
 console.log('--------------------------------------------------')
 

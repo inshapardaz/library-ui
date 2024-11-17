@@ -1,15 +1,17 @@
-import { ActionIcon, Button, Container, Drawer, Group, rem, Skeleton, Stack, Text } from "@mantine/core";
+import { ActionIcon, Button, Breadcrumbs, Container, Drawer, Group, rem, Skeleton, Stack } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useDisclosure, useFullscreen, useLocalStorage } from '@mantine/hooks';
 
 // Local imports
-import { useGetBookQuery, useGetBookChaptersQuery } from '@/store/slices/books.api';
+import { useGetBookQuery, useGetChapterQuery, useGetBookChaptersQuery } from '@/store/slices/books.api';
 import TableOfContents from "@/components/reader/tableOfContents";
 import MarkdownReader from "@/components/reader/ebook/markdownReader";
-import ReadViewToggle from "@/components/reader/readViewToggle";
 import Error from '@/components/error';
-import { IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
+import { IconBook, IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
+import classes from './ebookReader.module.css'
+import StyleModel from "../../components/reader/ebook/styleModel";
+
 //------------------------------------------------------
 
 const EBookReaderPage = () => {
@@ -17,13 +19,13 @@ const EBookReaderPage = () => {
     const navigate = useNavigate();
     const { ref, toggle, fullscreen } = useFullscreen();
     const [opened, { open, close }] = useDisclosure(false);
-    const [readerView, setReaderView] = useLocalStorage({
-        key: "reader-view-type",
-        defaultValue: 'scroll',
-    });
     const { libraryId, bookId } = useParams();
     const [searchParams] = useSearchParams();
     const selectedChapterNumber = searchParams.get("chapter") ?? 1;
+    const [readerView] = useLocalStorage({
+        key: "reader-view-type",
+        defaultValue: 'scroll',
+    });
 
     const {
         data: book,
@@ -36,6 +38,19 @@ const EBookReaderPage = () => {
     });
 
     const {
+        data: chapter,
+        error: errorLoadingChapter,
+        isFetching: loadingChapter,
+        refetch: refetchChapter
+    } = useGetChapterQuery({
+        libraryId,
+        bookId,
+        chapterNumber: selectedChapterNumber
+    }, {
+        skip: loadingBook || errorLoadingBook || !libraryId || book === null || book?.id === null || selectedChapterNumber == null
+    });
+
+    const {
         data: chapters,
         error: errorLoadingChapters,
         isFetching: loadingChapters,
@@ -45,7 +60,7 @@ const EBookReaderPage = () => {
         bookId: book?.id
     }, { skip: loadingBook || errorLoadingBook || !libraryId || book === null || book?.id === null });
 
-    if (loadingBook || loadingChapters) {
+    if (loadingBook || loadingChapters || loadingChapter) {
         return (<Container fluid mt="sm">
             <Stack>
                 {
@@ -55,12 +70,13 @@ const EBookReaderPage = () => {
         </Container>);
     }
 
-    if (errorLoadingBook || errorLoadingChapters) {
+    if (errorLoadingBook || errorLoadingChapters || errorLoadingChapter) {
         return (<Container fluid mt="sm">
             <Error title={t('book.error.loading.title')}
                 detail={t('book.error.loading.detail')}
                 onRetry={() => {
                     refetchBook();
+                    refetchChapter();
                     refetchChapters();
                 }} />
         </Container>)
@@ -71,17 +87,25 @@ const EBookReaderPage = () => {
     ));
 
     const onChapterSelected = (item) => {
-        navigate(`/libraries/${libraryId}/books/${book.id}/read?chapter=${item.key}`)
+        navigate(`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${item.key}`)
     }
+
+    const items = [
+        (<Button variant="transparent" color="gray" component={Link} to={`/libraries/${libraryId}/books/${book.id}`} leftSection={<IconBook />} key='book'>
+            {book.title}
+        </Button>),
+        (<Button variant="transparent" color="gray" onClick={open} leftSection={<IconChapters />} key="chapter">
+            {chapter ? chapter.title : t('book.chapters')}
+        </Button>),
+    ]
 
     const selectedLanguage = book?.language ?? "ur"
 
-    return (<Container fluid ref={ref}>
+    return (<Container fluid ref={ref} className={classes.reader}>
         <Group justify="space-between">
-            <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Text>
+            <Breadcrumbs>{items}</Breadcrumbs>
             <Group>
-                <ReadViewToggle value={readerView} onChange={setReaderView} />
-                <Button variant="default" onClick={open} rightSection={<IconChapters />}>{t('book.chapters')}</Button>
+                <StyleModel language={selectedLanguage} t={t} />
                 <ActionIcon onClick={toggle} size={36} variant="default">
                     {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
                 </ActionIcon>
