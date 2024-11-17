@@ -20,7 +20,7 @@ export const getUser = () => {
 };
 
 export const setUser = (user) => {
-  Cookies.set('user', JSON.stringify(user), { path: '/', domain: COOKIE_DOMAIN, secure: true });
+  Cookies.set('user', JSON.stringify(user), { path: '/', domain: COOKIE_DOMAIN });
 };
 
 export const clearUser = () => {
