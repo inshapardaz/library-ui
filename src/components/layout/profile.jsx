@@ -10,18 +10,18 @@ import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 
 // Local Imports
-import { logout, getLogoutStatus, loggedInUser, isLoggedIn } from "@/store/slices/authSlice";
+import { logout, getLogoutStatus } from "@/store/slices/authSlice";
 import classes from './profile.module.css';
 import { IconLogout, IconSettings, IconChangePassword, IconChevronDown } from "../icon";
+import { MAIN_SITE } from '@/config';
 //-----------------------------------
 
 const Profile = () => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isUserLoggedIn = useSelector(isLoggedIn);
     const status = useSelector(getLogoutStatus)
-    const user = useSelector(loggedInUser)
+    const user = useSelector(state => state.auth.user)
     const [userMenuOpened, setUserMenuOpened] = useState(false);
 
     useEffect(() => {
@@ -46,12 +46,12 @@ const Profile = () => {
         labels: { confirm: t('actions.yes'), cancel: t('actions.no') },
         onCancel: () => console.log('Cancel'),
         onConfirm: () => {
-            dispatch(logout())
+            dispatch(logout(user))
             navigate('/')
         },
     });
 
-    if (isUserLoggedIn) {
+    if (user) {
         return (<>
             <Menu
                 width={260}
@@ -66,9 +66,9 @@ const Profile = () => {
                         className={cx(classes.user, { [classes.userActive]: userMenuOpened })}
                     >
                         <Group gap={7} wrap="nowrap">
-                            <Avatar src={user.image} alt={user.name} radius="xl" size={24} />
+                            <Avatar src={user?.links?.image} alt={user?.name} radius="xl" size={24} />
                             <Text fw={500} size="sm" lh={1} mr={3}>
-                                {user.name}
+                                {user?.name}
                             </Text>
                             <IconChevronDown
                                 size={12}
@@ -90,12 +90,14 @@ const Profile = () => {
                             <IconChangePassword size={16} stroke={1.5} />
                         }
                         component={Link}
-                        to='/change-password'
+                        to={`${MAIN_SITE}/account/change-password?returnUrl=${window.location.href}`}
                     >
                         {t('changePassword.title')}
                     </Menu.Item>
                     <Menu.Divider />
                     <Menu.Item onClick={logoutClicked}
+                        component={Link}
+                        to={`${MAIN_SITE}/account/logout?returnUrl=${window.location.href}`}
                         leftSection={
                             <IconLogout size={16} stroke={1.5} />
                         }
@@ -109,11 +111,11 @@ const Profile = () => {
     return (<>
         <Button variant="default"
             component={Link}
-            to="/account/login">
+            to={`${MAIN_SITE}/account/login?returnUrl=${window.location.href}`}>
             {t('login.title')}</Button>
         <Button
             component={Link}
-            to="/account/register">
+            to={`${MAIN_SITE}/account/register`}>
             {t('register.title')}
         </Button></>)
 };

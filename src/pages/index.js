@@ -1,8 +1,4 @@
 import HomePage from "./homePage";
-import LoginPage from "./loginPage";
-import RegisterPage from "./registerPage";
-import ChangePasswordPage from "./changePasswordPage";
-import ForgotPasswordPage from "./forgotPasswordPage";
 
 import Error403Page from "./error403";
 import Error404Page from "./error404";
@@ -21,10 +17,6 @@ import SeriesPage from "./series/seriesPage";
 
 const Pages = {
     HomePage,
-    LoginPage,
-    RegisterPage,
-    ChangePasswordPage,
-    ForgotPasswordPage,
     Error403Page,
     Error404Page,
     Error500Page,

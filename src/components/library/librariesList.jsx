@@ -58,7 +58,7 @@ LibrariesList.propTypes = {
     query: PropTypes.string,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
-    pageNumber: PropTypes.string,
+    pageNumber: PropTypes.number,
     pageSize: PropTypes.string,
     showSearch: PropTypes.bool,
     showMore: PropTypes.bool

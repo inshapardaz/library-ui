@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
 // UI libraries
-import { DirectionProvider, MantineProvider } from '@mantine/core';
+import { DirectionProvider, Loader, MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
@@ -15,11 +16,19 @@ import '@mantine/carousel/styles.css';
 
 import Router from "./router";
 import { selectedLanguage } from "@/store/slices/uiSlice";
+import { init } from './store/slices/authSlice';
 // ------------------------------------------------------------------
 
 function App() {
-  const lang = useSelector(selectedLanguage);
   const { t } = useTranslation();
+  const lang = useSelector(selectedLanguage);
+  const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userLoadStatus === 'idle')
+      dispatch(init());
+  }, [dispatch, userLoadStatus]);
 
   return (
     <>
@@ -31,7 +40,7 @@ function App() {
           <MantineProvider>
             <Notifications limit={5} position="bottom-right" />
             <ModalsProvider>
-              <Router />
+              {userLoadStatus === 'loading' ? <Loader /> : <Router />}
             </ModalsProvider>
           </MantineProvider>
         </DirectionProvider>
