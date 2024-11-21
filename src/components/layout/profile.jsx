@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Ui Library Imports
 import cx from 'clsx';
 import { Avatar, Button, Group, Menu, Text, UnstyledButton } from "@mantine/core";
 import { modals } from '@mantine/modals';
-import { notifications } from '@mantine/notifications';
 
 // Local Imports
-import { logout, getLogoutStatus } from "@/store/slices/authSlice";
 import classes from './profile.module.css';
 import { IconLogout, IconSettings, IconChangePassword, IconChevronDown } from "../icon";
 import { MAIN_SITE } from '@/config';
@@ -18,23 +16,8 @@ import { MAIN_SITE } from '@/config';
 
 const Profile = () => {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const status = useSelector(getLogoutStatus)
     const user = useSelector(state => state.auth.user)
     const [userMenuOpened, setUserMenuOpened] = useState(false);
-
-    useEffect(() => {
-        if (status == "succeeded") {
-            navigate('/')
-        } else if (status == "failed") {
-            notifications.show({
-                color: 'red',
-                title: t("logout.error")
-            });
-        }
-
-    }, [navigate, status, t])
 
     const logoutClicked = () => modals.openConfirmModal({
         title: t('logout.title'),
@@ -46,8 +29,7 @@ const Profile = () => {
         labels: { confirm: t('actions.yes'), cancel: t('actions.no') },
         onCancel: () => console.log('Cancel'),
         onConfirm: () => {
-            dispatch(logout(user))
-            navigate('/')
+            window.location.href = `${MAIN_SITE}/account/logout?returnUrl=${window.location.href}`
         },
     });
 
@@ -96,8 +78,6 @@ const Profile = () => {
                     </Menu.Item>
                     <Menu.Divider />
                     <Menu.Item onClick={logoutClicked}
-                        component={Link}
-                        to={`${MAIN_SITE}/account/logout?returnUrl=${window.location.href}`}
                         leftSection={
                             <IconLogout size={16} stroke={1.5} />
                         }

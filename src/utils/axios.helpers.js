@@ -43,7 +43,6 @@ axiosPrivate.interceptors.response.use(
                 );
             } catch (refreshError) {
                 console.error(refreshError)
-                console.log('redirect 2')
                 window.location.href = `${MAIN_SITE}/account/login?returnUrl=${window.location.href}`;
                 return Promise.reject(refreshError);
             } finally {

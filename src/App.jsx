@@ -16,7 +16,7 @@ import '@mantine/carousel/styles.css';
 
 import Router from "./router";
 import { selectedLanguage } from "@/store/slices/uiSlice";
-import { init } from './store/slices/authSlice';
+import { init } from '@/store/slices/authSlice';
 // ------------------------------------------------------------------
 
 function App() {

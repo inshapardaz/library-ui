@@ -14,7 +14,6 @@ const SecurePage = () => {
 
     useEffect(() => {
         if (userLoadStatus === 'succeeded' && !user && !window.location.href.includes(MAIN_SITE)) {
-            console.log('redirecting 1')
             window.location.href = `${MAIN_SITE}/account/login?returnUrl=${window.location.href}`
         }
     }, [user, navigate, userLoadStatus])
