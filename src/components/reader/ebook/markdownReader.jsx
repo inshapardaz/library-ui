@@ -11,8 +11,9 @@ import ScrollReader from './scrollReader';
 import FlipBookReader from './flipBookReader';
 //---------------------------------
 
-const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, viewType = "scroll" }) => {
+const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, title, subTitle, viewType = "scroll" }) => {
     const { t } = useTranslation();
+
     const {
         data: chapterContent,
         error,
@@ -35,10 +36,11 @@ const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, vi
             onRetry={refetch} />
     }
 
+
     if (viewType === 'scroll') {
-        return (<ScrollReader markdown={chapterContent?.text} />)
+        return (<ScrollReader markdown={chapterContent?.text} title={title} subTitle={subTitle} />)
     } else if (viewType === 'singlePage' || viewType === 'doublePage') {
-        return (<FlipBookReader markdown={chapterContent?.text} />)
+        return (<FlipBookReader markdown={chapterContent?.text} title={title} subTitle={subTitle} />)
     }
 
     return null;
@@ -48,6 +50,8 @@ MarkdownReader.propTypes = {
     libraryId: PropTypes.string,
     bookId: PropTypes.string,
     chapterNumber: PropTypes.string,
+    title: PropTypes.string,
+    subTitle: PropTypes.string,
     language: PropTypes.string,
     viewType: PropTypes.string,
     height: PropTypes.any

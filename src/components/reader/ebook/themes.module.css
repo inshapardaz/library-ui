@@ -1,0 +1,25 @@
+.markdownReader {
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    justify-content: stretch;
+}
+.markdownReaderThemeWhite {
+    background-color: white;
+    color: #15141a;
+}
+
+.markdownReaderThemeDark {
+    background-color: #343434;
+    color: white;
+}
+
+.markdownReaderThemeSepia {
+    background-color: #f4ecd8;
+    color: #5b4636;
+}
+
+.markdownReaderThemeGrey {
+    background-color: #d7d7db;
+    color: #15141a;
+}

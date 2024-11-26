@@ -27,6 +27,18 @@ const StyleModel = ({ language = "ur" }) => {
         defaultValue: 16,
     });
 
+    const [readerTheme, setReaderTheme] = useLocalStorage({
+        key: "reader-theme",
+        defaultValue: 'White',
+    });
+
+    const themes = [
+        { value: "White", label: t('reader.theme.white') },
+        { value: "Dark", label: t('reader.theme.dark') },
+        { value: "Sepia", label: t('reader.theme.sepia') },
+        { value: "Grey", label: t('reader.theme.grey') },
+    ]
+
     const canIncreaseFont = () => parseInt(readerFontSize, 10) < 40;
     const increaseFont = () => {
         if (canIncreaseFont()) {
@@ -43,6 +55,7 @@ const StyleModel = ({ language = "ur" }) => {
     return (<Group>
         <ReadViewToggle value={readerView} onChange={setReaderView} />
         <Select data={getFonts(t, language)} value={readerFont} onChange={setReaderFont} />
+        <Select data={themes} value={readerTheme} onChange={setReaderTheme} />
         <Paper withBorder >
             <Group>
                 <ActionIcon variant='default' disabled={!canIncreaseFont()} onClick={increaseFont}>+</ActionIcon>

@@ -111,7 +111,13 @@ const EBookReaderPage = () => {
                 </ActionIcon>
             </Group>
         </Group>
-        <MarkdownReader libraryId={libraryId} bookId={bookId} viewType={readerView} chapterNumber={selectedChapterNumber} language={selectedLanguage} />
+        <MarkdownReader libraryId={libraryId}
+            bookId={bookId}
+            viewType={readerView}
+            chapterNumber={selectedChapterNumber}
+            language={selectedLanguage}
+            title={book?.title}
+            subTitle={chapter?.title} />
         <Drawer opened={opened} onClose={close} title={<Group><IconChapters />{t('book.chapters')}</Group>}>
             <TableOfContents title={book?.title} links={chapterLinks} selectedKey={selectedChapterNumber}
                 onSelected={onChapterSelected} />

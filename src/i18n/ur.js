@@ -332,6 +332,14 @@ const ur = {
     writings: {
         title: "تصنیفات",
         description: "نٹر کی دنیا سے انتخاب"
+    },
+    reader: {
+        theme: {
+            white: "سفید",
+            dark: "تاریک",
+            sepia: "خاکی",
+            grey: "گرے",
+        }
     }
 };
 

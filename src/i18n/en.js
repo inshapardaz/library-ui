@@ -330,6 +330,14 @@ const en = {
     writings: {
         title: "Writings",
         description: "Explore the world of prose"
+    },
+    reader: {
+        theme: {
+            white: "White",
+            dark: "Dark",
+            sepia: "Sepia",
+            grey: "Grey",
+        }
     }
 };
 
