@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
+import Markdown from 'react-markdown'
 
 // Ui Library Imports
-import Markdown from 'react-markdown'
-import classes from './scrollReader.module.css'
-import themes from './themes.module.css'
 
 import { useLocalStorage } from '@mantine/hooks';
-import { Button } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
+
+// Local imports
+import classes from './scrollReader.module.css'
+import themes from './themes.module.css'
+import { IconLeft, IconRight } from '@/components/icon';
 
 // Local Import
 //---------------------------------
 
 const getThemeClass = (theme) => {
-    console.log(theme)
     switch (theme) {
         case 'White':
             return themes.markdownReaderThemeWhite;
@@ -29,7 +31,7 @@ const getThemeClass = (theme) => {
 
 //---------------------------------
 
-const ScrollReader = ({ markdown }) => {
+const ScrollReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious }) => {
     const [readerFont] = useLocalStorage({
         key: "reader-font",
         defaultValue: '',
@@ -47,16 +49,26 @@ const ScrollReader = ({ markdown }) => {
 
     return (
         <div className={`${classes.scrollReader} ${getThemeClass(readerTheme)}`}>
-            <Button>Next</Button>
-            <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: readerFontSize }}>
-                <Markdown>{markdown}</Markdown>
+            <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoPrevious} onClick={onPrevious}>
+                <IconRight />
+            </ActionIcon>
+            <div className={classes.readerWrapper} style={{ fontFamily: readerFont, fontSize: readerFontSize }}>
+                <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: readerFontSize }}>
+                    <Markdown>{markdown}</Markdown>
+                </div>
             </div>
-            <Button>Previous</Button>
+            <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoNext} onClick={onNext}>
+                <IconLeft />
+            </ActionIcon>
         </div>)
 }
 
 ScrollReader.propTypes = {
-    markdown: PropTypes.string
+    markdown: PropTypes.string,
+    canGoNext: PropTypes.bool,
+    onNext: PropTypes.func,
+    canGoPrevious: PropTypes.bool,
+    onPrevious: PropTypes.func
 }
 
 export default ScrollReader;

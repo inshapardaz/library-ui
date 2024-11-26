@@ -11,7 +11,7 @@ import ScrollReader from './scrollReader';
 import FlipBookReader from './flipBookReader';
 //---------------------------------
 
-const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, title, subTitle, viewType = "scroll" }) => {
+const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, viewType = "scroll" }) => {
     const { t } = useTranslation();
 
     const {
@@ -38,9 +38,23 @@ const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, ti
 
 
     if (viewType === 'scroll') {
-        return (<ScrollReader markdown={chapterContent?.text} title={title} subTitle={subTitle} />)
+        return (<ScrollReader markdown={chapterContent?.text}
+            title={title}
+            subTitle={subTitle}
+            canGoNext={canGoNext}
+            canGoPrevious={canGoPrevious}
+            onNext={onNext}
+            onPrevious={onPrevious}
+        />)
     } else if (viewType === 'singlePage' || viewType === 'doublePage') {
-        return (<FlipBookReader markdown={chapterContent?.text} title={title} subTitle={subTitle} />)
+        return (<FlipBookReader markdown={chapterContent?.text}
+            title={title}
+            subTitle={subTitle}
+            canGoNext={canGoNext}
+            canGoPrevious={canGoPrevious}
+            onNext={onNext}
+            onPrevious={onPrevious}
+        />)
     }
 
     return null;
@@ -54,7 +68,11 @@ MarkdownReader.propTypes = {
     subTitle: PropTypes.string,
     language: PropTypes.string,
     viewType: PropTypes.string,
-    height: PropTypes.any
+    height: PropTypes.any,
+    canGoNext: PropTypes.bool,
+    onNext: PropTypes.func,
+    canGoPrevious: PropTypes.bool,
+    onPrevious: PropTypes.func
 }
 
 export default MarkdownReader;

@@ -1,8 +1,20 @@
 .scrollReader {
-    overflow-y: scroll;
+    
     padding: 10px;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    height: calc(-120px + 100vh);
 }
 
+.navButton {
+    align-self: center; 
+    padding: 4px;
+}
+
+.readerWrapper {
+    padding: var(--mantine-spacing-md);
+    overflow-y: scroll;
+}
 .readerContainer {
     text-align: justify;
     max-width: 600px;

@@ -117,7 +117,11 @@ const EBookReaderPage = () => {
             chapterNumber={selectedChapterNumber}
             language={selectedLanguage}
             title={book?.title}
-            subTitle={chapter?.title} />
+            subTitle={chapter?.title}
+            canGoNext={chapter?.links?.next != null}
+            canGoPrevious={chapter?.links?.previous != null}
+            onNext={() => navigate(`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber + 1}`)}
+            onPrevious={() => navigate(`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber - 1}`)} />
         <Drawer opened={opened} onClose={close} title={<Group><IconChapters />{t('book.chapters')}</Group>}>
             <TableOfContents title={book?.title} links={chapterLinks} selectedKey={selectedChapterNumber}
                 onSelected={onChapterSelected} />

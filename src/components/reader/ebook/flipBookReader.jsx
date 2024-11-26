@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import Markdown from 'react-markdown'
 
 // Ui Library Imports
-import { useLocalStorage, useElementSize, useInViewport } from '@mantine/hooks';
+import { useLocalStorage, useInViewport } from '@mantine/hooks';
 import { ActionIcon } from '@mantine/core';
 
 // Local Import
@@ -12,7 +12,6 @@ import themes from './themes.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
 
 const getThemeClass = (theme) => {
-    console.log(theme)
     switch (theme) {
         case 'White':
             return themes.markdownReaderThemeWhite;
@@ -28,7 +27,7 @@ const getThemeClass = (theme) => {
 }
 //---------------------------------
 
-const FlipBookReader = ({ markdown, title, subTitle }) => {
+const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious }) => {
     const [readerFont] = useLocalStorage({
         key: "reader-font",
         defaultValue: '',
@@ -44,43 +43,35 @@ const FlipBookReader = ({ markdown, title, subTitle }) => {
         defaultValue: 'white',
     });
 
-    const { ref, width } = useElementSize();
-    const { ref: ref2, inViewport } = useInViewport();
+    const { ref, inViewport } = useInViewport();
     const [page, setPage] = useState(1);
 
     const pageWidth = 682;
     const left = useMemo(() => (page - 1) * pageWidth, [page]);
 
-    const canGoNext = useMemo(() => !inViewport, [inViewport]);
-    const canGoPrevious = useMemo(() => page > 1, [page]);
+    const canGoNextPage = useMemo(() => !inViewport, [inViewport]);
+    const canGoPreviousPage = useMemo(() => page > 1, [page]);
 
-    const onNext = () => {
-        console.log('onNext')
-        if (canGoNext) {
+    const onNextPage = () => {
+        if (canGoNextPage) {
             setPage(p => p + 1)
+        } else if (canGoNext) {
+            onNext();
         }
     }
 
-    const onPrevious = () => {
-        console.log('onPrevious')
-        if (canGoPrevious) {
+    const onPreviousPage = () => {
+        if (canGoPreviousPage) {
             setPage(p => p - 1)
+        } else if (canGoPrevious) {
+            onPrevious();
         }
     }
 
-
-    console.log({
-        page,
-        width,
-        canGoNext,
-        canGoPrevious,
-        left,
-        inViewport
-    })
     return (
         <div className={classes.container}>
             <div className={classes.navButton}>
-                <ActionIcon variant='default' size="lg" onClick={onPrevious} disabled={!canGoPrevious}>
+                <ActionIcon variant='default' size="lg" onClick={onPreviousPage} disabled={!canGoPreviousPage && !canGoPrevious}>
                     <IconRight />
                 </ActionIcon>
             </div>
@@ -92,15 +83,15 @@ const FlipBookReader = ({ markdown, title, subTitle }) => {
                     <div className={classes.header}>
                         {title}
                     </div>
-                    <div className={classes.readerContainer} style={{ left: `${left}px` }} ref={ref}>
+                    <div className={classes.readerContainer} style={{ left: `${left}px` }} >
                         <Markdown>{markdown}</Markdown>
-                        <span ref={ref2} />
+                        <span ref={ref} />
                     </div>
                     <div className={classes.footer}>{subTitle}</div>
                 </div>
             </div>
             <div className={classes.navButton}>
-                <ActionIcon variant='default' size="lg" onClick={onNext} disabled={!canGoNext}>
+                <ActionIcon variant='default' size="lg" onClick={onNextPage} disabled={!canGoNextPage && !canGoNext}>
                     <IconLeft />
                 </ActionIcon>
             </div>
@@ -110,7 +101,11 @@ const FlipBookReader = ({ markdown, title, subTitle }) => {
 FlipBookReader.propTypes = {
     markdown: PropTypes.string,
     title: PropTypes.string,
-    subTitle: PropTypes.string
+    subTitle: PropTypes.string,
+    canGoNext: PropTypes.bool,
+    onNext: PropTypes.func,
+    canGoPrevious: PropTypes.bool,
+    onPrevious: PropTypes.func
 }
 
 export default FlipBookReader;
