@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
 import { Group, Image, Stack, Text, useMantineTheme } from '@mantine/core';
@@ -12,7 +11,6 @@ import FavoriteButton from './favoriteButton';
 //-------------------------------------
 
 const WritingListItem = ({ libraryId, writing }) => {
-    const { t } = useTranslation();
     const theme = useMantineTheme();
 
     const icon = <IconWriting width={150} style={{ color: theme.colors.dark[1] }} />;

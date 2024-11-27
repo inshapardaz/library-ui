@@ -3,9 +3,9 @@ import { useParams, useSearchParams } from "react-router-dom";
 
 // Local Import
 import { SortDirection } from "@/models";
-import WritingsSideBar from "@/components/writings/writingsSideBar";
 import WritingsList from "@/components/writings/writingsList";
 import { Grid, rem } from "@mantine/core";
+import WritingsSideBar from "@/components/writings/writingsSidebar";
 
 // -----------------------------------------
 const WritingsPage = () => {
