@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import Markdown from 'react-markdown'
 
 // Ui Library Imports
-import { useLocalStorage, useInViewport } from '@mantine/hooks';
+import { useLocalStorage, useInViewport, useHotkeys } from '@mantine/hooks';
 import { ActionIcon } from '@mantine/core';
 
 // Local Import
@@ -67,6 +67,11 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
             onPrevious();
         }
     }
+
+    useHotkeys([
+        ['ArrowLeft', () => onPreviousPage()],
+        ['ArrowRight', () => onNextPage()]
+    ]);
 
     return (
         <div className={classes.container}>
