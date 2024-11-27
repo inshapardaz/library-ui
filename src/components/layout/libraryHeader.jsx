@@ -21,7 +21,7 @@ import { useDisclosure } from '@mantine/hooks';
 // Local imports
 import classes from './appHeader.module.css';
 
-import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPeriodicals } from '@/components/icon';
+import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPeriodicals, IconWritings } from '@/components/icon';
 import Logo from '@/components/logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
@@ -60,12 +60,25 @@ const LibraryHeader = ({ library }) => {
                                 {library.name}
                             </Text>
                         </NavLink >
-                        <CategoriesMenu library={library} className={classes.link}>
+                        <CategoriesMenu library={library} className={classes.link} target='books'>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks height="24px" />
                                 <Space w="md" />
                                 <Text visibleFrom="lg">
                                     {t('header.books')}
+                                </Text>
+                                <IconChevronDown
+                                    width={rem(16)}
+                                    height={rem(16)}
+                                />
+                            </NavLink >
+                        </CategoriesMenu>
+                        <CategoriesMenu library={library} className={classes.link} target='writings'>
+                            <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
+                                <IconWritings height="24px" />
+                                <Space w="md" />
+                                <Text visibleFrom="lg">
+                                    {t('header.writings')}
                                 </Text>
                                 <IconChevronDown
                                     width={rem(16)}
@@ -133,11 +146,23 @@ const LibraryHeader = ({ library }) => {
                         <Space w="md" />
                         {t('header.home')}
                     </NavLink >
-                    <CategoriesMenu library={library}>
+                    <CategoriesMenu library={library} target="books">
                         <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                             <IconBooks height="24px" />
                             <Space w="md" />
                             {t('header.books')}
+                            <IconChevronDown
+                                width={rem(16)}
+                                height={rem(16)}
+                                style={{ color: theme.colors.blue[6] }}
+                            />
+                        </NavLink >
+                    </CategoriesMenu>
+                    <CategoriesMenu library={library} target="writings">
+                        <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
+                            <IconWritings height="24px" />
+                            <Space w="md" />
+                            {t('header.writings')}
                             <IconChevronDown
                                 width={rem(16)}
                                 height={rem(16)}

@@ -10,10 +10,10 @@ import { booksApi } from "./slices/books.api";
 import { authorsApi } from "./slices/authors.api";
 import { seriesApi } from "./slices/series.api";
 import { categoriesApi } from "./slices/categories.api";
+import { articlesApi } from "./slices/articles.api";
 // import { periodicalsApi } from "./slices/periodicalsSlice";
 // import { issuesApi } from "./slices/issuesSlice";
 // import { issueArticlesApi } from "./slices/issueArticlesSlice";
-// import { articlesApi } from "./slices/articlesSlice";
 // import { toolsApi } from "./slices/toolsSlice";
 
 // ----------------------------------------------
@@ -27,12 +27,12 @@ export const store = configureStore({
         // [accountsApi.reducerPath]: accountsApi.reducer,
         [booksApi.reducerPath]: booksApi.reducer,
         [authorsApi.reducerPath]: authorsApi.reducer,
+        [articlesApi.reducerPath]: articlesApi.reducer,
         [seriesApi.reducerPath]: seriesApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
         // [periodicalsApi.reducerPath]: periodicalsApi.reducer,
         // [issuesApi.reducerPath]: issuesApi.reducer,
         // [issueArticlesApi.reducerPath]: issueArticlesApi.reducer,
-        // [articlesApi.reducerPath]: articlesApi.reducer,
         // [toolsApi.reducerPath]: toolsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
@@ -44,9 +44,9 @@ export const store = configureStore({
             .concat(authorsApi.middleware)
             .concat(seriesApi.middleware)
             .concat(categoriesApi.middleware)
+            .concat(articlesApi.middleware)
     // .concat(periodicalsApi.middleware)
     // .concat(issuesApi.middleware)
     // .concat(issueArticlesApi.middleware)
-    // .concat(articlesApi.middleware)
     // .concat(toolsApi.middleware),
 });

@@ -210,7 +210,10 @@ const en = {
         all: "All Categories",
         bookCount_zero: "No books",
         bookCount_one: "1 book",
-        bookCount_other: "{{count}} books",
+        bookCount_other: "{{count}} writing",
+        writingCount_zero: "No writing",
+        writingCount_one: "1 writing",
+        writingCount_other: "{{count}} writing",
         errors: {
             loading: {
                 title: "Error",
@@ -315,6 +318,34 @@ const en = {
             }
         }
     },
+    writings: {
+        empty: "No writings found.",
+        title: "Writings",
+        description: "Explore exquisite collection of prose",
+        all: "All Writings",
+        latest: "Latest Additions",
+        lastRead: "Recent Reads",
+        favorites: "Favorites",
+        error: {
+            loading: {
+                title: "Error loading writings",
+                detail: "Unexpected error occured loading writings. Please retry again."
+            }
+        },
+    },
+    writing: {
+        noDescription: "No details...",
+        actions: {
+            addFavorite: {
+                success: 'Writing added to favorites.',
+                error: 'Error adding writing to favorites.'
+            },
+            removeFavorite: {
+                success: 'Writing removed from favorites.',
+                error: 'Error removing writing from favorites.'
+            },
+        }
+    },
     series: {
         title: "Series",
         description: "Collection of series of books",
@@ -326,10 +357,6 @@ const en = {
                 detail: "Unexpected error occured loading series. Please retry again."
             }
         }
-    },
-    writings: {
-        title: "Writings",
-        description: "Explore the world of prose"
     },
     reader: {
         theme: {

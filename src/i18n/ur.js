@@ -213,6 +213,9 @@ const ur = {
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",
         bookCount_other: "{{count}} کتب",
+        writingsCount_zero: "کوئی تصنیف موجود نہیں",
+        writingsCount_one: "1 تصنیف",
+        writingsCount_other: "{{count}} نصنیفات",
         errors: {
             loading: {
                 title: "زمرہ جات لوڈ نہیں ہو سکے",
@@ -291,6 +294,34 @@ const ur = {
             },
         }
     },
+    writings: {
+        title: "تصنیفات",
+        description: "نصنیفات کی دنیا سے انتخاب",
+        empty: "نصنیف موجود نہیں",
+        all: "تمام نصنیفات",
+        latest: "نئی نصنیفات",
+        lastRead: "زیر مطالعہ نصنیفات",
+        favorites: "پسندیدہ",
+        error: {
+            loading: {
+                title: "نصنیفات حاصل نہیں ہو سکیں",
+                detail: "نصنیفات کے حصول میں غیر متوقع مسئلہ پیدا ہوا۔ برائے مہربانی دوبارہ کوشش کریں۔"
+            }
+        }
+    },
+    writing: {
+        noDescription: "تفصیل دستیاب نہیں۔۔۔",
+        actions: {
+            addFavorite: {
+                success: 'نصنیف پسندیدہ نصنیفات میں داخل کر دی  گئی ہے۔',
+                error: 'نصنیف پسندیدہ نصنیفات میں داخل نہیں کی جا سکی۔'
+            },
+            removeFavorite: {
+                success: 'نصنیف پسندیدہ نصنیفات سے خارج کر دی گئی ہے۔',
+                error: 'نصنیف پسندیدہ نصنیفات سے نکالی نہیں جا سکی۔'
+            },
+        },
+    },
     author: {
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",
@@ -328,10 +359,6 @@ const ur = {
                 detail: "سلسلہ کے حصول میں غیر متوقع مسئلہ پیدا ہوا۔ برائے مہربانی دوبارہ کوشش کریں۔"
             }
         }
-    },
-    writings: {
-        title: "تصنیفات",
-        description: "نٹر کی دنیا سے انتخاب"
     },
     reader: {
         theme: {

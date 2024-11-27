@@ -26,14 +26,14 @@ import { IconCategory, IconRefreshAlert } from '../icon';
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, className, children }) => {
+const CategoriesMenu = ({ library, className, target, children }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
 
     const categoriesList = categories?.data?.map ? categories.data.map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.name} component={Link} to={`/libraries/${library.id}/books?category=${item.id}`}>
+        <UnstyledButton className={classes.subLink} key={item.name} component={Link} to={`/libraries/${library.id}/${target}?category=${item.id}`}>
             <Group wrap="nowrap" align="flex-start">
                 <ThemeIcon size={34} variant="default" radius="md">
                     <IconCategory height={22} />
@@ -66,7 +66,7 @@ const CategoriesMenu = ({ library, className, children }) => {
                         <>
                             <Group justify="space-between" px="md">
                                 <Text fw={500}>{t('header.categories')}</Text>
-                                <Text component={Link} to={`/libraries/${library.id}/books`} fz="sm">
+                                <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm">
                                     {t('categories.all')}
                                 </Text>
                             </Group>
@@ -93,6 +93,7 @@ CategoriesMenu.propTypes = {
         name: PropTypes.string
     }),
     className: PropTypes.any,
+    target: PropTypes.string,
     children: PropTypes.any
 };
 

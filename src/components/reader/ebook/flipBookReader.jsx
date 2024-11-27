@@ -11,6 +11,7 @@ import classes from './flipBook.module.css'
 import themes from './themes.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
 
+//---------------------------------
 const getThemeClass = (theme) => {
     switch (theme) {
         case 'White':
@@ -69,8 +70,8 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
     }
 
     useHotkeys([
-        ['ArrowLeft', () => onPreviousPage()],
-        ['ArrowRight', () => onNextPage()]
+        ['ArrowRight', () => onPreviousPage()],
+        ['ArrowLeft', () => onNextPage()]
     ]);
 
     return (

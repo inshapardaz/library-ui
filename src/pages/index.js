@@ -14,6 +14,7 @@ import AuthorsPage from "./authors";
 import AuthorPage from "./authors/authorPage";
 import SeriesListPage from "./series";
 import SeriesPage from "./series/seriesPage";
+import WritingsPage from "./writings";
 
 const Pages = {
     HomePage,
@@ -29,7 +30,8 @@ const Pages = {
     AuthorsPage,
     AuthorPage,
     SeriesPage,
-    SeriesListPage
+    SeriesListPage,
+    WritingsPage
 };
 
 export default Pages;
