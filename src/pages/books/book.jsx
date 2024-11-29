@@ -32,7 +32,7 @@ import Error from '@/components/error';
 import { IconBook } from '@/components/icon';
 //------------------------------------------------------
 
-export const PRIMARY_COL_HEIGHT = rem(300);
+const PRIMARY_COL_HEIGHT = rem(300);
 
 const BookPage = () => {
     const { t } = useTranslation();

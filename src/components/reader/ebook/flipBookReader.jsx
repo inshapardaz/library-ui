@@ -28,7 +28,7 @@ const getThemeClass = (theme) => {
 }
 //---------------------------------
 
-const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious }) => {
+const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, layout = 'normal', showNavigation = true }) => {
     const [readerFont] = useLocalStorage({
         key: "reader-font",
         defaultValue: '',
@@ -76,16 +76,16 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
 
     return (
         <div className={classes.container}>
-            <div className={classes.navButton}>
-                <ActionIcon variant='default' size="lg" onClick={onPreviousPage} disabled={!canGoPreviousPage && !canGoPrevious}>
+            {showNavigation ? <div className={classes.navButton}>
+                <ActionIcon hiddenFrom="sm" variant='default' size="lg" onClick={onPreviousPage} disabled={!canGoPreviousPage && !canGoPrevious}>
                     <IconRight />
                 </ActionIcon>
-            </div>
+            </div> : <span />}
             <div className={classes.readerPage} style={{
                 fontFamily: readerFont,
                 fontSize: readerFontSize
             }}>
-                <div className={`${classes.flipBookReader} ${getThemeClass(readerTheme)}`} >
+                <div className={`${classes.flipBookReader} ${getThemeClass(readerTheme)} readerLayout--${layout}`} >
                     <div className={classes.header}>
                         {title}
                     </div>
@@ -96,11 +96,11 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
                     <div className={classes.footer}>{subTitle}</div>
                 </div>
             </div>
-            <div className={classes.navButton}>
-                <ActionIcon variant='default' size="lg" onClick={onNextPage} disabled={!canGoNextPage && !canGoNext}>
+            {showNavigation ? <div className={classes.navButton}>
+                <ActionIcon hiddenFrom="sm" variant='default' size="lg" onClick={onNextPage} disabled={!canGoNextPage && !canGoNext}>
                     <IconLeft />
                 </ActionIcon>
-            </div>
+            </div> : <span />}
         </div>)
 }
 
@@ -108,6 +108,8 @@ FlipBookReader.propTypes = {
     markdown: PropTypes.string,
     title: PropTypes.string,
     subTitle: PropTypes.string,
+    layout: PropTypes.string,
+    showNavigation: PropTypes.bool,
     canGoNext: PropTypes.bool,
     onNext: PropTypes.func,
     canGoPrevious: PropTypes.bool,

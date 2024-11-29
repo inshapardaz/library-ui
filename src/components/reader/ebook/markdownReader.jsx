@@ -1,55 +1,30 @@
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Center, Loader } from '@mantine/core';
 
 // Local Import
-import { useGetChapterContentsQuery } from '@/store/slices/books.api';
-import Error from '@/components/error';
 import ScrollReader from './scrollReader';
 import FlipBookReader from './flipBookReader';
 //---------------------------------
 
-const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, viewType = "scroll" }) => {
-    const { t } = useTranslation();
-
-    const {
-        data: chapterContent,
-        error,
-        isFetching,
-        refetch
-    } = useGetChapterContentsQuery({
-        libraryId,
-        bookId,
-        chapterNumber,
-        language
-    }, { skip: !libraryId || !bookId || !chapterNumber || !language });
-
-    if (isFetching) {
-        return <Center h={height}><Loader /></Center>
-    }
-
-    if (error) {
-        <Error title={t('book.error.loadingChapter.title')}
-            detail={t('book.error.loadingChapter.detail')}
-            onRetry={refetch} />
-    }
-
-
+const MarkdownReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, viewType = "scroll", layout = 'normal', showNavigation = true }) => {
     if (viewType === 'scroll') {
-        return (<ScrollReader markdown={chapterContent?.text}
+        return (<ScrollReader markdown={markdown}
             title={title}
             subTitle={subTitle}
+            layout={layout}
+            showNavigation={showNavigation}
             canGoNext={canGoNext}
             canGoPrevious={canGoPrevious}
             onNext={onNext}
             onPrevious={onPrevious}
         />)
     } else if (viewType === 'singlePage' || viewType === 'doublePage') {
-        return (<FlipBookReader markdown={chapterContent?.text}
+        return (<FlipBookReader markdown={markdown}
             title={title}
             subTitle={subTitle}
+            layout={layout}
+            showNavigation={showNavigation}
             canGoNext={canGoNext}
             canGoPrevious={canGoPrevious}
             onNext={onNext}
@@ -61,14 +36,13 @@ const MarkdownReader = ({ libraryId, bookId, chapterNumber, language, height, ti
 }
 
 MarkdownReader.propTypes = {
-    libraryId: PropTypes.string,
-    bookId: PropTypes.string,
-    chapterNumber: PropTypes.string,
     title: PropTypes.string,
     subTitle: PropTypes.string,
-    language: PropTypes.string,
+    markdown: PropTypes.string,
     viewType: PropTypes.string,
+    layout: PropTypes.string,
     height: PropTypes.any,
+    showNavigation: PropTypes.bool,
     canGoNext: PropTypes.bool,
     onNext: PropTypes.func,
     canGoPrevious: PropTypes.bool,

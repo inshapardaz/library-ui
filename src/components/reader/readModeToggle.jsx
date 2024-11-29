@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // Ui Library Imports
-import { Center, rem, SegmentedControl } from "@mantine/core";
+import { Center, SegmentedControl } from "@mantine/core";
 
 // Local imports
 import { IconReaderImage, IconReaderText } from '@/components/icon'
@@ -11,7 +11,7 @@ const ReadModeToggle = ({ value, onChange }) => {
         value: 'image',
         label: (
             <Center style={{ gap: 10 }}>
-                <IconReaderImage style={{ width: rem(16), height: rem(16) }} />
+                <IconReaderImage />
             </Center>
         ),
     },
@@ -19,12 +19,12 @@ const ReadModeToggle = ({ value, onChange }) => {
         value: 'text',
         label: (
             <Center style={{ gap: 10 }}>
-                <IconReaderText style={{ width: rem(16), height: rem(16) }} />
+                <IconReaderText />
             </Center>
         ),
     }]
 
-    return <SegmentedControl size="md" onChange={onChange} value={value} data={layouts} />
+    return <SegmentedControl size="lg" onChange={onChange} value={value} data={layouts} />
 }
 
 ReadModeToggle.propTypes = {

@@ -31,7 +31,7 @@ const getThemeClass = (theme) => {
 
 //---------------------------------
 
-const ScrollReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious }) => {
+const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPrevious, layout = 'normal', showNavigation = true }) => {
     const [readerFont] = useLocalStorage({
         key: "reader-font",
         defaultValue: '',
@@ -48,23 +48,29 @@ const ScrollReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious }
     });
 
     return (
-        <div className={`${classes.scrollReader} ${getThemeClass(readerTheme)}`}>
-            <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoPrevious} onClick={onPrevious}>
+        <div className={`${classes.scrollReader} ${getThemeClass(readerTheme)} readerLayout--${layout}`}>
+            {showNavigation ? <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoPrevious} onClick={onPrevious}>
                 <IconRight />
-            </ActionIcon>
+            </ActionIcon> : <span />}
             <div className={classes.readerWrapper} style={{ fontFamily: readerFont, fontSize: readerFontSize }}>
                 <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: readerFontSize }}>
+                    <div className={classes.header}>
+                        {title}
+                    </div>
                     <Markdown>{markdown}</Markdown>
                 </div>
             </div>
-            <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoNext} onClick={onNext}>
+            {showNavigation ? <ActionIcon variant='default' size="lg" className={classes.navButton} disabled={!canGoNext} onClick={onNext}>
                 <IconLeft />
-            </ActionIcon>
+            </ActionIcon> : <span />}
         </div>)
 }
 
 ScrollReader.propTypes = {
+    title: PropTypes.string,
     markdown: PropTypes.string,
+    showNavigation: PropTypes.bool,
+    layout: PropTypes.string,
     canGoNext: PropTypes.bool,
     onNext: PropTypes.func,
     canGoPrevious: PropTypes.bool,

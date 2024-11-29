@@ -11,6 +11,9 @@
     padding: 4px;
 }
 
+.header {
+    font-size: 120%;
+}
 .readerWrapper {
     padding: var(--mantine-spacing-md);
     overflow-y: scroll;

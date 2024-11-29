@@ -37,7 +37,7 @@ const StyleModel = ({ language = "ur" }) => {
         { value: "Dark", label: t('reader.theme.dark') },
         { value: "Sepia", label: t('reader.theme.sepia') },
         { value: "Grey", label: t('reader.theme.grey') },
-    ]
+    ];
 
     const canIncreaseFont = () => parseInt(readerFontSize, 10) < 40;
     const increaseFont = () => {

@@ -1,17 +1,22 @@
-import PropTypes from 'prop-types';
 
 // Ui Library Imports
-import { Center, rem, SegmentedControl } from "@mantine/core";
+import { Center, SegmentedControl } from "@mantine/core";
+import { useLocalStorage } from '@mantine/hooks';
 
 // Local imports
 import { IconReaderViewScroll, IconReaderViewSinglePage, IconReaderViewDoublePage } from '@/components/icon'
 //-----------------------------------
-const ReadViewToggle = ({ value, onChange }) => {
+const ReadViewToggle = () => {
+    const [readerView, setReaderView] = useLocalStorage({
+        key: "reader-view-type",
+        defaultValue: 'scroll',
+    });
+
     const layouts = [{
         value: 'scroll',
         label: (
             <Center style={{ gap: 10 }}>
-                <IconReaderViewScroll style={{ width: rem(16), height: rem(16) }} />
+                <IconReaderViewScroll />
             </Center>
         ),
     },
@@ -19,7 +24,7 @@ const ReadViewToggle = ({ value, onChange }) => {
         value: 'singlePage',
         label: (
             <Center style={{ gap: 10 }}>
-                <IconReaderViewSinglePage style={{ width: rem(16), height: rem(16) }} />
+                <IconReaderViewSinglePage />
             </Center>
         ),
     },
@@ -27,17 +32,12 @@ const ReadViewToggle = ({ value, onChange }) => {
         value: 'doublePage',
         label: (
             <Center style={{ gap: 10 }}>
-                <IconReaderViewDoublePage style={{ width: rem(16), height: rem(16) }} />
+                <IconReaderViewDoublePage />
             </Center>
         ),
     }]
 
-    return <SegmentedControl size="md" onChange={onChange} value={value} data={layouts} />
-}
-
-ReadViewToggle.propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func
+    return <SegmentedControl size="lg" onChange={setReaderView} value={readerView} data={layouts} />
 }
 
 export default ReadViewToggle;
