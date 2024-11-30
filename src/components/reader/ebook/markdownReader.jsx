@@ -23,6 +23,7 @@ const MarkdownReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
             title={title}
             subTitle={subTitle}
             layout={layout}
+            pagesToShow={viewType === 'doublePage' ? 2 : 1}
             showNavigation={showNavigation}
             canGoNext={canGoNext}
             canGoPrevious={canGoPrevious}

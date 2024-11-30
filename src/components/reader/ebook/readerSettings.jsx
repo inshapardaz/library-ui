@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 // Ui Library import
 import { Drawer, Select, Slider, Stack, Text } from "@mantine/core";
+import { useViewportSize } from '@mantine/hooks';
 
 // Local Imports
 import ReadViewToggle from "@/components/reader/readViewToggle";
@@ -30,6 +31,7 @@ for (var j = fontSizetMin; j <= fontSizeMax; j = j + 5) {
 const ReaderSetting = ({ opened, onClose, language, showViews = true }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const { height, width } = useViewportSize();
 
     const readerFont = useSelector(state => state.ui.readerFont);
     const onReaderFontChanged = (value) => dispatch(setReaderFont(value))
@@ -75,6 +77,9 @@ const ReaderSetting = ({ opened, onClose, language, showViews = true }) => {
                 max={lineHeightMax}
                 step={0.1}
             />
+            <Text c="dimmed" size="xs">
+                {`${height} x ${width}`}
+            </Text>
         </Stack>
     </Drawer>);
 };
