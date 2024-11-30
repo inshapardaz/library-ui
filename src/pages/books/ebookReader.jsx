@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { useTranslation } from "react-i18next";
 
 // UI library import
-import { ActionIcon, Button, Breadcrumbs, Container, Drawer, Group, rem, Skeleton, Stack } from "@mantine/core";
+import { ActionIcon, Button, Breadcrumbs, Container, Drawer, Group, rem, Skeleton, Stack, Center, useMantineTheme, Image } from "@mantine/core";
 import { useDisclosure, useFullscreen } from '@mantine/hooks';
 
 // Local imports
@@ -14,11 +14,13 @@ import MarkdownReader from "@/components/reader/ebook/markdownReader";
 import ReaderSetting from "@/components/reader/ebook/readerSettings";
 import Error from '@/components/error';
 import { IconBook, IconChapters, IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
+import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import classes from './ebookReader.module.css'
 //------------------------------------------------------
 
 const EBookReaderPage = () => {
     const { t } = useTranslation();
+    const theme = useMantineTheme();
     const navigate = useNavigate();
     const readerTheme = useSelector(state => state.ui.readerTheme);
     const readerView = useSelector(state => state.ui.readerView);
@@ -118,6 +120,9 @@ const EBookReaderPage = () => {
         </Button>),
     ]
 
+    const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+
+
     return (<Container fluid ref={ref} className={`${classes.reader} markdownReaderTheme--${readerTheme}`}>
         <Group justify="space-between" wrap="nowrap">
             <Breadcrumbs>{items}</Breadcrumbs>
@@ -141,7 +146,19 @@ const EBookReaderPage = () => {
             onPrevious={() => navigate(`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber - 1}`)} />
         <ReaderSetting opened={settingsOpened} onClose={closeSettings} language={selectedLanguage} />
         <Drawer opened={opened} onClose={close} title={<Group><IconChapters />{t('book.chapters')}</Group>}>
-            <TableOfContents title={book?.title} links={chapterLinks} selectedKey={selectedChapterNumber}
+            <TableOfContents title={book?.title}
+                image={book.links?.image ?
+                    <Image
+                        h={200}
+                        w="auto"
+                        fit="contain"
+                        radius="sm"
+                        src={book?.links?.image} /> :
+                    icon
+                }
+                subTitle={<AuthorsAvatar libraryId={libraryId} authors={book?.authors} />}
+                links={chapterLinks}
+                selectedKey={selectedChapterNumber}
                 onSelected={onChapterSelected} />
         </Drawer>
     </Container>)

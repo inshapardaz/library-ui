@@ -105,7 +105,7 @@ const WritingPage = () => {
             markdown={articleContent?.text}
             layout={articleContent?.layout}
             viewType='scroll'
-            title={article?.title}
+            subTitle={article?.title}
             showNavigation={false} />
         <ReaderSetting opened={settingsOpened} onClose={closeSettings} language={language} showViews={false} />
     </Container>)

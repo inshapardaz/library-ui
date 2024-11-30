@@ -20,25 +20,25 @@ const ReaderThemeSelector = () => {
         value: "White",
         label: (<Stack align="center">
             <ColorSwatch color="var(--reader-theme-white-background)" />
-            {t('reader.theme.white')}
+            {t('reader.themes.white')}
         </Stack>)
     }, {
         value: "Dark",
         label: (<Stack align="center">
             <ColorSwatch color="var(--reader-theme-dark-background)" />
-            {t('reader.theme.dark')}
+            {t('reader.themes.dark')}
         </Stack>)
     }, {
         value: "Sepia",
         label: (<Stack align="center">
             <ColorSwatch color="var(--reader-theme-sepia-background)" />
-            {t('reader.theme.sepia')}
+            {t('reader.themes.sepia')}
         </Stack>)
     }, {
         value: "Grey",
         label: (<Stack align="center">
             <ColorSwatch color="var(--reader-theme-grey-background)" />
-            {t('reader.theme.grey')}
+            {t('reader.themes.grey')}
         </Stack>)
     }];
 

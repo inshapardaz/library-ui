@@ -1,10 +1,10 @@
 import cx from 'clsx';
 import PropTypes from 'prop-types';
-import { Box, Text, Group } from '@mantine/core';
+import { Box, Text, Group, Divider, Stack } from '@mantine/core';
 import classes from './tableOfContents.module.css';
 import { Link } from 'react-router-dom';
 
-const TableOfContents = ({ title, links, selectedKey, onSelected }) => {
+const TableOfContents = ({ title, subTitle, image, links, selectedKey, onSelected }) => {
     const items = links.map((item) => (
         <Box component={Link}
             to={item.link}
@@ -19,15 +19,20 @@ const TableOfContents = ({ title, links, selectedKey, onSelected }) => {
             className={cx(classes.link, { [classes.linkActive]: selectedKey == item.key })}
             style={{ paddingLeft: `calc(${item.order} * var(--mantine-spacing-md))` }}
         >
-            <Group gap="xs" wrap='nowrap'>{item.icon}{item.label}</Group>
+            <Group gap="xs" wrap='nowrap'>{item.icon} {item.label}</Group>
         </Box >
     ));
 
     return (
         <div>
-            <Group mb="md">
-                <Text>{title}</Text>
+            <Group mb="md" justify="space-between">
+                <Stack>
+                    <Text>{title}</Text>
+                    {subTitle}
+                </Stack>
+                {image}
             </Group>
+            <Divider />
             {items}
         </div>
     );
@@ -43,6 +48,8 @@ TableOfContents.propTypes = {
     })),
     onSelected: PropTypes.func,
     title: PropTypes.string,
+    subTitle: PropTypes.any,
+    image: PropTypes.any,
     selectedKey: PropTypes.any
 }
 

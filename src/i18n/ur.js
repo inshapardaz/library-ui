@@ -367,12 +367,17 @@ const ur = {
         }
     },
     reader: {
-        theme: {
+        themes: {
             white: "سفید",
             dark: "تاریک",
             sepia: "خاکی",
             grey: "گرے",
-        }
+        },
+        view: "پیشکش",
+        theme: "رنگ",
+        font: "فانٹ",
+        fontSize: "متن کا سائز",
+        lineHeight: "سطری فاصلہ",
     }
 };
 

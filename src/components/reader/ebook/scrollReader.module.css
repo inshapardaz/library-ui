@@ -12,7 +12,8 @@
 }
 
 .header {
-    font-size: 120%;
+    font-size: 150%;
+    font-weight: bold;
 }
 .readerWrapper {
     padding: var(--mantine-spacing-md);

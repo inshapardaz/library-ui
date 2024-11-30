@@ -365,12 +365,17 @@ const en = {
         }
     },
     reader: {
-        theme: {
+        themes: {
             white: "White",
             dark: "Dark",
             sepia: "Sepia",
             grey: "Grey",
-        }
+        },
+        view: "View",
+        theme: "Theme",
+        font: "Font",
+        fontSize: "Font Size",
+        lineHeight: "Line Height",
     }
 };
 

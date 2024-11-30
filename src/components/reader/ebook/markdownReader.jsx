@@ -10,8 +10,7 @@ import FlipBookReader from './flipBookReader';
 const MarkdownReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, viewType = "scroll", layout = 'normal', showNavigation = true }) => {
     if (viewType === 'scroll') {
         return (<ScrollReader markdown={markdown}
-            title={title}
-            subTitle={subTitle}
+            title={subTitle}
             layout={layout}
             showNavigation={showNavigation}
             canGoNext={canGoNext}

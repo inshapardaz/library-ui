@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Markdown from 'react-markdown'
+import { useSelector } from 'react-redux';
 
 // Ui Library Imports
 import { ActionIcon } from '@mantine/core';
@@ -7,7 +8,6 @@ import { ActionIcon } from '@mantine/core';
 // Local imports
 import classes from './scrollReader.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
-import { useSelector } from 'react-redux';
 
 // Local Import
 //---------------------------------
@@ -15,8 +15,7 @@ import { useSelector } from 'react-redux';
 const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPrevious, layout = 'normal', showNavigation = true }) => {
     const readerFont = useSelector(state => state.ui.readerFont);
     const readerFontSize = useSelector(state => state.ui.readerFontSize);
-
-    console.log('readerFontSize', readerFontSize)
+    const readerLineHeight = useSelector(state => state.ui.readerLineHeight);
 
     return (
         <div className={`${classes.scrollReader} readerLayout--${layout}`}>
@@ -24,7 +23,7 @@ const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPre
                 <IconRight />
             </ActionIcon> : <span />}
             <div className={classes.readerWrapper} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px` }}>
-                <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px` }}>
+                <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px`, lineHeight: `${readerLineHeight}em` }}>
                     <div className={classes.header}>
                         {title}
                     </div>

@@ -15,6 +15,7 @@ import { IconLeft, IconRight } from '@/components/icon';
 const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, layout = 'normal', showNavigation = true }) => {
     const readerFont = useSelector(state => state.ui.readerFont);
     const readerFontSize = useSelector(state => state.ui.readerFontSize);
+    const readerLineHeight = useSelector(state => state.ui.readerLineHeight);
 
     const { ref, inViewport } = useInViewport();
     const [page, setPage] = useState(1);
@@ -55,7 +56,8 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
             </div> : <span />}
             <div className={classes.readerPage} style={{
                 fontFamily: readerFont,
-                fontSize: readerFontSize
+                fontSize: readerFontSize,
+                lineHeight: `${readerLineHeight}em`
             }}>
                 <div className={`${classes.flipBookReader} readerLayout--${layout}`} >
                     <div className={classes.header}>

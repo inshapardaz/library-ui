@@ -39,7 +39,8 @@ export const uiSlice = createSlice({
         readerFont: Cookies.get('reader-font') ?? 'AdobeArabic',
         readerFontSize: parseInt(Cookies.get('reader-font-size'), 10) ?? 16,
         readerTheme: Cookies.get('reader-theme') ?? 'White',
-        readerView: Cookies.get('reader-view') ?? 'scroll'
+        readerView: Cookies.get('reader-view') ?? 'scroll',
+        readerLineHeight: Cookies.get('reader-line-height') ?? '1.5',
     },
     reducers: {
         toggleUiMode: (state) => {
@@ -75,6 +76,10 @@ export const uiSlice = createSlice({
             state.readerView = action.payload;
             Cookies.set('reader-view', action.payload)
         },
+        setReaderLineHeight: (state, action) => {
+            state.readerLineHeight = action.payload;
+            Cookies.set('reader-line-height', action.payload)
+        },
 
     },
 });
@@ -86,6 +91,7 @@ export const {
     setReaderFont,
     setReaderFontSize,
     setReaderTheme,
-    setReaderView
+    setReaderView,
+    setReaderLineHeight
 } = uiSlice.actions;
 export const selectedLanguage = (state) => languages[state.ui.locale];
