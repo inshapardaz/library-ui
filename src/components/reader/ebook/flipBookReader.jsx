@@ -1,48 +1,20 @@
 import PropTypes from 'prop-types';
 import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Markdown from 'react-markdown'
 
 // Ui Library Imports
-import { useLocalStorage, useInViewport, useHotkeys } from '@mantine/hooks';
+import { useInViewport, useHotkeys } from '@mantine/hooks';
 import { ActionIcon } from '@mantine/core';
 
 // Local Import
 import classes from './flipBook.module.css'
-import themes from './themes.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
-
-//---------------------------------
-const getThemeClass = (theme) => {
-    switch (theme) {
-        case 'White':
-            return themes.markdownReaderThemeWhite;
-        case 'Dark':
-            return themes.markdownReaderThemeDark;
-        case 'Sepia':
-            return themes.markdownReaderThemeSepia;
-        case 'Grey':
-            return themes.markdownReaderThemeGrey;
-        default:
-            return '';
-    }
-}
 //---------------------------------
 
 const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPrevious, onPrevious, layout = 'normal', showNavigation = true }) => {
-    const [readerFont] = useLocalStorage({
-        key: "reader-font",
-        defaultValue: '',
-    });
-
-    const [readerFontSize] = useLocalStorage({
-        key: "reader-font-size",
-        defaultValue: 16,
-    });
-
-    const [readerTheme] = useLocalStorage({
-        key: "reader-theme",
-        defaultValue: 'white',
-    });
+    const readerFont = useSelector(state => state.ui.readerFont);
+    const readerFontSize = useSelector(state => state.ui.readerFontSize);
 
     const { ref, inViewport } = useInViewport();
     const [page, setPage] = useState(1);
@@ -85,7 +57,7 @@ const FlipBookReader = ({ markdown, title, subTitle, canGoNext, onNext, canGoPre
                 fontFamily: readerFont,
                 fontSize: readerFontSize
             }}>
-                <div className={`${classes.flipBookReader} ${getThemeClass(readerTheme)} readerLayout--${layout}`} >
+                <div className={`${classes.flipBookReader} readerLayout--${layout}`} >
                     <div className={classes.header}>
                         {title}
                     </div>

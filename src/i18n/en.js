@@ -344,7 +344,13 @@ const en = {
                 success: 'Writing removed from favorites.',
                 error: 'Error removing writing from favorites.'
             },
-        }
+        },
+        error: {
+            loading: {
+                title: "Error loading writing",
+                detail: "Unexpected error occured loading writing. Please retry again."
+            }
+        },
     },
     series: {
         title: "Series",

@@ -1,16 +1,19 @@
+import { useDispatch, useSelector } from "react-redux";
 
 // Ui Library Imports
 import { Center, SegmentedControl } from "@mantine/core";
-import { useLocalStorage } from '@mantine/hooks';
 
 // Local imports
 import { IconReaderViewScroll, IconReaderViewSinglePage, IconReaderViewDoublePage } from '@/components/icon'
+import { setReaderView } from "@/store/slices/uiSlice";
 //-----------------------------------
 const ReadViewToggle = () => {
-    const [readerView, setReaderView] = useLocalStorage({
-        key: "reader-view-type",
-        defaultValue: 'scroll',
-    });
+    const dispatch = useDispatch();
+    const readerView = useSelector(state => state.ui.readerView);
+
+    const onReaderViewChanged = (value) => {
+        dispatch(setReaderView(value));
+    }
 
     const layouts = [{
         value: 'scroll',
@@ -37,7 +40,7 @@ const ReadViewToggle = () => {
         ),
     }]
 
-    return <SegmentedControl size="lg" onChange={setReaderView} value={readerView} data={layouts} />
+    return <SegmentedControl size="lg" onChange={onReaderViewChanged} value={readerView} data={layouts} />
 }
 
 export default ReadViewToggle;

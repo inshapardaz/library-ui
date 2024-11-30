@@ -1,10 +1,11 @@
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 // UI library import
 import { ActionIcon, Button, Breadcrumbs, Container, Drawer, Group, rem, Skeleton, Stack } from "@mantine/core";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { useDisclosure, useFullscreen, useLocalStorage } from '@mantine/hooks';
+import { useDisclosure, useFullscreen } from '@mantine/hooks';
 
 // Local imports
 import { useGetBookQuery, useGetChapterQuery, useGetBookChaptersQuery, useGetChapterContentsQuery } from '@/store/slices/books.api';
@@ -14,23 +15,19 @@ import ReaderSetting from "@/components/reader/ebook/readerSettings";
 import Error from '@/components/error';
 import { IconBook, IconChapters, IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
 import classes from './ebookReader.module.css'
-
 //------------------------------------------------------
 
 const EBookReaderPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const readerTheme = useSelector(state => state.ui.readerTheme);
+    const readerView = useSelector(state => state.ui.readerView);
     const { ref, toggle, fullscreen } = useFullscreen();
     const [opened, { open, close }] = useDisclosure(false);
     const [settingsOpened, { open: openSetings, close: closeSettings }] = useDisclosure(false);
     const { libraryId, bookId } = useParams();
     const [searchParams] = useSearchParams();
     const selectedChapterNumber = searchParams.get("chapter") ?? 1;
-    const [readerView] = useLocalStorage({
-        key: "reader-view-type",
-        defaultValue: 'scroll',
-    });
-
 
     const {
         data: book,
@@ -121,7 +118,7 @@ const EBookReaderPage = () => {
         </Button>),
     ]
 
-    return (<Container fluid ref={ref} className={classes.reader}>
+    return (<Container fluid ref={ref} className={`${classes.reader} markdownReaderTheme--${readerTheme}`}>
         <Group justify="space-between" wrap="nowrap">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Group wrap="nowrap">

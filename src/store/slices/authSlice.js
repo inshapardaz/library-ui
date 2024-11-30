@@ -49,10 +49,7 @@ export const loadUser = createAsyncThunk(
 
 export const init = createAsyncThunk("auth/init", async (_, { dispatch }) => {
     if (Cookies.get('refreshToken')) {
-        console.debug('user logged in.')
         dispatch(loadUser())
-    } else {
-        console.debug('user not logged in.')
     }
 });
 

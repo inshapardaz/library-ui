@@ -1,26 +1,28 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 // Ui Library Import
 import { ActionIcon, Container, Grid, Group, rem, Skeleton } from "@mantine/core";
-import { useFullscreen } from "@mantine/hooks";
+import { useDisclosure, useFullscreen } from "@mantine/hooks";
 
 // Local imports
 import { useGetArticleQuery, useGetArticleContentsQuery } from "@/store/slices/articles.api";
+import { IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
 import Error from '@/components/error';
+import ReaderSetting from "@/components/reader/ebook/readerSettings";
 import MarkdownReader from "@/components/reader/ebook/markdownReader";
-import { IconFullScreen, IconFullScreenExit } from '@/components/icon';
-
 //----------------------------------
 const getLanguage = (article, language) => {
     if (article && article.contents && article.contents[0]) {
         if (language) {
-            return article.contents.find(d => d.language === language);
+            var foundContent = article.contents.find(d => d.language === language);
+            return foundContent?.language ?? 'ur';
         }
         return article.contents[0].language;
     }
 
-    return false;
+    return 'ur';
 }
 
 const PRIMARY_COL_HEIGHT = rem(300);
@@ -31,8 +33,11 @@ const WritingPage = () => {
     const { t } = useTranslation();
     const { libraryId, articleId } = useParams();
     const [searchParams] = useSearchParams();
-    const language = searchParams.get("language");
+    const language = searchParams.get("language") ?? 'ur';
+    const readerTheme = useSelector(state => state.ui.readerTheme);
+
     const { ref, toggle, fullscreen } = useFullscreen();
+    const [settingsOpened, { open: openSetings, close: closeSettings }] = useDisclosure(false);
 
     const {
         refetch,
@@ -79,15 +84,18 @@ const WritingPage = () => {
 
     if (isErrorLoadingArticle || isErrorLoadingContent) {
         return (<Container fluid mt="sm">
-            <Error title={t('book.error.loading.title')}
-                detail={t('book.error.loading.detail')}
+            <Error title={t('writing.error.loading.title')}
+                detail={t('writing.error.loading.detail')}
                 onRetry={() => { refetch() && refetchContent() }} />
         </Container>)
     }
 
-    return (<Container fluid ref={ref}>
-        <Group justify="space-between">
-            <Group>
+    return (<Container fluid ref={ref} className={`markdownReaderTheme--${readerTheme}`}>
+        <Group justify="space-between" wrap="nowrap">
+            <Group wrap="nowrap">
+                <ActionIcon onClick={openSetings} size={36} variant="default">
+                    <IconSettings />
+                </ActionIcon>
                 <ActionIcon onClick={toggle} size={36} variant="default">
                     {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
                 </ActionIcon>
@@ -99,6 +107,7 @@ const WritingPage = () => {
             viewType='scroll'
             title={article?.title}
             showNavigation={false} />
+        <ReaderSetting opened={settingsOpened} onClose={closeSettings} language={language} showViews={false} />
     </Container>)
 
 }

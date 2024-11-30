@@ -1,18 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+
+//UI Library Imports
 
 // Ui Library Imports
 import { ColorSwatch, SegmentedControl, Stack } from "@mantine/core";
-import { useLocalStorage } from '@mantine/hooks';
-import { useTranslation } from "react-i18next";
+import { setReaderTheme } from '@/store/slices/uiSlice';
+
 
 // Local imports
 //-----------------------------------
 const ReaderThemeSelector = () => {
     const { t } = useTranslation();
-
-    const [readerTheme, setReaderTheme] = useLocalStorage({
-        key: "reader-theme",
-        defaultValue: 'White',
-    });
+    const dispatch = useDispatch();
+    const readerTheme = useSelector(state => state.ui.readerTheme);
+    const onReaderThemeChange = (value) => dispatch(setReaderTheme(value))
 
     const themes = [{
         value: "White",
@@ -40,7 +42,7 @@ const ReaderThemeSelector = () => {
         </Stack>)
     }];
 
-    return <SegmentedControl size="md" onChange={setReaderTheme} value={readerTheme} data={themes} />
+    return <SegmentedControl size="md" onChange={onReaderThemeChange} value={readerTheme} data={themes} />
 }
 
 export default ReaderThemeSelector;

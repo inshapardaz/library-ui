@@ -9,28 +9,22 @@
     --reader-theme-grey-foreground: #15141a;
 }
 
-.markdownReader {
-    display: flex;
-    flex-direction: column;
-    align-content: stretch;
-    justify-content: stretch;
-}
-.markdownReaderThemeWhite {
+.markdownReaderTheme--White {
     background-color: var(--reader-theme-white-background);
     color: var(--reader-theme-white-foreground);
 }
 
-.markdownReaderThemeDark {
+.markdownReaderTheme--Dark {
     background-color: var(--reader-theme-dark-background);
     color: var(--reader-theme-dark-foreground);
 }
 
-.markdownReaderThemeSepia {
+.markdownReaderTheme--Sepia {
     background-color: var(--reader-theme-sepia-background);
     color: var(--reader-theme-sepia-foreground);
 }
 
-.markdownReaderThemeGrey {
+.markdownReaderTheme--Grey {
     background-color: var(--reader-theme-grey-background);
     color: var(--reader-theme-grey-foreground);
 }

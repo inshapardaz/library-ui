@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from "@/store";
 import App from '@/App.jsx'
 import '@/i18n';
+import './style.css';
 
 //---------------------------
 
