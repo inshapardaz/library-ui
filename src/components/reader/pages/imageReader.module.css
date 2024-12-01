@@ -1,8 +1,12 @@
 .imageReader {
     display: grid;
-    grid-template-areas: 
-    "head"
-    "prev main next";
+    grid-template-columns: 50px 1fr 50px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    margin: 0 auto;
+    padding: var(--mantine-spacing-md);
+    height: calc(-120px + 100vh);
 }
 
 .imageReaderHeader {
@@ -10,14 +14,42 @@
 }
 
 .imageReaderNavPrevButton {
-    grid-area: prev;
+    /* grid-column: 1; */
+    align-self: center; 
+    margin: 4px;
 }
 
 .imageReaderNavNextButton {
-    grid-area: next;
+    /* grid-column: 3; */
+    align-self: center; 
+    margin: 4px;
 }
 
+.imageReaderPagesContainer {
+    /* grid-column: 2; */
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+}
+.imageReaderPagesContainerSingle {
+    grid-template-columns: 1fr;
+}
+
+.imageReaderPagesContainerDouble {
+    grid-template-columns: 1fr 1fr;
+}
 
 .imageReaderPageImage {
-    grid-area: main;
+    justify-self: right;
+    align-self: top;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.imageReaderPageImage:first-of-type {
+    justify-self: left;
+}
+
+.imageReaderPageImage:only-child {
+    justify-self: center;
 }

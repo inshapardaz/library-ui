@@ -12,7 +12,9 @@ import TableOfContents from "@/components/reader/tableOfContents";
 import ImageReader from "@/components/reader/pages/imageReader";
 import Error from '@/components/error';
 import { IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
+import ReadModeToggle from "@/components/reader/readModeToggle";
 import classes from './reader.module.css'
+import { useMemo } from "react";
 //------------------------------------------------------
 
 const BookReaderPage = () => {
@@ -44,6 +46,8 @@ const BookReaderPage = () => {
         bookId: book?.id
     }, { skip: loadingBook || errorLoadingBook || !libraryId || book === null || book?.id === null });
 
+    const hasGotChapterContents = useMemo(() => chapters && chapters.data && chapters.data.length > 0 && chapters.data.some(x => x.contents.length > 0), [chapters]);
+
     if (loadingBook || loadingChapters) {
         return (<Container fluid mt="sm">
             <Stack>
@@ -53,6 +57,7 @@ const BookReaderPage = () => {
             </Stack>
         </Container>);
     }
+
 
     if (errorLoadingBook || errorLoadingChapters) {
         return (<Container fluid mt="sm">
@@ -66,11 +71,19 @@ const BookReaderPage = () => {
     }
 
     const chapterLinks = chapters?.data.map(c => (
-        { key: c.chapterNumber, label: c.title, order: 1, icon: (<IconChapters />) }
+        { key: c.chapterNumber, label: c.title, firstPageIndex: c.firstPageIndex, order: 1, icon: (<IconChapters />) }
     ));
 
-    const onChapterSelected = (item) => {
-        navigate(`/libraries/${libraryId}/books/${book.id}/read?chapter=${item.key}`)
+    const onChapterSelected = (chapter) => {
+        if (chapter.firstPageIndex) {
+            navigate(`/libraries/${libraryId}/books/${book.id}/read?page=${chapter.firstPageIndex}`)
+        }
+    }
+
+    const onReadModeChanged = (newMode) => {
+        if (newMode === 'text') {
+            navigate(`/libraries/${libraryId}/books/${book.id}/ebook`)
+        }
     }
 
     return (<Container fluid ref={ref} className={classes.reader}>
@@ -78,6 +91,7 @@ const BookReaderPage = () => {
             <Group justify="space-between">
                 <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`}>{book.title}</Text>
                 <Group>
+                    {hasGotChapterContents && <ReadModeToggle value='image' onChange={onReadModeChanged} />}
                     <Button variant="default" onClick={open} rightSection={<IconChapters />}>{t('book.chapters')}</Button>
                     <ActionIcon onClick={toggle} size={36} variant="default">
                         {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}

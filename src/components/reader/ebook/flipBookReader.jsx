@@ -1,41 +1,38 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Markdown from 'react-markdown'
 
 // Ui Library Imports
-import { useInViewport, useHotkeys, useViewportSize } from '@mantine/hooks';
-import { ActionIcon } from '@mantine/core';
+import { useInViewport, useHotkeys, useViewportSize, useElementSize } from '@mantine/hooks';
+import { ActionIcon, useDirection } from '@mantine/core';
 
 // Local Import
+import useTouchSlide from '@/hooks/useTouchSlide';
 import classes from './flipBook.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
+import If from '@/components/if';
 //---------------------------------
 
-const FlipBookReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious, showNavigation = true, pagesToShow = 1 }) => {
+const FlipBookReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious, showNavigation = true, pagesToShow = 1, direction }) => {
     const readerFont = useSelector(state => state.ui.readerFont);
     const readerFontSize = useSelector(state => state.ui.readerFontSize);
     const readerLineHeight = useSelector(state => state.ui.readerLineHeight);
-
-    const [touchStart, setTouchStart] = useState(0);
-    const [touchEnd, setTouchEnd] = useState(0);
+    const { dir } = useDirection();
+    const finalDirection = useMemo(() => direction ? direction : dir, [dir, direction]);
 
     const { ref, inViewport } = useInViewport();
     const { width } = useViewportSize();
+    const { ref: pageRef, width: pageWidth } = useElementSize();
     const [page, setPage] = useState(1);
 
     const pages = useMemo(() => width < 1440 ? 1 : pagesToShow, [pagesToShow, width]);
     const containerClass = useMemo(() => pages === 2 ? classes.readerContainerDouble : classes.readerContainerSingle, [pages]);
     const readerLayoutClass = useMemo(() => pages === 2 ? classes.flipBookReaderDouble : classes.flipBookReaderSingle, [pages]);
 
-    const pageWidth = 682;
     const left = useMemo(() => {
-        if (pages == 2) {
-            return (page - 1) * (pageWidth * 2 - 32);
-        }
-
-        return (page - 1) * pageWidth;
-    }, [page, pages]);
+        return (page - 1) * (pageWidth + 64);
+    }, [page, pageWidth]);
 
     const canGoNextPage = useMemo(() => !inViewport, [inViewport]);
     const canGoPreviousPage = useMemo(() => page > 1, [page]);
@@ -56,52 +53,76 @@ const FlipBookReader = ({ markdown, canGoNext, onNext, canGoPrevious, onPrevious
         }
     }
 
-    const handleTouchStart = (e) => {
-        setTouchStart(e.targetTouches[0].clientX);
-    };
+    const onNavigateLeft = () => {
+        finalDirection == "rtl" ? onNextPage() : onPreviousPage()
+    }
 
-    const handleTouchMove = (e) => {
-        setTouchEnd(e.targetTouches[0].clientX);
-    };
+    const onNavigateRight = () => {
+        finalDirection == "rtl" ? onPreviousPage() : onNextPage()
+    }
 
-    const handleTouchEnd = () => {
-        if (touchStart - touchEnd > 100) {
-            onPreviousPage();
-        }
-
-        if (touchStart - touchEnd < -100) {
-            onNextPage();
-        }
-    };
+    const dragRef = useRef(null);
+    useTouchSlide({
+        ref: dragRef,
+        onSlideLeft: onNavigateLeft,
+        onSlideRight: onNavigateRight
+    });
 
 
     useHotkeys([
-        ['ArrowRight', () => onPreviousPage()],
-        ['ArrowLeft', () => onNextPage()]
+        ['ArrowLeft', onNavigateLeft],
+        ['ArrowRight', onNavigateRight]
     ]);
 
     return (
-        <div className={classes.container} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
-            {showNavigation ? <div className={classes.navButton}>
-                <ActionIcon visibleFrom="md" variant='default' size="lg" onClick={onPreviousPage} disabled={!canGoPreviousPage && !canGoPrevious}>
-                    <IconRight />
-                </ActionIcon>
-            </div> : <span />}
-            <div className={`${classes.flipBookReader} ${readerLayoutClass}`} style={{
-                fontFamily: readerFont,
-                fontSize: readerFontSize,
-                lineHeight: `${readerLineHeight}em`
-            }}>
-                <div className={`${classes.readerContainer} ${containerClass}`} style={{ left: `${left}px` }} >
+        <div className={classes.container}>
+            <If condition={showNavigation}>
+                <div className={classes.navButton}>
+                    <ActionIcon
+                        visibleFrom="md"
+                        variant='default'
+                        size="lg"
+                        onClick={onPreviousPage}
+                        disabled={!canGoPreviousPage && !canGoPrevious}>
+                        {finalDirection == "rtl" ?
+                            <IconRight />
+                            :
+                            <IconLeft />
+                        }
+                    </ActionIcon>
+                </div>
+            </If>
+            <div className={`${classes.flipBookReader} ${readerLayoutClass}`}
+                ref={dragRef}
+                style={{
+                    fontFamily: readerFont,
+                    fontSize: readerFontSize,
+                    lineHeight: `${readerLineHeight}em`
+                }}>
+                <div className={`${classes.readerContainer} ${containerClass}`}
+                    style={{ left: `${left}px` }}
+                    ref={pageRef}
+                >
                     <Markdown>{markdown}</Markdown>
                     <span ref={ref} />
                 </div>
             </div>
-            {showNavigation ? <div className={classes.navButton}>
-                <ActionIcon visibleFrom="md" variant='default' size="lg" onClick={onNextPage} disabled={!canGoNextPage && !canGoNext}>
-                    <IconLeft />
-                </ActionIcon>
-            </div> : <span />}
+            <If condition={showNavigation}>
+                <div className={classes.navButton}>
+                    <ActionIcon
+                        visibleFrom="md"
+                        variant='default'
+                        size="lg"
+                        onClick={onNextPage}
+                        disabled={!canGoNextPage && !canGoNext}>
+                        {finalDirection == "rtl" ?
+                            <IconLeft />
+                            :
+                            <IconRight />
+                        }
+                    </ActionIcon>
+                </div>
+            </If>
         </div>)
 }
 
@@ -115,7 +136,8 @@ FlipBookReader.propTypes = {
     onNext: PropTypes.func,
     canGoPrevious: PropTypes.bool,
     onPrevious: PropTypes.func,
-    pagesToShow: PropTypes.number
+    pagesToShow: PropTypes.number,
+    direction: PropTypes.string
 }
 
 export default FlipBookReader;

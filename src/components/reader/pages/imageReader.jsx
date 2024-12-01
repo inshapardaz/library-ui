@@ -1,30 +1,34 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 // UI Library Import
 import { ActionIcon, Center, Image, Loader, useDirection } from '@mantine/core';
+import { useElementSize, useHotkeys, useViewportSize } from '@mantine/hooks';
 
 // Local imports
 import { useGetBookPageQuery } from '@/store/slices/books.api';
 import Error from '@/components/error';
 import { IconLeft, IconRight } from '@/components/icon';
-import { useElementSize, useHotkeys } from '@mantine/hooks';
+import If from '@/components/if';
 import classes from './imageReader.module.css';
+import useTouchSlide from '@/hooks/useTouchSlide';
 //---------------------------------
 const pageWidth = 400;
 
 const ImageReader = ({ libraryId, bookId, pageNumber, direction }) => {
     const { t } = useTranslation();
     const { dir } = useDirection();
+    const finalDirection = useMemo(() => direction ? direction : dir, [dir, direction]);
 
     const navigate = useNavigate();
     const [numberOfPages, setNumberOfPages] = useState(2);
-    const { ref, width, height } = useElementSize();
+    const { ref, height } = useElementSize();
+    const { width } = useViewportSize();
 
     useEffect(() => {
-        setNumberOfPages(Math.floor(width / pageWidth) > 1 ? 2 : 1)
+        setNumberOfPages(width > 1000 ? 2 : 1)
     }, [width]);
 
     const {
@@ -49,6 +53,9 @@ const ImageReader = ({ libraryId, bookId, pageNumber, direction }) => {
         pageNumber: pageNumber + 1
     }, { skip: numberOfPages !== 2 || !libraryId || !bookId || !pageNumber });
 
+    const hasNextPage = useMemo(() => numberOfPages == 2 ? page2?.links?.next != null : page1?.links?.next != null, [numberOfPages, page1?.links?.next, page2?.links?.next]);
+
+
     const movePrevious = () => {
         if (!loadingPage1 && !loadingPage2 &&
             !errorPage1 && !errorPage2 && pageNumber > 1) {
@@ -63,9 +70,23 @@ const ImageReader = ({ libraryId, bookId, pageNumber, direction }) => {
             navigate(`/libraries/${libraryId}/books/${bookId}/read?page=${pageNumber + numberOfPages}`)
     }
 
+    const onNavigateLeft = () => {
+        finalDirection == "rtl" ? moveNext() : movePrevious()
+    }
+
+    const onNavigateRight = () => {
+        finalDirection == "rtl" ? movePrevious() : moveNext()
+    }
+
+    useTouchSlide({
+        ref,
+        onSlideLeft: onNavigateLeft,
+        onSlideRight: onNavigateRight
+    });
+
     useHotkeys([
-        ['ArrowLeft', () => finalDirection == "rtl" ? moveNext() : movePrevious()],
-        ['ArrowRight', () => finalDirection == "rtl" ? movePrevious() : moveNext()],
+        ['ArrowLeft', onNavigateLeft],
+        ['ArrowRight', onNavigateRight],
     ]);
 
     if (loadingPage1 || loadingPage2) {
@@ -81,28 +102,35 @@ const ImageReader = ({ libraryId, bookId, pageNumber, direction }) => {
             }} />
     }
 
-    const finalDirection = direction ? direction : dir;
     const hasPreviousPage = page1?.links?.previous != null;
-    const hasNextPage = numberOfPages == 2 ? page2?.links?.next != null : page1?.links?.next != null;
 
     return <div className={classes.imageReader} ref={ref}>
-        <ActionIcon className={classes.imageReaderNavButton} disabled={!hasPreviousPage} size="xl" variant="default" onClick={movePrevious}>
-            {finalDirection == "rtl" ?
-                <IconRight />
-                :
-                <IconLeft />
-            }
-        </ActionIcon>
-        <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page1?.links?.image} />
-        {(numberOfPages == 2 && page2) ? <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page2?.links?.image} /> : null}
-        <ActionIcon className={classes.imageReaderNavButton} size="xl" disabled={!hasNextPage} variant="default" onClick={moveNext}>
-            {finalDirection == "rtl" ?
-                <IconLeft />
-                :
-                <IconRight />
-            }
-        </ActionIcon>
-    </div>
+        <div className={classes.imageReaderNavNextButton}>
+            <ActionIcon disabled={!hasPreviousPage} size="xl" variant="default" onClick={movePrevious}>
+                {finalDirection == "rtl" ?
+                    <IconRight />
+                    :
+                    <IconLeft />
+                }
+            </ActionIcon>
+        </div>
+
+        <div className={`${classes.imageReaderPagesContainer} ${numberOfPages == 2 ? classes.imageReaderPagesContainerDouble : classes.imageReaderPagesContainerSingle}`}>
+            <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page1?.links?.image} draggable='false' />
+            <If condition={numberOfPages == 2 && page2}>
+                <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page2?.links?.image} draggable='false' />
+            </If>
+        </div>
+        <div className={classes.imageReaderNavPrevButton}>
+            <ActionIcon size="xl" disabled={!hasNextPage} variant="default" onClick={moveNext}>
+                {finalDirection == "rtl" ?
+                    <IconLeft />
+                    :
+                    <IconRight />
+                }
+            </ActionIcon>
+        </div>
+    </div >
 }
 
 ImageReader.propTypes = {
