@@ -1,29 +1,37 @@
 import PropTypes from 'prop-types';
 
 // UI library import
-import { ActionIcon, Button } from "@mantine/core";
+import { ActionIcon, Box, HoverCard, Slider } from "@mantine/core";
 
 // Local Import
-import { IconZoomIn, IconZoomOut } from '@/components/icon';
+import { IconZoomIn } from '@/components/icon';
 //----------------------------------------
-const minZoom = 0;
-const maxZoom = 300;
+const minZoom = -200;
+const maxZoom = 200;
+var marks = []
+for (var j = minZoom; j <= maxZoom; j = j + 100) {
+    marks.push({ value: j, label: `${j}` })
+}
 const ZoomControl = ({ value, onChange }) => {
-    const onZoomIn = () => {
-        if (value < maxZoom) {
-            onChange(value + 10);
-        }
-    }
-    const onZoomOut = () => {
-        if (value > minZoom) {
-            onChange(value - 10);
-        }
-    }
     return (
-        <Button.Group>
-            <ActionIcon size={36} variant="default" disabled={value > maxZoom} onClick={onZoomIn}><IconZoomIn /></ActionIcon>
-            <ActionIcon size={36} variant="default" disabled={value < minZoom} onClick={onZoomOut}><IconZoomOut /></ActionIcon>
-        </Button.Group>);
+        <HoverCard width={280} shadow="md">
+            <HoverCard.Target>
+                <ActionIcon size={36} variant="default" disabled={value > maxZoom} ><IconZoomIn /></ActionIcon>
+            </HoverCard.Target>
+            <HoverCard.Dropdown>
+                <Box m="md">
+                    <Slider
+                        value={value}
+                        onChange={onChange}
+                        marks={marks}
+                        min={minZoom}
+                        max={maxZoom}
+                        step={10}
+                    />
+                </Box>
+
+            </HoverCard.Dropdown>
+        </HoverCard>);
 }
 
 ZoomControl.propTypes = {

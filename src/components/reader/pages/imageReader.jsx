@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // UI Library Import
-import { ActionIcon, Center, Loader, useDirection } from '@mantine/core';
+import { ActionIcon, Center, Loader, LoadingOverlay, useDirection, useMantineColorScheme } from '@mantine/core';
 import { useElementSize, useHotkeys, useViewportSize } from '@mantine/hooks';
 
 // Local imports
@@ -17,6 +17,8 @@ import useTouchSlide from '@/hooks/useTouchSlide';
 const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, isError, direction, zoom }) => {
     const { t } = useTranslation();
     const { dir } = useDirection();
+    const { colorScheme } = useMantineColorScheme();
+
     const finalDirection = useMemo(() => direction ? direction : dir, [dir, direction]);
 
     const [numberOfPages, setNumberOfPages] = useState(2);
@@ -62,7 +64,7 @@ const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, is
 
     return <div className={classes.imageReader} ref={ref}>
         <div className={classes.imageReaderNavNextButton}>
-            <ActionIcon disabled={!hasPreviousPage} size="xl" variant="default" onClick={() => onPrevious({ numberOfPages })}>
+            <ActionIcon disabled={!hasPreviousPage} loading={isLoading} size="xl" variant="default" onClick={() => onPrevious({ numberOfPages })}>
                 {finalDirection == "rtl" ?
                     <IconRight />
                     :
@@ -72,13 +74,14 @@ const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, is
         </div>
 
         <div className={`${classes.imageReaderPagesContainer} ${numberOfPages == 2 ? classes.imageReaderPagesContainerDouble : classes.imageReaderPagesContainerSingle}`}>
-            <img className={classes.imageReaderPageImage} src={page1?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)` }} />
+            <LoadingOverlay visible={isLoading} />
+            <img className={classes.imageReaderPageImage} src={page1?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)`, filter: `invert(${colorScheme === 'dark' ? '90%' : '0'})` }} />
             <If condition={numberOfPages == 2 && page2}>
-                <img className={classes.imageReaderPageImage} src={page2?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)` }} />
+                <img className={classes.imageReaderPageImage} src={page2?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)`, filter: `invert(${colorScheme === 'dark' ? '90%' : '0'})` }} />
             </If>
         </div>
         <div className={classes.imageReaderNavPrevButton}>
-            <ActionIcon size="xl" disabled={!hasNextPage} variant="default" onClick={() => onNext({ numberOfPages })}>
+            <ActionIcon size="xl" disabled={!hasNextPage} loading={isLoading} variant="default" onClick={() => onNext({ numberOfPages })}>
                 {finalDirection == "rtl" ?
                     <IconLeft />
                     :
