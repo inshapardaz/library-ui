@@ -52,6 +52,7 @@
     height: calc(-160px + 100vh); 
     left: 500px;
     right: auto;
+    transition: 1s ease-in;
 }
 
 .readerContainerSingle {

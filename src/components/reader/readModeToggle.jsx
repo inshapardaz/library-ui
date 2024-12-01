@@ -22,7 +22,7 @@ const ReadModeToggle = ({ value, onChange }) => {
                 <IconReaderText />
             </Center>
         ),
-    }]
+    }];
 
     return <SegmentedControl size="lg" onChange={onChange} value={value} data={layouts} />
 }

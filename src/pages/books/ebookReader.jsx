@@ -16,6 +16,7 @@ import Error from '@/components/error';
 import { IconBook, IconChapters, IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import classes from './ebookReader.module.css'
+import ReadModeToggle from "@/components/reader/readModeToggle";
 //------------------------------------------------------
 
 const EBookReaderPage = () => {
@@ -42,6 +43,7 @@ const EBookReaderPage = () => {
     });
 
     const selectedLanguage = useMemo(() => book?.language ?? "ur", [book]);
+    const hasGotPages = useMemo(() => book && book.pageCount > 0 && book.links.pages, [book]);
 
     const {
         data: chapter,
@@ -111,6 +113,12 @@ const EBookReaderPage = () => {
         navigate(`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${item.key}`)
     }
 
+    const onReadModeChanged = (newMode) => {
+        if (newMode === 'image') {
+            navigate(`/libraries/${libraryId}/books/${book.id}/read`)
+        }
+    }
+
     const items = [
         (<Button variant="transparent" color="gray" size="compact-sm" component={Link} to={`/libraries/${libraryId}/books/${book.id}`} leftSection={<IconBook />} key='book'>
             {book.title}
@@ -122,11 +130,11 @@ const EBookReaderPage = () => {
 
     const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
 
-
     return (<Container fluid ref={ref} className={`${classes.reader} markdownReaderTheme--${readerTheme}`}>
         <Group justify="space-between" wrap="nowrap">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Group wrap="nowrap">
+                {hasGotPages && <ReadModeToggle value='text' onChange={onReadModeChanged} />}
                 <ActionIcon onClick={openSetings} size={36} variant="default">
                     <IconSettings />
                 </ActionIcon>
