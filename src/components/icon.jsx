@@ -55,6 +55,8 @@ const iconTheme = {
         readerDoublePage: "book",
         fullScreen: "arrows-maximize",
         exitFullScreen: "arrows-minimize",
+        zoomIn: "zoom-in",
+        zoomOut: "zoom-out"
     }
 };
 //-------------------------------------
@@ -115,6 +117,8 @@ export const IconReaderViewSinglePage = (props) => getIcon('readerSinglePage', p
 export const IconReaderViewDoublePage = (props) => getIcon('readerDoublePage', props)
 export const IconFullScreen = (props) => getIcon('fullScreen', props)
 export const IconFullScreenExit = (props) => getIcon('exitFullScreen', props)
+export const IconZoomIn = (props) => getIcon('zoomIn', props)
+export const IconZoomOut = (props) => getIcon('zoomOut', props)
 
 //-----------------------------------------------------
 // Old Icons

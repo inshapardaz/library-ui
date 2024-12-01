@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // UI Library Import
-import { ActionIcon, Center, Image, Loader, useDirection } from '@mantine/core';
+import { ActionIcon, Center, Loader, useDirection } from '@mantine/core';
 import { useElementSize, useHotkeys, useViewportSize } from '@mantine/hooks';
 
 // Local imports
@@ -13,9 +13,8 @@ import If from '@/components/if';
 import classes from './imageReader.module.css';
 import useTouchSlide from '@/hooks/useTouchSlide';
 //---------------------------------
-const pageWidth = 400;
 
-const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, isError, direction }) => {
+const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, isError, direction, zoom }) => {
     const { t } = useTranslation();
     const { dir } = useDirection();
     const finalDirection = useMemo(() => direction ? direction : dir, [dir, direction]);
@@ -73,9 +72,9 @@ const ImageReader = ({ page1, page2, onNext, onPrevious, onReload, isLoading, is
         </div>
 
         <div className={`${classes.imageReaderPagesContainer} ${numberOfPages == 2 ? classes.imageReaderPagesContainerDouble : classes.imageReaderPagesContainerSingle}`}>
-            <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page1?.links?.image} draggable='false' />
+            <img className={classes.imageReaderPageImage} src={page1?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)` }} />
             <If condition={numberOfPages == 2 && page2}>
-                <Image className={classes.imageReaderPageImage} fit="contain" w={pageWidth} src={page2?.links?.image} draggable='false' />
+                <img className={classes.imageReaderPageImage} src={page2?.links?.image} draggable='false' style={{ height: `calc(-154px + ${zoom}px + 100vh)` }} />
             </If>
         </div>
         <div className={classes.imageReaderNavPrevButton}>
@@ -99,5 +98,6 @@ ImageReader.propTypes = {
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
     direction: PropTypes.string,
+    zoom: PropTypes.number
 }
 export default ImageReader;

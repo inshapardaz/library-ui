@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
@@ -7,14 +7,15 @@ import { ActionIcon, Breadcrumbs, Button, Center, Container, Drawer, Group, Imag
 import { useDisclosure, useFullscreen } from '@mantine/hooks';
 
 // Local imports
-import { useGetBookQuery, useGetBookChaptersQuery, useGetBookPageQuery } from '@/store/slices/books.api';
 import { languages } from '@/i18n';
+import { useGetBookQuery, useGetBookChaptersQuery, useGetBookPageQuery } from '@/store/slices/books.api';
 import TableOfContents from "@/components/reader/tableOfContents";
 import ImageReader from "@/components/reader/pages/imageReader";
 import Error from '@/components/error';
 import { IconBook, IconChapters, IconFullScreen, IconFullScreenExit } from '@/components/icon';
 import ReadModeToggle from "@/components/reader/readModeToggle";
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
+import ZoomControl from "@/components/reader/zoomControl";
 import classes from './reader.module.css'
 //------------------------------------------------------
 
@@ -27,6 +28,7 @@ const BookReaderPage = () => {
     const { libraryId, bookId } = useParams();
     const [searchParams] = useSearchParams();
     const selectedPageNumber = parseInt(searchParams.get("page") ?? "1", 10);
+    const [zoom, setZoom] = useState(100);
 
     const {
         data: book,
@@ -140,6 +142,7 @@ const BookReaderPage = () => {
             <Group justify="space-between">
                 <Breadcrumbs>{items}</Breadcrumbs>
                 <Group>
+                    <ZoomControl value={zoom} onChange={setZoom} />
                     {hasGotChapterContents && <ReadModeToggle value='image' onChange={onReadModeChanged} />}
                     <ActionIcon onClick={toggle} size={36} variant="default">
                         {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
@@ -155,6 +158,7 @@ const BookReaderPage = () => {
                 direction={book ? languages[book?.language].dir : 'rtl'}
                 isLoading={loadingBook || loadingChapters}
                 onNext={moveNext}
+                zoom={zoom}
                 onPrevious={movePrevious}
                 onReload={() => {
                     refrechPage1()
