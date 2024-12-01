@@ -7,6 +7,10 @@
     margin: 0 auto;
     padding: var(--mantine-spacing-md);
     height: calc(-120px + 100vh);
+    @media only screen and (max-width: 1000px) {
+        grid-template-columns: 1fr;
+        padding: 4px;
+    }
 }
 
 .imageReaderHeader {
@@ -16,11 +20,17 @@
 .imageReaderNavPrevButton {
     align-self: center; 
     margin: 4px;
+    @media only screen and (max-width: 1000px) {
+        display: none;
+    } 
 }
 
 .imageReaderNavNextButton {
     align-self: center; 
     margin: 4px;
+    @media only screen and (max-width: 1000px) {
+        display: none;
+    } 
 }
 
 .imageReaderPagesContainer {
