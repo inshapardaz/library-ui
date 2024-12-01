@@ -14,20 +14,17 @@
 }
 
 .imageReaderNavPrevButton {
-    /* grid-column: 1; */
     align-self: center; 
     margin: 4px;
 }
 
 .imageReaderNavNextButton {
-    /* grid-column: 3; */
     align-self: center; 
     margin: 4px;
 }
 
 .imageReaderPagesContainer {
-    /* grid-column: 2; */
-    justify-self: center;
+    justify-self: stretch;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 10px;

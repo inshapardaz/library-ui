@@ -134,10 +134,10 @@ const EBookReaderPage = () => {
         <Group justify="space-between" wrap="nowrap">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Group wrap="nowrap">
-                {hasGotPages && <ReadModeToggle value='text' onChange={onReadModeChanged} />}
                 <ActionIcon onClick={openSetings} size={36} variant="default">
                     <IconSettings />
                 </ActionIcon>
+                {hasGotPages && <ReadModeToggle value='text' onChange={onReadModeChanged} />}
                 <ActionIcon onClick={toggle} size={36} variant="default">
                     {fullscreen ? <IconFullScreenExit /> : <IconFullScreen />}
                 </ActionIcon>
