@@ -214,6 +214,9 @@ const en = {
         writingCount_zero: "No writing",
         writingCount_one: "1 writing",
         writingCount_other: "{{count}} writing",
+        periodicalCount_zero: "No Periodical",
+        periodicalCount_one: "1 Periodical",
+        periodicalCount_other: "{{count}} Periodicals",
         errors: {
             loading: {
                 title: "Error",
@@ -376,7 +379,76 @@ const en = {
         font: "Font",
         fontSize: "Font Size",
         lineHeight: "Line Height",
-    }
+    },
+    periodicals: {
+        title: "Periodical",
+        errors: {
+            loading: {
+                title: "Error",
+                subTitle: "Unable to load periodical",
+            },
+        },
+        empty: {
+            title: "No Periodicals",
+        },
+        search: {
+            placeholder: "Search periodicals...",
+        },
+    },
+    periodical: {
+        issueCount_one: "1 issue",
+        issueCount_other: "{{count}} issues",
+        noDescription: "No details...",
+        frequency: {
+            label: "Frequency",
+            placeholder: "Select frequency of the periodical",
+            required: "Frequency is required for periodical",
+            annually: "Annually",
+            quarterly: "Quarterly",
+            monthly: "Monthly",
+            fortnightly: "Fortnightly",
+            weekly: "Weekly",
+            daily: "Daily",
+            unknown: "Unknown",
+        },
+        title: {
+            label: "Name",
+            placeholder: "Name of the periodical",
+            required: "Name is required for periodical",
+        },
+        description: {
+            label: "Description",
+        },
+        language: {
+            label: "Language",
+            placeholder: "Select language for periodical",
+            required: "Language is required",
+        },
+        categories: {
+            label: "Categories",
+            placeholder: "Select categories for periodical",
+        },
+        actions: {
+            add: {
+                label: "Add new periodical",
+                title: "New Periodical",
+                success: "Periodical created successfully.",
+                error: "Error creating periodical.",
+            },
+            edit: {
+                title: "Editing '{{name}}'",
+                success: "Periodical saved successfully.",
+                error: "Error saving periodical",
+            },
+            delete: {
+                title: "Delete periodical?",
+                message:
+                    "Are you sure you want to delete periodical '{{name}}'? It will remove all of its contents including issue, articles and files.",
+                success: "Periodical deleted successfully.",
+                error: "Error deleting periodical.",
+            },
+        },
+    },
 };
 
 export default en;

@@ -186,6 +186,7 @@ export const updateLinkToAuthorsPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+
 export const updateLinkToAuthorPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection, tab }
@@ -216,6 +217,7 @@ export const updateLinkToAuthorPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+
 export const updateLinkToSeriesPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection }
@@ -243,6 +245,53 @@ export const updateLinkToSeriesPage = (
 
     return `${location.pathname}?${searchParams.toString()}`;
 };
+
+export const updateLinkToPeriodicalsPage = (
+    location,
+    {
+        pageNumber,
+        pageSize,
+        query,
+        categories,
+        frequency,
+        sortBy,
+        sortDirection,
+        status,
+    }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (categories) {
+        searchParams.set("categories", categories);
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+    if (frequency) {
+        searchParams.set("frequency", frequency);
+    }
+    if (status) {
+        searchParams.set("status", status);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
+
 // --------------------------------------------------------------
 // FUNCTION USED IN THIS APP ABOVE THIS LINE
 // --------------------------------------------------------------
@@ -470,35 +519,6 @@ export const updateLinkToArticlesPage = (
     }
 
     return `${location.pathname}?${searchParams.toString()}`;
-};
-
-export const buildLinkToPeriodicalsPage = (
-    location,
-    page,
-    pageSize,
-    query,
-    sortBy,
-    sortDirection
-) => {
-    let querystring = "";
-    querystring += page ? `pageNumber=${page}&` : "";
-    querystring += pageSize ? `pageSize=${pageSize}&` : "";
-    querystring += query ? `query=${query}&` : "";
-    querystring += sortBy && sortBy !== "title" ? `sortBy=${sortBy}&` : "";
-    querystring +=
-        sortDirection && sortDirection !== "ascending"
-            ? `sortDirection=${sortDirection}&`
-            : "";
-
-    if (querystring !== "") {
-        if (querystring.substr(querystring.length - 1) === "&") {
-            querystring = querystring.slice(0, -1);
-        }
-
-        return `${location}?${querystring}`;
-    }
-
-    return location;
 };
 
 export const buildLinkToIssuesPage = (

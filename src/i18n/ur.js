@@ -216,6 +216,9 @@ const ur = {
         writingsCount_zero: "کوئی تصنیف موجود نہیں",
         writingsCount_one: "1 تصنیف",
         writingsCount_other: "{{count}} نصنیفات",
+        periodicalCount_zero: "کوئی جریدہ موجود نہیں",
+        periodicalCount_one: "1 جریدہ",
+        periodicalCount_other: "{{count}} جرائد",
         errors: {
             loading: {
                 title: "زمرہ جات لوڈ نہیں ہو سکے",
@@ -378,7 +381,76 @@ const ur = {
         font: "فانٹ",
         fontSize: "متن کا سائز",
         lineHeight: "سطری فاصلہ",
-    }
+    },
+    periodicals: {
+        title: "جرائد",
+        errors: {
+            loading: {
+                title: "جرائد حاصل نہیں ہو سکے",
+                subTitle: "براہ کرم دوبارہ کوشش کریں۔",
+            },
+        },
+        empty: {
+            title: "جرائد موجود نہیں",
+        },
+        search: {
+            placeholder: "تلاش جرائد۔۔۔",
+        },
+    },
+    periodical: {
+        issueCount_one: "1 شمارہ",
+        issueCount_other: "{{count}} شمارے",
+        noDescription: "تفصیل دستیاب نہیں۔۔۔",
+        frequency: {
+            label: "اشاعت",
+            placeholder: "اشاعت کی تعداد",
+            required: "جریدے کے لیے اشاعت ضروری ہے",
+            annually: "سالانہ",
+            quarterly: "سہ ماہی",
+            monthly: "ماہانہ",
+            fortnightly: "پندرواڑہ",
+            weekly: "ہفتہ وار",
+            daily: "روز نامہ",
+            unknown: "نا معلوم",
+        },
+        title: {
+            label: "نام",
+            placeholder: "جریدے کا نام",
+            required: "جریدے کے لیے نام ضروری ہے",
+        },
+        description: {
+            label: "تفصیل",
+        },
+        language: {
+            label: "زبان",
+            placeholder: "جریدے کی زبان چنیں",
+            required: "جریدے کی زبان ضروری ہے۔",
+        },
+        categories: {
+            label: "زمرے",
+            placeholder: "جریدے کے زمرے چنیں",
+        },
+        actions: {
+            add: {
+                label: "جریدے کا اضافہ",
+                title: "نیا جریدہ",
+                success: "جریدہ کامیابی سے تخلیق کر دیا گیا ہے۔",
+                error: "جریدہ تخلیق کرنے میں ناکامی ہوئی۔",
+            },
+            edit: {
+                title: "'{{name}}' میں تدوین",
+                success: "جریدے میں تبدیلیاں محفوظ ہو گئی ہیں۔",
+                error: "جریدے میں تبدیلیاں محفوظ نہیں ہوئں۔",
+            },
+            delete: {
+                title: "جریدہ حذف کریں؟",
+                message:
+                    "کیا آپ جریدہ '{{name}}' کو حذف کرنا چاہیں گے؟ ایسا کرنے سے اِس جریدے سے متعلق تمام مواد بشمول شمارے، مندرجات اور دستاویز حذف ہو جائے گا۔",
+                success: "جریدہ حذف کر دیا گیا ہے۔",
+                error: "جریدہ حذف کرنے میں ناکامی ہوئی۔",
+            },
+        },
+    },
 };
 
 export default ur;

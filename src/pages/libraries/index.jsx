@@ -11,7 +11,7 @@ const LibraryHomePage = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get("query");
     const sortBy = searchParams.get("sortBy") ?? "name";
-    const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Descending;
+    const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
     const pageNumber = searchParams.get("pageNumber") ?? 1;
     const pageSize = searchParams.get("pageSize") ?? 12;
 
