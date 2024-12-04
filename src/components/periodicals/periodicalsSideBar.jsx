@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // UI library imports
-import { Card, Center, Divider, NavLink, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
+import { Badge, Card, Center, Divider, NavLink, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
 
 // Local imports
 import { useGetCategoriesQuery } from '@/store/slices/categories.api';
@@ -97,6 +97,7 @@ const PeriodicalsSideBar = ({ selectedCategory, frequency }) => {
             label={t('periodical.frequency.weekly')}
             leftSection={<FrequencyIcon frequency={PeriodicalFrequency.Weekly} />}
         />
+        <Divider />
         <NavLink
             key="frequency-daily"
             component={Link}
@@ -107,13 +108,17 @@ const PeriodicalsSideBar = ({ selectedCategory, frequency }) => {
         />
         <Divider />
         {
-            categories.data.map(category => (<NavLink
+            categories.data.filter(c => c.periodicalCount > 0).map(category => (<NavLink
                 key={category.id}
                 component={Link}
                 active={selectedCategory == category.id}
                 to={`/libraries/${libraryId}/periodicals?category=${category.id}`}
                 label={category.name}
-                description={t('categories.periodicalCount', { count: category.bookCount })}
+                rightSection={
+                    <Badge size="xs" color='gray' circle>
+                        {category.periodicalCount}
+                    </Badge>
+                }
                 leftSection={<IconCategory />}
             />))
         }

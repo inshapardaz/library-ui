@@ -12,7 +12,6 @@ import { IconAnnually, IconQuarterly, IconMonthly, IconFornightly, IconWeekly, I
 const FrequencyIcon = ({ frequency, showLabel, c, size, ...props }) => {
     const { t } = useTranslation();
 
-    console.log(props)
     if (showLabel) {
         switch (frequency) {
             case PeriodicalFrequency.Annually:

@@ -384,6 +384,7 @@ const ur = {
     },
     periodicals: {
         title: "جرائد",
+        all: "تمام جرائد",
         errors: {
             loading: {
                 title: "جرائد حاصل نہیں ہو سکے",

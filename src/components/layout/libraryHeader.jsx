@@ -60,7 +60,7 @@ const LibraryHeader = ({ library }) => {
                                 {library.name}
                             </Text>
                         </NavLink >
-                        <CategoriesMenu library={library} className={classes.link} target='books'>
+                        <CategoriesMenu library={library} className={classes.link} target='books' allLabel={t('books.allBooks')}>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks height="24px" />
                                 <Space w="md" />
@@ -73,7 +73,7 @@ const LibraryHeader = ({ library }) => {
                                 />
                             </NavLink >
                         </CategoriesMenu>
-                        <CategoriesMenu library={library} className={classes.link} target='writings'>
+                        <CategoriesMenu library={library} className={classes.link} target='writings' allLabel={t('writings.all')}>
                             <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
                                 <IconWritings height="24px" />
                                 <Space w="md" />
@@ -100,13 +100,19 @@ const LibraryHeader = ({ library }) => {
                                 {t('header.series')}
                             </Text>
                         </NavLink >
-                        <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
-                            <IconPeriodicals height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.periodicals')}
-                            </Text>
-                        </NavLink >
+                        <CategoriesMenu library={library} className={classes.link} target='periodicals' allLabel={t('periodicals.all')}>
+                            <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
+                                <IconPeriodicals height="24px" />
+                                <Space w="md" />
+                                <Text visibleFrom="lg">
+                                    {t('header.periodicals')}
+                                </Text>
+                                <IconChevronDown
+                                    width={rem(16)}
+                                    height={rem(16)}
+                                />
+                            </NavLink >
+                        </CategoriesMenu>
                     </Group>
                     <Group visibleFrom="sm">
                         <SearchBox />
@@ -146,8 +152,8 @@ const LibraryHeader = ({ library }) => {
                         <Space w="md" />
                         {t('header.home')}
                     </NavLink >
-                    <CategoriesMenu library={library} target="books">
-                        <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
+                    <CategoriesMenu library={library} target="books" allLabel={t('books.allBooks')}>
+                        <NavLink>
                             <IconBooks height="24px" />
                             <Space w="md" />
                             {t('header.books')}
@@ -156,10 +162,10 @@ const LibraryHeader = ({ library }) => {
                                 height={rem(16)}
                                 style={{ color: theme.colors.blue[6] }}
                             />
-                        </NavLink >
+                        </NavLink>
                     </CategoriesMenu>
-                    <CategoriesMenu library={library} target="writings">
-                        <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
+                    <CategoriesMenu library={library} target="writings" allLabel={t('writings.all')}>
+                        <NavLink>
                             <IconWritings height="24px" />
                             <Space w="md" />
                             {t('header.writings')}
@@ -180,11 +186,18 @@ const LibraryHeader = ({ library }) => {
                         <Space w="md" />
                         {t('header.series')}
                     </NavLink >
-                    <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
-                        <IconPeriodicals height="24px" />
-                        <Space w="md" />
-                        {t('header.periodicals')}
-                    </NavLink >
+                    <CategoriesMenu library={library} target="periodicals" allLabel={t('periodicals.all')}>
+                        <NavLink>
+                            <IconPeriodicals height="24px" />
+                            <Space w="md" />
+                            {t('header.periodicals')}
+                            <IconChevronDown
+                                width={rem(16)}
+                                height={rem(16)}
+                                style={{ color: theme.colors.blue[6] }}
+                            />
+                        </NavLink >
+                    </CategoriesMenu>
 
                     <Divider my="sm" />
                     <LibrarySwitcher className={classes.link}>

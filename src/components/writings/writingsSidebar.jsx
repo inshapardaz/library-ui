@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // UI library imports
-import { Card, Center, Divider, NavLink, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
+import { Badge, Card, Center, Divider, NavLink, SimpleGrid, Skeleton, useMantineTheme } from '@mantine/core';
 
 // Local imports
 import { useGetCategoriesQuery } from '@/store/slices/categories.api';
@@ -63,6 +63,7 @@ const WritingsSideBar = ({ selectedCategory, favorite, read }) => {
             label={t('writings.lastRead')}
             leftSection={<IconWriting style={{ color: theme.colors.green[9] }} />}
         />
+        <Divider />
         <NavLink
             key="all-writings"
             component={Link}
@@ -73,13 +74,17 @@ const WritingsSideBar = ({ selectedCategory, favorite, read }) => {
         />
         <Divider />
         {
-            categories.data.map(category => (<NavLink
+            categories.data.filter(c => c.articleCount > 0).map(category => (<NavLink
                 key={category.id}
                 component={Link}
                 active={selectedCategory == category.id}
                 to={`/libraries/${libraryId}/writings?category=${category.id}`}
                 label={category.name}
-                description={t('categories.writingsCount', { count: category.articleCount })}
+                rightSection={
+                    <Badge size="xs" color='gray' circle>
+                        {category.articleCount}
+                    </Badge>
+                }
                 leftSection={<IconCategory />}
             />))
         }

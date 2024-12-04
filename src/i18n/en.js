@@ -382,6 +382,7 @@ const en = {
     },
     periodicals: {
         title: "Periodical",
+        all: "All Periodicals",
         errors: {
             loading: {
                 title: "Error",
