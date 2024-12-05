@@ -292,6 +292,61 @@ export const updateLinkToPeriodicalsPage = (
     return `${location.pathname}?${searchParams.toString()}`;
 };
 
+export const updateLinkToIssuePage = (
+    location,
+    {
+        query,
+        year,
+        pageNumber,
+        pageSize,
+        sortBy,
+        sortDirection,
+    }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (year) {
+        searchParams.set("year", year);
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
+
+export const getDateFormatFromFrequency = (frequency) => {
+    switch (frequency) {
+        case "Weekly":
+            return "week";
+        case "Monthly":
+            return "MMMM YYYY";
+        case "Quarterly":
+            return "Q (MMMM) YYYY";
+        case "Annually":
+            return "YYYY";
+        case "Daily":
+        case "FortNightly":
+        default:
+            return "LL";
+    }
+};
+
 // --------------------------------------------------------------
 // FUNCTION USED IN THIS APP ABOVE THIS LINE
 // --------------------------------------------------------------
@@ -549,22 +604,6 @@ export const buildLinkToIssuesPage = (
     return path;
 };
 
-export const getDateFormatFromFrequency = (frequency) => {
-    switch (frequency) {
-        case "Weekly":
-            return "week";
-        case "Monthly":
-            return "MMMM YYYY";
-        case "Quarterly":
-            return "Q (MMMM) YYYY";
-        case "Annually":
-            return "YYYY";
-        case "Daily":
-        case "FortNightly":
-        default:
-            return "LL";
-    }
-};
 // ------------------  File functions --------------------------------------
 
 export const downloadFile = async (url, onProgress = () => { }) => {

@@ -256,6 +256,7 @@ const ur = {
         chapterCount_zero: "باب موجود نہیں",
         chapterCount_one: "1 باب",
         chapterCount_other: "{{count}} ابواب",
+        pageCount_zero: "صفحہ موجود نہیں",
         pageCount_one: "1 صفحہ",
         pageCount_other: "{{count}} صفحات",
         fileCount_one: "1 دستاویز",
@@ -431,24 +432,73 @@ const ur = {
             label: "زمرے",
             placeholder: "جریدے کے زمرے چنیں",
         },
-        actions: {
-            add: {
-                label: "جریدے کا اضافہ",
-                title: "نیا جریدہ",
-                success: "جریدہ کامیابی سے تخلیق کر دیا گیا ہے۔",
-                error: "جریدہ تخلیق کرنے میں ناکامی ہوئی۔",
+    },
+    issues: {
+        title: "شمارے",
+        errors: {
+            loading: {
+                title: "شمارے حاصل نہیں ہو سکے",
+                subTitle: "براہ کرم دوبارہ کوشش کریں۔",
             },
-            edit: {
-                title: "'{{name}}' میں تدوین",
-                success: "جریدے میں تبدیلیاں محفوظ ہو گئی ہیں۔",
-                error: "جریدے میں تبدیلیاں محفوظ نہیں ہوئں۔",
+        },
+        empty: {
+            title: "شمارے دستیاب نہیں ہیں",
+        },
+    },
+    issue: {
+        articleCount_zero: "مضمون موجود نہیں",
+        articleCount_one: "1 مضمون",
+        articleCount_other: "{{count}} مضامین",
+        pageCount_zero: "صفحہ موجود نہیں",
+        pageCount_one: "1 صفحہ",
+        pageCount_other: "{{count}} صفحات",
+        volumeNumber: {
+            title: "جلد نمبر {{volumeNumber}}",
+            label: "جلد نمبر",
+            placeholder: "شمارے کا جلد نمبر",
+            required:
+                "سمارے کا جلد نمبر جاہیے۔ اگر جلد نمبر نہیں تو صفر استعمال کیجئے۔",
+        },
+        issueNumber: {
+            title: "شمارہ نمبر {{issueNumber}}",
+            label: "شمارہ  نمبر",
+            placeholder: "شمارے کا جلد میں نمبر",
+            required: "شمارے کا نمبر ضروری ہے۔",
+        },
+        issueDate: {
+            label: "تریخ اشاعت",
+            required: "تریخ اشاعت ضروری ہے",
+        },
+        status: {
+            label: "کیفیت",
+            placeholder: "کتاب کی کیفیت چنیں",
+        },
+        articles: {
+            title: "مضامین",
+            errors: {
+                loading: {
+                    title: "مضامین حاصل نہیں ہو سکے",
+                    subTitle: "براہ کرم دوبارہ کوشش کریں۔",
+                },
             },
-            delete: {
-                title: "جریدہ حذف کریں؟",
-                message:
-                    "کیا آپ جریدہ '{{name}}' کو حذف کرنا چاہیں گے؟ ایسا کرنے سے اِس جریدے سے متعلق تمام مواد بشمول شمارے، مندرجات اور دستاویز حذف ہو جائے گا۔",
-                success: "جریدہ حذف کر دیا گیا ہے۔",
-                error: "جریدہ حذف کرنے میں ناکامی ہوئی۔",
+            empty: {
+                title: "مضامین دستیاب نہیں ہیں",
+            },
+        },
+        files: {
+            title: "دستاویزات",
+            empty: {
+                title: "دستاویز دستیاب نہیں",
+            },
+        },
+        pages: {
+            title: "صفحات",
+            editor: {
+                unsavedContents:
+                    "غیر محفوظ شدہ مندرجات موجود ہیں۔ وہیں سے تدوین جاری رکھیں؟",
+            },
+            empty: {
+                title: "صفحات موجود نہیں",
             },
         },
     },

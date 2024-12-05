@@ -254,6 +254,7 @@ const en = {
         chapterCount_zero: "No chapter",
         chapterCount_one: "1 chapter",
         chapterCount_other: "{{count}} chapters",
+        pageCount_zero: "No pages",
         pageCount_one: "1 page",
         pageCount_other: "{{count}} pages",
         fileCount_one: "1 file",
@@ -429,25 +430,73 @@ const en = {
             label: "Categories",
             placeholder: "Select categories for periodical",
         },
-        actions: {
-            add: {
-                label: "Add new periodical",
-                title: "New Periodical",
-                success: "Periodical created successfully.",
-                error: "Error creating periodical.",
+    },
+    issues: {
+        title: "Issues",
+        errors: {
+            loading: {
+                title: "Error",
+                subTitle: "Unable to load issues.",
             },
-            edit: {
-                title: "Editing '{{name}}'",
-                success: "Periodical saved successfully.",
-                error: "Error saving periodical",
+        },
+        empty: {
+            title: "No issues",
+        },
+    },
+    issue: {
+        articleCount_zero: "No article",
+        articleCount_one: "1 article",
+        articleCount_other: "{{count}} articles",
+        pageCount_zero: "No pages",
+        pageCount_one: "1 page",
+        pageCount_other: "{{count}} pages",
+        volumeNumber: {
+            title: "Volume Number {{volumeNumber}}",
+            label: "Volume Number",
+            placeholder: "Volume number for issue",
+            required: "Volume number is required for issue. If there is no volume number, enter 0.",
+        },
+        issueNumber: {
+            title: "Issue Number {{issueNumber}}",
+            label: "Issue Number",
+            placeholder: "Issue number for issue",
+            required: "Issue number is required for issue.",
+        },
+        issueDate: {
+            label: "Issue Date",
+            required: "Issue date is required for issue",
+        },
+        status: {
+            label: "Status",
+            placeholder: "Select Book Status",
+        },
+        articles: {
+            title: "Articles",
+            errors: {
+                loading: {
+                    title: "Error",
+                    subTitle: "Unable to load articles.",
+                },
             },
-            delete: {
-                title: "Delete periodical?",
-                message:
-                    "Are you sure you want to delete periodical '{{name}}'? It will remove all of its contents including issue, articles and files.",
-                success: "Periodical deleted successfully.",
-                error: "Error deleting periodical.",
+            empty: {
+                title: "No articles found",
             },
+        },
+        files: {
+            title: "Files",
+            empty: {
+                title: "No file found",
+            },
+        },
+        pages: {
+            title: "Pages",
+            editor: {
+                unsavedContents:
+                    "Unsaved changed found for this page. Would you like to continue editing it?",
+            },
+            empty: {
+                title: "No Pages found",
+            }
         },
     },
 };

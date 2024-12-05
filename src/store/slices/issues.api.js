@@ -15,6 +15,7 @@ export const issuesApi = createApi({
                 periodicalId,
                 query = null,
                 year = null,
+                volumeNumber = null,
                 categories = null,
                 sortBy = null,
                 sortDirection = null,
@@ -35,11 +36,12 @@ export const issuesApi = createApi({
                 if (sortDirection) {
                     queryVal += `&sortDirection=${sortDirection}`;
                 }
-
+                if (volumeNumber) {
+                    queryVal += `&volumeNumber=${volumeNumber}`;
+                }
                 if (year) {
                     queryVal += `&year=${year}`;
                 }
-
                 return {
                     url: `/libraries/${libraryId}/periodicals/${periodicalId}/issues?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`,
                     method: "get",
