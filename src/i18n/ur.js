@@ -509,6 +509,18 @@ const ur = {
                 title: "مضامین دستیاب نہیں ہیں",
             },
         },
+        article: {
+            title: "مضمون",
+            errors: {
+                loading: {
+                    title: "مضمون حاصل نہیں ہو سکا",
+                    subTitle: "براہ کرم دوبارہ کوشش کریں۔",
+                },
+            },
+            empty: {
+                title: "مضمون دستیاب نہیں ہیں",
+            },
+        },
         files: {
             title: "دستاویزات",
             empty: {

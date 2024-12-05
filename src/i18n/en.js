@@ -482,6 +482,18 @@ const en = {
                 title: "No articles found",
             },
         },
+        article: {
+            title: "Article",
+            errors: {
+                loading: {
+                    title: "Error",
+                    subTitle: "Unable to load article.",
+                },
+            },
+            empty: {
+                title: "Article not found",
+            },
+        },
         files: {
             title: "Files",
             empty: {
