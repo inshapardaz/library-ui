@@ -29,13 +29,13 @@ import If from '@/components/if'
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children }) => {
+const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, filter = i => i }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
 
-    const categoriesList = categories?.data?.map ? categories.data.map((item) => (
+    const categoriesList = categories?.data?.map ? categories.data.filter(filter).map((item) => (
         <UnstyledButton className={classes.subLink} key={item.name} component={Link} to={`/libraries/${library.id}/${target}?category=${item.id}`}>
             <Group wrap="nowrap" align="flex-start">
                 <NavLink
@@ -120,7 +120,8 @@ CategoriesMenu.propTypes = {
     target: PropTypes.string,
     allLabel: PropTypes.string,
     extraLinks: PropTypes.any,
-    children: PropTypes.any
+    children: PropTypes.any,
+    filter: PropTypes.func
 };
 
 
