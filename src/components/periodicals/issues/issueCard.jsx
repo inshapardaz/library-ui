@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, useMantineTheme, Center, Image, Divider, Stack } from '@mantine/core';
+import { Card, Text, Group, useMantineTheme, Center, Image, Divider } from '@mantine/core';
 import moment from "moment";
 
 // Local imports
 import { getDateFormatFromFrequency } from '@/utils';
-import { IconIssue, IconPages, IconIssueArticle, IconVolumeNumber, IconIssueNumber } from '@/components/icon';
+import { IconIssue, IconPages, IconIssueArticle } from '@/components/icon';
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 //---------------------------------------
