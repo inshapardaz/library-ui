@@ -28,6 +28,7 @@ import { getHotkeyHandler } from '@mantine/hooks';
 import { IconSearch } from '@/components/icon'
 import LayoutToggle from '@/components/layoutToggle';
 import Error from './error';
+import If from '@/components/if';
 //------------------------------
 
 const SearchInpout = ({ query, onQueryChanged }) => {
@@ -87,6 +88,7 @@ const DataView = ({
     viewToggleKey,
     showSearch,
     searchValue,
+    showPagination = true,
     onSearchChanged = () => { },
     cardRender = () => null,
     listItemRender = () => null,
@@ -146,9 +148,11 @@ const DataView = ({
                 >
                     {dataSource.data.map(item => cardRender(item))}
                 </SimpleGrid>
-                <Center>
-                    {pageination}
-                </Center>
+                <If condition={showPagination}>
+                    <Center>
+                        {pageination}
+                    </Center>
+                </If>
             </Stack>);
         } else {
             content = (
@@ -158,9 +162,11 @@ const DataView = ({
                         gap="md">
                         {dataSource.data.map(item => <>{listItemRender(item)}<Divider /></>)}
                     </Stack>
-                    <Center>
-                        {pageination}
-                    </Center>
+                    <If condition={showPagination}>
+                        <Center>
+                            {pageination}
+                        </Center>
+                    </If>
                 </Stack>)
         }
     } else {
@@ -204,6 +210,7 @@ DataView.propTypes = {
     viewToggleKey: PropTypes.string,
     showSearch: PropTypes.bool,
     searchValue: PropTypes.string,
+    showPagination: PropTypes.bool,
     onSearchChanged: PropTypes.func,
     cardRender: PropTypes.func,
     listItemRender: PropTypes.func,

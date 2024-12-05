@@ -1,11 +1,13 @@
 // import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "react-router-dom";
 
+// UI Library Import
+import { Grid, rem } from "@mantine/core";
+
 // Local Import
 import { SortDirection } from "@/models";
 import PeriodicalsSideBar from "@/components/periodicals/periodicalsSideBar";
 import PeriodicalsList from "@/components/periodicals/periodicalsList";
-import { Grid, rem } from "@mantine/core";
 
 // -----------------------------------------
 const PeriodicalsPage = () => {

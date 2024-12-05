@@ -30,7 +30,7 @@ const IssueCard = ({ libraryId, issue, frequency }) => {
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <Text component={Link} to={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.id}`} truncate="end" fw={500}>{title}</Text>
+                <Text component={Link} to={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.issueNumber}`} truncate="end" fw={500}>{title}</Text>
             </Group>
 
 
