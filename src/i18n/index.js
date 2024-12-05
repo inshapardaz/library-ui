@@ -1,7 +1,9 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import moment from "moment";
+
 import en from "./en";
-import ur from "./ur";
+import ur, { numberMap, symbolMap } from "./ur";
 
 const fonts = {
     en: [
@@ -48,6 +50,24 @@ export const getFonts = (t, language) =>
             label: t(`fonts.${f.label}`),
         }))
         : null;
+
+moment.updateLocale("ur", {
+    ...ur.moment,
+    preparse: function (string) {
+        return string
+            .replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
+                return numberMap[match];
+            })
+            .replace(/،/g, ",");
+    },
+    postformat: function (string) {
+        return string
+            .replace(/\d/g, function (match) {
+                return symbolMap[match];
+            })
+            .replace(/,/g, "،");
+    },
+});
 
 i18n.use(initReactI18next).init({
     lng: window.localStorage.i18nextLng || "ur",

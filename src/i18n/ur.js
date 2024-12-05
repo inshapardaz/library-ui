@@ -1,3 +1,27 @@
+export const symbolMap = {
+    1: "۱",
+    2: "۲",
+    3: "۳",
+    4: "۴",
+    5: "۵",
+    6: "۶",
+    7: "۷",
+    8: "۸",
+    9: "۹",
+    0: "۰",
+};
+export const numberMap = {
+    "۱": "1",
+    "۲": "2",
+    "۳": "3",
+    "۴": "4",
+    "۵": "5",
+    "۶": "6",
+    "۷": "7",
+    "۸": "8",
+    "۹": "9",
+    "۰": "0",
+};
 const ur = {
     app: "نوشتہ",
     slogan: "اردو کی کتابیں اور بہت کچھ ، بہترین انداز میں",
@@ -500,6 +524,75 @@ const ur = {
             empty: {
                 title: "صفحات موجود نہیں",
             },
+        },
+    },
+    moment: {
+        months: [
+            "جنوری",
+            "فروری",
+            "مارچ",
+            "اپریل",
+            "مئی",
+            "جون",
+            "جولائی",
+            "اگست",
+            "ستمبر",
+            "اکتوبر",
+            "نومبر",
+            "دسمبر",
+        ],
+        weekdays: ["اتوار", "سوموار", "منگل", "بدھ", "جمعرات", "جمعہ", "ہفتہ"],
+        calendar: {
+            sameDay: "[آج بوقت] LT",
+            nextDay: "[کل بوقت] LT",
+            nextWeek: "dddd [بوقت] LT",
+            lastDay: "[گذشتہ روز بوقت] LT",
+            lastWeek: "[گذشتہ] dddd [بوقت] LT",
+            sameElse: "L",
+        },
+        relativeTime: {
+            future: "%s بعد",
+            past: "%s قبل",
+            s: "چند سیکنڈ",
+            ss: "%d سیکنڈ",
+            m: "ایک منٹ",
+            mm: "%d منٹ",
+            h: "ایک گھنٹہ",
+            hh: "%d گھنٹے",
+            d: "ایک دن",
+            dd: "%d دن",
+            M: "ایک ماہ",
+            MM: "%d ماہ",
+            y: "ایک سال",
+            yy: "%d سال",
+        },
+        ordinal: function (number) {
+            switch (number) {
+                case "1":
+                    return "یکم";
+                case "2":
+                    return "یکم";
+                default:
+                    return number;
+            }
+        },
+        meridiem: function (hour) {
+            if (hour > 20 && hour < 4) {
+                return "رات";
+            }
+            if (hour < 6) {
+                return "صبح صادق";
+            } else if (hour > 6) {
+                return "صبح";
+            } else if (hour > 12) {
+                return "دوپہر";
+            } else if (hour > 5) {
+                return "سہ پہر";
+            } else if (hour > 8) {
+                return "شام";
+            } else {
+                return "رات";
+            }
         },
     },
 };
