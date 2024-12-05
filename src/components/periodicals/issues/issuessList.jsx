@@ -14,6 +14,7 @@ import IssueListItem from './issueListItem';
 const IssuesList = ({
     libraryId,
     periodicalId = null,
+    volumeNumber = null,
     frequency,
     showTitle = true
 }) => {
@@ -24,7 +25,6 @@ const IssuesList = ({
 
     const query = searchParams.get("query");
     const year = searchParams.get("year") ?? "title";
-    const volumeNumber = searchParams.get("volumeNumber");
     const sortBy = searchParams.get("sortBy") ?? "title";
     const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
     const pageNumber = searchParams.get("pageNumber") ?? 1;
@@ -76,6 +76,7 @@ const IssuesList = ({
 IssuesList.propTypes = {
     libraryId: PropTypes.string,
     periodicalId: PropTypes.string,
+    volumeNumber: PropTypes.string,
     frequency: PropTypes.string,
     showTitle: PropTypes.bool,
 }

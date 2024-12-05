@@ -17,7 +17,7 @@ const PRIMARY_COL_HEIGHT = rem(300);
 //-----------------------------------------
 const PeriodicalPage = () => {
     const { t } = useTranslation();
-    const { libraryId, periodicalId } = useParams();
+    const { libraryId, periodicalId, volumeNumber } = useParams();
     const theme = useMantineTheme();
     const {
         data: periodical,
@@ -96,6 +96,7 @@ const PeriodicalPage = () => {
                     <Divider />
                     <IssuesList libraryId={libraryId}
                         periodicalId={periodicalId}
+                        volumeNumber={volumeNumber}
                         frequency={periodical.frequency}
                         showTitle={true} />
                 </Stack>

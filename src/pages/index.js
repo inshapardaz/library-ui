@@ -18,6 +18,7 @@ import WritingsPage from "./writings";
 import WritingPage from "./writings/writing";
 import PeriodicalsPage from "./periodicals";
 import PeriodicalPage from "./periodicals/periodical";
+import IssuePage from "./periodicals/issue";
 
 const Pages = {
     HomePage,
@@ -38,6 +39,7 @@ const Pages = {
     WritingPage,
     PeriodicalsPage,
     PeriodicalPage,
+    IssuePage
 };
 
 export default Pages;

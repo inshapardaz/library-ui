@@ -28,12 +28,12 @@ const IssueListItem = ({ libraryId, issue, frequency }) => {
             }
             <Stack>
                 <Group justify="space-between">
-                    <Text component={Link} to={`/libraries/${libraryId}/books/${issue.id}`} truncate="end" fw={500}>{title}</Text>
+                    <Text component={Link} to={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.id}`} truncate="end" fw={500}>{title}</Text>
                 </Group>
                 <Group mt="md">
                     <IconText icon={<IconVolumeNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
-                        link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}?volumeNumber=${issue.volumeNumber}`} />
+                        link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
                     <Divider orientation="vertical" />
                     <IconText icon={<IconIssueNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />

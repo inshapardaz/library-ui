@@ -9,7 +9,6 @@ import { Badge, Card, Center, Divider, NavLink, SimpleGrid, Skeleton } from '@ma
 import { useGetIssuesYearsQuery } from '@/store/slices/issues.api';
 import { IconAnnually } from '@/components/icon';
 import PeriodicalFrequency from '@/models/periodicalFrequency'
-import FrequencyIcon from './frequencyIcon'
 //----------------------------------------------
 const PeriodicalSideBar = ({ libraryId, periodicalId }) => {
     const { t } = useTranslation();
