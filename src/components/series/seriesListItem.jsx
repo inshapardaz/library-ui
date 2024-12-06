@@ -7,37 +7,34 @@ import { Group, Image, Stack, Text, Tooltip, useMantineTheme } from '@mantine/co
 
 // Local Imports
 import { IconSeries, IconBooks } from '@/components/icon';
-import IconText from '../iconText';
+import If from '@/components/if';
+import IconText from '@/components/iconText';
 //-------------------------------------
+const IMAGE_HEIGHT = 150;
 
 const SeriesListItem = ({ libraryId, series }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <IconSeries width={150} style={{ color: theme.colors.dark[1] }} />;
+    const icon = <IconSeries width={IMAGE_HEIGHT} style={{ color: theme.colors.dark[1] }} />;
 
     return (<Group gap="sm" wrap="nowrap">
-        {series.links?.image ?
-            <Image w={150} radius="sm" src={series?.links?.image} /> :
-            icon
-        }
+        <If condition={series.links?.image} elseChildren={icon}>
+            <Image w={IMAGE_HEIGHT} radius="sm" src={series.links.image} />
+        </If>
         <Stack>
             <Text component={Link} to={`/libraries/${libraryId}/series/${series.id}`} truncate="end" fw={500}>{series.name}</Text>
-            {series?.description ?
-                (<Tooltip label={series.description} withArrow>
+            <If condition={series?.description}
+                elseChildren={(<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
+                    {t('series.noDescription')}
+                </Text>)}>
+                <Tooltip label={series.description} withArrow>
                     <Text size="sm" c="dimmed" lineClamp={1}>
                         {series.description}
                     </Text>
-                </Tooltip>) :
-                (<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
-                    {t('series.noDescription')}
-                </Text>)}
-            {series?.bookCount ?
-                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: series?.bookCount })} />
-                : null}
-            <Group mt="md">
-                {series.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={series.bookCount} />) : null}
-            </Group>
+                </Tooltip>
+            </If>
+            <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: series?.bookCount })} />
         </Stack>
     </Group>)
 }

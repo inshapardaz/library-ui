@@ -6,7 +6,7 @@ import { Avatar, Group, Tooltip, useMantineTheme } from "@mantine/core";
 // Local imports
 import IconText from '@/components/iconText';
 import { IconAuthor } from '@/components/icon';
-//-----------------------------------------
+//-------------------------------
 
 const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
     const theme = useMantineTheme();
@@ -19,24 +19,29 @@ const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
                 <IconText key={author.id}
                     icon={<Avatar src={author?.links?.image || icon} />}
                     text={author.name}
+                    size='sm'
                     link={`/libraries/${libraryId}/authors/${author.id}`}
-                />))}
+                />
+            ))}
         </Group>);
     } else if (authors.length === 1) {
         return (authors.map((author) => (
             <IconText key={author.id}
                 icon={<Avatar src={author?.links?.image || icon} />}
                 text={author.name}
+                size='sm'
                 link={`/libraries/${libraryId}/authors/${author.id}`}
             />)))
     } else {
         return (
             <Avatar.Group>
-                {authors.map((author) => (<Tooltip key={author.id} label={author.name} withArrow>
-                    <Avatar src={author?.links?.image || icon} />
-                </Tooltip>
-                ))}
-            </Avatar.Group>)
+                {authors.map((author) => (
+                    <Tooltip key={author.id} label={author.name} withArrow>
+                        <Avatar src={author?.links?.image || icon} />
+                    </Tooltip>
+                ))
+                }
+            </Avatar.Group >)
     }
 }
 

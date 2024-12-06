@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // Ui Library import
 import { Card, Text, Group, useMantineTheme, Center, Image } from '@mantine/core';
@@ -7,20 +8,24 @@ import { Card, Text, Group, useMantineTheme, Center, Image } from '@mantine/core
 // Local imports
 import { IconSeries, IconBooks } from '@/components/icon';
 import IconText from '../iconText';
+import If from '@/components/if';
 //---------------------------------------
 
+const IMAGE_HEIGHT = 225;
+const IMAGE_WIDTH = 150;
+
 const SeriesCard = ({ libraryId, series }) => {
+    const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={450}><IconSeries width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT}><IconSeries width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                {series.links?.image ?
-                    <Image h={450} radius="sm" src={series?.links?.image} /> :
-                    icon
-                }
+                <If condition={series.links?.image} elseChildren={icon}>
+                    <Image h={IMAGE_HEIGHT} radius="sm" src={series?.links?.image} />
+                </If>
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
@@ -28,7 +33,11 @@ const SeriesCard = ({ libraryId, series }) => {
             </Group>
 
             <Group mt="md">
-                {series.bookCount != null ? (<IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={series.bookCount} />) : null}
+                <If condition={series.bookCount != null}>
+                    <IconText
+                        icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}
+                        text={t('series.bookCount', { count: series.bookCount })} />
+                </If>
             </Group>
         </Card>
     )

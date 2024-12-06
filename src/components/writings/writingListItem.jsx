@@ -9,16 +9,17 @@ import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import { IconWriting } from '@/components/icon';
 import FavoriteButton from './favoriteButton';
 //-------------------------------------
+const IMAGE_HEIGHT = 150;
 
 const WritingListItem = ({ libraryId, writing }) => {
     const theme = useMantineTheme();
 
-    const icon = <IconWriting width={150} style={{ color: theme.colors.dark[1] }} />;
+    const icon = <IconWriting width={IMAGE_HEIGHT} style={{ color: theme.colors.dark[1] }} />;
 
     return (
-        <Group gap="sm" wrap="nowrap">
+        <Group gap="sm" wrap="nowrap" key={writing.id}>
             {writing.links?.image ?
-                <Image w={150} radius="sm" src={writing?.links?.image} /> :
+                <Image w={IMAGE_HEIGHT} radius="sm" src={writing?.links?.image} /> :
                 icon
             }
             <Stack>

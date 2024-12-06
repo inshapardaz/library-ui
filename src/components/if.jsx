@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 
-const If = ({ condition, children }) => {
+const If = ({ condition, elseChildren = null, children }) => {
     if (condition) {
         return children;
     }
 
-    return null;
+    return elseChildren;
 }
 
 If.propTypes = {
     condition: PropTypes.any,
+    elseChildren: PropTypes.any,
     children: PropTypes.any
 }
 

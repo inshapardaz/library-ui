@@ -42,7 +42,6 @@ const AuthorsList = ({
     });
 
     return <DataView
-        title={t('header.authors')}
         emptyText={t('authors.empty')}
         dataSource={authors}
         isFetching={isFetching}
@@ -64,6 +63,7 @@ const AuthorsList = ({
             pageNumber: 1,
             query: search,
         }))}
+        cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }
 
@@ -75,8 +75,8 @@ AuthorsList.propTypes = {
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
     status: PropTypes.string,
-    pageNumber: PropTypes.string,
-    pageSize: PropTypes.string,
+    pageNumber: PropTypes.number,
+    pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
 }
 

@@ -61,7 +61,9 @@ const ur = {
         next: "اگلا",
         previous: "پچھلا",
         done: "مکمل",
-        viewAll: "تمام دیکھیں"
+        viewAll: "تمام دیکھیں",
+        showMore: "مزید دیکھیں",
+        hide: "چھپائیں"
     },
     login: {
         title: "داخل ہوں",
@@ -387,6 +389,9 @@ const ur = {
         description: "کتابوں کے سلسلے",
         empty: "سلسلہ جات دستیاب نہیں۔",
         noDescription: "تفصیل دستیاب نہیں۔۔۔",
+        bookCount_zero: "کوئی کتاب موجود نہیں",
+        bookCount_one: "1 کتاب",
+        bookCount_other: "{{count}} کتب",
         error: {
             loading: {
                 title: "سلسلہ حاصل نہیں ہو سکیں",

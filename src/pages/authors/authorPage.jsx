@@ -1,18 +1,16 @@
-import PropTypes from 'prop-types';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // UI library imports
 import {
+    Card,
     Container,
+    Divider,
     Grid,
-    Image,
+    Group,
     SimpleGrid,
     Skeleton,
-    Space,
-    Stack,
     Tabs,
-    Title,
     rem,
     useMantineTheme
 } from '@mantine/core';
@@ -20,11 +18,14 @@ import {
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetAuthorQuery } from '@/store/slices/authors.api';
-import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
+import { IconNames, IconHome, IconBooks, IconWritings, IconAuthor } from '@/components/icon';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
+import WritingsList from "@/components/writings/writingsList";
 import IconText from "@/components/iconText";
 import Error from '@/components/error';
+import PageHeader from "@/components/pageHeader";
+import If from "@/components/if";
 
 //------------------------------------------------------
 
@@ -40,8 +41,8 @@ const AuthorPage = () => {
     const query = searchParams.get("query");
     const sortBy = searchParams.get("sortBy") ?? "name";
     const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
-    const pageNumber = searchParams.get("pageNumber") ?? 1;
-    const pageSize = searchParams.get("pageSize") ?? 12;
+    const pageNumber = parseInt(searchParams.get("pageNumber") ?? "1");
+    const pageSize = parseInt(searchParams.get("pageSize") ?? "12");
     const selectedTab = searchParams.get("tab") ?? "books";
     const {
         data: author,
@@ -91,60 +92,64 @@ const AuthorPage = () => {
     }
 
     return (<Container fluid mt='md'>
-        <Grid>
-            <Grid.Col span="content">
-                {(author?.links?.image)
-                    ?
-                    <Image
-                        src={author?.links?.image}
-                        h={rem(300)}
-                        w="auto"
-                        radius="md"
-                        alt={author?.name}
-                        fit="contain"
-                    /> :
-                    <IconAuthor width={250} style={{ color: theme.colors.dark[1] }} />
-                }
-            </Grid.Col>
-            <Grid.Col span="auto">
-                <Stack>
-                    <Title order={3}>{author.name}</Title>
+        <PageHeader title={author.name}
+            imageLink={author?.links?.image}
+            defaultIcon={IconNames.Author}
+            subTitle={<Group>
+                <If condition={author.bookCount > 0}>
                     <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
+                </If>
+                <If condition={author.articleCount > 0 && author.bookCount > 0}>
+                    <Divider orientation='vertical' />
+                </If>
+                <If condition={author.articleCount > 0}>
                     <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
-                </Stack>
-            </Grid.Col>
-        </Grid>
-        <Space h="md" />
-        <Tabs keepMounted={false} value={selectedTab} onChange={onTabChanged}>
-            <Tabs.List>
-                <Tabs.Tab value="books" leftSection={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}>
-                    {t('author.booksTabLabel', { count: author.bookCount })}
-                </Tabs.Tab>
-                <Tabs.Tab value="writings" leftSection={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}>
-                    {t('author.writingsTabLabel', { count: author.articleCount })}
-                </Tabs.Tab>
-            </Tabs.List>
-            <Tabs.Panel value="books">
-                <BooksList
-                    libraryId={libraryId}
-                    author={author?.id}
-                    query={query}
-                    sortBy={sortBy}
-                    sortDirection={sortDirection}
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    showSearch
-                    showTitle={false} />
-            </Tabs.Panel>
-        </Tabs>
+                </If>
+            </Group>}
+            breadcrumbs={[
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: <IconHome height={16} /> },
+                { title: t('header.authors'), href: `/libraries/${libraryId}/authors`, icon: <IconAuthor height={16} /> },
+            ]}
+            details={author.description} />
+
+        <Card withBorder>
+            <Tabs keepMounted={false} value={selectedTab} onChange={onTabChanged}>
+                <Tabs.List>
+                    <Tabs.Tab value="books" leftSection={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}>
+                        {t('author.booksTabLabel', { count: author.bookCount })}
+                    </Tabs.Tab>
+                    <Tabs.Tab value="writings" leftSection={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}>
+                        {t('author.writingsTabLabel', { count: author.articleCount })}
+                    </Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel value="books">
+                    <BooksList
+                        libraryId={libraryId}
+                        author={author?.id}
+                        query={query}
+                        sortBy={sortBy}
+                        sortDirection={sortDirection}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        showSearch
+                        showTitle={false} />
+                </Tabs.Panel>
+                <Tabs.Panel value="writings">
+                    <WritingsList
+                        libraryId={libraryId}
+                        author={author?.id}
+                        query={query}
+                        sortBy={sortBy}
+                        sortDirection={sortDirection}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        showSearch
+                        showTitle={false} />
+                </Tabs.Panel>
+            </Tabs>
+        </Card>
+
     </Container >);
 }
-
-AuthorPage.propTypes = {
-    authors: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string
-    }))
-};
 
 export default AuthorPage;

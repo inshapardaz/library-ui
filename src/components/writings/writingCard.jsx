@@ -9,17 +9,18 @@ import { IconWriting } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import FavoriteButton from './favoriteButton';
 //---------------------------------------
+const IMAGE_HEIGHT = 150;
 
 const WritingCard = ({ libraryId, writing }) => {
     const theme = useMantineTheme();
 
-    const icon = <Center h={450}><IconWriting width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT + 50}><IconWriting height={IMAGE_HEIGHT} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
+        <Card shadow="sm" padding="lg" radius="md" key={writing.id} withBorder>
             <Card.Section>
                 {writing.links?.image ?
-                    <Image h={450} radius="sm" src={writing?.links?.image} /> :
+                    <Image h={IMAGE_HEIGHT} radius="sm" src={writing?.links?.image} /> :
                     icon
                 }
             </Card.Section>

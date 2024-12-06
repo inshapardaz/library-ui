@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 // Ui Library import
 import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@mantine/core';
@@ -11,16 +10,15 @@ import IconText from '../iconText';
 //---------------------------------------
 
 const AuthorCard = ({ libraryId, author }) => {
-    const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={450}><IconAuthor width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={225}><IconAuthor width={125} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
                 {author.links?.image ?
-                    <Image h={450} radius="sm" src={author?.links?.image} /> :
+                    <Image h={225} radius="sm" src={author?.links?.image} /> :
                     icon
                 }
             </Card.Section>
@@ -30,9 +28,9 @@ const AuthorCard = ({ libraryId, author }) => {
             </Group>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
+                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={author.bookCount} />
                 <Divider />
-                <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
+                <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={author.articleCount} />
             </Group>
         </Card>
     )

@@ -37,7 +37,9 @@ const en = {
         next: "Next",
         previous: "Previous",
         done: "Done",
-        viewAll: "View All"
+        viewAll: "View All",
+        showMore: "Show more",
+        hide: "Hide"
     },
     login: {
         title: "Login",
@@ -361,6 +363,9 @@ const en = {
         description: "Collection of series of books",
         empty: "No series",
         noDescription: "No details...",
+        bookCount_zero: "No books",
+        bookCount_one: "1 book",
+        bookCount_other: "{{count}} books",
         error: {
             loading: {
                 title: "Error loading series",

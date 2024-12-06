@@ -79,7 +79,7 @@ const BooksList = ({
 BooksList.propTypes = {
     libraryId: PropTypes.string,
     query: PropTypes.string,
-    author: PropTypes.string,
+    author: PropTypes.number,
     category: PropTypes.string,
     series: PropTypes.string,
     sortBy: PropTypes.string,

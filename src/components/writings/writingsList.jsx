@@ -72,21 +72,22 @@ const WritingsList = ({
             pageNumber: 1,
             query: search,
         }))}
+        cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }
 
 WritingsList.propTypes = {
     libraryId: PropTypes.string,
     query: PropTypes.string,
-    author: PropTypes.string,
+    author: PropTypes.number,
     category: PropTypes.string,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
     favorite: PropTypes.string,
     read: PropTypes.string,
     status: PropTypes.string,
-    pageNumber: PropTypes.string,
-    pageSize: PropTypes.string,
+    pageNumber: PropTypes.number,
+    pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
     showTitle: PropTypes.bool,
 }

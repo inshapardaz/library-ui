@@ -34,7 +34,7 @@ import If from '@/components/if';
 const SearchInpout = ({ query, onQueryChanged }) => {
     const { t } = useTranslation();
     const [value, setValue] = useState(query || '');
-    const searchIcon = (<ActionIcon size={32} disabled={!value || value == ''}
+    const searchIcon = (<ActionIcon size={32} disabled={!value || value == ''} variant='transparent'
         onClick={() => onQueryChanged(value)} >
         <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
     </ActionIcon>);
@@ -93,7 +93,10 @@ const DataView = ({
     cardRender = () => null,
     listItemRender = () => null,
     onReload = () => { },
-    onPageChanged = () => { }
+    onPageChanged = () => { },
+    cols = { base: 1, sm: 2, md: 3, lg: 4 },
+    spacing = { base: 10, sm: 'xl' },
+    verticalSpacing = { base: 'md', sm: 'xl' }
 }) => {
     const [viewType, setViewType] = useLocalStorage({
         key: viewToggleKey,
@@ -142,9 +145,9 @@ const DataView = ({
         if (viewType == 'card') {
             content = (<Stack>
                 <SimpleGrid
-                    cols={{ base: 1, sm: 2, md: 3, lg: 4 }}
-                    spacing={{ base: 10, sm: 'xl' }}
-                    verticalSpacing={{ base: 'md', sm: 'xl' }}
+                    cols={cols}
+                    spacing={spacing}
+                    verticalSpacing={verticalSpacing}
                 >
                     {dataSource.data.map(item => cardRender(item))}
                 </SimpleGrid>
@@ -160,7 +163,7 @@ const DataView = ({
                     <Stack align="stretch"
                         justify="center"
                         gap="md">
-                        {dataSource.data.map(item => <>{listItemRender(item)}<Divider /></>)}
+                        {dataSource.data.map(item => listItemRender(item))}
                     </Stack>
                     <If condition={showPagination}>
                         <Center>
@@ -215,7 +218,10 @@ DataView.propTypes = {
     cardRender: PropTypes.func,
     listItemRender: PropTypes.func,
     onReload: PropTypes.func,
-    onPageChanged: PropTypes.func
+    onPageChanged: PropTypes.func,
+    cols: PropTypes.any,
+    spacing: PropTypes.any,
+    verticalSpacing: PropTypes.any
 }
 
 export default DataView;
