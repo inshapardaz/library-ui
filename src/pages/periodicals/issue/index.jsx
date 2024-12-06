@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 // UI Library Import
-import { Card, Center, Divider, Group, rem, Skeleton, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, Center, Divider, Group, rem, Skeleton, Text, useMantineTheme } from "@mantine/core";
 import moment from "moment";
 
 // Local Import
@@ -58,7 +58,7 @@ const IssuePage = () => {
 
 
     return (<>
-        <PageHeader title={title}
+        <PageHeader title={`${periodical?.title} - ${title}`}
             imageLink={issue.links?.image}
             defaultIcon={IconNames.Periodical}
             subTitle={
@@ -84,7 +84,6 @@ const IssuePage = () => {
                 { title: periodical?.title, href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
             ]} />
         <Card withBorder m="sm">
-            <Title truncate="end" order={2}>{periodical?.title} - {title}</Title>
             <IssueArticlesList
                 libraryId={libraryId}
                 periodicalId={periodicalId}

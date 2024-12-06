@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
-import { Divider, Group, Image, Stack, Text, useMantineTheme } from '@mantine/core';
+import { Center, Divider, Group, Image, Stack, Text, useMantineTheme } from '@mantine/core';
 import moment from "moment";
 
 // Local Imports
@@ -12,43 +12,46 @@ import { IconIssue, IconPages, IconIssueArticle, IconVolumeNumber, IconIssueNumb
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 //-------------------------------------
+const IMAGE_WIDTH = 150;
 
 const IssueListItem = ({ libraryId, issue, frequency }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <IconIssue width={150} style={{ color: theme.colors.dark[1] }} />;
+    const icon = <Center w={IMAGE_WIDTH}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
     const title = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
 
-    return (
+    return (<>
         <Group gap="sm" wrap="nowrap">
-            {issue.links?.image ?
-                <Image w={150} radius="sm" src={issue?.links?.image} /> :
-                icon
-            }
+            <If condition={issue.links?.image} elseChildren={icon}>
+                <Image w={IMAGE_WIDTH} radius="sm" src={issue?.links?.image} />
+            </If>
             <Stack>
                 <Group justify="space-between">
                     <Text component={Link} to={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.issueNumber}`} truncate="end" fw={500}>{title}</Text>
                 </Group>
                 <Group mt="md">
-                    <IconText icon={<IconVolumeNumber style={{ color: theme.colors.dark[2] }} />}
+                    <IconText size="sm" icon={<IconVolumeNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
                         link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
                     <Divider orientation="vertical" />
-                    <IconText icon={<IconIssueNumber style={{ color: theme.colors.dark[2] }} />}
+                    <IconText size="sm" icon={<IconIssueNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
                 </Group>
                 <Group mt="md">
                     <If condition={issue.pageCount != null}>
-                        <IconText icon={<IconPages style={{ color: theme.colors.dark[2] }} />} text={t('issue.pageCount', { count: issue.pageCount })} />
+                        <IconText size="sm" icon={<IconPages style={{ color: theme.colors.dark[2] }} />} text={t('issue.pageCount', { count: issue.pageCount })} />
                     </If>
                     <If condition={issue.articleCount != null}>
                         <Divider orientation="vertical" />
-                        <IconText icon={<IconIssueArticle style={{ color: theme.colors.dark[2] }} />} text={t('issue.articleCount', { count: issue.articleCount })} />
+                        <IconText size="sm" icon={<IconIssueArticle style={{ color: theme.colors.dark[2] }} />} text={t('issue.articleCount', { count: issue.articleCount })} />
                     </If>
                 </Group>
             </Stack>
-        </Group>)
+        </Group>
+        <Divider />
+    </>
+    )
 }
 
 IssueListItem.propTypes = {

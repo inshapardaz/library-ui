@@ -9,41 +9,49 @@ import { Divider, Group, Image, Stack, Text, Tooltip, useMantineTheme } from '@m
 import { IconPages } from '@/components/icon';
 import IconText from '@/components/iconText';
 import FrequencyIcon from './frequencyIcon';
-import { IconPeriodical } from '../icon';
+import { IconPeriodical } from '@/components/icon';
+import If from '@/components/if';
 //-------------------------------------
+const IMAGE_WIDTH = 150;
 
 const PeriodicalListItem = ({ libraryId, periodical }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <IconPeriodical width={150} style={{ color: theme.colors.dark[1] }} />;
+    const icon = <IconPeriodical width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} />;
 
-    return (
+    return (<>
         <Group gap="sm" wrap="nowrap">
-            {periodical.links?.image ?
-                <Image w={150} radius="sm" src={periodical?.links?.image} /> :
-                icon
-            }
+            <If condition={periodical.links?.image} elseChildren={icon}>
+                <Image w={IMAGE_WIDTH} radius="sm" src={periodical?.links?.image} />
+            </If>
             <Stack>
                 <Group justify="space-between">
                     <Text component={Link} to={`/libraries/${libraryId}/periodicals/${periodical.id}`} truncate="end" fw={500}>{periodical.title}</Text>
                 </Group>
-                {periodical?.description ?
-                    (<Tooltip label={periodical.description} withArrow>
+                <If condition={periodical?.description}
+                    elseChildren={<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
+                        {t('periodical.noDescription')}
+                    </Text>}>
+                    <Tooltip label={periodical.description} withArrow>
                         <Text size="sm" c="dimmed" lineClamp={1}>
                             {periodical.language}
                         </Text>
-                    </Tooltip>) :
-                    (<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
-                        {t('periodical.noDescription')}
-                    </Text>)}
+                    </Tooltip>
+                </If>
                 <Group mt="md">
-                    {periodical.issueCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('periodical.issueCount', { count: periodical.issueCount })} />) : null}
-                    <Divider orientation="vertical" />
                     <FrequencyIcon frequency={periodical.frequency} showLabel c="dimmed" size="sm" height={16} style={{ color: theme.colors.gray[6] }} />
+                    <If condition={periodical.issueCount != null} >
+                        <>
+                            <Divider orientation="vertical" />
+                            <IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('periodical.issueCount', { count: periodical.issueCount })} />
+                        </>
+                    </If>
                 </Group>
-            </Stack>
-        </Group>)
+            </Stack >
+        </Group>
+        <Divider />
+    </>)
 }
 
 PeriodicalListItem.propTypes = {

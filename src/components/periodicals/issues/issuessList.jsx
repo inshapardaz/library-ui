@@ -70,6 +70,7 @@ const IssuesList = ({
             pageNumber: 1,
             query: search,
         }))}
+        cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }
 

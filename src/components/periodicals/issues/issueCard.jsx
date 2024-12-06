@@ -12,21 +12,22 @@ import { IconIssue, IconPages, IconIssueArticle } from '@/components/icon';
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 //---------------------------------------
+const IMAGE_HEIGHT = 400;
+const IMAGE_WIDTH = 200;
 
 const IssueCard = ({ libraryId, issue, frequency }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={450} width={250}><IconIssue width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT} w={IMAGE_WIDTH}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
     const title = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                {issue.links?.image ?
-                    <Image h={450} width={250} radius="sm" src={issue?.links?.image} /> :
-                    icon
-                }
+                <If condition={issue.links?.image} elseChildren={icon}>
+                    <Image h={IMAGE_HEIGHT} w={IMAGE_WIDTH} radius="sm" src={issue?.links?.image} /> :
+                </If>
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
@@ -35,10 +36,10 @@ const IssueCard = ({ libraryId, issue, frequency }) => {
 
 
             <Group>
-                <IconText text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
+                <IconText size="sm" text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
                     link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
                 <Divider orientation="vertical" />
-                <IconText text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
+                <IconText size="sm" text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
             </Group>
             <Group mt="md">
                 <If condition={issue.pageCount != null}>

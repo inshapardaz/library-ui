@@ -73,6 +73,8 @@ const BooksList = ({
             pageNumber: 1,
             query: search,
         }))}
+        cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 3, xl: 4 }}
+
     />;
 }
 

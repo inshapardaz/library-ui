@@ -10,6 +10,7 @@ import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import { IconBook, IconPages, IconChapters } from '@/components/icon';
 import IconText from '@/components/iconText';
 import FavoriteButton from './favoriteButton';
+import If from '@/components/if';
 //-------------------------------------
 
 const BookListItem = ({ libraryId, book }) => {
@@ -18,12 +19,11 @@ const BookListItem = ({ libraryId, book }) => {
 
     const icon = <IconBook width={150} style={{ color: theme.colors.dark[1] }} />;
 
-    return (
+    return (<>
         <Group gap="sm" wrap="nowrap">
-            {book.links?.image ?
-                <Image w={150} radius="sm" src={book?.links?.image} /> :
-                icon
-            }
+            <If condition={book.links?.image} elseChildren={icon}>
+                <Image w={150} radius="sm" src={book?.links?.image} />
+            </If>
             <Stack>
                 <Group justify="space-between">
                     <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}`} truncate="end" fw={500}>{book.title}</Text>
@@ -40,12 +40,20 @@ const BookListItem = ({ libraryId, book }) => {
                     </Text>)}
                 <AuthorsAvatar libraryId={libraryId} authors={book?.authors} />
                 <Group mt="md">
-                    {book.pageCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.pageCount', { count: book.pageCount })} />) : null}
-                    <Divider orientation="vertical" />
-                    {book.chapterCount != null ? (<IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.chapterCount', { count: book.chapterCount })} />) : null}
+                    <If condition={book.pageCount != null}>
+                        <IconText size="sm" icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.pageCount', { count: book.pageCount })} />
+                    </If>
+                    <If condition={book.chapterCount != null}>
+                        <>
+                            <Divider orientation="vertical" />
+                            <IconText size="sm" icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.chapterCount', { count: book.chapterCount })} />
+                        </>
+                    </If>
                 </Group>
             </Stack>
-        </Group>)
+        </Group>
+        <Divider />
+    </>)
 }
 
 BookListItem.propTypes = {

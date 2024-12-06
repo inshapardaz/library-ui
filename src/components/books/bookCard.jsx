@@ -10,21 +10,24 @@ import { IconBook, IconPages, IconChapters } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import FavoriteButton from '@/components/books/favoriteButton';
 import IconText from '@/components/iconText';
+import If from '@/components/if';
 //---------------------------------------
+
+const IMAGE_HEIGHT = 450;
+const IMAGE_WIDTH = 150;
 
 const BookCard = ({ libraryId, book }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT}><IconBook width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                {book.links?.image ?
-                    <Image h={450} radius="sm" src={book?.links?.image} /> :
-                    icon
-                }
+                <If condition={book.links?.image} elseChildren={icon}>
+                    <Image h={IMAGE_HEIGHT} fit='fit' radius="sm" src={book?.links?.image} />
+                </If>
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
@@ -36,20 +39,25 @@ const BookCard = ({ libraryId, book }) => {
                 <AuthorsAvatar libraryId={libraryId} authors={book?.authors} />
             </Group>
 
-            {book?.description ?
-                (<Tooltip label={book.description} withArrow>
+            <If condition={book?.description} elseChildren={<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
+                {t('book.noDescription')}
+            </Text>}>
+                <Tooltip label={book.description} withArrow>
                     <Text size="sm" c="dimmed" lineClamp={1}>
                         {book.description}
                     </Text>
-                </Tooltip>) :
-                (<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
-                    {t('book.noDescription')}
-                </Text>)}
-
+                </Tooltip>
+            </If>
             <Group mt="md">
-                {book.pageCount != null ? (<IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={book.pageCount} />) : null}
-                <Divider orientation="vertical" />
-                {book.chapterCount != null ? (<IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={book.chapterCount} />) : null}
+                <If condition={book.pageCount != null}>
+                    <IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={book.pageCount} />
+                </If>
+                <If condition={book.chapterCount != null}>
+                    <>
+                        <Divider orientation="vertical" />
+                        <IconText icon={<IconChapters height={16} style={{ color: theme.colors.dark[2] }} />} text={book.chapterCount} />
+                    </>
+                </If>
             </Group>
         </Card>
     )
