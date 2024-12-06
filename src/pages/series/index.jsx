@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { SortDirection } from "@/models";
 import SeriesList from "@/components/series/seriesList";
 import PageHeader from "@/components/pageHeader";
-import { IconNames, IconHome } from '@/components/icon'
+import { IconNames } from '@/components/icon'
 
 // -----------------------------------------
 const SeriesListPage = () => {
@@ -23,7 +23,7 @@ const SeriesListPage = () => {
             title={t('header.series')}
             defaultIcon={IconNames.Series}
             breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: <IconHome height={16} /> }
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
             ]} />
         <SeriesList
             libraryId={libraryId}

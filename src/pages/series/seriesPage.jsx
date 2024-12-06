@@ -12,7 +12,7 @@ import {
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetSeriesByIdQuery } from '@/store/slices/series.api';
-import { IconNames, IconHome, IconBooks, IconSeries } from '@/components/icon';
+import { IconNames, IconBooks } from '@/components/icon';
 import BooksList from "@/components/books/booksList";
 import IconText from "@/components/iconText";
 import PageHeader, { PageHeaderSkeleton } from "@/components/pageHeader";
@@ -59,8 +59,8 @@ const SeriesPage = () => {
             }
             details={series.description}
             breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: <IconHome height={16} /> },
-                { title: t('header.series'), href: `/libraries/${libraryId}/series`, icon: <IconSeries height={16} /> },
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+                { title: t('header.series'), href: `/libraries/${libraryId}/series`, icon: IconNames.Series },
             ]} />
 
         <Card withBorder>

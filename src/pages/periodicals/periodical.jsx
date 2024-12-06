@@ -2,16 +2,17 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 // UI Library Imports
-import { Center, Container, Divider, Grid, Group, Image, rem, Skeleton, Space, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, Container, Divider, Grid, Group, rem, Skeleton, useMantineTheme } from "@mantine/core";
 
 // Local Imports
 import { useGetPeriodicalByIdQuery } from '@/store/slices/periodicals.api';
-import { IconPeriodical } from '@/components/icon';
+import { IconNames, IconIssues } from '@/components/icon'
 import IssuesList from "@/components/periodicals/issues/issuessList";
-import PeriodicalSideBar from "@/components/periodicals/periodicalSideBar";
+import FrequencyIcon from "@/components/periodicals/frequencyIcon";
+import PageHeader from "@/components/pageHeader";
+import IconText from "@/components/iconText";
 import Error from '@/components/error';
 import If from '@/components/if'
-import PeriodicalFrequency from "@/models/periodicalFrequency";
 //-----------------------------------------
 const PRIMARY_COL_HEIGHT = rem(300);
 //-----------------------------------------
@@ -61,47 +62,34 @@ const PeriodicalPage = () => {
         </Container>)
     }
 
-    const icon = <Center h={450}><IconPeriodical width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
-
     return (<Container fluid mt="sm">
-        <Grid
-            mih={50}
-        >
-            <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
-                {periodical.links?.image ?
-                    <Image
-                        src={periodical?.links?.image}
-                        h={rem(400)}
-                        w="auto"
-                        radius="md"
-                        alt={periodical?.title}
-                        fit='contain'
-                    /> :
-                    icon
-                }
-                <If condition={periodical.frequency !== PeriodicalFrequency.Annually}>
-                    <PeriodicalSideBar libraryId={libraryId} periodicalId={periodicalId} />
-                </If>
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 8, lg: 9 }}>
-                <Stack align="stretch"
-                    justify="flex-start"
-                    gap="md">
-                    <Group>
-                        <Title order={3}>{periodical.title}</Title>
-                        <Space w="lg" />
-                    </Group>
-                    <Space h="lg" />
-                    {periodical?.description && <Text order={3}>{periodical.description}</Text>}
-                    <Divider />
-                    <IssuesList libraryId={libraryId}
-                        periodicalId={periodicalId}
-                        volumeNumber={volumeNumber}
-                        frequency={periodical.frequency}
-                        showTitle={true} />
-                </Stack>
-            </Grid.Col>
-        </Grid>
+        <PageHeader title={periodical.title}
+            imageLink={periodical.links?.image}
+            defaultIcon={IconNames.Periodical}
+            subTitle={
+                <Group>
+                    <FrequencyIcon frequency={periodical.frequency} showLabel c="dimmed" size="sm" height={16} style={{ color: theme.colors.gray[6] }} />
+                    <If condition={periodical.issueCount > 0}>
+                        <>
+                            <Divider orientation="vertical" />
+                            <IconText icon={<IconIssues height={16} style={{ color: theme.colors.dark[2] }} />} text={t('periodical.issueCount', { count: periodical.issueCount })} />
+                        </>
+                    </If>
+                </Group>
+            }
+            details={periodical.description}
+            breadcrumbs={[
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+                { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodicals },
+            ]} />
+
+        <Card withBorder>
+            <IssuesList libraryId={libraryId}
+                periodicalId={periodicalId}
+                volumeNumber={volumeNumber}
+                frequency={periodical.frequency}
+                showTitle={true} />
+        </Card>
     </Container>);
 };
 

@@ -27,7 +27,7 @@ export const PageHeaderSkeleton = () => {
 }
 
 //----------------------------------
-const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcrumbs = [] }) => {
+const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcrumbs = [], actions = [] }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     return (<Flex
@@ -53,7 +53,10 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
             </If>
         </Box>
         <Stack>
-            <Title order={2}>{title}</Title>
+            <Group>
+                <Title order={2}>{title}</Title>
+                {actions}
+            </Group>
             <If condition={subTitle}>
                 <Title order={4}>{subTitle}</Title>
             </If>
@@ -65,7 +68,7 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
                     <Anchor component={Link} to={item.href} key={`breadcrumb-${index}`} underline="hover" c="dimmed">
                         <Group wrap='nowrap' gap='xs'>
                             <If condition={item.icon}>
-                                {item.icon}
+                                <Icon name={item.icon} l height={16} />
                             </If>
                             {item.title}
                         </Group>
@@ -74,7 +77,7 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
             </Breadcrumbs>
         </If>
         <If condition={details}>
-            <Box>
+            <Box style={{ width: '100%' }}>
                 <Divider />
                 <Spoiler maxHeight={60} showLabel={t('actions.showMore')} hideLabel={t('actions.hide')}>
                     <Text c="dimmed">{details}</Text>
@@ -93,8 +96,9 @@ PageHeader.propTypes = {
     breadcrumbs: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
         href: PropTypes.string,
-        icon: PropTypes.node,
-    }))
+        icon: PropTypes.string,
+    })),
+    actions: PropTypes.any
 }
 
 export default PageHeader;

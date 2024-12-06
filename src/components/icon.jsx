@@ -61,6 +61,7 @@ export const IconNames = {
     Fornightly: "fornightly",
     Weekly: "weekly",
     Daily: "daily",
+    Issues: "issues",
     Issue: "issue",
     IssueArticle: "issueArticle",
     VolumeNumber: "volumeNumber",
@@ -128,6 +129,7 @@ const iconTheme = {
         fornightly: "calendar-month-filled",
         weekly: "calendar-week",
         daily: "calendar",
+        issues: "box-multiple",
         issue: "box-multiple",
         issueArticle: "align-box-left-middle",
         volumeNumber: "archive",
@@ -200,6 +202,7 @@ export const IconMonthly = (props) => getIcon(IconNames.Monthly, props)
 export const IconFornightly = (props) => getIcon(IconNames.Fornightly, props)
 export const IconWeekly = (props) => getIcon(IconNames.Weekly, props)
 export const IconDaily = (props) => getIcon(IconNames.Daily, props)
+export const IconIssues = (props) => getIcon(IconNames.Issues, props)
 export const IconIssue = (props) => getIcon(IconNames.Issue, props)
 export const IconIssueArticle = (props) => getIcon(IconNames.IssueArticle, props)
 export const IconVolumeNumber = (props) => getIcon(IconNames.VolumeNumber, props)

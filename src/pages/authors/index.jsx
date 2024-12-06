@@ -5,7 +5,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { SortDirection } from "@/models";
 import AuthorsList from "@/components/authors/authorsList";
 import PageHeader from "@/components/pageHeader";
-import { IconHome, IconNames } from '@/components/icon'
+import { IconNames } from '@/components/icon'
 
 // -----------------------------------------
 const AuthorsPage = () => {
@@ -23,7 +23,7 @@ const AuthorsPage = () => {
             title={t('header.authors')}
             defaultIcon={IconNames.Authors}
             breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: <IconHome height={16} /> }
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
             ]} />
         <AuthorsList
             libraryId={libraryId}

@@ -18,7 +18,7 @@ import {
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetAuthorQuery } from '@/store/slices/authors.api';
-import { IconNames, IconHome, IconBooks, IconWritings, IconAuthor } from '@/components/icon';
+import { IconNames, IconBooks, IconWritings } from '@/components/icon';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
 import WritingsList from "@/components/writings/writingsList";
@@ -107,8 +107,8 @@ const AuthorPage = () => {
                 </If>
             </Group>}
             breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: <IconHome height={16} /> },
-                { title: t('header.authors'), href: `/libraries/${libraryId}/authors`, icon: <IconAuthor height={16} /> },
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+                { title: t('header.authors'), href: `/libraries/${libraryId}/authors`, icon: IconNames.Author },
             ]}
             details={author.description} />
 

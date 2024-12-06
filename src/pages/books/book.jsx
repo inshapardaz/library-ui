@@ -5,17 +5,15 @@ import { useTranslation } from 'react-i18next';
 // UI library imports
 import {
     Button,
+    Card,
     Center,
     Container,
-    Divider,
     Grid,
     Group,
     Image,
     Skeleton,
     Space,
     Stack,
-    Text,
-    Title,
     rem,
     useMantineTheme
 } from '@mantine/core';
@@ -28,8 +26,9 @@ import FavoriteButton from '@/components/books/favoriteButton';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import CategoriesList from '@/components/categories/categoriesList';
 import BookInfo from '@/components/books/bookInfo';
+import PageHeader from "@/components/pageHeader";
 import Error from '@/components/error';
-import { IconBook } from '@/components/icon';
+import { IconNames, IconBook } from '@/components/icon';
 //------------------------------------------------------
 
 const PRIMARY_COL_HEIGHT = rem(300);
@@ -83,10 +82,26 @@ const BookPage = () => {
     const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (<Container fluid mt="sm">
+        <PageHeader title={book.title}
+            subTitle={
+                <Group>
+                    <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
+                    <CategoriesList categories={book?.categories} size={24} />
+                    <BookSeriesInfo libraryId={libraryId} book={book} />
+                </Group>
+            }
+            details={book.description}
+            breadcrumbs={[
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+                { title: t('header.books'), href: `/libraries/${libraryId}/books`, icon: IconNames.Books },
+            ]}
+            actions={[
+                <FavoriteButton key="book-fav-button" book={book} size={24} />
+            ]} />
         <Grid
             mih={50}
         >
-            <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
+            <Grid.Col span="content">
                 {book.links?.image ?
                     <Image
                         src={book?.links?.image}
@@ -105,22 +120,16 @@ const BookPage = () => {
                 <Space h="md" />
                 <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
             </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 8, lg: 9 }}>
+            <Grid.Col span="auto">
+
                 <Stack align="stretch"
                     justify="flex-start"
                     gap="md">
-                    <Group>
-                        <Title order={3}>{book.title}</Title>
-                        <Space w="lg" />
-                        <FavoriteButton book={book} size={24} />
-                    </Group>
-                    <Space h="lg" />
-                    {book?.description && <Text order={3}>{book.description}</Text>}
-                    <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
                     <CategoriesList categories={book?.categories} size={24} />
                     <BookSeriesInfo libraryId={libraryId} book={book} />
-                    <Divider h="lg" />
-                    <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
+                    <Card withBorder>
+                        <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
+                    </Card>
                 </Stack>
             </Grid.Col>
         </Grid>

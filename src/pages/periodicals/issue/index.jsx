@@ -2,16 +2,17 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 // UI Library Import
-import { Card, Center, Grid, Image, rem, Skeleton, Space, Stack, Text, Title, useMantineTheme } from "@mantine/core";
+import { Card, Center, Divider, Group, rem, Skeleton, Text, Title, useMantineTheme } from "@mantine/core";
 import moment from "moment";
 
 // Local Import
 import { useGetPeriodicalByIdQuery } from '@/store/slices/periodicals.api';
 import { useGetIssueQuery } from "@/store/slices/issues.api";
+import { IconNames, IconVolumeNumber, IconIssueNumber, IconPages, IconIssueArticle } from '@/components/icon';
 import { getDateFormatFromFrequency } from '@/utils';
 import IssueArticlesList from "@/components/periodicals//issues/articles/issueArticlesList";
+import PageHeader from "@/components/pageHeader";
 import IconText from '@/components/iconText';
-import { IconIssue, IconVolumeNumber, IconIssueNumber, IconPages, IconIssueArticle } from '@/components/icon';
 import Error from '@/components/error';
 
 // -----------------------------------------
@@ -41,7 +42,6 @@ const IssuePage = () => {
         issueNumber,
     });
 
-    const icon = <Center h={450}><IconIssue width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
     if (isFetching) {
         return (<Skeleton height={PRIMARY_COL_HEIGHT} radius="md" />);
     }
@@ -57,48 +57,43 @@ const IssuePage = () => {
     const title = moment(issue.issueDate).format(getDateFormatFromFrequency(periodical?.frequency));
 
 
-    return (<Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
-        <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
-            <Card withBorder m="sm">
-                {issue.links?.image ?
-                    <Image
-                        src={issue?.links?.image}
-                        h={rem(400)}
-                        w="auto"
-                        radius="md"
-                        alt={issue?.title}
-                        fit='contain'
-                    /> :
-                    icon
-                }
-                <Space h="md" />
-
-                <Stack>
+    return (<>
+        <PageHeader title={title}
+            imageLink={issue.links?.image}
+            defaultIcon={IconNames.Periodical}
+            subTitle={
+                <Group>
                     <IconText icon={<IconVolumeNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
                         link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
+                    <Divider orientation="vertical" />
                     <IconText icon={<IconIssueNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
+                    <Divider orientation="vertical" />
                     <IconText icon={<IconPages style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.pageCount', { count: issue.pageCount })} />
+                    <Divider orientation="vertical" />
                     <IconText icon={<IconIssueArticle style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.articleCount', { count: issue.articleCount })} />
-                </Stack>
-            </Card>
-        </Grid.Col>
-        <Grid.Col span="auto">
-            <Card withBorder m="sm">
-                <Title truncate="end" order={2}>{periodical?.title} - {title}</Title>
-                <IssueArticlesList
-                    libraryId={libraryId}
-                    periodicalId={periodicalId}
-                    volumeNumber={volumeNumber}
-                    issueNumber={issueNumber}
-                    showSearch
-                    showTitle={false} />
-            </Card>
-        </Grid.Col>
-    </Grid>)
+                </Group>
+            }
+            details={periodical.description}
+            breadcrumbs={[
+                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+                { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
+                { title: periodical?.title, href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
+            ]} />
+        <Card withBorder m="sm">
+            <Title truncate="end" order={2}>{periodical?.title} - {title}</Title>
+            <IssueArticlesList
+                libraryId={libraryId}
+                periodicalId={periodicalId}
+                volumeNumber={volumeNumber}
+                issueNumber={issueNumber}
+                showSearch
+                showTitle={false} />
+        </Card>
+    </>)
 }
 
 export default IssuePage;
