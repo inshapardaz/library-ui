@@ -48,7 +48,7 @@ const PeriodicalSideBar = ({ libraryId, periodicalId }) => {
     }
 
 
-    return (<Card withBorder m="sm">
+    return (<Card withBorder>
         <NavLink
             key="frequency-daily"
             component={Link}

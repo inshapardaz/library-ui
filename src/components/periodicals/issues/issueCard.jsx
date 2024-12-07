@@ -19,14 +19,14 @@ const IssueCard = ({ libraryId, issue, frequency }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={IMAGE_HEIGHT} w={IMAGE_WIDTH}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
     const title = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
                 <If condition={issue.links?.image} elseChildren={icon}>
-                    <Image h={IMAGE_HEIGHT} w={IMAGE_WIDTH} radius="sm" src={issue?.links?.image} /> :
+                    <Image h={IMAGE_HEIGHT} radius="sm" src={issue?.links?.image} />
                 </If>
             </Card.Section>
 

@@ -9,6 +9,7 @@ import { useGetPeriodicalByIdQuery } from '@/store/slices/periodicals.api';
 import { IconNames, IconIssues } from '@/components/icon'
 import IssuesList from "@/components/periodicals/issues/issuessList";
 import FrequencyIcon from "@/components/periodicals/frequencyIcon";
+import PeriodicalSideBar from "@/components/periodicals/periodicalSideBar";
 import PageHeader from "@/components/pageHeader";
 import IconText from "@/components/iconText";
 import Error from '@/components/error';
@@ -82,14 +83,21 @@ const PeriodicalPage = () => {
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
                 { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodicals },
             ]} />
-
-        <Card withBorder>
-            <IssuesList libraryId={libraryId}
-                periodicalId={periodicalId}
-                volumeNumber={volumeNumber}
-                frequency={periodical.frequency}
-                showTitle={true} />
-        </Card>
+        <Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
+            <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
+                <PeriodicalSideBar libraryId={libraryId}
+                    periodicalId={periodicalId} />
+            </Grid.Col>
+            <Grid.Col span="auto">
+                <Card withBorder>
+                    <IssuesList libraryId={libraryId}
+                        periodicalId={periodicalId}
+                        volumeNumber={volumeNumber}
+                        frequency={periodical.frequency}
+                        showTitle={true} />
+                </Card>
+            </Grid.Col>
+        </Grid>
     </Container>);
 };
 
