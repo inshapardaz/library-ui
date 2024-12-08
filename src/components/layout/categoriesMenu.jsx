@@ -36,7 +36,7 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
 
     const categoriesList = categories?.data?.map ? categories.data.filter(filter).map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.name} onClick={onClick} component={Link} to={`/libraries/${library.id}/${target}?category=${item.id}`}>
+        <UnstyledButton className={classes.subLink} key={item.name} onClick={onClick} >
             <Group wrap="nowrap" align="flex-start">
                 <NavLink
                     key={item.id}

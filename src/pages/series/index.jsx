@@ -6,6 +6,7 @@ import { SortDirection } from "@/models";
 import SeriesList from "@/components/series/seriesList";
 import PageHeader from "@/components/pageHeader";
 import { IconNames } from '@/components/icon'
+import { Card } from "@mantine/core";
 
 // -----------------------------------------
 const SeriesListPage = () => {
@@ -25,14 +26,16 @@ const SeriesListPage = () => {
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
             ]} />
-        <SeriesList
-            libraryId={libraryId}
-            query={query}
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-            pageNumber={pageNumber}
-            pageSize={pageSize}
-            showSearch />
+        <Card withBorder mx="md">
+            <SeriesList
+                libraryId={libraryId}
+                query={query}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                pageNumber={pageNumber}
+                pageSize={pageSize}
+                showSearch />
+        </Card>
     </>)
 }
 

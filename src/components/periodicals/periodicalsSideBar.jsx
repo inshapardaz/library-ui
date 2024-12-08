@@ -47,7 +47,7 @@ const PeriodicalsSideBar = ({ selectedCategory, frequency }) => {
         </Card>)
     }
 
-    return (<Card withBorder m="sm">
+    return (<Card withBorder>
         <NavLink
             key="all-peroidicals"
             component={Link}

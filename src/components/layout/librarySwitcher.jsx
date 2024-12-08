@@ -15,9 +15,7 @@ import {
     Anchor,
     SimpleGrid,
     HoverCard,
-    Divider,
-    NavLink,
-    Space
+    Divider
 }
     from '@mantine/core';
 
@@ -67,8 +65,8 @@ const LibrarySwitcher = ({ className, library, children }) => {
                 <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                     <Card radius="md" className={classes.card}>
                         <Group justify="space-between">
-                            <Text visibleFrom="lg" fw={500} component={Link} to={`/libraries/${library.id}`} className={classes.title}>
-                                {library.name}
+                            <Text visibleFrom="lg" fw={500} component={Link} to={`/libraries/${library?.id}`} className={classes.title}>
+                                {library?.name}
                             </Text>
                             <Anchor size="xs" component={Link} to={'/libraries'} c="dimmed" style={{ lineHeight: 1 }}>
                                 {t('libraries.viewAll')}

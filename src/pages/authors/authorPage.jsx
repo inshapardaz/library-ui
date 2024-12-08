@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 // UI library imports
 import {
+    Box,
     Card,
     Container,
-    Divider,
     Grid,
-    Group,
     SimpleGrid,
     Skeleton,
     Tabs,
@@ -22,10 +21,8 @@ import { IconNames, IconBooks, IconWritings } from '@/components/icon';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
 import WritingsList from "@/components/writings/writingsList";
-import IconText from "@/components/iconText";
 import Error from '@/components/error';
 import PageHeader from "@/components/pageHeader";
-import If from "@/components/if";
 
 //------------------------------------------------------
 
@@ -95,17 +92,6 @@ const AuthorPage = () => {
         <PageHeader title={author.name}
             imageLink={author?.links?.image}
             defaultIcon={IconNames.Author}
-            subTitle={<Group>
-                <If condition={author.bookCount > 0}>
-                    <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
-                </If>
-                <If condition={author.articleCount > 0 && author.bookCount > 0}>
-                    <Divider orientation='vertical' />
-                </If>
-                <If condition={author.articleCount > 0}>
-                    <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
-                </If>
-            </Group>}
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
                 { title: t('header.authors'), href: `/libraries/${libraryId}/authors`, icon: IconNames.Author },
@@ -123,28 +109,32 @@ const AuthorPage = () => {
                     </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="books">
-                    <BooksList
-                        libraryId={libraryId}
-                        author={author?.id}
-                        query={query}
-                        sortBy={sortBy}
-                        sortDirection={sortDirection}
-                        pageNumber={pageNumber}
-                        pageSize={pageSize}
-                        showSearch
-                        showTitle={false} />
+                    <Box mt="md">
+                        <BooksList
+                            libraryId={libraryId}
+                            author={author?.id}
+                            query={query}
+                            sortBy={sortBy}
+                            sortDirection={sortDirection}
+                            pageNumber={pageNumber}
+                            pageSize={pageSize}
+                            showSearch
+                            showTitle={false} />
+                    </Box>
                 </Tabs.Panel>
                 <Tabs.Panel value="writings">
-                    <WritingsList
-                        libraryId={libraryId}
-                        author={author?.id}
-                        query={query}
-                        sortBy={sortBy}
-                        sortDirection={sortDirection}
-                        pageNumber={pageNumber}
-                        pageSize={pageSize}
-                        showSearch
-                        showTitle={false} />
+                    <Box mt="md">
+                        <WritingsList
+                            libraryId={libraryId}
+                            author={author?.id}
+                            query={query}
+                            sortBy={sortBy}
+                            sortDirection={sortDirection}
+                            pageNumber={pageNumber}
+                            pageSize={pageSize}
+                            showSearch
+                            showTitle={false} />
+                    </Box>
                 </Tabs.Panel>
             </Tabs>
         </Card>

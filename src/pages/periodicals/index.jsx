@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "react-router-dom";
 
 // UI Library Import
-import { Grid, rem } from "@mantine/core";
+import { Card, Grid, rem } from "@mantine/core";
 
 // Local Import
 import { SortDirection } from "@/models";
@@ -31,24 +31,26 @@ const PeriodicalsPage = () => {
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
             ]} />
-        <Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
+        <Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }} mx="md">
             <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
                 <PeriodicalsSideBar
                     selectedCategory={category}
                     frequency={frequency} />
             </Grid.Col>
             <Grid.Col span="auto">
-                <PeriodicalsList
-                    libraryId={libraryId}
-                    query={query}
-                    category={category}
-                    sortBy={sortBy}
-                    frequency={frequency}
-                    sortDirection={sortDirection}
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    showSearch
-                    showTitle={false} />
+                <Card withBorder>
+                    <PeriodicalsList
+                        libraryId={libraryId}
+                        query={query}
+                        category={category}
+                        sortBy={sortBy}
+                        frequency={frequency}
+                        sortDirection={sortDirection}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        showSearch
+                        showTitle={false} />
+                </Card>
             </Grid.Col>
         </Grid>
     </>)

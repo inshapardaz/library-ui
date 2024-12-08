@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useLocalStorage } from '@mantine/hooks';
 import {
     ActionIcon,
-    Card,
     Center,
     CloseButton,
     Divider,
@@ -57,6 +56,7 @@ const SearchInpout = ({ query, onQueryChanged }) => {
         <TextInput
             placeholder={t('search.title')}
             value={value}
+            style={{ maxWidth: '200px' }}
             onChange={e => setValue(e.target.value)}
             leftSection={searchIcon}
             rightSectionWidth={42}
@@ -175,7 +175,7 @@ const DataView = ({
     } else {
         content = (<Center h={100}><Text>{emptyText}</Text></Center>)
     }
-    return (<Card m="sm" withBorder>
+    return (<>
         <Grid>
             <Grid.Col span="auto">
                 <Title order={3}>{title}</Title>
@@ -185,14 +185,18 @@ const DataView = ({
             </Grid.Col>
             <Grid.Col span="contents">
                 <Group justify="space-between">
-                    {showSearch && <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />}
-                    {showViewToggle && <LayoutToggle value={viewType} onChange={toggleViewType} />}
+                    <If condition={showSearch}>
+                        <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />
+                    </If>
+                    <If condition={showViewToggle}>
+                        <LayoutToggle value={viewType} onChange={toggleViewType} />
+                    </If>
                 </Group>
             </Grid.Col>
         </Grid>
         <Divider my="sm" />
         {content}
-    </Card >)
+    </>)
 }
 
 DataView.propTypes = {

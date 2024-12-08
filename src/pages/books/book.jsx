@@ -98,41 +98,43 @@ const BookPage = () => {
             actions={[
                 <FavoriteButton key="book-fav-button" book={book} size={24} />
             ]} />
-        <Grid
-            mih={50}
-        >
-            <Grid.Col span="content">
-                {book.links?.image ?
-                    <Image
-                        src={book?.links?.image}
-                        h={rem(400)}
-                        w="auto"
-                        radius="md"
-                        alt={book?.title}
-                        fit='contain'
-                    /> :
-                    icon
-                }
-                <Space h="md" />
-                <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook`}>{t('book.actions.read.title')}</Button>
-                <Space h="md" />
-                <Button fullWidth variant='outline' leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
-                <Space h="md" />
-                <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
-            </Grid.Col>
-            <Grid.Col span="auto">
+        <Container size="responsive">
+            <Grid
+                mih={50}
+            >
+                <Grid.Col span="content">
+                    {book.links?.image ?
+                        <Image
+                            src={book?.links?.image}
+                            h={rem(400)}
+                            w="auto"
+                            radius="md"
+                            alt={book?.title}
+                            fit='contain'
+                        /> :
+                        icon
+                    }
+                    <Space h="md" />
+                    <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook`}>{t('book.actions.read.title')}</Button>
+                    <Space h="md" />
+                    <Button fullWidth variant='outline' leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
+                    <Space h="md" />
+                    <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
+                </Grid.Col>
+                <Grid.Col span="auto">
 
-                <Stack align="stretch"
-                    justify="flex-start"
-                    gap="md">
-                    <CategoriesList categories={book?.categories} size={24} />
-                    <BookSeriesInfo libraryId={libraryId} book={book} />
-                    <Card withBorder>
-                        <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
-                    </Card>
-                </Stack>
-            </Grid.Col>
-        </Grid>
+                    <Stack align="stretch"
+                        justify="flex-start"
+                        gap="md">
+                        <CategoriesList categories={book?.categories} size={24} />
+                        <BookSeriesInfo libraryId={libraryId} book={book} />
+                        <Card withBorder>
+                            <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
+                        </Card>
+                    </Stack>
+                </Grid.Col>
+            </Grid>
+        </Container>
     </Container>);
 }
 

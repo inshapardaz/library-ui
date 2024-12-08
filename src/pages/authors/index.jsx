@@ -6,6 +6,7 @@ import { SortDirection } from "@/models";
 import AuthorsList from "@/components/authors/authorsList";
 import PageHeader from "@/components/pageHeader";
 import { IconNames } from '@/components/icon'
+import { Card } from "@mantine/core";
 
 // -----------------------------------------
 const AuthorsPage = () => {
@@ -25,14 +26,16 @@ const AuthorsPage = () => {
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
             ]} />
-        <AuthorsList
-            libraryId={libraryId}
-            query={query}
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-            pageNumber={pageNumber}
-            pageSize={pageSize}
-            showSearch />
+        <Card withBorder mx="md">
+            <AuthorsList
+                libraryId={libraryId}
+                query={query}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                pageNumber={pageNumber}
+                pageSize={pageSize}
+                showSearch />
+        </Card>
     </>)
 }
 

@@ -19,7 +19,7 @@ const WritingsSideBar = ({ selectedCategory, favorite, read }) => {
         = useGetCategoriesQuery({ libraryId }, { skip: libraryId == null });
 
     if (isFetching) {
-        return (<Card withBorder m="sm">
+        return (<Card withBorder>
             <SimpleGrid
                 cols={1}
                 spacing={{ base: 10, sm: 'xl' }}
@@ -31,7 +31,7 @@ const WritingsSideBar = ({ selectedCategory, favorite, read }) => {
     }
 
     if (error) {
-        return (<Card withBorder m="sm">
+        return (<Card withBorder>
             <Center maw={400} h={100} bg="var(--mantine-color-gray-light)">
 
             </Center>
@@ -39,14 +39,14 @@ const WritingsSideBar = ({ selectedCategory, favorite, read }) => {
     }
 
     if (!categories || !categories.data || categories.data.length < 1) {
-        return (<Card withBorder m="sm">
+        return (<Card withBorder>
             <Center maw={400} h={100} bg="var(--mantine-color-gray-light)">
                 {t('categories.empty.title')}
             </Center>
         </Card>)
     }
 
-    return (<Card withBorder m="sm">
+    return (<Card withBorder>
         <NavLink
             key="favorites"
             component={Link}
