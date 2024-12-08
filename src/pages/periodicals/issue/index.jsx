@@ -65,7 +65,7 @@ const IssuePage = () => {
                 <Group>
                     <IconText icon={<IconVolumeNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
-                        link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
+                        link={`/libraries/${libraryId}/periodicals/${periodicalId}/volumes/${issue.volumeNumber}`} />
                     <Divider orientation="vertical" />
                     <IconText icon={<IconIssueNumber style={{ color: theme.colors.dark[2] }} />}
                         text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
@@ -81,7 +81,7 @@ const IssuePage = () => {
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
                 { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
-                { title: periodical?.title, href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
+                { title: periodical?.title, href: `/libraries/${libraryId}/periodicals/${periodicalId}`, icon: IconNames.Periodical },
             ]} />
         <Card withBorder m="sm">
             <IssueArticlesList

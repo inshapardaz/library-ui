@@ -29,14 +29,14 @@ import If from '@/components/if'
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, filter = i => i }) => {
+const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, filter = i => i, onClick = () => { } }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
 
     const categoriesList = categories?.data?.map ? categories.data.filter(filter).map((item) => (
-        <UnstyledButton className={classes.subLink} key={item.name} component={Link} to={`/libraries/${library.id}/${target}?category=${item.id}`}>
+        <UnstyledButton className={classes.subLink} key={item.name} onClick={onClick} component={Link} to={`/libraries/${library.id}/${target}?category=${item.id}`}>
             <Group wrap="nowrap" align="flex-start">
                 <NavLink
                     key={item.id}
@@ -75,7 +75,7 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
                         <>
                             <Group justify="space-between" px="md">
                                 <Text fw={500}>{t('header.categories')}</Text>
-                                <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm">
+                                <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm" onClick={onClick}>
                                     {allLabel}
                                 </Text>
                             </Group>
@@ -104,7 +104,7 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
                     }
                 </HoverCard.Dropdown>
             </HoverCard>
-            <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm">
+            <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm" m={0} p={0}>
                 {children}
             </UnstyledButton>
             <Collapse in={linksOpened} hiddenFrom="sm">{categoriesList}</Collapse>
@@ -121,7 +121,8 @@ CategoriesMenu.propTypes = {
     allLabel: PropTypes.string,
     extraLinks: PropTypes.any,
     children: PropTypes.any,
-    filter: PropTypes.func
+    filter: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 

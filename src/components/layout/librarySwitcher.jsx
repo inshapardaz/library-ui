@@ -14,7 +14,10 @@ import {
     Card,
     Anchor,
     SimpleGrid,
-    HoverCard
+    HoverCard,
+    Divider,
+    NavLink,
+    Space
 }
     from '@mantine/core';
 
@@ -28,7 +31,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 //------------------------------------
 
-const LibrarySwitcher = ({ className, children }) => {
+const LibrarySwitcher = ({ className, library, children }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: libraries, isFetching, isError: errorLoadingLibraries, refetch: refetchLibraries } = useGetLibrariesQuery({})
@@ -54,7 +57,7 @@ const LibrarySwitcher = ({ className, children }) => {
 
     return (
         <>
-            <HoverCard width={600} position="bottom" radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm" >
+            <HoverCard width={600} position="bottom" radius="md" shadow="md" mx="md" disabled={isFetching} withinPortal visibleFrom="sm" >
                 <HoverCard.Target>
                     <Center className={className}>
                         {children}
@@ -64,11 +67,14 @@ const LibrarySwitcher = ({ className, children }) => {
                 <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
                     <Card radius="md" className={classes.card}>
                         <Group justify="space-between">
-                            <Text className={classes.title}>{t('header.libraries')}</Text>
+                            <Text visibleFrom="lg" fw={500} component={Link} to={`/libraries/${library.id}`} className={classes.title}>
+                                {library.name}
+                            </Text>
                             <Anchor size="xs" component={Link} to={'/libraries'} c="dimmed" style={{ lineHeight: 1 }}>
                                 {t('libraries.viewAll')}
                             </Anchor>
                         </Group>
+                        <Divider my="sm" />
                         <SimpleGrid cols={3} mt="md">
                             {links}
                         </SimpleGrid>
@@ -84,6 +90,10 @@ const LibrarySwitcher = ({ className, children }) => {
 
 LibrarySwitcher.propTypes = {
     className: PropTypes.string,
+    library: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string
+    }),
     children: PropTypes.any
 };
 

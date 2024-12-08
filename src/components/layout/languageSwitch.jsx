@@ -31,7 +31,7 @@ const LanguageSwitch = () => {
                 {Object.values(languages).map(item =>
                     <Button
                         key={item.key}
-                        variant="transparent"
+                        variant="outline"
                         disabled={item?.key == lang?.key}
                         onClick={() => onLanguageSelected(item.key)}
                     >

@@ -11,7 +11,6 @@ import {
     Drawer,
     ScrollArea,
     rem,
-    useMantineTheme,
     Space,
     Text,
 } from '@mantine/core';
@@ -34,7 +33,6 @@ import CategoriesMenu from './categoriesMenu';
 
 const LibraryHeader = ({ library }) => {
     const { t } = useTranslation();
-    const theme = useMantineTheme();
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
     return (
@@ -42,24 +40,26 @@ const LibraryHeader = ({ library }) => {
             <header className={classes.header}>
                 <Group justify="space-between" h="100%" wrap="nowrap">
                     <Group h="100%" gap={0}>
-                        <NavLink to={`/`} className={classes.link}>
-                            <Logo />
-                            <Space w="md" />
-                            {t('app')}
-                        </NavLink >
+                        <LibrarySwitcher className={classes.link} library={library}>
+                            <NavLink to={`/`} className={classes.link}>
+                                <Logo />
+                                <Space w="md" />
+                                <Text visibleFrom="lg">
+                                    {library.name}
+                                </Text>
+                                <Space w="lg" />
+                                <IconChevronDown
+                                    width={rem(16)}
+                                    height={rem(16)}
+                                />
+                            </NavLink >
+                        </LibrarySwitcher>
                     </Group>
                     <Group hiddenFrom="sm" >
                         <SearchBox />
                     </Group>
 
                     <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
-                        <NavLink to={`/libraries/${library.id}`} className={classes.link}>
-                            <IconLibrary height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {library.name}
-                            </Text>
-                        </NavLink >
                         <CategoriesMenu library={library} className={classes.link} target='books' allLabel={t('books.allBooks')} filter={c => c.bookCount > 0}>
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks height="24px" />
@@ -120,9 +120,6 @@ const LibraryHeader = ({ library }) => {
                     <Group visibleFrom="sm" wrap="nowrap">
                         <LanguageSwitch />
                         <DarkModeToggle />
-                        <LibrarySwitcher visibleFrom="sm">
-                            <IconLibrary />
-                        </LibrarySwitcher>
                         <Profile />
                     </Group>
 
@@ -146,65 +143,64 @@ const LibraryHeader = ({ library }) => {
             >
                 <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
                     <Divider my="sm" />
-
-                    <NavLink to={`/libraries/${library.id}`} className={classes.link}>
+                    <NavLink to={`/libraries/${library.id}`} className={classes.link} onClick={closeDrawer}>
                         <IconLibrary height="24px" />
                         <Space w="md" />
                         {t('header.home')}
                     </NavLink >
-                    <CategoriesMenu library={library} target="books" allLabel={t('books.allBooks')}>
-                        <NavLink>
+                    <CategoriesMenu library={library} target="books" allLabel={t('books.allBooks')} onClick={closeDrawer}>
+                        <NavLink className={classes.link}>
                             <IconBooks height="24px" />
                             <Space w="md" />
                             {t('header.books')}
                             <IconChevronDown
                                 width={rem(16)}
                                 height={rem(16)}
-                                style={{ color: theme.colors.blue[6] }}
                             />
                         </NavLink>
                     </CategoriesMenu>
-                    <CategoriesMenu library={library} target="writings" allLabel={t('writings.all')}>
-                        <NavLink>
+                    <CategoriesMenu library={library} target="writings" allLabel={t('writings.all')} onClick={closeDrawer}>
+                        <NavLink className={classes.link}>
                             <IconWritings height="24px" />
                             <Space w="md" />
                             {t('header.writings')}
                             <IconChevronDown
                                 width={rem(16)}
                                 height={rem(16)}
-                                style={{ color: theme.colors.blue[6] }}
                             />
                         </NavLink >
                     </CategoriesMenu>
-                    <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
+                    <NavLink to={`/libraries/${library.id}/authors`} className={classes.link} onClick={closeDrawer}>
                         <IconAuthors height="24px" />
                         <Space w="md" />
                         {t('header.authors')}
                     </NavLink >
-                    <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
+                    <NavLink to={`/libraries/${library.id}/series`} className={classes.link} onClick={closeDrawer}>
                         <IconSeries height="24px" />
                         <Space w="md" />
                         {t('header.series')}
                     </NavLink >
-                    <CategoriesMenu library={library} target="periodicals" allLabel={t('periodicals.all')}>
-                        <NavLink>
+                    <CategoriesMenu library={library} target="periodicals" allLabel={t('periodicals.all')} onClick={closeDrawer}>
+                        <NavLink className={classes.link}>
                             <IconPeriodicals height="24px" />
                             <Space w="md" />
                             {t('header.periodicals')}
                             <IconChevronDown
                                 width={rem(16)}
                                 height={rem(16)}
-                                style={{ color: theme.colors.blue[6] }}
                             />
                         </NavLink >
                     </CategoriesMenu>
 
                     <Divider my="sm" />
                     <LibrarySwitcher className={classes.link}>
-                        <Group>
+                        <Group mx="lg">
                             <IconLibrary height="24px" />
-                            <Space w="md" />
                             {t('header.libraries')}
+                            <IconChevronDown
+                                width={rem(16)}
+                                height={rem(16)}
+                            />
                         </Group>
                     </LibrarySwitcher>
 
