@@ -60,7 +60,7 @@ const LibraryHeader = ({ library }) => {
                     </Group>
 
                     <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
-                        <CategoriesMenu library={library} className={classes.link} target='books' allLabel={t('books.allBooks')} filter={c => c.bookCount > 0}>
+                        <CategoriesMenu library={library} className={classes.link} target='books' allLabel={t('books.allBooks')} countFunc={i => i.bookCount} >
                             <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
                                 <IconBooks height="24px" />
                                 <Space w="md" />
@@ -73,7 +73,7 @@ const LibraryHeader = ({ library }) => {
                                 />
                             </NavLink >
                         </CategoriesMenu>
-                        <CategoriesMenu library={library} className={classes.link} target='writings' allLabel={t('writings.all')} filter={c => c.writingCount > 0}>
+                        <CategoriesMenu library={library} className={classes.link} target='writings' allLabel={t('writings.all')} countFunc={i => i.articleCount}>
                             <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
                                 <IconWritings height="24px" />
                                 <Space w="md" />
@@ -100,7 +100,7 @@ const LibraryHeader = ({ library }) => {
                                 {t('header.series')}
                             </Text>
                         </NavLink >
-                        <CategoriesMenu library={library} className={classes.link} target='periodicals' allLabel={t('periodicals.all')} filter={c => c.bookCount > 0}>
+                        <CategoriesMenu library={library} className={classes.link} target='periodicals' allLabel={t('periodicals.all')} countFunc={i => i.periodicalCount}>
                             <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
                                 <IconPeriodicals height="24px" />
                                 <Space w="md" />

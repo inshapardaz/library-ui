@@ -29,13 +29,13 @@ import If from '@/components/if'
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, filter = i => i, onClick = () => { } }) => {
+const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, countFunc = () => null, onClick = () => { } }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
 
-    const categoriesList = categories?.data?.map ? categories.data.filter(filter).map((item) => (
+    const categoriesList = categories?.data?.map ? categories.data.filter(i => countFunc(i) > 0).map((item) => (
         <UnstyledButton className={classes.subLink} key={item.name} onClick={onClick} >
             <Group wrap="nowrap" align="flex-start">
                 <NavLink
@@ -45,7 +45,7 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
                     label={item.name}
                     rightSection={
                         <Badge size="xs" color='gray' circle>
-                            {item.periodicalCount}
+                            {countFunc(item)}
                         </Badge>
                     }
                     leftSection={<ThemeIcon size={34} variant="default" radius="md">
@@ -121,7 +121,7 @@ CategoriesMenu.propTypes = {
     allLabel: PropTypes.string,
     extraLinks: PropTypes.any,
     children: PropTypes.any,
-    filter: PropTypes.func,
+    countFunc: PropTypes.func,
     onClick: PropTypes.func
 };
 
