@@ -44,7 +44,7 @@ const LibraryHeader = ({ library }) => {
                             <NavLink to={`/`} className={classes.link}>
                                 <Logo />
                                 <Space w="md" />
-                                <Text visibleFrom="lg">
+                                <Text visibleFrom="lg" size="sm">
                                     {library.name}
                                 </Text>
                                 <Space w="lg" />
@@ -60,59 +60,42 @@ const LibraryHeader = ({ library }) => {
                     </Group>
 
                     <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
-                        <CategoriesMenu library={library} className={classes.link} target='books' allLabel={t('books.allBooks')} countFunc={i => i.bookCount} >
-                            <NavLink to={`/libraries/${library.id}/books`} className={classes.link}>
-                                <IconBooks height="24px" />
-                                <Space w="md" />
-                                <Text visibleFrom="lg">
-                                    {t('header.books')}
-                                </Text>
-                                <IconChevronDown
-                                    width={rem(16)}
-                                    height={rem(16)}
-                                />
-                            </NavLink >
-                        </CategoriesMenu>
-                        <CategoriesMenu library={library} className={classes.link} target='writings' allLabel={t('writings.all')} countFunc={i => i.articleCount}>
-                            <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
-                                <IconWritings height="24px" />
-                                <Space w="md" />
-                                <Text visibleFrom="lg">
-                                    {t('header.writings')}
-                                </Text>
-                                <IconChevronDown
-                                    width={rem(16)}
-                                    height={rem(16)}
-                                />
-                            </NavLink >
-                        </CategoriesMenu>
+                        <CategoriesMenu library={library}
+                            className={classes.link}
+                            target='books'
+                            allLabel={t('books.allBooks')}
+                            countFunc={i => i.bookCount}
+                            title={t('header.books')}
+                            icon={<IconBooks height="24px" />}
+                        />
+                        <CategoriesMenu library={library}
+                            className={classes.link}
+                            target='writings'
+                            allLabel={t('writings.all')}
+                            countFunc={i => i.articleCount}
+                            title={t('header.writings')}
+                            icon={<IconWritings height="24px" />} />
                         <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
                             <IconAuthors height="24px" />
                             <Space w="md" />
-                            <Text visibleFrom="lg">
+                            <Text visibleFrom="lg" size="sm">
                                 {t('header.authors')}
                             </Text>
                         </NavLink >
                         <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
                             <IconSeries height="24px" />
                             <Space w="md" />
-                            <Text visibleFrom="lg">
+                            <Text visibleFrom="lg" size="sm">
                                 {t('header.series')}
                             </Text>
                         </NavLink >
-                        <CategoriesMenu library={library} className={classes.link} target='periodicals' allLabel={t('periodicals.all')} countFunc={i => i.periodicalCount}>
-                            <NavLink to={`/libraries/${library.id}/periodicals`} className={classes.link}>
-                                <IconPeriodicals height="24px" />
-                                <Space w="md" />
-                                <Text visibleFrom="lg">
-                                    {t('header.periodicals')}
-                                </Text>
-                                <IconChevronDown
-                                    width={rem(16)}
-                                    height={rem(16)}
-                                />
-                            </NavLink >
-                        </CategoriesMenu>
+                        <CategoriesMenu library={library}
+                            className={classes.link}
+                            target='periodicals'
+                            allLabel={t('periodicals.all')}
+                            countFunc={i => i.periodicalCount}
+                            title={t('header.periodicals')}
+                            icon={<IconPeriodicals height="24px" />} />
                     </Group>
                     <Group visibleFrom="sm">
                         <SearchBox />
@@ -148,28 +131,20 @@ const LibraryHeader = ({ library }) => {
                         <Space w="md" />
                         {t('header.home')}
                     </NavLink >
-                    <CategoriesMenu library={library} target="books" allLabel={t('books.allBooks')} onClick={closeDrawer}>
-                        <NavLink className={classes.link}>
-                            <IconBooks height="24px" />
-                            <Space w="md" />
-                            {t('header.books')}
-                            <IconChevronDown
-                                width={rem(16)}
-                                height={rem(16)}
-                            />
-                        </NavLink>
-                    </CategoriesMenu>
-                    <CategoriesMenu library={library} target="writings" allLabel={t('writings.all')} onClick={closeDrawer}>
-                        <NavLink className={classes.link}>
-                            <IconWritings height="24px" />
-                            <Space w="md" />
-                            {t('header.writings')}
-                            <IconChevronDown
-                                width={rem(16)}
-                                height={rem(16)}
-                            />
-                        </NavLink >
-                    </CategoriesMenu>
+                    <CategoriesMenu library={library}
+                        target="books"
+                        allLabel={t('books.allBooks')}
+                        onClick={closeDrawer}
+                        countFunc={i => i.bookCount}
+                        title={t('header.books')}
+                        icon={<IconBooks height="24px" />} />
+                    <CategoriesMenu library={library}
+                        target="writings"
+                        allLabel={t('writings.all')}
+                        onClick={closeDrawer}
+                        countFunc={i => i.articleCount}
+                        title={t('header.writings')}
+                        icon={<IconWritings height="24px" />} />
                     <NavLink to={`/libraries/${library.id}/authors`} className={classes.link} onClick={closeDrawer}>
                         <IconAuthors height="24px" />
                         <Space w="md" />
@@ -180,18 +155,13 @@ const LibraryHeader = ({ library }) => {
                         <Space w="md" />
                         {t('header.series')}
                     </NavLink >
-                    <CategoriesMenu library={library} target="periodicals" allLabel={t('periodicals.all')} onClick={closeDrawer}>
-                        <NavLink className={classes.link}>
-                            <IconPeriodicals height="24px" />
-                            <Space w="md" />
-                            {t('header.periodicals')}
-                            <IconChevronDown
-                                width={rem(16)}
-                                height={rem(16)}
-                            />
-                        </NavLink >
-                    </CategoriesMenu>
-
+                    <CategoriesMenu library={library}
+                        target="periodicals"
+                        allLabel={t('periodicals.all')}
+                        onClick={closeDrawer}
+                        countFunc={i => i.periodicalCount}
+                        title={t('header.periodicals')}
+                        icon={<IconPeriodicals height="24px" />} />
                     <Divider my="sm" />
                     <LibrarySwitcher className={classes.link}>
                         <Group mx="lg">

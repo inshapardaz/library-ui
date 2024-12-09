@@ -16,6 +16,10 @@ import {
     Center,
     NavLink,
     Badge,
+    Space,
+    rem,
+    Card,
+    Stack,
 } from '@mantine/core';
 
 import { useDisclosure } from '@mantine/hooks';
@@ -24,12 +28,12 @@ import { useDisclosure } from '@mantine/hooks';
 import classes from './appHeader.module.css';
 
 import { useGetCategoriesQuery } from '@/store/slices/categories.api';
-import { IconCategory, IconRefreshAlert } from '@/components/icon';
+import { IconCategory, IconChevronDown, IconRefreshAlert } from '@/components/icon';
 import If from '@/components/if'
 
 //----------------------------------------------
 
-const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, children, countFunc = () => null, onClick = () => { } }) => {
+const CategoriesMenu = ({ library, title, icon, className, target, allLabel, extraLinks, countFunc = () => null, onClick = () => { } }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
@@ -57,13 +61,35 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
     )) : [];
 
     if (!library) return null;
+
+    const emptyPlaceholder = (<Card withBorder mx="md">
+        <Stack>
+            <Center>
+                <Text c="dimmed">{t('categories.empty.title')}</Text>
+            </Center>
+            <Center>
+                <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm" onClick={onClick}>
+                    {allLabel}
+                </Text>
+            </Center>
+        </Stack>
+    </Card>);
+
     return (
         <>
             <HoverCard width={600} position="bottom" radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm" className={className}>
                 <HoverCard.Target>
-                    <Center>
-                        {children}
-                    </Center>
+                    <UnstyledButton className={classes.link}>
+                        {icon}
+                        <Space w="md" />
+                        <Text visibleFrom="lg" size="sm">
+                            {title}
+                        </Text>
+                        <IconChevronDown
+                            width={rem(16)}
+                            height={rem(16)}
+                        />
+                    </UnstyledButton >
                 </HoverCard.Target>
 
                 <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
@@ -83,7 +109,7 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
                             <Divider my="sm" />
 
                             <SimpleGrid cols={2} spacing={0}>
-                                {categoriesList.length > 0 ? categoriesList : <Text c="dimmed">{t('categories.empty.title')}</Text>}
+                                {categoriesList.length > 0 ? categoriesList : emptyPlaceholder}
                             </SimpleGrid>
                             <If condition={extraLinks}>
                                 <div className={classes.dropdownFooter}>
@@ -104,10 +130,26 @@ const CategoriesMenu = ({ library, className, target, allLabel, extraLinks, chil
                     }
                 </HoverCard.Dropdown>
             </HoverCard>
-            <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm" m={0} p={0}>
-                {children}
+            <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm" px="md">
+                <>
+                    {icon}
+                    <Space w="md" />
+                    <Text>
+                        {title}
+                    </Text>
+                    <span style={{ width: '100%' }} />
+                    <IconChevronDown
+                        width={rem(16)}
+                        height={rem(16)}
+                    />
+                </>
             </UnstyledButton>
-            <Collapse in={linksOpened} hiddenFrom="sm">{categoriesList}</Collapse>
+            <Collapse in={linksOpened} hiddenFrom="sm">
+                <If condition={categoriesList && categoriesList.length > 0}
+                    elseChildren={emptyPlaceholder}>
+                    {categoriesList}
+                </If>
+            </Collapse>
         </>)
 }
 
@@ -120,7 +162,8 @@ CategoriesMenu.propTypes = {
     target: PropTypes.string,
     allLabel: PropTypes.string,
     extraLinks: PropTypes.any,
-    children: PropTypes.any,
+    title: PropTypes.string,
+    icon: PropTypes.node,
     countFunc: PropTypes.func,
     onClick: PropTypes.func
 };

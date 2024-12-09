@@ -17,12 +17,12 @@ const BookSeriesInfo = ({ book }) => {
 
     if (book && book.seriesName) {
         if (book.seriesIndex && book.seriesIndex > 0) {
-            return (<IconText link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
+            return (<IconText size="sm" link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
                 icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.seriesAndIndexLabel", { name: book.seriesName, index: book.seriesIndex })}
             />);
         } else {
-            return (<IconText link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
+            return (<IconText size="sm" link={`/libraries/${libraryId}/books?series=${book.seriesId}&sortBy=seriesIndex&sortDirection=ascending`}
                 icon={<IconBooks height={24} style={{ color: theme.colors.dark[2] }} />}
                 text={t("book.series.indexLabel", { name: book.seriesName })}
             />);

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // UI library imports
 import {
-    Button,
     Card,
     Center,
     Container,
+    Divider,
     Grid,
     Group,
     Image,
@@ -28,6 +28,7 @@ import CategoriesList from '@/components/categories/categoriesList';
 import BookInfo from '@/components/books/bookInfo';
 import PageHeader from "@/components/pageHeader";
 import Error from '@/components/error';
+import If from '@/components/if';
 import { IconNames, IconBook } from '@/components/icon';
 //------------------------------------------------------
 
@@ -84,9 +85,11 @@ const BookPage = () => {
     return (<Container fluid mt="sm">
         <PageHeader title={book.title}
             subTitle={
-                <Group>
+                <Group visibleFrom='md'>
                     <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
-                    <CategoriesList categories={book?.categories} size={24} />
+                    <If condition={book?.seriesName}>
+                        <Divider orientation='vertical' />
+                    </If>
                     <BookSeriesInfo libraryId={libraryId} book={book} />
                 </Group>
             }
@@ -96,14 +99,15 @@ const BookPage = () => {
                 { title: t('header.books'), href: `/libraries/${libraryId}/books`, icon: IconNames.Books },
             ]}
             actions={[
-                <FavoriteButton key="book-fav-button" book={book} size={24} />
+                (<FavoriteButton key="book-fav-button" book={book} size={24} />),
+                (<CategoriesList key="book-categories-info" categories={book?.categories} size={24} showIcon={false} />)
             ]} />
         <Container size="responsive">
             <Grid
                 mih={50}
             >
                 <Grid.Col span="content">
-                    {book.links?.image ?
+                    <If condition={book.links?.image} elseChildren={icon}>
                         <Image
                             src={book?.links?.image}
                             h={rem(400)}
@@ -111,27 +115,20 @@ const BookPage = () => {
                             radius="md"
                             alt={book?.title}
                             fit='contain'
-                        /> :
-                        icon
-                    }
-                    <Space h="md" />
-                    <Button fullWidth leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook`}>{t('book.actions.read.title')}</Button>
-                    <Space h="md" />
-                    <Button fullWidth variant='outline' leftSection={<IconBook />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
+                        />
+                    </If>
+                    <Stack hiddenFrom='md'>
+                        <Space h="md" />
+                        <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
+                        <BookSeriesInfo libraryId={libraryId} book={book} />
+                    </Stack>
                     <Space h="md" />
                     <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
                 </Grid.Col>
                 <Grid.Col span="auto">
-
-                    <Stack align="stretch"
-                        justify="flex-start"
-                        gap="md">
-                        <CategoriesList categories={book?.categories} size={24} />
-                        <BookSeriesInfo libraryId={libraryId} book={book} />
-                        <Card withBorder>
-                            <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
-                        </Card>
-                    </Stack>
+                    <Card withBorder>
+                        <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
+                    </Card>
                 </Grid.Col>
             </Grid>
         </Container>
