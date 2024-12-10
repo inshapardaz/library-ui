@@ -29,7 +29,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 //------------------------------------
 
-const LibrarySwitcher = ({ className, library, children }) => {
+const LibrarySwitcher = ({ className, library, onClick = () => { }, children }) => {
     const { t } = useTranslation();
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: libraries, isFetching, isError: errorLoadingLibraries, refetch: refetchLibraries } = useGetLibrariesQuery({})
@@ -42,7 +42,7 @@ const LibrarySwitcher = ({ className, library, children }) => {
     }
 
     const links = libraries ? libraries.data.map((item) => (
-        <UnstyledButton key={item.id} className={classes.item}
+        <UnstyledButton key={item.id} className={classes.item} onClick={onClick}
             component={Link} to={`/libraries/${item.id}`}>
             <IconLibrary style={{
                 width: rem(22), height: rem(22)
@@ -92,7 +92,8 @@ LibrarySwitcher.propTypes = {
         id: PropTypes.number,
         name: PropTypes.string
     }),
-    children: PropTypes.any
+    onClick: PropTypes.func,
+    children: PropTypes.any,
 };
 
 export default LibrarySwitcher;

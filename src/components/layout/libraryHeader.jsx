@@ -163,7 +163,7 @@ const LibraryHeader = ({ library }) => {
                         title={t('header.periodicals')}
                         icon={<IconPeriodicals height="24px" />} />
                     <Divider my="sm" />
-                    <LibrarySwitcher className={classes.link}>
+                    <LibrarySwitcher className={classes.link} onClick={closeDrawer}>
                         <Group mx="lg">
                             <IconLibrary height="24px" />
                             {t('header.libraries')}

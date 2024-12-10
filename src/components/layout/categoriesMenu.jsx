@@ -18,7 +18,6 @@ import {
     Badge,
     Space,
     rem,
-    Card,
     Stack,
 } from '@mantine/core';
 
@@ -62,18 +61,16 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
 
     if (!library) return null;
 
-    const emptyPlaceholder = (<Card withBorder mx="md">
-        <Stack>
-            <Center>
-                <Text c="dimmed">{t('categories.empty.title')}</Text>
-            </Center>
-            <Center>
-                <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm" onClick={onClick}>
-                    {allLabel}
-                </Text>
-            </Center>
-        </Stack>
-    </Card>);
+    const emptyPlaceholder = (<Stack>
+        <Center>
+            <Text c="dimmed">{t('categories.empty.title')}</Text>
+        </Center>
+        <Center>
+            <Text component={Link} to={`/libraries/${library.id}/${target}`} fz="sm" onClick={onClick}>
+                {allLabel}
+            </Text>
+        </Center>
+    </Stack>);
 
     return (
         <>
@@ -93,11 +90,13 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
                 </HoverCard.Target>
 
                 <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
-                    {error ?
+                    <If condition={error}>
                         <>
                             <Text c="dimmed">{t('categories.errors.loading.subTitle')}</Text>
                             <Button rightSection={<IconRefreshAlert />}>{t('actions.retry')}</Button>
-                        </> :
+                        </>
+                    </If>
+                    <If condition={!error}>
                         <>
                             <Group justify="space-between" px="md">
                                 <Text fw={500}>{t('header.categories')}</Text>
@@ -108,9 +107,13 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
 
                             <Divider my="sm" />
 
-                            <SimpleGrid cols={2} spacing={0}>
-                                {categoriesList.length > 0 ? categoriesList : emptyPlaceholder}
-                            </SimpleGrid>
+                            <If condition={categoriesList.length > 0} elseChildren={
+                                emptyPlaceholder
+                            }>
+                                <SimpleGrid cols={2} spacing={0}>
+                                    {categoriesList}
+                                </SimpleGrid>
+                            </If>
                             <If condition={extraLinks}>
                                 <div className={classes.dropdownFooter}>
                                     <Group justify="space-between">
@@ -127,7 +130,7 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
                                 </div>
                             </If>
                         </>
-                    }
+                    </If>
                 </HoverCard.Dropdown>
             </HoverCard>
             <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm" px="md">
@@ -147,6 +150,18 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
             <Collapse in={linksOpened} hiddenFrom="sm">
                 <If condition={categoriesList && categoriesList.length > 0}
                     elseChildren={emptyPlaceholder}>
+                    <UnstyledButton className={classes.subLink} key={`all-${target}`} onClick={onClick} >
+                        <Group wrap="nowrap" align="flex-start">
+                            <NavLink
+                                component={Link}
+                                to={`/libraries/${library.id}/${target}`}
+                                label={allLabel}
+                                leftSection={<ThemeIcon size={34} variant="default" radius="md">
+                                    <IconCategory height={22} />
+                                </ThemeIcon>}
+                            />
+                        </Group>
+                    </UnstyledButton>
                     {categoriesList}
                 </If>
             </Collapse>

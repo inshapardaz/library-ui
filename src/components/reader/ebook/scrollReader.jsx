@@ -1,41 +1,22 @@
 import PropTypes from 'prop-types';
-import { useMemo, useRef } from 'react';
 import Markdown from 'react-markdown'
 import { useSelector } from 'react-redux';
 
 // Ui Library Imports
-import { ActionIcon, useDirection } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 
 // Local imports
 import classes from './scrollReader.module.css'
 import { IconLeft, IconRight } from '@/components/icon';
 
 // Local Import
-import useTouchSlide from '@/hooks/useTouchSlide';
 import If from '@/components/if';
 //---------------------------------
 
-const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPrevious, showNavigation = true, direction = 'rtl' }) => {
+const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPrevious, showNavigation = true }) => {
     const readerFont = useSelector(state => state.ui.readerFont);
     const readerFontSize = useSelector(state => state.ui.readerFontSize);
     const readerLineHeight = useSelector(state => state.ui.readerLineHeight);
-    const { dir } = useDirection();
-    const finalDirection = useMemo(() => direction ? direction : dir, [dir, direction]);
-
-    const onNavigateLeft = () => {
-        finalDirection == "rtl" ? onNext() : onPrevious()
-    }
-
-    const onNavigateRight = () => {
-        finalDirection == "rtl" ? onPrevious() : onNext()
-    }
-
-    const dragRef = useRef(null);
-    useTouchSlide({
-        ref: dragRef,
-        onSlideLeft: onNavigateLeft,
-        onSlideRight: onNavigateRight
-    });
 
     return (
         <div className={`${classes.scrollReader} ${showNavigation ? classes.scrollReaderShowNavigation : classes.scrollReaderNoNavigation}`}>
@@ -44,7 +25,7 @@ const ScrollReader = ({ title, markdown, canGoNext, onNext, canGoPrevious, onPre
                     <IconRight />
                 </ActionIcon>
             </If>
-            <div className={classes.readerWrapper} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px` }} ref={dragRef}>
+            <div className={classes.readerWrapper} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px` }}>
                 <div className={classes.readerContainer} style={{ fontFamily: readerFont, fontSize: `${readerFontSize}px`, lineHeight: `${readerLineHeight}em` }}>
                     <div className={classes.header}>
                         {title}
@@ -68,7 +49,6 @@ ScrollReader.propTypes = {
     onNext: PropTypes.func,
     canGoPrevious: PropTypes.bool,
     onPrevious: PropTypes.func,
-    direction: PropTypes.string,
 }
 
 export default ScrollReader;
