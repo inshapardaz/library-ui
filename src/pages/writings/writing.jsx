@@ -1,15 +1,16 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
 // Ui Library Import
-import { ActionIcon, Container, Grid, Group, rem, Skeleton } from "@mantine/core";
+import { ActionIcon, Breadcrumbs, Button, Container, Grid, Group, rem, Skeleton } from "@mantine/core";
 import { useDisclosure, useFullscreen } from "@mantine/hooks";
 
 // Local imports
 import { useGetArticleQuery, useGetArticleContentsQuery } from "@/store/slices/articles.api";
-import { IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
+import { IconWritings, IconWriting, IconFullScreen, IconFullScreenExit, IconSettings } from '@/components/icon';
 import Error from '@/components/error';
+import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import ReaderSetting from "@/components/reader/ebook/readerSettings";
 import MarkdownReader from "@/components/reader/ebook/markdownReader";
 //----------------------------------
@@ -90,8 +91,25 @@ const WritingPage = () => {
         </Container>)
     }
 
+    const items = [
+        (<Button variant="transparent" color="gray" size="compact-sm" component={Link} to={`/libraries/${libraryId}/writings`} leftSection={<IconWritings />} key='writings'>
+            {t('header.writings')}
+        </Button>),
+        (<Button variant="transparent" color="gray" size="compact-sm" onClick={open} leftSection={<IconWriting />} key="chapter">
+            {article?.title}
+        </Button>),
+    ]
+
     return (<Container fluid ref={ref} className={`markdownReaderTheme--${readerTheme}`}>
         <Group justify="space-between" wrap="nowrap">
+            <Group wrap="nowrap" visibleFrom="md">
+                <Breadcrumbs>{items}</Breadcrumbs>
+                <AuthorsAvatar libraryId={libraryId} authors={article?.authors} />
+            </Group>
+            <Group wrap="nowrap" hiddenFrom="md">
+                <Breadcrumbs>{items}</Breadcrumbs>
+            </Group>
+            <span />
             <Group wrap="nowrap">
                 <ActionIcon onClick={openSetings} size={36} variant="default">
                     <IconSettings />
@@ -105,7 +123,7 @@ const WritingPage = () => {
             markdown={articleContent?.text}
             layout={articleContent?.layout}
             viewType='scroll'
-            subTitle={article?.title}
+            // subTitle={article?.title}
             showNavigation={false} />
         <ReaderSetting opened={settingsOpened} onClose={closeSettings} language={language} showViews={false} />
     </Container>)

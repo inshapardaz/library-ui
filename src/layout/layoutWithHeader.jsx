@@ -1,7 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 
 // 3rd party libraries
-import { AppShell } from '@mantine/core';
+import { AppShell, rem } from '@mantine/core';
 
 // Local imports
 import AppHeader from "@/components/layout/appHeader";
@@ -23,7 +23,7 @@ const LayoutWithHeader = () => {
                         <AppHeader />
                     }
                 </AppShell.Header>
-                <AppShell.Main>
+                <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
                     <Outlet />
                 </AppShell.Main>
             </AppShell>

@@ -2,13 +2,28 @@
     
     padding: 10px;
     display: grid;
-    grid-template-columns: 50px 1fr 50px;
     height: calc(-120px + 100vh);
+}
+
+.scrollReaderShowNavigation {
+    grid-template-columns: 50px 1fr 50px;
+    
+    @media only screen and (max-width: 800px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.scrollReaderNoNavigation {
+    grid-template-columns: 1fr;
 }
 
 .navButton {
     align-self: center; 
     padding: 4px;
+
+    @media only screen and (max-width: 800px) {
+        display: none;
+    }
 }
 
 .header {

@@ -26,7 +26,6 @@ const Router = () => {
                         <Route path="/libraries/:libraryId/periodicals/:periodicalId/volumes/:volumeNumber" element={<Pages.PeriodicalPage />} />
                         <Route path="/libraries/:libraryId/periodicals/:periodicalId" element={<Pages.PeriodicalPage />} />
                         <Route path="/libraries/:libraryId/periodicals" element={<Pages.PeriodicalsPage />} />
-                        <Route path="/libraries/:libraryId/writings/:articleId" element={<Pages.WritingPage />} />
                         <Route path="/libraries/:libraryId/writings" element={<Pages.WritingsPage />} />
                         <Route path="/libraries/:libraryId" element={<Pages.LibraryPage />} />
                         <Route path="/libraries" element={<Pages.LibrariesPage />} />
@@ -38,6 +37,7 @@ const Router = () => {
                 <Route element={<LayoutWithHeader />}>
                     <Route path="/libraries/:libraryId/books/:bookId/read" element={<Pages.BookReaderPage />} />
                     <Route path="/libraries/:libraryId/books/:bookId/ebook" element={<Pages.EBookReaderPage />} />
+                    <Route path="/libraries/:libraryId/writings/:articleId" element={<Pages.WritingPage />} />
                 </Route>
             </Routes>
         </BrowserRouter>

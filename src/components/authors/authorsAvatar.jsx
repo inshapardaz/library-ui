@@ -8,7 +8,7 @@ import IconText from '@/components/iconText';
 import { IconAuthor } from '@/components/icon';
 //-------------------------------
 
-const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
+const AuthorsAvatar = ({ libraryId, authors, size = "sm", showNames = false }) => {
     const theme = useMantineTheme();
 
     const icon = <IconAuthor height={200} style={{ color: theme.colors.dark[2] }} />;
@@ -19,7 +19,7 @@ const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
                 <IconText key={author.id}
                     icon={<Avatar src={author?.links?.image || icon} />}
                     text={author.name}
-                    size='sm'
+                    size={size}
                     link={`/libraries/${libraryId}/authors/${author.id}`}
                 />
             ))}
@@ -29,7 +29,7 @@ const AuthorsAvatar = ({ libraryId, authors, showNames = false }) => {
             <IconText key={author.id}
                 icon={<Avatar src={author?.links?.image || icon} />}
                 text={author.name}
-                size='sm'
+                size={size}
                 link={`/libraries/${libraryId}/authors/${author.id}`}
             />)))
     } else {
@@ -52,7 +52,8 @@ AuthorsAvatar.propTypes = {
         id: PropTypes.number,
         name: PropTypes.string
     })),
-    showNames: PropTypes.bool
+    size: PropTypes.string,
+    showNames: PropTypes.bool,
 };
 
 export default AuthorsAvatar;
