@@ -9,6 +9,7 @@ const en = {
         dictionaries: "Dictionaries",
         tools: "Tools",
         writings: "Writings",
+        poetry: "Poetry",
         books: "Books",
         authors: "Authors",
         categories: "Categories",
@@ -305,8 +306,12 @@ const en = {
         articleCount_zero: "No article",
         articleCount_one: "1 article",
         articleCount_other: "{{count}} articles",
+        poetryCount_zero: "No Poetry",
+        poetryCount_one: "1 poetry",
+        poetryCount_other: "{{count}} poetries",
         booksTabLabel: "Books ({{count}})",
         writingsTabLabel: "Writings ({{count}})",
+        poetryTabLabel: "Poetry ({{count}})",
         error: {
             loading: {
                 title: "Error loading author",
@@ -355,6 +360,40 @@ const en = {
             loading: {
                 title: "Error loading writing",
                 detail: "Unexpected error occured loading writing. Please retry again."
+            }
+        },
+    },
+    poetries: {
+        empty: "No poetry found.",
+        title: "Poetry",
+        description: "Explore exquisite collection of poetry",
+        all: "All Poetry",
+        latest: "Latest Additions",
+        lastRead: "Recent Reads",
+        favorites: "Favorites",
+        error: {
+            loading: {
+                title: "Error loading poetry",
+                detail: "Unexpected error occured loading poetry. Please retry again."
+            }
+        },
+    },
+    poetry: {
+        noDescription: "No details...",
+        actions: {
+            addFavorite: {
+                success: 'Poetry added to favorites.',
+                error: 'Error adding poetry to favorites.'
+            },
+            removeFavorite: {
+                success: 'Poetry removed from favorites.',
+                error: 'Error removing poetry from favorites.'
+            },
+        },
+        error: {
+            loading: {
+                title: "Error loading poetry",
+                detail: "Unexpected error occured loading poetry. Please retry again."
             }
         },
     },

@@ -17,10 +17,11 @@ import {
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetAuthorQuery } from '@/store/slices/authors.api';
-import { IconNames, IconBooks, IconWritings } from '@/components/icon';
+import { IconNames, IconBooks, IconWritings, IconPoetries } from '@/components/icon';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
 import WritingsList from "@/components/writings/writingsList";
+import PoetryList from "@/components/poetry/poetryList";
 import Error from '@/components/error';
 import PageHeader from "@/components/pageHeader";
 
@@ -107,6 +108,9 @@ const AuthorPage = () => {
                     <Tabs.Tab value="writings" leftSection={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}>
                         {t('author.writingsTabLabel', { count: author.articleCount })}
                     </Tabs.Tab>
+                    <Tabs.Tab value="poetry" leftSection={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}>
+                        {t('author.poetryTabLabel', { count: author.poetryCount })}
+                    </Tabs.Tab>
                 </Tabs.List>
                 <Tabs.Panel value="books">
                     <Box mt="md">
@@ -125,6 +129,20 @@ const AuthorPage = () => {
                 <Tabs.Panel value="writings">
                     <Box mt="md">
                         <WritingsList
+                            libraryId={libraryId}
+                            author={author?.id}
+                            query={query}
+                            sortBy={sortBy}
+                            sortDirection={sortDirection}
+                            pageNumber={pageNumber}
+                            pageSize={pageSize}
+                            showSearch
+                            showTitle={false} />
+                    </Box>
+                </Tabs.Panel>
+                <Tabs.Panel value="poetry">
+                    <Box mt="md">
+                        <PoetryList
                             libraryId={libraryId}
                             author={author?.id}
                             query={query}

@@ -8,6 +8,7 @@ import AuthorCard from './authorCard';
 import AuthorListItem from './authorListItem';
 import DataView from '@/components/dataView';
 import { updateLinkToAuthorsPage } from '@/utils';
+import AuthorTypeToggle from './authorTypeToggle';
 //------------------------------
 
 const AuthorsList = ({
@@ -41,6 +42,24 @@ const AuthorsList = ({
         pageSize,
     });
 
+    const onAuthorTypeChanged = (value) => {
+        if (value) {
+            console.log(`On Author type change '${value}'`)
+            navigate(updateLinkToAuthorsPage(location, {
+                pageNumber: 1,
+                authorType: value,
+            }))
+        } else {
+            console.log(`On Author type change to ${updateLinkToAuthorsPage(location, {
+                pageNumber: 1
+            })}'`)
+            navigate(updateLinkToAuthorsPage(location, {
+                pageNumber: 1,
+                authorType: null
+            }))
+        }
+    }
+
     return <DataView
         emptyText={t('authors.empty')}
         dataSource={authors}
@@ -63,6 +82,9 @@ const AuthorsList = ({
             pageNumber: 1,
             query: search,
         }))}
+        extraFilters={
+            <AuthorTypeToggle value={authorType} onChange={onAuthorTypeChanged} />
+        }
         cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }

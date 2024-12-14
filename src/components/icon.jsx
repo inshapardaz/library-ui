@@ -21,6 +21,8 @@ export const IconNames = {
     Authors: "authors",
     Writing: "writing",
     Writings: "writings",
+    Poetry: "poetry",
+    Poetries: "poetries",
     Category: "category",
     Categories: "categories",
     Series: "series",
@@ -89,6 +91,8 @@ const iconTheme = {
         authors: "users",
         writing: "blockquote",
         writings: "blockquote",
+        poetry: "feather-filled",
+        poetries: "feather-filled",
         category: "tag",
         categories: "tags",
         series: "stack-2",
@@ -161,6 +165,8 @@ export const IconAuthor = (props) => getIcon(IconNames.Author, props)
 export const IconAuthors = (props) => getIcon(IconNames.Authors, props)
 export const IconWriting = (props) => getIcon(IconNames.Writing, props)
 export const IconWritings = (props) => getIcon(IconNames.Writings, props)
+export const IconPoetry = (props) => getIcon(IconNames.Poetry, props)
+export const IconPoetries = (props) => getIcon(IconNames.Poetries, props)
 export const IconCategory = (props) => getIcon(IconNames.Category, props)
 export const IconCategories = (props) => getIcon(IconNames.Categories, props)
 export const IconSeries = (props) => getIcon(IconNames.Series, props)

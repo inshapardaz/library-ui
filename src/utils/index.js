@@ -163,9 +163,13 @@ export const updateLinkToAuthorsPage = (
     var searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
+    } else {
+        searchParams.delete("pageNumber")
     }
     if (pageSize) {
         searchParams.set("pageSize", pageSize);
+    } else {
+        searchParams.delete("pageSize")
     }
     if (query) {
         searchParams.set("query", query);
@@ -173,7 +177,9 @@ export const updateLinkToAuthorsPage = (
         searchParams.delete("query");
     }
     if (authorType) {
-        searchParams.set("author", authorType);
+        searchParams.set("authorType", authorType);
+    } else {
+        searchParams.delete("authorType");
     }
     if (sortBy) {
         searchParams.set("sortBy", sortBy);
@@ -182,8 +188,9 @@ export const updateLinkToAuthorsPage = (
     }
     if (sortDirection) {
         searchParams.set("sortDirection", sortDirection);
+    } else {
+        searchParams.delete("sortDirection");
     }
-
     return `${location.pathname}?${searchParams.toString()}`;
 };
 

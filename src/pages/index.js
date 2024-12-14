@@ -16,6 +16,8 @@ import SeriesListPage from "./series";
 import SeriesPage from "./series/seriesPage";
 import WritingsPage from "./writings";
 import WritingPage from "./writings/writing";
+import PoetriesPage from "./poetry";
+import PoetryPage from "./poetry/poetryPage";
 import PeriodicalsPage from "./periodicals";
 import PeriodicalPage from "./periodicals/periodical";
 import IssuePage from "./periodicals/issue";
@@ -38,6 +40,8 @@ const Pages = {
     SeriesListPage,
     WritingsPage,
     WritingPage,
+    PoetriesPage,
+    PoetryPage,
     PeriodicalsPage,
     PeriodicalPage,
     IssuePage,

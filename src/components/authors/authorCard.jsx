@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@mantine/core';
 
 // Local imports
-import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
+import { IconBooks, IconWritings, IconAuthor, IconPoetries } from '@/components/icon';
 import IconText from '../iconText';
 //---------------------------------------
 
@@ -28,9 +28,18 @@ const AuthorCard = ({ libraryId, author }) => {
             </Group>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={author.bookCount} />
+                <IconText link={`/libraries/${libraryId}/books?author=${author.id}`}
+                    icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}
+                    text={author.bookCount} />
                 <Divider />
-                <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={author.articleCount} />
+                <IconText link={`/libraries/${libraryId}/writings?author=${author.id}`}
+                    icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}
+                    text={author.articleCount} />
+                <Divider />
+                <IconText
+                    link={`/libraries/${libraryId}/poetry?author=${author.id}`}
+                    icon={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}
+                    text={author.poetryCount} />
             </Group>
         </Card>
     )
@@ -43,6 +52,7 @@ AuthorCard.propTypes = {
         name: PropTypes.string,
         bookCount: PropTypes.number,
         articleCount: PropTypes.number,
+        poetryCount: PropTypes.number,
         links: PropTypes.shape({
             image: PropTypes.string
         })

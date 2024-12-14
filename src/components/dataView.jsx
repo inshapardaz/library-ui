@@ -30,7 +30,7 @@ import Error from './error';
 import If from '@/components/if';
 //------------------------------
 
-const SearchInpout = ({ query, onQueryChanged }) => {
+const SearchInput = ({ query, onQueryChanged }) => {
     const { t } = useTranslation();
     const [value, setValue] = useState(query || '');
     const searchIcon = (<ActionIcon size={32} disabled={!value || value == ''} variant='transparent'
@@ -70,7 +70,7 @@ const SearchInpout = ({ query, onQueryChanged }) => {
     </Input.Wrapper>)
 }
 
-SearchInpout.propTypes = {
+SearchInput.propTypes = {
     query: PropTypes.string,
     onQueryChanged: PropTypes.func
 }
@@ -89,6 +89,7 @@ const DataView = ({
     showSearch,
     searchValue,
     showPagination = true,
+    extraFilters = null,
     onSearchChanged = () => { },
     cardRender = () => null,
     listItemRender = () => null,
@@ -186,7 +187,10 @@ const DataView = ({
             <Grid.Col span="contents">
                 <Group justify="space-between">
                     <If condition={showSearch}>
-                        <SearchInpout query={searchValue} onQueryChanged={onSearchChanged} />
+                        <SearchInput query={searchValue} onQueryChanged={onSearchChanged} />
+                    </If>
+                    <If condition={extraFilters}>
+                        {extraFilters}
                     </If>
                     <If condition={showViewToggle}>
                         <LayoutToggle value={viewType} onChange={toggleViewType} />
@@ -215,6 +219,7 @@ DataView.propTypes = {
     errorDetail: PropTypes.string,
     showViewToggle: PropTypes.bool,
     viewToggleKey: PropTypes.string,
+    extraFilters: PropTypes.any,
     showSearch: PropTypes.bool,
     searchValue: PropTypes.string,
     showPagination: PropTypes.bool,

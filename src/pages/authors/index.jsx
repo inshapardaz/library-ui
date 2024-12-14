@@ -15,6 +15,7 @@ const AuthorsPage = () => {
     const [searchParams] = useSearchParams();
     const query = searchParams.get("query");
     const sortBy = searchParams.get("sortBy") ?? "name";
+    const authorType = searchParams.get("authorType");
     const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
     const pageNumber = parseInt(searchParams.get("pageNumber") ?? "1");
     const pageSize = parseInt(searchParams.get("pageSize") ?? "12");
@@ -30,6 +31,7 @@ const AuthorsPage = () => {
             <AuthorsList
                 libraryId={libraryId}
                 query={query}
+                authorType={authorType}
                 sortBy={sortBy}
                 sortDirection={sortDirection}
                 pageNumber={pageNumber}

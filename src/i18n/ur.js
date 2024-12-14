@@ -33,6 +33,7 @@ const ur = {
         fonts: "فونٹ",
         tools: "اوزار",
         writings: "تصنیفات",
+        poetry: "شاعری",
         books: "کتابیں",
         authors: "مصنّفین",
         categories: "زمرہ جات",
@@ -358,14 +359,53 @@ const ur = {
             }
         }
     },
+    poetries: {
+        title: "شاعری",
+        description: "شاعری کی دنیا سے انتخاب",
+        empty: "شاعری موجود نہیں",
+        all: "تمام شاعری",
+        latest: "نئی شاعری",
+        lastRead: "زیر مطالعہ شاعری",
+        favorites: "پسندیدہ",
+        error: {
+            loading: {
+                title: "شاعری حاصل نہیں ہو سکیں",
+                detail: "شاعری کے حصول میں غیر متوقع مسئلہ پیدا ہوا۔ برائے مہربانی دوبارہ کوشش کریں۔"
+            }
+        }
+    },
+    poetry: {
+        noDescription: "تفصیل دستیاب نہیں۔۔۔",
+        actions: {
+            addFavorite: {
+                success: 'شاعری پسندیدہ شاعری میں داخل کر دی  گئی ہے۔',
+                error: 'شاعری پسندیدہ شاعری میں داخل نہیں کی جا سکی۔'
+            },
+            removeFavorite: {
+                success: 'شاعری پسندیدہ شاعری سے خارج کر دی گئی ہے۔',
+                error: 'شاعری پسندیدہ شاعری سے نکالی نہیں جا سکی۔'
+            },
+        },
+        error: {
+            loading: {
+                title: "شاعری حاصل نہیں ہو سکیں",
+                detail: "شاعری کے حصول میں غیر متوقع مسئلہ پیدا ہوا۔ برائے مہربانی دوبارہ کوشش کریں۔"
+            }
+        }
+    },
     author: {
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",
         bookCount_other: "{{count}} کتب",
+        articleCount_zero: "کوئی مضمون نہیں",
         articleCount_one: "1 مضمون",
         articleCount_other: "{{count}} مضامین",
+        poetryCount_zero: "اشعار موجود نہیں",
+        poetryCount_one: "1 اشعار",
+        poetryCount_other: "{{count}} اشعار",
         booksTabLabel: "کتب ({{count}})",
         writingsTabLabel: "مضامین ({{count}})",
+        poetryTabLabel: "اشعار ({{count}})",
         error: {
             loading: {
                 title: "مصنّف حاصل نہیں ہو سکیں",

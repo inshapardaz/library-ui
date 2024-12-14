@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Divider, Group, Image, Stack, Text, useMantineTheme } from '@mantine/core';
 
 // local imports
-import { IconBooks, IconWritings, IconAuthor } from '@/components/icon';
+import { IconBooks, IconWritings, IconAuthor, IconPoetries } from '@/components/icon';
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 //-------------------------------------
@@ -27,13 +27,25 @@ const AuthorListItem = ({ libraryId, author }) => {
                 <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
                 <Group mt="md">
                     <If condition={author.bookCount != null}>
-                        <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.bookCount', { count: author.bookCount })} />
+                        <IconText link={`/libraries/${libraryId}/books?author=${author.id}`}
+                            icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}
+                            text={t('author.bookCount', { count: author.bookCount })} />
                     </If>
                     <If condition={author.bookCount != null && author.articleCount != null}>
                         <Divider orientation="vertical" />
                     </If>
                     <If condition={author.articleCount != null}>
-                        <IconText icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />} text={t('author.articleCount', { count: author.articleCount })} />
+                        <IconText link={`/libraries/${libraryId}/writings?author=${author.id}`}
+                            icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}
+                            text={t('author.articleCount', { count: author.articleCount })} />
+                    </If>
+                    <If condition={author.articleCount != null && author.poetryCount != null}>
+                        <Divider orientation="vertical" />
+                    </If>
+                    <If condition={author.poetryCount != null}>
+                        <IconText link={`/libraries/${libraryId}/poetry?author=${author.id}`}
+                            icon={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}
+                            text={t('author.poetryCount', { count: author.poetryCount })} />
                     </If>
                 </Group>
             </Stack>
@@ -51,6 +63,7 @@ AuthorListItem.propTypes = {
         authorType: PropTypes.string,
         bookCount: PropTypes.number,
         articleCount: PropTypes.number,
+        poetryCount: PropTypes.number,
         links: PropTypes.shape({
             image: PropTypes.string
         })

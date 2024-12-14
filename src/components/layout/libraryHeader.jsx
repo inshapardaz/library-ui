@@ -20,7 +20,7 @@ import { useDisclosure } from '@mantine/hooks';
 // Local imports
 import classes from './appHeader.module.css';
 
-import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPeriodicals, IconWritings } from '@/components/icon';
+import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPoetries, IconPeriodicals, IconWritings } from '@/components/icon';
 import Logo from '@/components/logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
@@ -75,6 +75,13 @@ const LibraryHeader = ({ library }) => {
                             countFunc={i => i.articleCount}
                             title={t('header.writings')}
                             icon={<IconWritings height="24px" />} />
+                        <CategoriesMenu library={library}
+                            className={classes.link}
+                            target='poetry'
+                            allLabel={t('poetries.all')}
+                            countFunc={i => i.poetryCount}
+                            title={t('header.poetry')}
+                            icon={<IconPoetries height="24px" />} />
                         <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
                             <IconAuthors height="24px" />
                             <Space w="md" />
@@ -145,6 +152,13 @@ const LibraryHeader = ({ library }) => {
                         countFunc={i => i.articleCount}
                         title={t('header.writings')}
                         icon={<IconWritings height="24px" />} />
+                    <CategoriesMenu library={library}
+                        target="poetry"
+                        allLabel={t('poetries.all')}
+                        onClick={closeDrawer}
+                        countFunc={i => i.poetryCount}
+                        title={t('header.poetry')}
+                        icon={<IconPoetries height="24px" />} />
                     <NavLink to={`/libraries/${library.id}/authors`} className={classes.link} onClick={closeDrawer}>
                         <IconAuthors height="24px" />
                         <Space w="md" />
