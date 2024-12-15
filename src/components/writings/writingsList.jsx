@@ -8,6 +8,9 @@ import WritingCard from './writingCard';
 import WritingListItem from './writingListItem';
 import DataView from '@/components/dataView';
 import { updateLinkToWritingsPage } from '@/utils';
+import SortMenu from '@/components/sortMenu';
+import SortDirectionToggle from '@/components/sortDirectionToggle';
+import { IconTitle, IconDateCreated } from '@/components/icon';
 //------------------------------
 
 const WritingsList = ({
@@ -49,6 +52,16 @@ const WritingsList = ({
         pageSize,
     });
 
+    let writingSortOptions = [{
+        label: t('writing.title'),
+        value: 'title',
+        icon: <IconTitle />
+    }, {
+        label: t('writing.lastModified'),
+        value: 'lastModified',
+        icon: <IconDateCreated />
+    }];
+
     return <DataView
         title={showTitle ? t('header.writings') : null}
         emptyText={t('writings.empty')}
@@ -72,6 +85,18 @@ const WritingsList = ({
             pageNumber: 1,
             query: search,
         }))}
+        extraFilters={
+            <>
+                <SortMenu options={writingSortOptions} value={sortBy} onChange={value => navigate(updateLinkToWritingsPage(location, {
+                    pageNumber: 1,
+                    sortBy: value,
+                }))} />
+                <SortDirectionToggle value={sortDirection} onChange={dir => navigate(updateLinkToWritingsPage(location, {
+                    pageNumber: 1,
+                    sortDirection: dir,
+                }))} />
+            </>
+        }
         cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }

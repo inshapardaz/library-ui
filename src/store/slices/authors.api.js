@@ -10,10 +10,22 @@ export const authorsApi = createApi({
   tagTypes: ["Authors", "Author"],
   endpoints: (builder) => ({
     getAuthors: builder.query({
-      query: ({ libraryId, query, authorType, pageNumber, pageSize }) => {
+      query: ({ libraryId,
+        query,
+        authorType,
+        sortBy = null,
+        sortDirection = null,
+        pageNumber = 1,
+        pageSize = 12 }) => {
         let queryVal = query ? `&query=${query}` : "";
         if (authorType) {
           queryVal += `authorType=${authorType}`;
+        }
+        if (sortBy) {
+          queryVal += `&sortBy=${sortBy}`;
+        }
+        if (sortDirection) {
+          queryVal += `&sortDirection=${sortDirection}`;
         }
         return {
           url: `/libraries/${libraryId}/authors?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`,

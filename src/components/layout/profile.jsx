@@ -53,8 +53,12 @@ const Profile = () => {
                                 {user?.name}
                             </Text>
                             <IconChevronDown
-                                size={12}
+                                size={16}
                                 stroke={1.5}
+                                style={{
+                                    transform: !userMenuOpened ? "rotate(0)" : "rotate(180deg)",
+                                    transitionDuration: "250ms"
+                                }}
                             />
                         </Group>
                     </UnstyledButton>

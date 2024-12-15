@@ -269,6 +269,9 @@ const ur = {
         }
     },
     book: {
+        title: "عنوان",
+        dateCreated: "تاریخ اندراج",
+        seriesIndex: "سلسلے میں ترتیب",
         latestBooks: "نئی کتب",
         lastRead: "زیر مطالعہ کتب",
         favorites: "پسندیدہ",
@@ -341,6 +344,8 @@ const ur = {
         }
     },
     writing: {
+        title: "عنوان",
+        lastModified: "تاریخ تدوین",
         noDescription: "تفصیل دستیاب نہیں۔۔۔",
         actions: {
             addFavorite: {
@@ -375,6 +380,8 @@ const ur = {
         }
     },
     poetry: {
+        title: "عنوان",
+        lastModified: "تاریخ تدوین",
         noDescription: "تفصیل دستیاب نہیں۔۔۔",
         actions: {
             addFavorite: {
@@ -394,6 +401,8 @@ const ur = {
         }
     },
     author: {
+        name: "نام",
+        type: "قسم",
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",
         bookCount_other: "{{count}} کتب",
@@ -425,9 +434,11 @@ const ur = {
         }
     },
     series: {
-        title: "سلسلہ جات",
+        label: "سلسلہ جات",
+        title: "عنوان",
         description: "کتابوں کے سلسلے",
         empty: "سلسلہ جات دستیاب نہیں۔",
+        noOfBooks: "کتب کی تعداد",
         noDescription: "تفصیل دستیاب نہیں۔۔۔",
         bookCount_zero: "کوئی کتاب موجود نہیں",
         bookCount_one: "1 کتاب",

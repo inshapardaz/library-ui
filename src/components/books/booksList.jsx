@@ -8,6 +8,9 @@ import BookCard from './bookCard';
 import BookListItem from './bookListItem';
 import DataView from '@/components/dataView';
 import { updateLinkToBooksPage } from '@/utils';
+import SortMenu from '@/components/sortMenu';
+import SortDirectionToggle from '@/components/sortDirectionToggle';
+import { IconTitle, IconDateCreated, IconSeriesIndex } from '@/components/icon';
 //------------------------------
 
 const BooksList = ({
@@ -50,6 +53,23 @@ const BooksList = ({
         pageSize,
     });
 
+    let bookSortOptions = [{
+        label: t('book.title'),
+        value: 'title',
+        icon: <IconTitle />
+    }, {
+        label: t('book.dateCreated'),
+        value: 'dateCreated',
+        icon: <IconDateCreated />
+    }];
+    if (series) {
+        bookSortOptions.push({
+            label: t('book.seriesIndex'),
+            value: 'seriesIndex',
+            icon: <IconSeriesIndex />
+        })
+    }
+
     return <DataView
         title={showTitle ? t('header.books') : null}
         emptyText={t('books.empty')}
@@ -73,6 +93,18 @@ const BooksList = ({
             pageNumber: 1,
             query: search,
         }))}
+        extraFilters={
+            <>
+                <SortMenu options={bookSortOptions} value={sortBy} onChange={value => navigate(updateLinkToBooksPage(location, {
+                    pageNumber: 1,
+                    sortBy: value,
+                }))} />
+                <SortDirectionToggle value={sortDirection} onChange={dir => navigate(updateLinkToBooksPage(location, {
+                    pageNumber: 1,
+                    sortDirection: dir,
+                }))} />
+            </>
+        }
         cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 3, xl: 4 }}
 
     />;

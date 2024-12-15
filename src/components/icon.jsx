@@ -68,6 +68,14 @@ export const IconNames = {
     IssueArticle: "issueArticle",
     VolumeNumber: "volumeNumber",
     IssueNumber: "issueNumber",
+    Sort: "sort",
+    SortAscending: "sortAscending",
+    SortDescending: "sortDescending",
+    Name: "name",
+    Type: "type",
+    Title: "title",
+    DateCreated: "dateCreated",
+    SeriesIndex: "seriesIndex",
 };
 //-------------------------------------
 
@@ -138,6 +146,14 @@ const iconTheme = {
         issueArticle: "align-box-left-middle",
         volumeNumber: "archive",
         issueNumber: "mist",
+        sort: "arrows-sort",
+        sortAscending: "sort-ascending",
+        sortDescending: "sort-descending",
+        name: "list-letters",
+        type: "list-details",
+        title: "list-letters",
+        dateCreated: "list-letters",
+        seriesIndex: "list-letters",
     }
 };
 //-------------------------------------
@@ -213,6 +229,15 @@ export const IconIssue = (props) => getIcon(IconNames.Issue, props)
 export const IconIssueArticle = (props) => getIcon(IconNames.IssueArticle, props)
 export const IconVolumeNumber = (props) => getIcon(IconNames.VolumeNumber, props)
 export const IconIssueNumber = (props) => getIcon(IconNames.IssueNumber, props)
+export const IconSort = (props) => getIcon(IconNames.Sort, props)
+export const IconSortAscending = (props) => getIcon(IconNames.SortAscending, props)
+export const IconSortDescending = (props) => getIcon(IconNames.SortDescending, props)
+export const IconName = (props) => getIcon(IconNames.Name, props)
+export const IconType = (props) => getIcon(IconNames.Type, props)
+export const IconTitle = (props) => getIcon(IconNames.Title, props)
+export const IconDateCreated = (props) => getIcon(IconNames.DateCreated, props)
+export const IconSeriesIndex = (props) => getIcon(IconNames.SeriesIndex, props)
+
 
 export const Icon = ({ name, ...rest }) => <IconifyIcon icon={getIconName(name)} {...rest} />
 

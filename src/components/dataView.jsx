@@ -181,10 +181,21 @@ const DataView = ({
             <Grid.Col span="auto">
                 <Title order={3}>{title}</Title>
             </Grid.Col>
-            <Grid.Col span="auto">
-
+            <Grid.Col span="auto"></Grid.Col>
+            <Grid.Col span="contents" visibleFrom="sm">
+                <Group justify="space-between">
+                    <If condition={showSearch}>
+                        <SearchInput query={searchValue} onQueryChanged={onSearchChanged} />
+                    </If>
+                    <If condition={extraFilters}>
+                        {extraFilters}
+                    </If>
+                    <If condition={showViewToggle}>
+                        <LayoutToggle value={viewType} onChange={toggleViewType} />
+                    </If>
+                </Group>
             </Grid.Col>
-            <Grid.Col span="contents">
+            <Grid.Col hiddenFrom="sm">
                 <Group justify="space-between">
                     <If condition={showSearch}>
                         <SearchInput query={searchValue} onQueryChanged={onSearchChanged} />

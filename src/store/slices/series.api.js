@@ -9,8 +9,14 @@ export const seriesApi = createApi({
   tagTypes: ["Series", "Serie"],
   endpoints: (builder) => ({
     getSeries: builder.query({
-      query: ({ libraryId, query, pageNumber, pageSize }) => {
+      query: ({ libraryId, query, pageNumber, pageSize, sortBy, sortDirection }) => {
         let queryVal = query ? `&query=${query}` : "";
+        if (sortBy) {
+          queryVal += `&sortBy=${sortBy}`;
+        }
+        if (sortDirection) {
+          queryVal += `&sortDirection=${sortDirection}`;
+        }
         return {
           url: `/libraries/${libraryId}/series?pageNumber=${pageNumber}&pageSize=${pageSize}${queryVal}`,
           method: "get",

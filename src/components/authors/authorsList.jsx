@@ -9,6 +9,9 @@ import AuthorListItem from './authorListItem';
 import DataView from '@/components/dataView';
 import { updateLinkToAuthorsPage } from '@/utils';
 import AuthorTypeToggle from './authorTypeToggle';
+import SortMenu from '@/components/sortMenu';
+import SortDirectionToggle from '@/components/sortDirectionToggle';
+import { IconName, IconType } from "@/components/icon";
 //------------------------------
 
 const AuthorsList = ({
@@ -41,6 +44,16 @@ const AuthorsList = ({
         pageNumber,
         pageSize,
     });
+
+    const authorSortOptions = [{
+        label: t('author.name'),
+        value: 'name',
+        icon: <IconName />
+    }, {
+        label: t('author.type'),
+        value: 'type',
+        icon: <IconType />
+    }]
 
     const onAuthorTypeChanged = (value) => {
         if (value) {
@@ -83,7 +96,17 @@ const AuthorsList = ({
             query: search,
         }))}
         extraFilters={
-            <AuthorTypeToggle value={authorType} onChange={onAuthorTypeChanged} />
+            <>
+                <SortMenu options={authorSortOptions} value={sortBy} onChange={value => navigate(updateLinkToAuthorsPage(location, {
+                    pageNumber: 1,
+                    sortBy: value,
+                }))} />
+                <SortDirectionToggle value={sortDirection} onChange={dir => navigate(updateLinkToAuthorsPage(location, {
+                    pageNumber: 1,
+                    sortDirection: dir,
+                }))} />
+                <AuthorTypeToggle value={authorType} onChange={onAuthorTypeChanged} />
+            </>
         }
         cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;

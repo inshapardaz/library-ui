@@ -8,6 +8,9 @@ import SeriesCard from './seriesCard';
 import SeriesListItem from './seriesListItem';
 import DataView from '@/components/dataView';
 import { updateLinkToSeriesPage } from '@/utils';
+import SortMenu from '@/components/sortMenu';
+import SortDirectionToggle from '@/components/sortDirectionToggle';
+import { IconTitle, IconDateCreated } from '@/components/icon';
 //------------------------------
 
 const SeriesList = ({
@@ -39,6 +42,16 @@ const SeriesList = ({
         pageSize,
     });
 
+    let seriesSortOptions = [{
+        label: t('series.title'),
+        value: 'title',
+        icon: <IconTitle />
+    }, {
+        label: t('series.noOfBooks'),
+        value: 'bookCount',
+        icon: <IconDateCreated />
+    }];
+
     return <DataView
         emptyText={t('series.empty')}
         dataSource={series}
@@ -61,6 +74,18 @@ const SeriesList = ({
             pageNumber: 1,
             query: search,
         }))}
+        extraFilters={
+            <>
+                <SortMenu options={seriesSortOptions} value={sortBy} onChange={value => navigate(updateLinkToSeriesPage(location, {
+                    pageNumber: 1,
+                    sortBy: value,
+                }))} />
+                <SortDirectionToggle value={sortDirection} onChange={dir => navigate(updateLinkToSeriesPage(location, {
+                    pageNumber: 1,
+                    sortDirection: dir,
+                }))} />
+            </>
+        }
         cols={{ base: 1, xs: 2, sm: 3, md: 4, lg: 4, xl: 6 }}
     />;
 }

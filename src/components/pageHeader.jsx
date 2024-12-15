@@ -44,7 +44,7 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
                 elseChildren={<Icon name={defaultIcon} height={rem(64)} style={{ color: theme.colors.dark[1] }} />}>
                 <Image
                     src={imageLink}
-                    h={rem(96)}
+                    h={96}
                     w="auto"
                     radius="md"
                     alt={title}

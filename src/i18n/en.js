@@ -40,7 +40,9 @@ const en = {
         done: "Done",
         viewAll: "View All",
         showMore: "Show more",
-        hide: "Hide"
+        hide: "Hide",
+        sortAscending: "Ascending",
+        sortDescending: "Descending",
     },
     login: {
         title: "Login",
@@ -243,6 +245,9 @@ const en = {
         }
     },
     book: {
+        title: "Title",
+        dateCreated: "Date Created",
+        seriesIndex: "Series Index",
         latestBooks: "Latest Additions",
         lastRead: "Recent Reads",
         favorites: "Favorites",
@@ -300,6 +305,8 @@ const en = {
         }
     },
     author: {
+        name: "Name",
+        type: "Author Type",
         bookCount_zero: "No books",
         bookCount_one: "1 book",
         bookCount_other: "{{count}} books",
@@ -345,6 +352,8 @@ const en = {
         },
     },
     writing: {
+        title: "Title",
+        lastModified: "Modified",
         noDescription: "No details...",
         actions: {
             addFavorite: {
@@ -379,6 +388,8 @@ const en = {
         },
     },
     poetry: {
+        title: "Title",
+        lastModified: "Modified",
         noDescription: "No details...",
         actions: {
             addFavorite: {
@@ -398,10 +409,12 @@ const en = {
         },
     },
     series: {
-        title: "Series",
+        label: "Series",
+        title: "Title",
         description: "Collection of series of books",
         empty: "No series",
         noDescription: "No details...",
+        noOfBooks: "No. of books",
         bookCount_zero: "No books",
         bookCount_one: "1 book",
         bookCount_other: "{{count}} books",

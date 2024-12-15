@@ -142,8 +142,7 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
                     </Text>
                     <span style={{ width: '100%' }} />
                     <IconChevronDown
-                        width={rem(16)}
-                        height={rem(16)}
+                        size={16}
                     />
                 </>
             </UnstyledButton>

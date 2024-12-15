@@ -62,7 +62,7 @@ const SearchBox = () => {
         },
         {
             id: 'series',
-            label: t('series.title'),
+            label: t('series.label'),
             description: t('series.description'),
             onClick: () => navigate(`/libraries/${libraryId}/series`),
             leftSection: <IconSeries style={{ width: rem(24), height: rem(24) }} stroke={1.5} />,

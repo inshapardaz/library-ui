@@ -9,6 +9,7 @@ import { SortDirection } from "@/models";
 import DataView from '@/components/dataView';
 import IssueCard from './issueCard';
 import IssueListItem from './issueListItem';
+import SortDirectionToggle from '@/components/sortDirectionToggle';
 //------------------------------
 
 const IssuesList = ({
@@ -25,7 +26,7 @@ const IssuesList = ({
 
     const query = searchParams.get("query");
     const year = searchParams.get("year") ?? "title";
-    const sortBy = searchParams.get("sortBy") ?? "title";
+    const sortBy = searchParams.get("sortBy") ?? "issueDate";
     const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
     const pageNumber = searchParams.get("pageNumber") ?? 1;
     const pageSize = searchParams.get("pageSize") ?? 12;
@@ -70,6 +71,12 @@ const IssuesList = ({
             pageNumber: 1,
             query: search,
         }))}
+        extraFilters={
+            <SortDirectionToggle value={sortDirection} onChange={dir => navigate(updateLinkToIssuePage(location, {
+                pageNumber: 1,
+                sortDirection: dir,
+            }))} />
+        }
         cols={{ base: 1, xs: 2, sm: 2, md: 3, lg: 3, xl: 4 }}
     />;
 }
