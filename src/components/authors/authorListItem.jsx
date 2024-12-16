@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -15,14 +16,14 @@ const IMAGE_HEIGHT = 150;
 const AuthorListItem = ({ libraryId, author }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <IconAuthor height={IMAGE_HEIGHT} style={{ color: theme.colors.dark[2] }} />;
     return (<>
         <Group wrap="nowrap">
-            {author.links?.image ?
-                <Image w={IMAGE_HEIGHT} radius="sm" src={author?.links?.image} /> :
-                icon
-            }
+            <If condition={author.links?.image && !imgError} elseChildren={icon}>
+                <Image w={IMAGE_HEIGHT} radius="sm" src={author?.links?.image} onError={() => setImgError(true)} />
+            </If>
             <Stack>
                 <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
                 <Group mt="md">

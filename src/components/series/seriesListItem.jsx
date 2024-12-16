@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -15,13 +16,14 @@ const IMAGE_HEIGHT = 150;
 const SeriesListItem = ({ libraryId, series }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <IconSeries width={IMAGE_HEIGHT} style={{ color: theme.colors.dark[1] }} />;
 
     return (<>
         <Group gap="sm" wrap="nowrap">
-            <If condition={series.links?.image} elseChildren={icon}>
-                <Image w={IMAGE_HEIGHT} radius="sm" src={series.links.image} />
+            <If condition={series.links?.image && !imgError} elseChildren={icon}>
+                <Image w={IMAGE_HEIGHT} radius="sm" src={series.links.image} onError={() => setImgError(true)} />
             </If>
             <Stack>
                 <Text component={Link} to={`/libraries/${libraryId}/series/${series.id}`} truncate="end" fw={500}>{series.name}</Text>

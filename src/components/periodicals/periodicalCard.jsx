@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -16,14 +17,15 @@ const IMAGE_WIDTH = 200;
 const PeriodicalCard = ({ libraryId, periodical }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <Center h={IMAGE_HEIGHT}><IconPeriodical width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                <If condition={periodical.links?.image} elseChildren={icon}>
-                    <Center h={IMAGE_HEIGHT}><Image w={IMAGE_WIDTH} radius="sm" src={periodical?.links?.image} /></Center>
+                <If condition={periodical.links?.image && !imgError} elseChildren={icon}>
+                    <Image w={IMAGE_WIDTH} radius="sm" src={periodical?.links?.image} onError={() => setImgError(true)} />
                 </If>
             </Card.Section>
 

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -17,14 +18,15 @@ const IMAGE_WIDTH = 150;
 const IssueListItem = ({ libraryId, issue, frequency }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <Center w={IMAGE_WIDTH}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
     const title = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
 
     return (<>
         <Group gap="sm" wrap="nowrap">
-            <If condition={issue.links?.image} elseChildren={icon}>
-                <Image w={IMAGE_WIDTH} radius="sm" src={issue?.links?.image} />
+            <If condition={issue.links?.image && !imgError} elseChildren={icon}>
+                <Image w={IMAGE_WIDTH} radius="sm" src={issue?.links?.image} onError={() => setImgError(true)} />
             </If>
             <Stack>
                 <Group justify="space-between">

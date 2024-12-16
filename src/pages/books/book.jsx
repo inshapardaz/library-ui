@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -38,6 +39,8 @@ const BookPage = () => {
     const { t } = useTranslation();
     const { libraryId, bookId } = useParams();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
+
     const {
         data: book,
         error: errorLoadingBook,
@@ -107,7 +110,7 @@ const BookPage = () => {
                 mih={50}
             >
                 <Grid.Col span="content">
-                    <If condition={book.links?.image} elseChildren={icon}>
+                    <If condition={book.links?.image && !imgError} elseChildren={icon}>
                         <Image
                             src={book?.links?.image}
                             h={rem(400)}
@@ -115,6 +118,7 @@ const BookPage = () => {
                             radius="md"
                             alt={book?.title}
                             fit='contain'
+                            onError={() => setImgError(true)}
                         />
                     </If>
                     <Stack hiddenFrom='md'>

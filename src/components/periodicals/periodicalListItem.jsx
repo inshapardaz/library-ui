@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -17,13 +18,15 @@ const IMAGE_WIDTH = 150;
 const PeriodicalListItem = ({ libraryId, periodical }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
+
 
     const icon = <IconPeriodical width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} />;
 
     return (<>
         <Group gap="sm" wrap="nowrap">
-            <If condition={periodical.links?.image} elseChildren={icon}>
-                <Image w={IMAGE_WIDTH} radius="sm" src={periodical?.links?.image} />
+            <If condition={periodical.links?.image && !imgError} elseChildren={icon}>
+                <Image w={IMAGE_WIDTH} radius="sm" src={periodical?.links?.image} onError={() => setImgError(true)} />
             </If>
             <Stack>
                 <Group justify="space-between">

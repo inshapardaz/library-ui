@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -19,14 +20,14 @@ const IMAGE_WIDTH = 150;
 const BookCard = ({ libraryId, book }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
-
+    const [imgError, setImgError] = useState(false);
     const icon = <Center h={IMAGE_HEIGHT}><IconBook width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                <If condition={book.links?.image} elseChildren={icon}>
-                    <Image h={IMAGE_HEIGHT} fit='fit' radius="sm" src={book?.links?.image} />
+                <If condition={book.links?.image && !imgError} elseChildren={icon}>
+                    <Image h={IMAGE_HEIGHT} fit='fit' radius="sm" src={book?.links?.image} onError={() => setImgError(true)} />
                 </If>
             </Card.Section>
 

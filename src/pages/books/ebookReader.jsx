@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -23,6 +23,7 @@ const EBookReaderPage = () => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     const navigate = useNavigate();
+    const [imgError, setImgError] = useState(false);
     const readerTheme = useSelector(state => state.ui.readerTheme);
     const readerView = useSelector(state => state.ui.readerView);
     const { ref, toggle, fullscreen } = useFullscreen();
@@ -128,7 +129,7 @@ const EBookReaderPage = () => {
         </Button>),
     ]
 
-    const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={450}><IconBook width={150} height={200} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (<Container fluid ref={ref} className={`${classes.reader} markdownReaderTheme--${readerTheme}`}>
         <Group justify="space-between" wrap="nowrap">
@@ -155,13 +156,14 @@ const EBookReaderPage = () => {
         <ReaderSetting opened={settingsOpened} onClose={closeSettings} language={selectedLanguage} />
         <Drawer opened={opened} onClose={close} title={<Group><IconChapters />{t('book.chapters')}</Group>}>
             <TableOfContents title={book?.title}
-                image={book.links?.image ?
+                image={book.links?.image && !imgError ?
                     <Image
                         h={200}
                         w="auto"
                         fit="contain"
                         radius="sm"
-                        src={book?.links?.image} /> :
+                        src={book?.links?.image}
+                        onError={() => setImgError(true)} /> :
                     icon
                 }
                 subTitle={<AuthorsAvatar libraryId={libraryId} authors={book?.authors} />}

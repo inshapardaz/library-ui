@@ -8,6 +8,7 @@ import { Anchor, Box, Breadcrumbs, Divider, Flex, Group, Image, rem, Skeleton, S
 import If from '@/components/if';
 import { Icon } from './icon';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 //----------------------------------
 export const PageHeaderSkeleton = () => {
     return (<Flex
@@ -30,6 +31,8 @@ export const PageHeaderSkeleton = () => {
 const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcrumbs = [], actions = [] }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
+
     return (<Flex
         mih={50}
         m="md"
@@ -40,7 +43,7 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
         wrap="wrap"
     >
         <Box visibleFrom='sm'>
-            <If condition={imageLink}
+            <If condition={imageLink && !imgError}
                 elseChildren={<Icon name={defaultIcon} height={rem(64)} style={{ color: theme.colors.dark[1] }} />}>
                 <Image
                     src={imageLink}
@@ -49,6 +52,7 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
                     radius="md"
                     alt={title}
                     fit="contain"
+                    onError={() => setImgError(true)}
                 />
             </If>
         </Box>

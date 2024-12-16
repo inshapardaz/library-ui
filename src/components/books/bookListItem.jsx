@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -16,13 +17,14 @@ import If from '@/components/if';
 const BookListItem = ({ libraryId, book }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <IconBook width={150} style={{ color: theme.colors.dark[1] }} />;
 
     return (<>
         <Group gap="sm" wrap="nowrap">
-            <If condition={book.links?.image} elseChildren={icon}>
-                <Image w={150} radius="sm" src={book?.links?.image} />
+            <If condition={book.links?.image && !imgError} elseChildren={icon}>
+                <Image w={150} radius="sm" src={book?.links?.image} onError={() => setImgError(true)} />
             </If>
             <Stack>
                 <Group justify="space-between">

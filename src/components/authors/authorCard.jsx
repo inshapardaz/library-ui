@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Ui Library import
@@ -7,20 +8,21 @@ import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@man
 // Local imports
 import { IconBooks, IconWritings, IconAuthor, IconPoetries } from '@/components/icon';
 import IconText from '../iconText';
+import If from '@/components/if';
 //---------------------------------------
 
 const AuthorCard = ({ libraryId, author }) => {
     const theme = useMantineTheme();
+    const [imgError, setImgError] = useState(false);
 
     const icon = <Center h={225}><IconAuthor width={125} style={{ color: theme.colors.dark[1] }} /></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                {author.links?.image ?
-                    <Image h={225} radius="sm" src={author?.links?.image} /> :
-                    icon
-                }
+                <If condition={author.links?.image && !imgError} elseChildren={icon}>
+                    <Image h={225} radius="sm" src={author?.links?.image} onError={() => setImgError(true)} />
+                </If>
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
