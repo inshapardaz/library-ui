@@ -1,83 +1,31 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
 import { useLocalStorage } from '@mantine/hooks';
 import {
-    ActionIcon,
     Center,
-    CloseButton,
     Divider,
     Grid,
     Group,
-    Input,
     Pagination,
-    rem,
     SimpleGrid,
     Skeleton,
     Stack,
     Text,
-    TextInput,
     Title
 } from "@mantine/core";
-import { getHotkeyHandler } from '@mantine/hooks';
 
 // Local imports
-import { IconSearch } from '@/components/icon'
 import LayoutToggle from '@/components/layoutToggle';
 import Error from './error';
 import If from '@/components/if';
-//------------------------------
+import SearchInput from '@/components/searchInput';
 
-const SearchInput = ({ query, onQueryChanged }) => {
-    const { t } = useTranslation();
-    const [value, setValue] = useState(query || '');
-    const searchIcon = (<ActionIcon size={32} disabled={!value || value == ''} variant='transparent'
-        onClick={() => onQueryChanged(value)} >
-        <IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-    </ActionIcon>);
-
-    const onClear = () => {
-        setValue("");
-        onQueryChanged("")
-    }
-
-    const onSubmit = () => {
-        onQueryChanged(value);
-    }
-
-    let closeIcon = null;
-    if (value && value != '') {
-        closeIcon = (<CloseButton onClick={onClear} />);
-    }
-
-    return (<Input.Wrapper>
-        <TextInput
-            placeholder={t('search.title')}
-            value={value}
-            style={{ maxWidth: '200px' }}
-            onChange={e => setValue(e.target.value)}
-            leftSection={searchIcon}
-            rightSectionWidth={42}
-            rightSection={<Group>
-                {closeIcon}
-            </Group>}
-            onKeyDown={getHotkeyHandler([
-                ['Enter', onSubmit]
-            ])}
-        />
-    </Input.Wrapper>)
-}
-
-SearchInput.propTypes = {
-    query: PropTypes.string,
-    onQueryChanged: PropTypes.func
-}
 //------------------------------
 
 const DataView = ({
     title,
+    actions = null,
     emptyText,
     dataSource = null,
     isFetching = false,
@@ -180,6 +128,9 @@ const DataView = ({
         <Grid>
             <Grid.Col span="auto">
                 <Title order={3}>{title}</Title>
+                <If condition={actions}>
+                    {actions}
+                </If>
             </Grid.Col>
             <Grid.Col span="auto"></Grid.Col>
             <Grid.Col span="contents" visibleFrom="sm">
@@ -216,6 +167,7 @@ const DataView = ({
 
 DataView.propTypes = {
     title: PropTypes.string,
+    actions: PropTypes.any,
     emptyText: PropTypes.string,
     dataSource: PropTypes.shape({
         pageSize: PropTypes.number,

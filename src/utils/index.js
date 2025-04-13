@@ -49,6 +49,7 @@ export const updateLinkToBooksPage = (
         author,
         categories,
         series,
+        bookShelf,
         sortBy,
         sortDirection,
         favorite,
@@ -76,6 +77,9 @@ export const updateLinkToBooksPage = (
     }
     if (series) {
         searchParams.set("series", series);
+    }
+    if (bookShelf) {
+        searchParams.set("bookShelf", bookShelf);
     }
     if (sortBy) {
         searchParams.set("sortBy", sortBy);
@@ -226,6 +230,34 @@ export const updateLinkToAuthorPage = (
 };
 
 export const updateLinkToSeriesPage = (
+    location,
+    { pageNumber, pageSize, query, sortBy, sortDirection }
+) => {
+    var searchParams = new URLSearchParams(location.search);
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+    if (sortBy) {
+        searchParams.set("sortBy", sortBy);
+    } else if (sortBy === "") {
+        searchParams.delete("sortBy");
+    }
+    if (sortDirection) {
+        searchParams.set("sortDirection", sortDirection);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
+};
+
+export const updateLinkToBookShelvesPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection }
 ) => {

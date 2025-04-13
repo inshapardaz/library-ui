@@ -14,6 +14,7 @@ const en = {
         authors: "Authors",
         categories: "Categories",
         series: "Series",
+        bookShelves: "Book Shelves",
         periodicals: "Periodicals",
     },
     footer: {
@@ -246,6 +247,7 @@ const en = {
     },
     book: {
         title: "Title",
+        authors: "Authors",
         dateCreated: "Date Created",
         seriesIndex: "Series Index",
         latestBooks: "Latest Additions",
@@ -424,6 +426,72 @@ const en = {
                 detail: "Unexpected error occured loading series. Please retry again."
             }
         }
+    },
+    bookShelves: {
+        label: "Book Shelves",
+        name: "Name",
+        description: "Collection of books",
+        empty: "No Book Shelf",
+        noDescription: "No details...",
+        noOfBooks: "No. of books",
+        bookCount_zero: "No books",
+        bookCount_one: "1 book",
+        bookCount_other: "{{count}} books",
+        error: {
+            loading: {
+                title: "Error loading book shelves",
+                detail: "Unexpected error occured loading book shelves. Please retry again."
+            }
+        }
+    },
+    bookShelf: {
+        name: {
+            label: "Name",
+            placeholder: "Name of the book shelf",
+            required: "Name is required for book shelf",
+        },
+        description: {
+            label: "Description",
+            placeholder: "Description of the book shelf",
+        },
+        isPublic: {
+            label: "Public",
+            placeholder: "Is book shelf public?",
+            helpText: "Public book shelves are visible to all users but only you can change it.",
+        },
+        public: "Public Book Shelf",
+        private: "Personal Book Shelf",
+        actions: {
+            add: {
+                title: "Add Book Shelf",
+                success: "Book shelf added successfully.",
+                error: "Unable to add book shelf.",
+            },
+            edit: {
+                title: "Edit Book Shelf {{name}}",
+                success: "Book shelf updated successfully.",
+                error: "Unable to update book shelf.",
+            },
+            delete: {
+                title: "Delete Book Shelf",
+                label: "Delete Book Shelf {{name}}",
+                message: "Are you sure you want to delete book shelf '{{name}}'?",
+                success: "Book shelf deleted successfully.",
+                error: "Unable to delete book shelf.",
+            },
+            addBook: {
+                title: "Add book to book shelf",
+                label: "Add book",
+                success: "Book added to book shelf successfully.",
+                error: "Unable to add book to book shelf.",
+            },
+            removeBook: {
+                title: "Remove book from book shelf",
+                message: "Are you sure you want to removbe book '{{title}}' from book shelf '{{name}}'?",
+                success: "Book '{{title}}' removed from book shelf '{{name}}' successfully.",
+                error: "Unable to remove book '{{title}}' from book shelf '{{name}}'.",
+            },
+        },
     },
     reader: {
         themes: {

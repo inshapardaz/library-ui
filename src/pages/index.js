@@ -22,6 +22,8 @@ import PeriodicalsPage from "./periodicals";
 import PeriodicalPage from "./periodicals/periodical";
 import IssuePage from "./periodicals/issue";
 import IssueArticlePage from "./periodicals/issue/article";
+import BookShelvesPage from "./bookShelves";
+import BookShelvePage from "./bookShelves/bookShelvePage";
 
 const Pages = {
     HomePage,
@@ -45,7 +47,9 @@ const Pages = {
     PeriodicalsPage,
     PeriodicalPage,
     IssuePage,
-    IssueArticlePage
+    IssueArticlePage,
+    BookShelvesPage,
+    BookShelvePage,
 };
 
 export default Pages;

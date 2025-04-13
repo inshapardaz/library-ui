@@ -20,7 +20,7 @@ import { useDisclosure } from '@mantine/hooks';
 // Local imports
 import classes from './appHeader.module.css';
 
-import { IconBooks, IconLibrary, IconChevronDown, IconAuthors, IconSeries, IconPoetries, IconPeriodicals, IconWritings } from '@/components/icon';
+import { IconBooks, IconLibrary, IconBookShelve, IconChevronDown, IconAuthors, IconSeries, IconPoetries, IconPeriodicals, IconWritings } from '@/components/icon';
 import Logo from '@/components/logo';
 import LanguageSwitch from './languageSwitch';
 import DarkModeToggle from './darkModeToggle';
@@ -95,6 +95,13 @@ const LibraryHeader = ({ library }) => {
                                 {t('header.series')}
                             </Text>
                         </NavLink >
+                        <NavLink to={`/libraries/${library.id}/bookshelves`} className={classes.link}>
+                            <IconBookShelve height="24px" />
+                            <Space w="md" />
+                            <Text visibleFrom="lg" size="sm">
+                                {t('header.bookShelves')}
+                            </Text>
+                        </NavLink >
                         <CategoriesMenu library={library}
                             className={classes.link}
                             target='periodicals'
@@ -167,6 +174,11 @@ const LibraryHeader = ({ library }) => {
                         <IconSeries height="24px" />
                         <Space w="md" />
                         {t('header.series')}
+                    </NavLink >
+                    <NavLink to={`/libraries/${library.id}/bookshelves`} className={classes.link}>
+                        <IconBookShelve height="24px" />
+                        <Space w="md" />
+                        {t('header.bookShelves')}
                     </NavLink >
                     <CategoriesMenu library={library}
                         target="periodicals"

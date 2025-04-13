@@ -10,6 +10,7 @@ import { Card, Text, Group, Tooltip, useMantineTheme, Center, Image, Divider } f
 import { IconBook, IconPages, IconChapters } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import FavoriteButton from '@/components/books/favoriteButton';
+import BookRemoveFromShelfButton from '@/components/bookShelves/bookRemoveFromShelfButton';
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 //---------------------------------------
@@ -53,6 +54,10 @@ const BookCard = ({ libraryId, book }) => {
                 <If condition={book.pageCount != null}>
                     <IconText icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={book.pageCount} />
                 </If>
+                <If condition={book.links.remove_book_from_bookshelf != null}>
+                    <Divider orientation="vertical" />
+                    <BookRemoveFromShelfButton book={book} t={t} />
+                </If>
                 <If condition={book.chapterCount != null}>
                     <>
                         <Divider orientation="vertical" />
@@ -74,7 +79,8 @@ BookCard.propTypes = {
         pageCount: PropTypes.number,
         chapterCount: PropTypes.number,
         links: PropTypes.shape({
-            image: PropTypes.string
+            image: PropTypes.string,
+            remove_book_from_bookshelf: PropTypes.string
         })
     })
 };

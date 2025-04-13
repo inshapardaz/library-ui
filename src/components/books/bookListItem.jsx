@@ -12,6 +12,7 @@ import { IconBook, IconPages, IconChapters } from '@/components/icon';
 import IconText from '@/components/iconText';
 import FavoriteButton from './favoriteButton';
 import If from '@/components/if';
+import BookRemoveFromShelfButton from '@/components/bookShelves/bookRemoveFromShelfButton';
 //-------------------------------------
 
 const BookListItem = ({ libraryId, book }) => {
@@ -45,6 +46,10 @@ const BookListItem = ({ libraryId, book }) => {
                     <If condition={book.pageCount != null}>
                         <IconText size="sm" icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t('book.pageCount', { count: book.pageCount })} />
                     </If>
+                    <If condition={book.links.remove_book_from_bookshelf != null}>
+                        <Divider orientation="vertical" />
+                        <BookRemoveFromShelfButton book={book} t={t} />
+                    </If>
                     <If condition={book.chapterCount != null}>
                         <>
                             <Divider orientation="vertical" />
@@ -68,7 +73,8 @@ BookListItem.propTypes = {
         pageCount: PropTypes.number,
         chapterCount: PropTypes.number,
         links: PropTypes.shape({
-            image: PropTypes.string
+            image: PropTypes.string,
+            remove_book_from_bookshelf: PropTypes.string
         })
     })
 }

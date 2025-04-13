@@ -38,6 +38,7 @@ const ur = {
         authors: "مصنّفین",
         categories: "زمرہ جات",
         series: "سلسلہ جات",
+        bookShelves: "مجموعۂ کتب",
         periodicals: "جرائد",
     },
     footer: {
@@ -270,6 +271,7 @@ const ur = {
     },
     book: {
         title: "عنوان",
+        authors: "مصنّفین",
         dateCreated: "تاریخ اندراج",
         seriesIndex: "سلسلے میں ترتیب",
         latestBooks: "نئی کتب",
@@ -462,6 +464,73 @@ const ur = {
         font: "فانٹ",
         fontSize: "متن کا سائز",
         lineHeight: "سطری فاصلہ",
+    },
+    bookShelves: {
+        label: "مجموعۂ کتب",
+        name: "نام",
+        description: "کتب کی الماری",
+        empty: "کوئی مجموعہ موجود نہیں",
+        noDescription: "تفصئل موجود نہیں",
+        noOfBooks: "تعداد کتب",
+        bookCount_zero: "کوئی کتاب موجود نہیں",
+        bookCount_one: "۱ کتاب",
+        bookCount_other: "{{count}} کتب",
+        error: {
+            loading: {
+                title: "مجموعات حاصل نہیں ہو سکے",
+                detail: "غیر متوقع مسئلہ۔ کتب کے مجموعات کا حصول ناکام رہا۔ برائے مہربانی دوبارہ کوشش کریں۔"
+            }
+        }
+    },
+    bookShelf: {
+        name: {
+            label: "نام",
+            placeholder: "مجموعے کا نام ",
+            required: "مجموعے کا نام ضروری ہے",
+        },
+        description: {
+            label: "تفصیل",
+            required: "تفصیل ضروری ہے",
+            placeholder: "مجموعے کی تفصیل",
+        },
+        isPublic: {
+            label: "عوامی",
+            placeholder: "کیا یہ مجمعوعہ عوامی ہے؟",
+            helpText: "عوامی مجموعہ ہر ایک کے لیے قابلِ رسائی ہے۔ لیکن صرف آپ اس میں تبدیلی کے مجاز ہیں۔",
+        },
+        public: "عوامی مجموعۂ کتب",
+        private: "ذاتی مجموعۂ کتب",
+        actions: {
+            add: {
+                title: "مجموعہ کی تخلیق",
+                success: "مجموعہ کی تخلیق کامیاب رہی۔",
+                error: "مجموعہ کی تخلیق ناکام رہی۔",
+            },
+            edit: {
+                title: "{{name}} کی تدوین",
+                success: "مجموعہ کی تدوین کامیاب رہی۔",
+                error: "مجموعہ کی تدوین ناکام رہی۔",
+            },
+            delete: {
+                title: "مجموعہ حذف کریں",
+                label: "{{name}} کو حذف کریں",
+                message: "کیا آپ واقعی اس مجموعے '{{name}}' کو حذف کرنا چاہتے ہیں؟",
+                success: "مجموعہ کامیابی سے حذف کر دیا گیا۔",
+                error: "مجموعہ حذف کرنے میں ناکامی ہوئی۔",
+            },
+            addBook: {
+                title: "مجموعے میں کتاب شامل کریں",
+                label: "کتاب شامل کریں",
+                success: "کتاب کامیابی سے مجموعے میں شامل کر دی گئی۔",
+                error: "کتاب مجموعے میں شامل کرنے میں ناکامی ہوئی۔",
+            },
+            removeBook: {
+                title: "مجموعے سے کتاب نکالیں",
+                message: "کیا آپ واقعی اس کتاب '{{title}}' کو مجموعے '{{name}}' سے نکالنا چاہتے ہیں؟",
+                success: "کتاب '{{title}}' کامیابی سے مجموعے '{{name}}' سے نکالی گئی۔",
+                error: "کتاب '{{title}}' مجموعے '{{name}}' سے نکالنے میں ناکامی ہوئی۔",
+            },
+        },
     },
     periodicals: {
         title: "جرائد",

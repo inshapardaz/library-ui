@@ -21,6 +21,7 @@ export const booksApi = createApi({
                 favorite = null,
                 read = null,
                 status = null,
+                bookShelf = null,
                 pageNumber = 1,
                 pageSize = 12,
             }) => {
@@ -33,6 +34,9 @@ export const booksApi = createApi({
                 }
                 if (series) {
                     queryVal += `&seriesId=${series}`;
+                }
+                if (bookShelf) {
+                    queryVal += `&bookShelfId=${bookShelf}`;
                 }
                 if (sortBy) {
                     queryVal += `&sortBy=${sortBy}`;

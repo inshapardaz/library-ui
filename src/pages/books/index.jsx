@@ -19,6 +19,7 @@ const BooksPage = () => {
     const series = searchParams.get("series");
     const author = searchParams.get("author");
     const category = searchParams.get("category");
+    const bookShelf = searchParams.get("bookShelf");
     const favorite = searchParams.get("favorite");
     const read = searchParams.get("read");
     const sortBy = searchParams.get("sortBy") ?? "name";
@@ -47,6 +48,7 @@ const BooksPage = () => {
                         query={query}
                         author={author}
                         category={category}
+                        bookShelf={bookShelf}
                         series={series}
                         sortBy={sortBy}
                         favorite={favorite}

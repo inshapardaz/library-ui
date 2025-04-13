@@ -36,6 +36,7 @@ export const IconNames = {
     ChevronLeft: "chevronLeft",
     ChevronRight: "chevronRight",
     World: "world",
+    Private: "private",
     Language: "language",
     Copyright: "copyright",
     Pages: "pages",
@@ -76,6 +77,11 @@ export const IconNames = {
     Title: "title",
     DateCreated: "dateCreated",
     SeriesIndex: "seriesIndex",
+    BookShelve: "bookShelve",
+    RemoveBookFromBookShelve: "removeBookFromBookShelve",
+    Edit: "edit",
+    Add: "add",
+    Delete: "delete"
 };
 //-------------------------------------
 
@@ -114,6 +120,7 @@ const iconTheme = {
         chevronLeft: "chevron-left",
         chevronRight: "chevron-right",
         world: "world",
+        private: "shield-lock",
         language: "language",
         copyright: "copyright",
         pages: "notes",
@@ -154,6 +161,11 @@ const iconTheme = {
         title: "list-letters",
         dateCreated: "list-letters",
         seriesIndex: "list-letters",
+        bookShelve: "stack-2-filled",
+        removeBookFromBookShelve: "stack-pop",
+        add: "circle-plus",
+        edit: "edit",
+        delete: "trash",
     }
 };
 //-------------------------------------
@@ -194,6 +206,7 @@ export const IconInfoCircle = (props) => getIcon(IconNames.InfoCircle, props)
 export const IconChevronDown = (props) => getIcon(IconNames.ChevronDown, props)
 export const IconChevronUp = (props) => getIcon(IconNames.ChevronUp, props)
 export const IconWorld = (props) => getIcon(IconNames.World, props)
+export const IconPrivate = (props) => getIcon(IconNames.Private, props)
 export const IconLanguage = (props) => getIcon(IconNames.Language, props)
 export const IconCopyright = (props) => getIcon(IconNames.Copyright, props)
 export const IconPages = (props) => getIcon(IconNames.Pages, props)
@@ -237,6 +250,11 @@ export const IconType = (props) => getIcon(IconNames.Type, props)
 export const IconTitle = (props) => getIcon(IconNames.Title, props)
 export const IconDateCreated = (props) => getIcon(IconNames.DateCreated, props)
 export const IconSeriesIndex = (props) => getIcon(IconNames.SeriesIndex, props)
+export const IconBookShelve = (props) => getIcon(IconNames.BookShelve, props)
+export const IconRemoveBookFromBookShelve = (props) => getIcon(IconNames.RemoveBookFromBookShelve, props)
+export const IconAdd = (props) => getIcon(IconNames.Add, props)
+export const IconEdit = (props) => getIcon(IconNames.Edit, props)
+export const IconDelete = (props) => getIcon(IconNames.Delete, props)
 
 
 export const Icon = ({ name, ...rest }) => <IconifyIcon icon={getIconName(name)} {...rest} />

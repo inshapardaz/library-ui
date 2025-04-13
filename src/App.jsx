@@ -39,7 +39,7 @@ function App() {
         <DirectionProvider >
           <MantineProvider>
             <Notifications limit={5} position="bottom-right" />
-            <ModalsProvider>
+            <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
               {userLoadStatus === 'loading' ? <Loader /> : <Router />}
             </ModalsProvider>
           </MantineProvider>
