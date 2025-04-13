@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // Local imports
-import { useDeleteBookShelfMutation } from '@/store/slices/bookshelves.api';
+import { useDeleteBookShelfMutation } from '@/store/slices/bookShelves.api';
 import DeleteButton from "@/components/deleteButton";
 
 //---------------------------------
