@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useMantineTheme } from '@mantine/core';
 
 // Local imports
-import { useRemoveBookFromBookShelfMutation } from '@/store/slices/bookshelves.api';
+import { useRemoveBookFromBookShelfMutation } from '@/store/slices/bookShelves.api';
 import DeleteButton from "@/components/deleteButton";
 import { IconRemoveBookFromBookShelve } from '@/components/icon';
 //---------------------------------
