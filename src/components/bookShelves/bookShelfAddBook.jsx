@@ -12,7 +12,7 @@ import classes from './bookShelfAddBook.module.css';
 import { useAddBookToBookShelfMutation } from "/src/store/slices/bookShelves.api";
 import { useGetBooksQuery } from "/src/store/slices/books.api";
 import { error, success } from '@/utils/notifications';
-import SearchInput from "@/components/SearchInput";
+import SearchInput from "@/components/searchInput";
 // --------------------------------------
 const BookShelfAddBook = ({ libraryId, bookShelf, children }) => {
     const { t } = useTranslation();
