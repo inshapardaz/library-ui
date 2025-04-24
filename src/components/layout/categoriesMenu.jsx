@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 // ui library imports
 import {
-    HoverCard,
+    Popover,
     Group,
     UnstyledButton,
     Text,
@@ -29,11 +29,13 @@ import classes from './appHeader.module.css';
 import { useGetCategoriesQuery } from '@/store/slices/categories.api';
 import { IconCategory, IconChevronDown, IconRefreshAlert } from '@/components/icon';
 import If from '@/components/if'
+import { useState } from 'react';
 
 //----------------------------------------------
 
 const CategoriesMenu = ({ library, title, icon, className, target, allLabel, extraLinks, countFunc = () => null, onClick = () => { } }) => {
     const { t } = useTranslation();
+    const [opened, setOpened] = useState(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
     const { data: categories, isFetching, error }
         = useGetCategoriesQuery({ libraryId: library.id }, { skip: library == null });
@@ -74,22 +76,27 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
 
     return (
         <>
-            <HoverCard width={600} position="bottom" radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm" className={className}>
-                <HoverCard.Target>
+            <Popover width={600} position="bottom" offset={0} radius="md" shadow="md" disabled={isFetching} withinPortal visibleFrom="sm" className={className} onChange={setOpened}>
+                <Popover.Target>
                     <UnstyledButton className={classes.link}>
                         {icon}
                         <Space w="md" />
                         <Text visibleFrom="lg" size="sm">
                             {title}
                         </Text>
+                        <Space w="md" />
                         <IconChevronDown
                             width={rem(16)}
                             height={rem(16)}
+                            style={{
+                                transform: opened ? "rotate(180deg)" : "rotate(0)",
+                                transitionDuration: "250ms"
+                            }}
                         />
                     </UnstyledButton >
-                </HoverCard.Target>
+                </Popover.Target>
 
-                <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
+                <Popover.Dropdown style={{ overflow: 'hidden' }}>
                     <If condition={error}>
                         <>
                             <Text c="dimmed">{t('categories.errors.loading.subTitle')}</Text>
@@ -131,8 +138,8 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
                             </If>
                         </>
                     </If>
-                </HoverCard.Dropdown>
-            </HoverCard>
+                </Popover.Dropdown>
+            </Popover>
             <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm" px="md">
                 <>
                     {icon}

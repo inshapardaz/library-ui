@@ -209,7 +209,8 @@ const en = {
     },
     library: {
         noDescription: "No Description",
-        isPublic: "Public Library"
+        isPublic: "Public Library",
+        edit: "Extend library, add and edit books, writings, poetry and much more...."
     },
     categories: {
         title: "Categories",
@@ -508,6 +509,7 @@ const en = {
     },
     periodicals: {
         title: "Periodical",
+        description: "Explore exquisite collection of periodicals",
         all: "All Periodicals",
         errors: {
             loading: {

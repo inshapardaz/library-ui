@@ -13,7 +13,7 @@ const AppFooter = () => {
   return (
     <div className={classes.footer}>
       <Container className={classes.inner}>
-        <Logo showName={false} />
+        <Logo showName={true} />
         <Group>
           <LanguageSwitch />
           <DarkModeToggle />

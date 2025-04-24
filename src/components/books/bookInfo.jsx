@@ -57,7 +57,7 @@ const BookInfo = ({ libraryId, book }) => {
             <Button fullWidth variant='outline' leftSection={<IconReaderImage />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.read.title')}</Button>
         </If>
 
-        {/* 
+        {/*
         `   // Add pdf reader
             <If condition={book?.contents != null && book.contents.length > 0}>
             <If condition={book.contents.length > 1} esleChildren={
@@ -70,7 +70,7 @@ const BookInfo = ({ libraryId, book }) => {
 };
 
 BookInfo.propTypes = {
-    libraryId: PropTypes.number,
+    libraryId: PropTypes.string,
     book: PropTypes.shape({
         id: PropTypes.number,
         publisher: PropTypes.string,

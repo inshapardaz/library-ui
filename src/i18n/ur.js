@@ -234,6 +234,8 @@ const ur = {
     library: {
         noDescription: "تفصیل موجود نہیں",
         isPublic: "عوامی کتب خانہ",
+        edit: "کتب خانہ میں اضافہ کریں۔ کتب، مضامین، شاعری اور بہت کچھ۔۔۔۔"
+
     },
     categories: {
         title: "زمرے",
@@ -534,6 +536,7 @@ const ur = {
     },
     periodicals: {
         title: "جرائد",
+        description: "جرائد کی دنیا سے انتخاب",
         all: "تمام جرائد",
         errors: {
             loading: {
