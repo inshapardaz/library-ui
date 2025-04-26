@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // Ui Library Imports
 import { Group, Center, Text } from '@mantine/core';
@@ -11,19 +11,33 @@ import { IconPeriodicals } from "@/components/icon";
 import Img from '@/components/img';
 
 //-----------------------------
-const PeriodicalsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => {
+const PeriodicalsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
+    onSearchStatusChange = () => { },
+    onDataStatusChange = () => { } }) => {
     const {
         data: periodicals, isError: periodicalsError, isFetching: periodicalsLoading,
-    } = useGetPeriodicalsQuery({
-        libraryId,
-        query,
-        pageSize
-    }, {
-        skip: query.length < 3
-    });
+    } = useGetPeriodicalsQuery(
+        {
+            libraryId,
+            query,
+            pageSize
+        },
+        {
+            skip: query.length < 3,
+            refetchOnReconnect: true,
+            abortOnUnmount: true,
+        }
+    );
 
     const hasPeriodicals = useMemo(() => !periodicalsLoading && !periodicalsError && periodicals?.data?.length > 0, [periodicalsLoading, periodicalsError, periodicals]);
+
     const icon = <IconPeriodicals width={24} stroke={1.5} />;
+
+    useEffect(() => {
+        onSearchStatusChange(periodicalsLoading);
+        onDataStatusChange(!!periodicals?.data?.length);
+    }, [periodicalsLoading, periodicals?.data?.length, onSearchStatusChange, onDataStatusChange]);
+
     if (!hasPeriodicals) {
         if (query.length < 3) {
             return (<Spotlight.Action key={t('header.periodicals')}
@@ -64,12 +78,15 @@ const PeriodicalsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 
             </Spotlight.Action>)}
     </SpotlightActionsGroup>);
 };
+
 PeriodicalsSearchSection.propTypes = {
     t: PropTypes.any.isRequired,
     navigate: PropTypes.any.isRequired,
     libraryId: PropTypes.string.isRequired,
     query: PropTypes.string,
     pageSize: PropTypes.number,
+    onSearchStatusChange: PropTypes.func,
+    onDataStatusChange: PropTypes.func,
 };
 
 export default PeriodicalsSearchSection;

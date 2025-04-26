@@ -1,33 +1,44 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // Ui Library Imports
 import { Group, Center, Text } from '@mantine/core';
 import { Spotlight, SpotlightActionsGroup } from '@mantine/spotlight';
 
 // Local imports
-import { IconBooks } from "@/components/icon";
-import { useGetBooksQuery } from "@/store/slices/books.api";
+import { IconBook } from "@/components/icon";
+import { useGetBooksQuery } from '@/store/slices/books.api';
 import Img from '@/components/img';
 
 //-----------------------------
-const BooksSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => {
+const BooksSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
+    onSearchStatusChange = () => { },
+    onDataStatusChange = () => { } }) => {
     const {
         data: books, isError: booksError, isFetching: booksLoading,
-    } = useGetBooksQuery({
-        libraryId,
-        query,
-        pageSize
-    }, {
-        skip: query.length < 3
-    });
+    } = useGetBooksQuery(
+        {
+            libraryId,
+            query,
+            pageSize
+        },
+        {
+            skip: query.length < 3,
+            refetchOnReconnect: true,
+            abortOnUnmount: true,
+        }
+    );
 
-    const hasBooks = useMemo(() => !booksLoading && !booksError && books?.data?.length > 0, [booksLoading, booksError, books]);
+    const hasBooks = useMemo(() => !booksError && !booksLoading && books?.data?.length > 0, [booksError, booksLoading, books]);
 
-    const icon = <IconBooks width={24} stroke={1.5} />;
+    const icon = <IconBook width={24} stroke={1.5} />;
+
+    useEffect(() => {
+        onSearchStatusChange(booksLoading);
+        onDataStatusChange(!!books?.data?.length);
+    }, [booksLoading, books?.data?.length, onSearchStatusChange, onDataStatusChange]);
 
     if (!hasBooks) {
-
         if (query.length < 3) {
             return (<Spotlight.Action key={t('header.books')}
                 label={t('header.books')}
@@ -35,6 +46,7 @@ const BooksSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => 
                 leftSection={icon}
                 onClick={() => navigate(`/libraries/${libraryId}/books`)} />);
         }
+
         return null;
     }
 
@@ -73,7 +85,8 @@ BooksSearchSection.propTypes = {
     libraryId: PropTypes.string.isRequired,
     query: PropTypes.string,
     pageSize: PropTypes.number,
+    onSearchStatusChange: PropTypes.func,
+    onDataStatusChange: PropTypes.func,
 };
-
 
 export default BooksSearchSection;

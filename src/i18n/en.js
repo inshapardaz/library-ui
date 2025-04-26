@@ -198,6 +198,7 @@ const en = {
         title: "Search...",
         placeholder: "Search by title, author, keyword",
         empty: "No result found.",
+        searchMore: "Search more...",
     },
     libraries: {
         title: "Libraries",

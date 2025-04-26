@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 //UI Library imports
@@ -10,7 +10,9 @@ import { IconWritings } from "@/components/icon";
 import { useGetArticlesQuery } from '@/store/slices/articles.api';
 import Img from '@/components/img';
 
-const WritingsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => {
+const WritingsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
+    onSearchStatusChange = () => { },
+    onDataStatusChange = () => { } }) => {
     const {
         data: writings, isError: writingsError, isFetching: writingsLoading,
     } = useGetArticlesQuery({
@@ -19,12 +21,19 @@ const WritingsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) 
         type: 'writing',
         pageSize
     }, {
-        skip: query.length < 3
+        skip: query.length < 3,
+        refetchOnReconnect: true,
+        abortOnUnmount: true,
     });
 
     const hasWritings = useMemo(() => !writingsLoading && !writingsError && writings?.data?.length > 0, [writingsLoading, writingsError, writings]);
 
     const icon = <IconWritings width={24} stroke={1.5} />;
+
+    useEffect(() => {
+        onSearchStatusChange(writingsLoading);
+        onDataStatusChange(!!writings?.data?.length);
+    }, [writingsLoading, writings?.data?.length, onSearchStatusChange, onDataStatusChange]);
 
     if (!hasWritings) {
         if (query.length < 3) {
@@ -66,12 +75,15 @@ const WritingsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) 
             </Spotlight.Action>)}
     </SpotlightActionsGroup>);
 };
+
 WritingsSearchSection.propTypes = {
     t: PropTypes.any.isRequired,
     navigate: PropTypes.any.isRequired,
     libraryId: PropTypes.string.isRequired,
     query: PropTypes.string,
     pageSize: PropTypes.number,
+    onSearchStatusChange: PropTypes.func,
+    onDataStatusChange: PropTypes.func,
 };
 
 export default WritingsSearchSection;

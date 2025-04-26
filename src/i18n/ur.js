@@ -221,7 +221,8 @@ const ur = {
         header: "تلاش",
         title: "تلاش۔۔۔",
         placeholder: "تلاش برائے عنوان، مصنّف، زمرہ",
-        empty: "تلاش بے نتیجہ رہی۔"
+        empty: "تلاش بے نتیجہ رہی۔",
+        searchMore: "مزید تلاش کریں۔۔۔",
     },
     libraries: {
         title: "کتب خانے",

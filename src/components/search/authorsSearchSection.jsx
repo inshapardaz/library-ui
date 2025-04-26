@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // Ui Library Imports
 import { Group, Center, Text } from '@mantine/core';
@@ -11,20 +11,32 @@ import { useGetAuthorsQuery } from '@/store/slices/authors.api';
 import Img from '@/components/img';
 
 //-----------------------------
-const AuthorsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => {
+const AuthorsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
+    onSearchStatusChange = () => { },
+    onDataStatusChange = () => { } }) => {
     const {
         data: authors, isError: authorsError, isFetching: authorsLoading,
-    } = useGetAuthorsQuery({
-        libraryId,
-        query,
-        pageSize
-    }, {
-        skip: query.length < 3
-    });
+    } = useGetAuthorsQuery(
+        {
+            libraryId,
+            query,
+            pageSize
+        },
+        {
+            skip: query.length < 3,
+            refetchOnReconnect: true,
+            abortOnUnmount: true,
+        }
+    );
 
     const hasAuthors = useMemo(() => !authorsError && !authorsLoading && authors?.data?.length > 0, [authorsError, authorsLoading, authors]);
 
     const icon = <IconAuthors width={24} stroke={1.5} />;
+
+    useEffect(() => {
+        onSearchStatusChange(authorsLoading);
+        onDataStatusChange(!!authors?.data?.length);
+    }, [authorsLoading, authors?.data?.length, onSearchStatusChange, onDataStatusChange]);
 
     if (!hasAuthors) {
         if (query.length < 3) {
@@ -66,12 +78,15 @@ const AuthorsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) =
             </Spotlight.Action>)}
     </SpotlightActionsGroup>);
 };
+
 AuthorsSearchSection.propTypes = {
     t: PropTypes.any.isRequired,
     navigate: PropTypes.any.isRequired,
     libraryId: PropTypes.string.isRequired,
     query: PropTypes.string,
     pageSize: PropTypes.number,
+    onSearchStatusChange: PropTypes.func,
+    onDataStatusChange: PropTypes.func,
 };
 
 export default AuthorsSearchSection;

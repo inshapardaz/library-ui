@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // Ui Library Imports
 import { Group, Center, Text } from '@mantine/core';
@@ -11,7 +11,9 @@ import Img from '@/components/img';
 import { useGetArticlesQuery } from '@/store/slices/articles.api';
 
 //-----------------------------
-const PoetriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) => {
+const PoetriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
+    onSearchStatusChange = () => { },
+    onDataStatusChange = () => { } }) => {
     const {
         data: poetries, isError: poetryError, isFetching: poetryLoading,
     } = useGetArticlesQuery({
@@ -20,12 +22,20 @@ const PoetriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) 
         type: 'poetry',
         pageSize
     }, {
-        skip: query.length < 3
+        skip: query.length < 3,
+        refetchOnReconnect: true,
+        abortOnUnmount: true,
     });
 
     const hasPoetries = useMemo(() => !poetryLoading && !poetryError && poetries?.data?.length > 0, [poetryLoading, poetryError, poetries]);
 
     const icon = <IconPoetries width={24} stroke={1.5} />;
+
+    useEffect(() => {
+        onSearchStatusChange(poetryLoading);
+        onDataStatusChange(!!poetries?.data?.length);
+    }, [poetryLoading, poetries?.data?.length, onSearchStatusChange, onDataStatusChange]);
+
     if (!hasPoetries) {
         if (query.length < 3) {
             return (<Spotlight.Action key={t('header.poetry')}
@@ -65,12 +75,15 @@ const PoetriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3 }) 
             </Spotlight.Action>)}
     </SpotlightActionsGroup>);
 };
+
 PoetriesSearchSection.propTypes = {
     t: PropTypes.any.isRequired,
     navigate: PropTypes.any.isRequired,
     libraryId: PropTypes.string.isRequired,
     query: PropTypes.string,
     pageSize: PropTypes.number,
+    onSearchStatusChange: PropTypes.func,
+    onDataStatusChange: PropTypes.func,
 };
 
 export default PoetriesSearchSection;
