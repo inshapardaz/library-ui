@@ -25,6 +25,8 @@ import IssueArticlePage from "./periodicals/issue/article";
 import BookShelvesPage from "./bookShelves";
 import BookShelvePage from "./bookShelves/bookShelvePage";
 
+import SearchPage from "./searchPage";
+
 const Pages = {
     HomePage,
     Error403Page,
@@ -50,6 +52,7 @@ const Pages = {
     IssueArticlePage,
     BookShelvesPage,
     BookShelvePage,
+    SearchPage
 };
 
 export default Pages;

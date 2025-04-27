@@ -57,7 +57,7 @@ export const updateLinkToBooksPage = (
         status,
     }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -118,7 +118,7 @@ export const updateLinkToWritingsPage = (
         status,
     }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -164,7 +164,7 @@ export const updateLinkToAuthorsPage = (
     location,
     { pageNumber, pageSize, query, authorType, sortBy, sortDirection }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     } else {
@@ -202,7 +202,7 @@ export const updateLinkToAuthorPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection, tab }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -233,7 +233,7 @@ export const updateLinkToSeriesPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -261,7 +261,7 @@ export const updateLinkToBookShelvesPage = (
     location,
     { pageNumber, pageSize, query, sortBy, sortDirection }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -298,7 +298,7 @@ export const updateLinkToPeriodicalsPage = (
         status,
     }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -342,7 +342,7 @@ export const updateLinkToIssuePage = (
         sortDirection,
     }
 ) => {
-    var searchParams = new URLSearchParams(location.search);
+    let searchParams = new URLSearchParams(location.search);
     if (pageNumber) {
         searchParams.set("pageNumber", pageNumber);
     }
@@ -384,6 +384,39 @@ export const getDateFormatFromFrequency = (frequency) => {
         default:
             return "LL";
     }
+};
+
+export const updateLinkToSearchPage = (
+    location,
+    {
+        pageNumber,
+        pageSize,
+        query,
+        section
+    }
+) => {
+    console.log("updateLinkToSearchPage", location);
+    let searchParams = new URLSearchParams(location.search);
+
+    if (pageNumber) {
+        searchParams.set("pageNumber", pageNumber);
+    }
+
+    if (pageSize) {
+        searchParams.set("pageSize", pageSize);
+    }
+
+    if (query) {
+        searchParams.set("query", query);
+    } else if (query === "") {
+        searchParams.delete("query");
+    }
+
+    if (section) {
+        searchParams.set("section", section);
+    }
+
+    return `${location.pathname}?${searchParams.toString()}`;
 };
 
 // --------------------------------------------------------------

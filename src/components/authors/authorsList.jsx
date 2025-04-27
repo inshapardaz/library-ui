@@ -24,6 +24,7 @@ const AuthorsList = ({
     pageNumber,
     pageSize,
     showSearch = true,
+    searchMode = false,
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -43,6 +44,8 @@ const AuthorsList = ({
         status,
         pageNumber,
         pageSize,
+    }, {
+        skip: searchMode && (query == null || query === ''),
     });
 
     const authorSortOptions = [{
@@ -89,7 +92,7 @@ const AuthorsList = ({
             pageNumber: index,
             pageSize: pageSize,
         }))}
-        showSearch={showSearch}
+        showSearch={showSearch && !searchMode}
         searchValue={query}
         onSearchChanged={search => navigate(updateLinkToAuthorsPage(location, {
             pageNumber: 1,
@@ -123,6 +126,7 @@ AuthorsList.propTypes = {
     pageNumber: PropTypes.number,
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
+    searchMode: PropTypes.bool,
 }
 
 export default AuthorsList;

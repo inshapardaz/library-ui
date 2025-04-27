@@ -20,7 +20,8 @@ const PeriodicalsList = ({
     pageNumber,
     pageSize,
     showSearch = true,
-    showTitle = true
+    showTitle = true,
+    searchMode = false,
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -40,6 +41,8 @@ const PeriodicalsList = ({
         sortDirection,
         pageNumber,
         pageSize,
+    }, {
+        skip: searchMode && (query == null || query === ''),
     });
 
     return <DataView
@@ -59,7 +62,7 @@ const PeriodicalsList = ({
             pageNumber: index,
             pageSize: pageSize,
         }))}
-        showSearch={showSearch}
+        showSearch={showSearch && !searchMode}
         searchValue={query}
         onSearchChanged={search => navigate(updateLinkToPeriodicalsPage(location, {
             pageNumber: 1,
@@ -80,6 +83,7 @@ PeriodicalsList.propTypes = {
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
     showTitle: PropTypes.bool,
+    searchMode: PropTypes.bool,
 }
 
 export default PeriodicalsList;

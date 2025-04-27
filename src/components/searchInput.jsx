@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+// ui library imports
+import { ActionIcon, rem, CloseButton, Input, TextInput, Group } from '@mantine/core';
+import { getHotkeyHandler } from '@mantine/hooks';
 
 // Local imports
 import { IconSearch } from '@/components/icon';
-import { ActionIcon, rem, CloseButton, Input, TextInput, Group } from '@mantine/core';
-import { getHotkeyHandler } from '@mantine/hooks';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 //------------------------------
 const SearchInput = ({ query, onQueryChanged, maxWidth = 200 }) => {

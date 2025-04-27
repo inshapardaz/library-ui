@@ -22,6 +22,7 @@ const SeriesList = ({
     pageNumber,
     pageSize,
     showSearch = true,
+    searchMode = false,
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -40,6 +41,8 @@ const SeriesList = ({
         status,
         pageNumber,
         pageSize,
+    }, {
+        skip: searchMode && (query == null || query === ''),
     });
 
     let seriesSortOptions = [{
@@ -68,7 +71,7 @@ const SeriesList = ({
             pageNumber: index,
             pageSize: pageSize,
         }))}
-        showSearch={showSearch}
+        showSearch={showSearch && !searchMode}
         searchValue={query}
         onSearchChanged={search => navigate(updateLinkToSeriesPage(location, {
             pageNumber: 1,
@@ -100,6 +103,7 @@ SeriesList.propTypes = {
     pageNumber: PropTypes.number,
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
+    searchMode: PropTypes.bool,
 }
 
 export default SeriesList;

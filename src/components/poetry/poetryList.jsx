@@ -26,7 +26,8 @@ const PoetryList = ({
     pageNumber,
     pageSize,
     showSearch = true,
-    showTitle = true
+    showTitle = true,
+    searchMode = false,
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -50,6 +51,8 @@ const PoetryList = ({
         status,
         pageNumber,
         pageSize,
+    }, {
+        skip: searchMode && (query == null || query === ''),
     });
 
     let poetrySortOptions = [{
@@ -79,7 +82,7 @@ const PoetryList = ({
             pageNumber: index,
             pageSize: pageSize,
         }))}
-        showSearch={showSearch}
+        showSearch={showSearch && !searchMode}
         searchValue={query}
         onSearchChanged={search => navigate(updateLinkToWritingsPage(location, {
             pageNumber: 1,
@@ -115,6 +118,7 @@ PoetryList.propTypes = {
     pageSize: PropTypes.number,
     showSearch: PropTypes.bool,
     showTitle: PropTypes.bool,
+    searchMode: PropTypes.bool,
 }
 
 export default PoetryList;
