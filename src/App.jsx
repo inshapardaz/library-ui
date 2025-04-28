@@ -17,36 +17,38 @@ import '@mantine/carousel/styles.css';
 import Router from "./router";
 import { selectedLanguage } from "@/store/slices/uiSlice";
 import { init } from '@/store/slices/authSlice';
+import If from '@/components/if';
 // ------------------------------------------------------------------
 
 function App() {
-  const { t } = useTranslation();
-  const lang = useSelector(selectedLanguage);
-  const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
-  const dispatch = useDispatch();
+    const { t } = useTranslation();
+    const lang = useSelector(selectedLanguage);
+    const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (userLoadStatus === 'idle')
-      dispatch(init());
-  }, [dispatch, userLoadStatus]);
+    useEffect(() => {
+        if (userLoadStatus === 'idle')
+            dispatch(init());
+    }, [dispatch, userLoadStatus]);
 
-  return (
-    <>
-      <HelmetProvider>
-        <Helmet htmlAttributes={{ lang: lang ? lang.locale : 'en' }}>
-          <title>{t('app')}</title>
-        </Helmet>
-        <DirectionProvider >
-          <MantineProvider>
-            <Notifications limit={5} position="bottom-right" />
-            <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
-              {userLoadStatus === 'loading' ? <Loader /> : <Router />}
-            </ModalsProvider>
-          </MantineProvider>
-        </DirectionProvider>
-      </HelmetProvider>
-    </>
-  )
+    return (
+        <HelmetProvider>
+            <Helmet htmlAttributes={{ lang: lang ? lang.locale : 'en' }}>
+                <title>{t('app')}</title>
+            </Helmet>
+            <DirectionProvider >
+                <MantineProvider>
+                    <Notifications limit={5} position="bottom-right" />
+                    <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
+                        <If condition={userLoadStatus === 'loading'}
+                            elseChildren={<Router />}>
+                            <div style={{ position: 'fixed', top: '50%', left: '50%' }}><Loader /></div>
+                        </If>
+                    </ModalsProvider>
+                </MantineProvider>
+            </DirectionProvider>
+        </HelmetProvider>
+    )
 }
 
 export default App

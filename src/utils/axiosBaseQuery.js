@@ -5,7 +5,7 @@ const axiosBaseQuery =
     ({ baseUrl } = { baseUrl: API_URL }) =>
         async ({ url, method, data, params }) => {
             try {
-                var result = await axiosPrivate({
+                const result = await axiosPrivate({
                     url: url.startsWith("http") ? url : baseUrl + url,
                     method,
                     data,
