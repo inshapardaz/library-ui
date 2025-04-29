@@ -31,11 +31,10 @@ const LibrariesList = ({
     });
 
     return <DataView
-        title={t('header.libraries')}
         emptyText={t('libraries.empty')}
         dataSource={libraries}
         isFetching={isFetching}
-        isErro={isError}
+        isError={isError}
         showViewToggle={true}
         viewToggleKey='library-list-view'
         cardRender={library => (<LibraryCard library={library} key={library.id} />)}
