@@ -32,6 +32,7 @@ import {
     IconLibraryEditor,
     IconChevronDown
 } from '@/components/icon';
+import If from '@/components/if';
 //------------------------------------
 
 const LibrarySwitcher = ({ className, library, onClick = () => { }, children }) => {
@@ -77,8 +78,6 @@ const LibrarySwitcher = ({ className, library, onClick = () => { }, children }) 
                         {children}
                         <Space w="lg" />
                         <IconChevronDown
-                            width={rem(16)}
-                            height={rem(16)}
                             style={{
                                 transform: opened ? "rotate(180deg)" : "rotate(0)",
                                 transitionDuration: "250ms"
@@ -100,26 +99,28 @@ const LibrarySwitcher = ({ className, library, onClick = () => { }, children }) 
                             {links}
                         </SimpleGrid>
                     </Card>
-                    <div className={classes.dropdownFooter}>
-                        <Group justify="space-between">
-                            <div>
-                                <Group>
-                                    <IconLibraryEditor height="24px" />
-                                    <Text fw={500} fz="sm">
-                                        {t('header.libraryEditor')}
+                    <If condition={library?.links?.update}>
+                        <div className={classes.dropdownFooter}>
+                            <Group justify="space-between">
+                                <div>
+                                    <Group>
+                                        <IconLibraryEditor height="24px" />
+                                        <Text fw={500} fz="sm">
+                                            {t('header.libraryEditor')}
+                                        </Text>
+                                    </Group>
+                                    <Text size="xs" c="dimmed">
+                                        {t('library.edit')}
                                     </Text>
-                                </Group>
-                                <Text size="xs" c="dimmed">
-                                    {t('library.edit')}
-                                </Text>
-                            </div>
-                            <Button variant="default"
-                                component={Link}
-                                to={library && library.links.update ? `https://editor.nawishta.co.uk/libraries/${library.id}` : "https://editor.nawishta.co.uk/"}>
-                                {t('header.libraryEditor')}
-                            </Button>
-                        </Group>
-                    </div>
+                                </div>
+                                <Button variant="default"
+                                    component={Link}
+                                    to={library?.links?.update ? `https://editor.nawishta.co.uk/libraries/${library.id}` : "https://editor.nawishta.co.uk/"}>
+                                    {t('header.libraryEditor')}
+                                </Button>
+                            </Group>
+                        </div>
+                    </If>
                 </Popover.Dropdown>
             </Popover>
             <UnstyledButton className={classes.link} onClick={toggleLinks} hiddenFrom="sm">

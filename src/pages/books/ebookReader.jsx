@@ -28,7 +28,7 @@ const EBookReaderPage = () => {
     const readerView = useSelector(state => state.ui.readerView);
     const { ref, toggle, fullscreen } = useFullscreen();
     const [opened, { open, close }] = useDisclosure(false);
-    const [settingsOpened, { open: openSetings, close: closeSettings }] = useDisclosure(false);
+    const [settingsOpened, { open: openSettings, close: closeSettings }] = useDisclosure(false);
     const { libraryId, bookId } = useParams();
     const [searchParams] = useSearchParams();
     const selectedChapterNumber = searchParams.get("chapter") ?? 1;
@@ -135,7 +135,7 @@ const EBookReaderPage = () => {
         <Group justify="space-between" wrap="nowrap">
             <Breadcrumbs>{items}</Breadcrumbs>
             <Group wrap="nowrap">
-                <ActionIcon onClick={openSetings} size={36} variant="default">
+                <ActionIcon onClick={openSettings} size={36} variant="default">
                     <IconSettings />
                 </ActionIcon>
                 {hasGotPages && <ReadModeToggle value='text' onChange={onReadModeChanged} />}

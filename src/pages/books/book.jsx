@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -138,12 +137,5 @@ const BookPage = () => {
         </Container>
     </Container>);
 }
-
-BookPage.propTypes = {
-    authors: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string
-    }))
-};
 
 export default BookPage;

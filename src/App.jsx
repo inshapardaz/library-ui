@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
 // UI libraries
-import { DirectionProvider, Loader, MantineProvider } from '@mantine/core';
+import { createTheme, DirectionProvider, Loader, MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
@@ -26,6 +26,12 @@ function App() {
     const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
     const dispatch = useDispatch();
 
+
+    const theme = createTheme({
+        // fontFamily: 'MehrNastaleeq, Segoe UI, sans-serif',
+        scale: 0.9
+    });
+
     useEffect(() => {
         if (userLoadStatus === 'idle')
             dispatch(init());
@@ -37,7 +43,7 @@ function App() {
                 <title>{t('app')}</title>
             </Helmet>
             <DirectionProvider >
-                <MantineProvider>
+                <MantineProvider theme={theme}>
                     <Notifications limit={5} position="bottom-right" />
                     <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
                         <If condition={userLoadStatus === 'loading'}

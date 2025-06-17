@@ -17,7 +17,6 @@ import {
     NavLink,
     Badge,
     Space,
-    rem,
     Stack,
 } from '@mantine/core';
 
@@ -86,8 +85,6 @@ const CategoriesMenu = ({ library, title, icon, className, target, allLabel, ext
                         </Text>
                         <Space w="md" />
                         <IconChevronDown
-                            width={rem(16)}
-                            height={rem(16)}
                             style={{
                                 transform: opened ? "rotate(180deg)" : "rotate(0)",
                                 transitionDuration: "250ms"

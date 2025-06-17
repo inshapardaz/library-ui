@@ -43,7 +43,7 @@ const LibraryHeader = ({ library }) => {
                         <LibrarySwitcher className={classes.link} library={library}>
                             <Logo />
                             <Space w="md" />
-                            <Text visibleFrom="lg" size="sm">
+                            <Text visibleFrom="lg" size="sm" truncate="end">
                                 {library.name}
                             </Text>
                         </LibrarySwitcher>

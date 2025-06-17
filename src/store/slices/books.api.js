@@ -152,6 +152,15 @@ export const booksApi = createApi({
             },
             invalidatesTags: ["Books", "Book"],
         }),
+        markBookAsRead: builder.mutation({
+            query: ({ book }) => {
+                return {
+                    url: book.links.create_favorite,
+                    method: "POST"
+                };
+            },
+            invalidatesTags: ["Books", "Book"],
+        }),
     }),
 });
 
@@ -165,4 +174,5 @@ export const {
     useGetBookPageQuery,
     useAddBookToFavoriteMutation,
     useRemoveBookFromFavoriteMutation,
+    useMarkBookAsReadMutation
 } = booksApi;
