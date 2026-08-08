@@ -108,6 +108,14 @@ Key flows:
   [src/i18n/en.js](src/i18n/en.js) and [src/i18n/ur.js](src/i18n/ur.js) — don't hardcode
   user-facing strings.
 
+## How to make changes
+
+- Make sure the repository is up-to-date with remote main branch. Pull and rebase if required.
+- Create a new branch for changes
+- Commit with the issue number in the commit message
+- Do not close the issue once the issue is resolved locally. Wait for green build and PR merge to main branch for closing issue
+- Push to remote
+
 ## Suggested improvement tasks
 
 Findings from an architecture review, roughly ordered by impact. None of these are done yet —
