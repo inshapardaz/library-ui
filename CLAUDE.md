@@ -113,8 +113,9 @@ Key flows:
 - Make sure the repository is up-to-date with remote main branch. Pull and rebase if required.
 - Create a new branch for changes
 - Commit with the issue number in the commit message
+- Create a PR from the branch
 - Do not close the issue once the issue is resolved locally. Wait for green build and PR merge to main branch for closing issue
-- Push to remote
+- Push all code changes to remote
 
 ## Suggested improvement tasks
 
