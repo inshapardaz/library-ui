@@ -13,4 +13,9 @@ export default defineConfig({
   server: {
     port: 4400,
   },
+  test: {
+    environment: 'node',
+    setupFiles: ['./src/test/setup.js'],
+    exclude: ['**/node_modules/**', 'tests/**'],
+  },
 })
