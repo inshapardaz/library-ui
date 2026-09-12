@@ -57,7 +57,7 @@ const AppHeader = () => {
                                 {t('header.libraries')}
                             </Text>
                         </LibrarySwitcher>
-                        <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
+                        <Link to="https://dictionary.nawishta.co.uk" className={classes.link}>
                             <IconDictionary height="24px" />
                             <Space w="md" />
                             <Text visibleFrom="lg">
@@ -121,7 +121,7 @@ const AppHeader = () => {
                         <Space w="md" />
                         {t('header.libraryEditor')}
                     </Link>
-                    <Link to="https://dictionaries.nawishta.co.uk" className={classes.link}>
+                    <Link to="https://dictionary.nawishta.co.uk" className={classes.link}>
                         <IconDictionary height="24px" />
                         <Space w="md" />
                         {t('header.dictionaries')}
