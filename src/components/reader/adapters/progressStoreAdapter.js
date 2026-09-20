@@ -10,8 +10,14 @@ import { chapterIdToPosition, positionToChapterId } from "@/utils/epubBuilder";
 // 1-based chapter position N and use `chapters[N - 1].id` as the backend's numeric
 // ProgressId. For a flat (non-chaptered) markdown/pdf source, there is no chapter, so we
 // fall back to `progressType: 'File'` using the book's content id.
-export default function createProgressStoreAdapter(libraryId, book, chapters) {
+//
+// `bookRef` is a ref (not book/chapters directly) so this adapter object's identity stays
+// stable across re-renders even as the book/chapters data refreshes - qari's <Reader>
+// re-runs its load effect whenever the adapter prop's identity changes, so churning it on
+// every RTK Query refetch would keep restarting (and losing) in-flight loads.
+export default function createProgressStoreAdapter(libraryId, bookRef) {
     function resolveProgressTarget(chapterId) {
+        const { book, chapters } = bookRef.current;
         const position = chapterIdToPosition(chapterId);
         const chapter = position != null ? chapters?.[position - 1] : null;
         if (chapter) {
@@ -24,6 +30,7 @@ export default function createProgressStoreAdapter(libraryId, book, chapters) {
 
     return {
         async save(progress) {
+            const { book } = bookRef.current;
             const { progressType, progressId } = resolveProgressTarget(progress.chapterId);
             await store
                 .dispatch(
@@ -38,6 +45,7 @@ export default function createProgressStoreAdapter(libraryId, book, chapters) {
                 .unwrap();
         },
         async load() {
+            const { book, chapters } = bookRef.current;
             const readProgress = book?.readProgress;
             if (!readProgress) {
                 return null;

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -19,7 +19,7 @@ import { error as showError } from "@/utils/notifications";
 const EBookReaderPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const { libraryId, bookId } = useParams();
+    const { libraryId, bookId: routeBookId } = useParams();
     const [searchParams] = useSearchParams();
     const format = searchParams.get("format");
 
@@ -28,7 +28,7 @@ const EBookReaderPage = () => {
         error: errorLoadingBook,
         isLoading: loadingBook,
         refetch: refetchBook,
-    } = useGetBookQuery({ libraryId, bookId });
+    } = useGetBookQuery({ libraryId, bookId: routeBookId });
 
     const language = useMemo(() => book?.language ?? "ur", [book]);
     const hasGotPages = useMemo(() => book && book.pageCount > 0 && book.links.pages, [book]);
@@ -50,14 +50,46 @@ const EBookReaderPage = () => {
         format
     );
 
+    // qari's <Reader> re-runs its book/bookmarks/notes/progress loading effect whenever
+    // these props change identity. RTK Query hands back a new `book`/`chapters` object on
+    // every background refetch even when the data is unchanged, so props derived from them
+    // must stay referentially stable across such refetches - otherwise the reload effect
+    // keeps re-firing, and an in-flight bookmarks/notes/progress load can lose the race and
+    // get silently discarded (matching "bookmarks/notes/progress never load"). A ref lets
+    // progressAdapter read the latest book/chapters without its own identity changing.
+    const bookId = book?.id;
+
+    const bookRef = useRef({ book, chapters });
+    bookRef.current = { book, chapters };
+
     const bookmarkStore = useMemo(
-        () => (book ? createBookmarkStoreAdapter(libraryId, book.id) : null),
-        [libraryId, book]
+        () => (bookId ? createBookmarkStoreAdapter(libraryId, bookId) : null),
+        [libraryId, bookId]
     );
-    const noteAdapter = useMemo(() => (book ? createNoteStoreAdapter(libraryId, book.id) : null), [libraryId, book]);
+    const noteAdapter = useMemo(
+        () => (bookId ? createNoteStoreAdapter(libraryId, bookId) : null),
+        [libraryId, bookId]
+    );
     const progressAdapter = useMemo(
-        () => (book ? createProgressStoreAdapter(libraryId, book, chapters) : null),
-        [libraryId, book, chapters]
+        () => (bookId ? createProgressStoreAdapter(libraryId, bookRef) : null),
+        [libraryId, bookId]
+    );
+
+    const bookInfo = useMemo(
+        () => (book ? { title: book.title, author: book.authors?.map((a) => a.name).join(", "), language } : undefined),
+        // Deliberately depends on book.title/book.authors, not `book` itself, so this stays
+        // referentially stable across RTK Query refetches that don't actually change them.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [book?.title, book?.authors, language]
+    );
+
+    const handleClose = useCallback(() => {
+        navigate(hasGotPages ? `/libraries/${libraryId}/books/${bookId}/read` : `/libraries/${libraryId}/books/${bookId}`);
+    }, [navigate, hasGotPages, libraryId, bookId]);
+
+    const handleError = useCallback(
+        (e) => showError({ title: t("book.error.loading.title"), message: e.message }),
+        [t]
     );
 
     if (loadingBook || loadingChapters || loadingSource) {
@@ -93,16 +125,14 @@ const EBookReaderPage = () => {
         <div style={{ height: "100vh" }}>
             <Reader
                 source={source}
-                bookInfo={{ title: book.title, author: book.authors?.map((a) => a.name).join(", "), language }}
+                bookInfo={bookInfo}
                 direction="auto"
                 bookmarkStore={bookmarkStore}
                 noteAdapter={noteAdapter}
                 progressAdapter={progressAdapter}
                 showCloseButton
-                onClose={() =>
-                    navigate(hasGotPages ? `/libraries/${libraryId}/books/${book.id}/read` : `/libraries/${libraryId}/books/${book.id}`)
-                }
-                onError={(e) => showError({ title: t("book.error.loading.title"), message: e.message })}
+                onClose={handleClose}
+                onError={handleError}
             />
         </div>
     );
