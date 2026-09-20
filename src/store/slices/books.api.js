@@ -152,6 +152,15 @@ export const booksApi = createApi({
             },
             invalidatesTags: ["Books", "Book"],
         }),
+        updateReadingProgress: builder.mutation({
+            query: ({ libraryId, bookId, progressType, progressId, progressValue }) => ({
+                url: `/libraries/${libraryId}/my/books/${bookId}`,
+                method: "post",
+                data: { progressType, progressId, progressValue },
+            }),
+            transformResponse: (response) => parseResponse(response),
+            invalidatesTags: ["Book", "Books"],
+        }),
     }),
 });
 
@@ -165,4 +174,5 @@ export const {
     useGetBookPageQuery,
     useAddBookToFavoriteMutation,
     useRemoveBookFromFavoriteMutation,
+    useUpdateReadingProgressMutation,
 } = booksApi;

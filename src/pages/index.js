@@ -9,7 +9,7 @@ import LibraryPage from "./libraries/library";
 import BooksPage from "./books";
 import BookPage from "./books/book";
 import BookReaderPage from "./books/reader";
-import EBookReaderPage from "./books/ebookReader";
+import EBookReaderPage from "./books/bookReader";
 import AuthorsPage from "./authors";
 import AuthorPage from "./authors/authorPage";
 import SeriesListPage from "./series";
