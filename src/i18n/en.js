@@ -283,7 +283,11 @@ const en = {
                 error: 'Error removing book from favorites.'
             },
             read: {
-                title: "Read book"
+                title: "Read book",
+                asEpub: "Read as EPUB",
+                asPdf: "Read as PDF",
+                asMarkdown: "Read as text",
+                asPages: "Read scanned pages"
             },
             download: {
                 title: "Download book"

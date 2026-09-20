@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Local imports
 import { axiosPrivate } from "@/utils/axios.helpers";
@@ -27,23 +27,40 @@ function contentUrl(content) {
 // preferring an already-published epub/pdf/markdown content file over assembling one
 // client-side. See epubBuilder.js for why chapter-based books with no published epub
 // get one built on the fly instead of streamed chapter-by-chapter.
-export default function useBookReaderSource(libraryId, book, chapters, language) {
+//
+// `format` optionally forces a specific BookFormat (from the book-page format picker)
+// instead of the default epub > pdf > markdown > chapters priority.
+export default function useBookReaderSource(libraryId, book, chapters, language, format) {
     const [source, setSource] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // `book`/`chapters` are re-fetched (new object identity) whenever any RTK Query tag
+    // they depend on is invalidated for reasons unrelated to the reader (e.g. a favorite
+    // toggle elsewhere). Only re-resolve the source when data that actually affects it
+    // changes, tracked via these primitive keys - not the object references themselves.
     const hasChapters = chapters && chapters.length > 0;
     const epubContent = findContent(book, BookFormat.Epub);
     const pdfContent = findContent(book, BookFormat.Pdf);
-    const markdownContent = !hasChapters
-        ? findContent(book, BookFormat.Markdown) ?? findContent(book, BookFormat.Text) ?? findContent(book, BookFormat.Html)
-        : null;
+    const markdownContent = findContent(book, BookFormat.Markdown) ?? findContent(book, BookFormat.Text) ?? findContent(book, BookFormat.Html);
+    const chapterKey = hasChapters ? chapters.map((c) => c.chapterNumber).join(",") : "";
+
+    const resolvedFormat =
+        format ?? (epubContent ? BookFormat.Epub : pdfContent ? BookFormat.Pdf : markdownContent && !hasChapters ? BookFormat.Markdown : hasChapters ? BookFormat.Epub : null);
+
+    const latest = useRef({ book, chapters });
+    latest.current = { book, chapters };
 
     useEffect(() => {
         let cancelled = false;
 
         async function resolve() {
-            if (!book) {
+            const { book, chapters } = latest.current;
+            if (!book || !resolvedFormat) {
+                if (!cancelled) {
+                    setSource(null);
+                    setLoading(false);
+                }
                 return;
             }
 
@@ -51,25 +68,25 @@ export default function useBookReaderSource(libraryId, book, chapters, language)
             setError(null);
 
             try {
-                if (epubContent) {
+                if (resolvedFormat === BookFormat.Epub && epubContent) {
                     const data = await fetchBinary(contentUrl(epubContent));
                     if (!cancelled) setSource({ type: "epub", data });
                     return;
                 }
 
-                if (pdfContent) {
+                if (resolvedFormat === BookFormat.Pdf && pdfContent) {
                     const data = await fetchBinary(contentUrl(pdfContent));
                     if (!cancelled) setSource({ type: "pdf", data });
                     return;
                 }
 
-                if (markdownContent) {
+                if (resolvedFormat === BookFormat.Markdown && markdownContent) {
                     const content = await fetchText(contentUrl(markdownContent));
                     if (!cancelled) setSource({ type: "markdown", content });
                     return;
                 }
 
-                if (hasChapters) {
+                if (resolvedFormat === BookFormat.Epub && hasChapters) {
                     const chapterContents = await Promise.all(
                         chapters.map((chapter) =>
                             axiosPrivate({
@@ -97,7 +114,20 @@ export default function useBookReaderSource(libraryId, book, chapters, language)
         return () => {
             cancelled = true;
         };
-    }, [libraryId, book, hasChapters, epubContent, pdfContent, markdownContent, chapters, language]);
+        // Deliberately depends on content ids, not the epubContent/pdfContent/markdownContent
+        // objects themselves - see the comment above `hasChapters` for why.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        libraryId,
+        book?.id,
+        hasChapters,
+        chapterKey,
+        epubContent?.id,
+        pdfContent?.id,
+        markdownContent?.id,
+        language,
+        resolvedFormat,
+    ]);
 
     return { source, error, loading };
 }
