@@ -159,7 +159,10 @@ export const booksApi = createApi({
                 data: { progressType, progressId, progressValue },
             }),
             transformResponse: (response) => parseResponse(response),
-            invalidatesTags: ["Book", "Books"],
+            // Deliberately does not invalidate ["Book"]/["Books"]: progress is saved
+            // continuously while reading, and refetching the book on every save would
+            // recreate `book`/`chapters` identities the reader page depends on,
+            // re-triggering source resolution (epub fetch/rebuild) mid-read.
         }),
     }),
 });

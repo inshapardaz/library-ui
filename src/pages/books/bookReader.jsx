@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 // UI library imports
@@ -20,11 +20,13 @@ const EBookReaderPage = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { libraryId, bookId } = useParams();
+    const [searchParams] = useSearchParams();
+    const format = searchParams.get("format");
 
     const {
         data: book,
         error: errorLoadingBook,
-        isFetching: loadingBook,
+        isLoading: loadingBook,
         refetch: refetchBook,
     } = useGetBookQuery({ libraryId, bookId });
 
@@ -34,7 +36,7 @@ const EBookReaderPage = () => {
     const {
         data: chaptersResult,
         error: errorLoadingChapters,
-        isFetching: loadingChapters,
+        isLoading: loadingChapters,
         refetch: refetchChapters,
     } = useGetBookChaptersQuery({ libraryId, bookId: book?.id }, { skip: !book?.id });
 
@@ -44,7 +46,8 @@ const EBookReaderPage = () => {
         libraryId,
         book,
         chapters,
-        language
+        language,
+        format
     );
 
     const bookmarkStore = useMemo(

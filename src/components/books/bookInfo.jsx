@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 
 // UI Library Imports
-import { useMantineTheme, Stack, Button } from "@mantine/core";
+import { useMantineTheme, Stack, Button, Menu, ActionIcon } from "@mantine/core";
 
 // Local Imports
 import {
@@ -13,21 +14,43 @@ import {
     IconCopyright,
     IconCalendar,
     IconReaderText,
-    IconReaderImage
+    IconReaderImage,
+    IconChevronDown
 } from '@/components/icon';
 
 import IconText from '@/components/iconText';
 import If from '@/components/if';
-import { Link } from 'react-router-dom';
+import BookFormat from '@/models/bookFormat';
 //------------------------------------------------------
 
 const BookInfo = ({ libraryId, book }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const navigate = useNavigate();
 
     if (!book) {
         return null;
     }
+
+    const hasEpub = book.contents?.some((c) => c.mimeType === BookFormat.Epub) || book.chapterCount > 0;
+    const hasPdf = book.contents?.some((c) => c.mimeType === BookFormat.Pdf);
+    const hasMarkdown = book.contents?.some((c) => [BookFormat.Markdown, BookFormat.Text, BookFormat.Html].includes(c.mimeType));
+    const hasPages = book.pageCount > 0;
+
+    const readOptions = [
+        hasEpub && { key: 'epub', label: t('book.actions.read.asEpub'), format: BookFormat.Epub, icon: <IconReaderText /> },
+        hasPdf && { key: 'pdf', label: t('book.actions.read.asPdf'), format: BookFormat.Pdf, icon: <IconReaderText /> },
+        hasMarkdown && { key: 'markdown', label: t('book.actions.read.asMarkdown'), format: BookFormat.Markdown, icon: <IconReaderText /> },
+        hasPages && { key: 'pages', label: t('book.actions.read.asPages'), format: null, icon: <IconReaderImage /> },
+    ].filter(Boolean);
+
+    const goToOption = (option) => {
+        if (option.key === 'pages') {
+            navigate(`/libraries/${libraryId}/books/${book.id}/read`);
+        } else {
+            navigate(`/libraries/${libraryId}/books/${book.id}/ebook${option.format ? `?format=${option.format}` : ''}`);
+        }
+    };
 
     return (<Stack>
         <If condition={book.yearPublished != null}>
@@ -49,23 +72,27 @@ const BookInfo = ({ libraryId, book }) => {
             <IconText size="sm" icon={<IconPages height={24} style={{ color: theme.colors.dark[2] }} />} text={t("book.pageCount", { count: book.pageCount })} />
         </If>
 
-        <If condition={book.chapterCount > 0}>
-            <Button fullWidth leftSection={<IconReaderText />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook`}>{t('book.actions.read.title')}</Button>
+        <If condition={readOptions.length === 1}>
+            <Button fullWidth leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{t('book.actions.read.title')}</Button>
         </If>
 
-        <If condition={book.pageCount > 0}>
-            <Button fullWidth variant='outline' leftSection={<IconReaderImage />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.read.title')}</Button>
+        <If condition={readOptions.length > 1}>
+            <Button.Group>
+                <Button fullWidth leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{t('book.actions.read.title')}</Button>
+                <Menu position="bottom-end" withinPortal>
+                    <Menu.Target>
+                        <ActionIcon size={36} variant="filled"><IconChevronDown /></ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                        {readOptions.map((option) => (
+                            <Menu.Item key={option.key} leftSection={option.icon} onClick={() => goToOption(option)}>
+                                {option.label}
+                            </Menu.Item>
+                        ))}
+                    </Menu.Dropdown>
+                </Menu>
+            </Button.Group>
         </If>
-
-        {/*
-        `   // Add pdf reader
-            <If condition={book?.contents != null && book.contents.length > 0}>
-            <If condition={book.contents.length > 1} esleChildren={
-                <Button fullWidth variant='outline' leftSection={<IconPages />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
-            }>
-                <Button fullWidth variant='outline' leftSection={<IconPages />} component={Link} to={`/libraries/${libraryId}/books/${book.id}/read`}>{t('book.actions.download.title')}</Button>
-            </If>
-        </If> */}
     </Stack>);
 };
 
