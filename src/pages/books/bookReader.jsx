@@ -9,6 +9,7 @@ import { Reader } from "@inshapardaz/qari/components/Reader";
 // Local imports
 import { useGetBookQuery, useGetBookChaptersQuery } from "@/store/slices/books.api";
 import useBookReaderSource from "@/components/reader/useBookReaderSource";
+import useReaderSettings from "@/components/reader/useReaderSettings";
 import createBookmarkStoreAdapter from "@/components/reader/adapters/bookmarkStoreAdapter";
 import createNoteStoreAdapter from "@/components/reader/adapters/noteStoreAdapter";
 import createProgressStoreAdapter from "@/components/reader/adapters/progressStoreAdapter";
@@ -49,6 +50,8 @@ const EBookReaderPage = () => {
         language,
         format
     );
+
+    const { settings, updateSettings } = useReaderSettings();
 
     // qari's <Reader> re-runs its book/bookmarks/notes/progress loading effect whenever
     // these props change identity. RTK Query hands back a new `book`/`chapters` object on
@@ -127,6 +130,20 @@ const EBookReaderPage = () => {
                 source={source}
                 bookInfo={bookInfo}
                 direction="auto"
+                theme={settings.theme}
+                fontFamily={settings.fontFamily}
+                fontSize={settings.fontSize}
+                justify={settings.justify}
+                lineSpacing={settings.lineSpacing}
+                letterSpacing={settings.letterSpacing}
+                wordSpacing={settings.wordSpacing}
+                margin={settings.margin}
+                columns={settings.columns}
+                scroll={settings.scroll}
+                showPageDivider={settings.showPageDivider}
+                invertImagesInDarkMode={settings.invertImagesInDarkMode}
+                pdfZoom={settings.pdfZoom}
+                onSettingsChange={updateSettings}
                 bookmarkStore={bookmarkStore}
                 noteAdapter={noteAdapter}
                 progressAdapter={progressAdapter}
