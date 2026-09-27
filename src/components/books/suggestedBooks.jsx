@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 import { Carousel } from '@mantine/carousel';
 //------------------------------
-const SuggestedBooks = ({ libraryId }) => {
+const SuggestedBooks = () => {
     return (<Box>
         <Carousel
             withIndicators
