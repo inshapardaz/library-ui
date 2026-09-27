@@ -203,6 +203,14 @@ const en = {
         placeholder: "Search by title, author, keyword",
         empty: "No result found.",
         searchMore: "Search more...",
+        syntax: {
+            help: "Filter books as you search: @author, #tag, $language, :series - e.g. @tolkien #fantasy $en :lotr hobbit",
+            author: "Author",
+            tag: "Tag",
+            language: "Language",
+            series: "Series",
+            incomplete: "\"{{operator}}\" has no value and will be ignored",
+        },
     },
     libraries: {
         title: "Libraries",

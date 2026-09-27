@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import parseSearchQuery from './searchQueryParser';
+import parseSearchQuery, { findIncompleteOperators, removeOperatorTokens } from './searchQueryParser';
 
 describe('parseSearchQuery', () => {
     it('returns empty filters and free text for an empty/falsy query', () => {
@@ -84,5 +84,55 @@ describe('parseSearchQuery', () => {
             seriesNames: ['lotr'],
             freeText: 'hobbit',
         });
+    });
+});
+
+describe('findIncompleteOperators', () => {
+    it('returns an empty array for an empty/falsy query', () => {
+        expect(findIncompleteOperators('')).toEqual([]);
+        expect(findIncompleteOperators(undefined)).toEqual([]);
+    });
+
+    it('finds a trailing bare operator', () => {
+        expect(findIncompleteOperators('@tolkien #fantasy $')).toEqual(['$']);
+    });
+
+    it('finds a leading bare operator', () => {
+        expect(findIncompleteOperators(': hobbit')).toEqual([':']);
+    });
+
+    it('finds an empty quoted operator value', () => {
+        expect(findIncompleteOperators('@"" #fantasy')).toEqual(['@']);
+    });
+
+    it('finds multiple distinct incomplete operators without duplicates', () => {
+        expect(findIncompleteOperators('@ # @')).toEqual(['@', '#']);
+    });
+
+    it('does not flag a fully-formed token', () => {
+        expect(findIncompleteOperators('@tolkien #fantasy $en :lotr')).toEqual([]);
+    });
+});
+
+describe('removeOperatorTokens', () => {
+    it('returns an empty string for an empty/falsy query', () => {
+        expect(removeOperatorTokens('', '@')).toBe('');
+        expect(removeOperatorTokens(undefined, '@')).toBe('');
+    });
+
+    it('removes every unquoted token of the given operator type', () => {
+        expect(removeOperatorTokens('@tolkien #fantasy hobbit', '@')).toBe('#fantasy hobbit');
+    });
+
+    it('removes a quoted token of the given operator type', () => {
+        expect(removeOperatorTokens('@"J.R.R. Tolkien" #fantasy', '@')).toBe('#fantasy');
+    });
+
+    it('removes a bare operator with no value', () => {
+        expect(removeOperatorTokens('@tolkien $ #fantasy', '$')).toBe('@tolkien #fantasy');
+    });
+
+    it('leaves other operator types untouched', () => {
+        expect(removeOperatorTokens('@tolkien #fantasy :lotr', '#')).toBe('@tolkien :lotr');
     });
 });
