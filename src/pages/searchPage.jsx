@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
@@ -6,6 +7,7 @@ import { Card, Tabs, useMantineTheme } from "@mantine/core";
 
 // Local imports
 import { updateLinkToSearchPage } from '@/utils';
+import parseSearchQuery from '@/utils/searchQueryParser';
 import { IconNames, IconBooks, IconAuthors, IconSeries, IconPeriodicals, IconWritings, IconPoetries } from '@/components/icon'
 import PageHeader from "@/components/pageHeader";
 import BooksList from "@/components/books/booksList";
@@ -28,6 +30,14 @@ const SearchPage = () => {
     const pageNumber = parseInt(searchParams.get("pageNumber") ?? "1");
     const pageSize = parseInt(searchParams.get("pageSize") ?? "12");
     const theme = useMantineTheme();
+
+    // The @author/#tag/$language/:series query syntax only drives book filtering
+    // for now (see the "wire parsed query-syntax filters into books API call"
+    // task) - other tabs still search on the raw query string as free text. The
+    // API's authorName/tagName/seriesName/language filters are single-value for
+    // now, so only the first token of each type is applied even if the user
+    // typed more than one (e.g. "@tolkien @rowling" only filters on tolkien).
+    const parsedBooksQuery = useMemo(() => parseSearchQuery(query), [query]);
 
     const onChangeTab = (key) => {
         navigate(updateLinkToSearchPage(location, { section: key, query, pageNumber: 1 }));
@@ -73,7 +83,11 @@ const SearchPage = () => {
                 <Tabs.Panel value="books">
                     <BooksList
                         libraryId={libraryId}
-                        query={query}
+                        query={parsedBooksQuery.freeText || null}
+                        authorName={parsedBooksQuery.authorNames[0] ?? null}
+                        tagName={parsedBooksQuery.tagNames[0] ?? null}
+                        seriesName={parsedBooksQuery.seriesNames[0] ?? null}
+                        language={parsedBooksQuery.languages[0] ?? null}
                         pageNumber={pageNumber}
                         pageSize={pageSize}
                         searchMode />

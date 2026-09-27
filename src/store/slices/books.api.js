@@ -16,6 +16,10 @@ export const booksApi = createApi({
                 author = null,
                 category = null,
                 series = null,
+                authorName = null,
+                tagName = null,
+                seriesName = null,
+                language = null,
                 sortBy = null,
                 sortDirection = null,
                 favorite = null,
@@ -34,6 +38,21 @@ export const booksApi = createApi({
                 }
                 if (series) {
                     queryVal += `&seriesId=${series}`;
+                }
+                // Name-based LIKE-matching filters (driven by the search box's
+                // @author/#tag/:series/$language query syntax), distinct from the
+                // id-based author/category/series filters above.
+                if (authorName) {
+                    queryVal += `&authorName=${encodeURIComponent(authorName)}`;
+                }
+                if (tagName) {
+                    queryVal += `&tagName=${encodeURIComponent(tagName)}`;
+                }
+                if (seriesName) {
+                    queryVal += `&seriesName=${encodeURIComponent(seriesName)}`;
+                }
+                if (language) {
+                    queryVal += `&language=${encodeURIComponent(language)}`;
                 }
                 if (bookShelf) {
                     queryVal += `&bookShelfId=${bookShelf}`;

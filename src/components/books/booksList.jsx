@@ -19,6 +19,10 @@ const BooksList = ({
     author = null,
     category = null,
     series = null,
+    authorName = null,
+    tagName = null,
+    seriesName = null,
+    language = null,
     bookShelf = null,
     sortBy = null,
     sortDirection = null,
@@ -46,6 +50,10 @@ const BooksList = ({
         author,
         category,
         series,
+        authorName,
+        tagName,
+        seriesName,
+        language,
         bookShelf,
         sortBy,
         sortDirection,
@@ -55,7 +63,7 @@ const BooksList = ({
         pageNumber,
         pageSize,
     }, {
-        skip: searchMode && (query == null || query === ''),
+        skip: searchMode && (query == null || query === '') && !authorName && !tagName && !seriesName && !language,
     });
 
     let bookSortOptions = [{
@@ -121,6 +129,10 @@ BooksList.propTypes = {
     author: PropTypes.number,
     category: PropTypes.string,
     series: PropTypes.string,
+    authorName: PropTypes.string,
+    tagName: PropTypes.string,
+    seriesName: PropTypes.string,
+    language: PropTypes.string,
     bookShelf: PropTypes.number,
     sortBy: PropTypes.string,
     sortDirection: PropTypes.string,
