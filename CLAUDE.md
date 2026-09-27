@@ -120,41 +120,33 @@ Key flows:
 
 ## Suggested improvement tasks
 
-Findings from an architecture review, roughly ordered by impact. None of these are done yet —
-treat this as a backlog, not a status report.
+Findings from an architecture review, roughly ordered by impact. Status noted per item — this is a
+living backlog, not a fresh audit.
 
-1. **Bug: `markBookAsRead` posts to the favorite link, not a read link** —
-   [src/store/slices/books.api.js:155-163](src/store/slices/books.api.js:155) reuses
-   `book.links.create_favorite` for the new `markBookAsRead` mutation. Verify what link the backend
-   actually exposes for "mark as read" and fix, or the feature silently favorites instead of marking read.
-2. **No unit/component test coverage** — only one Playwright e2e spec exists
-   ([tests/specs/homePage.spec.js](tests/specs/homePage.spec.js)); there is no unit-test runner
-   (Vitest/Jest) at all. Business logic in `utils/` (axios interceptors, `parseResponse`) and Redux
-   slices/reducers currently has zero automated coverage.
-3. **Runtime host-sniffing for environment config** — `src/config.js` branches on
-   `window.location.host` strings to pick API URLs instead of using Vite's built-in `.env` /
-   `import.meta.env` mechanism. This is fragile (breaks on new domains/previews), can't be overridden
-   per-deploy without a code change, and isn't type-checked. Move to `.env.development` /
-   `.env.production` + `import.meta.env.VITE_*`.
-4. **Inconsistent `PropTypes` coverage** — only 85 of 125 `.jsx` files declare `propTypes`. Either
-   enforce it repo-wide (add an eslint rule, e.g. `react/prop-types` is already available via
-   `eslint-plugin-react`) or migrate incrementally to TypeScript for compile-time safety instead.
-5. **No route-level code splitting** — [src/router.jsx](src/router.jsx) imports every page eagerly
-   from the `Pages` barrel. With ~30 routes across many domains, this likely inflates the initial JS
-   bundle. Convert page imports to `React.lazy` + `Suspense` (Mantine `Loader` is already used
-   elsewhere in `App.jsx` for a similar loading state).
-6. **No top-level error boundary** — there's no `ErrorBoundary` anywhere in `src/`; the app has
-   dedicated 403/404/500 pages but nothing catches unhandled render errors to show them. Add a root
-   error boundary around `<Router />` (or per-layout) that renders `Error500Page`.
-7. **Store wiring is repetitive and easy to get out of sync** — [src/store/index.js](src/store/index.js)
-   manually lists every api slice's reducer *and* middleware; adding a new `*.api.js` slice requires
-   remembering to touch two separate places. Consider a small helper that collects all api slices and
-   reduces over them for both `reducer` and `middleware.concat(...)`.
-8. **CI doesn't lint or gate on it** — [.github/workflows/playwright.yml](.github/workflows/playwright.yml)
-   only runs Playwright; `npm run lint` (and any future unit tests) aren't run in CI, so lint failures
-   can merge un-caught even though `pre-commit` runs lint locally.
-9. **No Storybook/visual catalog** for the sizeable shared component library under `src/components`,
-   making it harder to review new Mantine-based components in isolation or catch visual regressions.
-10. **`console.log` calls left in production config path** — `src/config.js` logs the resolved
-    environment and API host on every load; consider gating behind `import.meta.env.DEV` once config
-    is migrated to Vite env vars (see item 3).
+1. ~~**Bug: `markBookAsRead` posts to the favorite link, not a read link**~~ — **Resolved.** The
+   `markBookAsRead` mutation reusing `book.links.create_favorite` no longer exists in
+   `src/store/slices/books.api.js`.
+2. **No unit/component test coverage** — Vitest is now configured (`npm run test:unit`) with 26
+   tests across 4 files covering `utils/` and the auth/ui Redux slices, but coverage is still
+   partial. Still open; pick it up incrementally as new business logic is added rather than as one
+   large PR.
+3. ~~**Runtime host-sniffing for environment config**~~ — **Resolved** (#29). `src/config.js` now
+   reads `import.meta.env.VITE_*` / a runtime `window.__ENV__` instead of sniffing
+   `window.location.host`.
+4. ~~**Inconsistent `PropTypes` coverage**~~ — **Resolved.** `eslint-plugin-react`'s recommended
+   config (already wired into `eslint.config.js`) enables `react/prop-types` as an error, and the
+   repo currently lints clean — components that don't declare `propTypes` don't use undeclared
+   props.
+5. **No route-level code splitting** — still open, out of scope for the current cleanup pass.
+6. ~~**No top-level error boundary**~~ — **Resolved.** `src/components/layout/errorBoundary.jsx`
+   wraps `router.jsx`'s `<Routes>` and renders `Error500Page` on an uncaught render error.
+7. ~~**Store wiring is repetitive and easy to get out of sync**~~ — **Resolved.**
+   `src/store/index.js` now collects all api slices into one array and derives `reducer` and
+   `middleware` from it.
+8. ~~**CI doesn't lint or gate on it**~~ — **Resolved.**
+   [.github/workflows/playwright.yml](.github/workflows/playwright.yml) now runs a
+   `lint-and-unit-test` job (`npm run lint` + `npm run test:unit`) that the Playwright job depends on.
+9. **No Storybook/visual catalog** — **Won't fix.** Considered and declined; not worth the added
+   devDependency/tooling surface for this repo right now.
+10. ~~**`console.log` calls left in production config path**~~ — **Resolved** alongside item 3; the
+    runtime-env rewrite of `src/config.js` dropped the `console.log` calls entirely.
