@@ -65,7 +65,9 @@ const SearchQueryInput = ({ query, onQueryChanged, maxWidth = 200 }) => {
                     rightSectionWidth={72}
                     rightSection={
                         <Group gap={4} wrap="nowrap">
-                            {value && value !== '' && <CloseButton onClick={onClear} />}
+                            {value && value !== '' && (
+                                <CloseButton onClick={onClear} aria-label={t('actions.close')} />
+                            )}
                             <Tooltip label={t('search.syntax.help')} multiline w={280} withArrow>
                                 <ActionIcon variant="subtle" color="gray" aria-label={t('search.syntax.help')}>
                                     <IconInfoCircle style={{ width: rem(16), height: rem(16) }} />
