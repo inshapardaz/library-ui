@@ -8,18 +8,27 @@ import { Spotlight, SpotlightActionsGroup } from '@mantine/spotlight';
 // Local imports
 import { IconBook } from "@/components/icon";
 import { useGetBooksQuery } from '@/store/slices/books.api';
+import parseSearchQuery from '@/utils/searchQueryParser';
 import Img from '@/components/img';
 
 //-----------------------------
 const BooksSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
     onSearchStatusChange = () => { },
     onDataStatusChange = () => { } }) => {
+    // Only the first token of each filter type is applied - see the equivalent
+    // note in searchPage.jsx, the API's name filters aren't multi-value yet.
+    const parsedQuery = useMemo(() => parseSearchQuery(query), [query]);
+
     const {
         data: books, isError: booksError, isFetching: booksLoading,
     } = useGetBooksQuery(
         {
             libraryId,
-            query,
+            query: parsedQuery.freeText || null,
+            authorName: parsedQuery.authorNames[0] ?? null,
+            tagName: parsedQuery.tagNames[0] ?? null,
+            seriesName: parsedQuery.seriesNames[0] ?? null,
+            language: parsedQuery.languages[0] ?? null,
             pageSize
         },
         {
