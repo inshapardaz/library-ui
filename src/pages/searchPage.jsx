@@ -17,6 +17,7 @@ import PoetryList from "@/components/poetry/poetryList";
 import SeriesList from "@/components/series/seriesList";
 import PeroidicalsList from "@/components/periodicals/periodicalsList";
 import SearchInput from '@/components/searchInput';
+import SearchQueryInput from '@/components/search/searchQueryInput';
 
 //-------------------------------------
 const SearchPage = () => {
@@ -56,7 +57,9 @@ const SearchPage = () => {
             ]} />
         <Card withBorder mx="md">
             <Card.Section withBorder inheritPadding py="xs">
-                <SearchInput onQueryChanged={onSearchChanged} />
+                {section === "books"
+                    ? <SearchQueryInput onQueryChanged={onSearchChanged} />
+                    : <SearchInput onQueryChanged={onSearchChanged} />}
             </Card.Section>
             <Tabs value={section} onChange={onChangeTab}>
                 <Tabs.List>

@@ -227,6 +227,14 @@ const ur = {
         placeholder: "تلاش برائے عنوان، مصنّف، زمرہ",
         empty: "تلاش بے نتیجہ رہی۔",
         searchMore: "مزید تلاش کریں۔۔۔",
+        syntax: {
+            help: "تلاش کے دوران کتابیں فلٹر کریں: @مصنّف، #زمرہ، $زبان، :سلسلہ - مثلاً @tolkien #fantasy $en :lotr hobbit",
+            author: "مصنّف",
+            tag: "زمرہ",
+            language: "زبان",
+            series: "سلسلہ",
+            incomplete: "\"{{operator}}\" کی کوئی قدر نہیں، اسے نظر انداز کر دیا جائے گا",
+        },
     },
     libraries: {
         title: "کتب خانے",
