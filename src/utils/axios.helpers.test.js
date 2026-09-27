@@ -17,6 +17,14 @@ vi.mock('axios', () => ({
     },
 }));
 
+vi.mock('@/utils/notifications', () => ({
+    warning: vi.fn(),
+}));
+
+vi.mock('@/i18n', () => ({
+    default: { t: (key) => key },
+}));
+
 describe('axios.helpers response interceptor', () => {
     let axiosPublic;
     let axiosPrivate;
@@ -74,17 +82,34 @@ describe('axios.helpers response interceptor', () => {
         expect(axiosPublic.post).not.toHaveBeenCalled();
     });
 
-    it('redirects to the main site login and rejects when the refresh call fails', async () => {
-        const refreshError = new Error('refresh failed');
-        axiosPublic.post.mockRejectedValue(refreshError);
+    it('warns and redirects to the main site login (after a short delay) and rejects when the refresh call fails', async () => {
+        vi.useFakeTimers();
+        try {
+            const refreshError = new Error('refresh failed');
+            axiosPublic.post.mockRejectedValue(refreshError);
 
-        const originalRequest = { url: '/books' };
-        const error = { response: { status: 401 }, config: originalRequest };
+            const originalRequest = { url: '/books' };
+            const error = { response: { status: 401 }, config: originalRequest };
 
-        await expect(responseErrorHandler(error)).rejects.toBe(refreshError);
+            const { warning } = await import('@/utils/notifications');
 
-        expect(window.location.href).toContain('/account/login?returnUrl=');
-        expect(axiosPrivate).not.toHaveBeenCalled();
+            const assertion = expect(responseErrorHandler(error)).rejects.toBe(refreshError);
+
+            // The redirect is deliberately delayed so the session-expiry toast has a
+            // moment to render before the page navigates away.
+            expect(window.location.href).toBe('');
+            await vi.advanceTimersByTimeAsync(1500);
+
+            await assertion;
+
+            expect(warning).toHaveBeenCalledWith(
+                expect.objectContaining({ title: 'login.sessionExpired.title' })
+            );
+            expect(window.location.href).toContain('/account/login?returnUrl=');
+            expect(axiosPrivate).not.toHaveBeenCalled();
+        } finally {
+            vi.useRealTimers();
+        }
     });
 
     it('lets both requests succeed when two 401s arrive concurrently', async () => {
