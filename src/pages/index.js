@@ -1,31 +1,37 @@
-import HomePage from "./homePage";
+import { lazy } from "react";
 
-import Error403Page from "./error403";
-import Error404Page from "./error404";
-import Error500Page from "./error500";
+// Every route-level page is lazy-loaded so the initial bundle only pays for
+// the pages actually visited, instead of eagerly bundling all ~30 routes
+// (books, authors, series, periodicals, poetry, writings, bookshelves, ...)
+// into the main chunk. See router.jsx for the <Suspense> boundary this relies on.
+const HomePage = lazy(() => import("./homePage"));
 
-import LibrariesPage from "./libraries";
-import LibraryPage from "./libraries/library";
-import BooksPage from "./books";
-import BookPage from "./books/book";
-import BookReaderPage from "./books/reader";
-import EBookReaderPage from "./books/bookReader";
-import AuthorsPage from "./authors";
-import AuthorPage from "./authors/authorPage";
-import SeriesListPage from "./series";
-import SeriesPage from "./series/seriesPage";
-import WritingsPage from "./writings";
-import WritingPage from "./writings/writing";
-import PoetriesPage from "./poetry";
-import PoetryPage from "./poetry/poetryPage";
-import PeriodicalsPage from "./periodicals";
-import PeriodicalPage from "./periodicals/periodical";
-import IssuePage from "./periodicals/issue";
-import IssueArticlePage from "./periodicals/issue/article";
-import BookShelvesPage from "./bookShelves";
-import BookShelvePage from "./bookShelves/bookShelvePage";
+const Error403Page = lazy(() => import("./error403"));
+const Error404Page = lazy(() => import("./error404"));
+const Error500Page = lazy(() => import("./error500"));
 
-import SearchPage from "./searchPage";
+const LibrariesPage = lazy(() => import("./libraries"));
+const LibraryPage = lazy(() => import("./libraries/library"));
+const BooksPage = lazy(() => import("./books"));
+const BookPage = lazy(() => import("./books/book"));
+const BookReaderPage = lazy(() => import("./books/reader"));
+const EBookReaderPage = lazy(() => import("./books/bookReader"));
+const AuthorsPage = lazy(() => import("./authors"));
+const AuthorPage = lazy(() => import("./authors/authorPage"));
+const SeriesListPage = lazy(() => import("./series"));
+const SeriesPage = lazy(() => import("./series/seriesPage"));
+const WritingsPage = lazy(() => import("./writings"));
+const WritingPage = lazy(() => import("./writings/writing"));
+const PoetriesPage = lazy(() => import("./poetry"));
+const PoetryPage = lazy(() => import("./poetry/poetryPage"));
+const PeriodicalsPage = lazy(() => import("./periodicals"));
+const PeriodicalPage = lazy(() => import("./periodicals/periodical"));
+const IssuePage = lazy(() => import("./periodicals/issue"));
+const IssueArticlePage = lazy(() => import("./periodicals/issue/article"));
+const BookShelvesPage = lazy(() => import("./bookShelves"));
+const BookShelvePage = lazy(() => import("./bookShelves/bookShelvePage"));
+
+const SearchPage = lazy(() => import("./searchPage"));
 
 const Pages = {
     HomePage,
