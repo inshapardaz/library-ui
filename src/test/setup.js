@@ -1,3 +1,6 @@
 if (typeof globalThis.window === 'undefined') {
-    globalThis.window = { location: { host: 'localhost:4400', href: '' } };
+    globalThis.window = {
+        location: { host: 'localhost:4400', href: '' },
+        localStorage: {},
+    };
 }

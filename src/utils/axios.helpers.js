@@ -4,6 +4,8 @@ import { Mutex } from "async-mutex";
 // Local import
 import { API_URL } from '@/config';
 import { accountUrl } from '@/utils/returnUrl';
+import { warning } from '@/utils/notifications';
+import i18n from '@/i18n';
 
 //------------------------------------------
 
@@ -49,7 +51,19 @@ axiosPrivate.interceptors.response.use(
                     .catch(refreshError => {
                         console.error(refreshError);
                         refreshTokenPromise = null; // Reset the promise after failure
-                        window.location.href = accountUrl('/account/login');
+                        // Access tokens are short-lived (10 min) and refresh tokens expire after a
+                        // couple of days, so this fires reasonably often for a long-lived session -
+                        // warn before the hard redirect so it reads as an expected timeout rather
+                        // than the app silently kicking the user out mid-task.
+                        warning({
+                            title: i18n.t('login.sessionExpired.title'),
+                            message: i18n.t('login.sessionExpired.message'),
+                        });
+                        // Give the toast a moment to actually render before the hard redirect
+                        // navigates the page away, or the user never sees it at all.
+                        setTimeout(() => {
+                            window.location.href = accountUrl('/account/login');
+                        }, 1500);
                         return Promise.reject(refreshError);
                     })
                     .finally(() => {

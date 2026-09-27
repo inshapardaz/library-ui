@@ -59,6 +59,10 @@ const en = {
             required: "Password is required",
         },
         error: "Unable to login. Please check your username and password.",
+        sessionExpired: {
+            title: "Session expired",
+            message: "Your session has expired, please sign in again.",
+        },
     },
     logout: {
         title: "Logout",
