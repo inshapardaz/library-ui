@@ -18,35 +18,29 @@ import { notesApi } from "./slices/notes.api";
 
 // ----------------------------------------------
 
+// Every RTK Query api slice, in one place. Adding a new `*.api.js` slice only
+// requires adding it here rather than touching both `reducer` and `middleware`.
+const apiSlices = [
+    authApi,
+    librariesApi,
+    booksApi,
+    authorsApi,
+    seriesApi,
+    categoriesApi,
+    articlesApi,
+    periodicalsApi,
+    issuesApi,
+    bookShelvesApi,
+    bookmarksApi,
+    notesApi,
+];
+
 export const store = configureStore({
     reducer: {
         [uiSlice.name]: uiSlice.reducer,
         [authSlice.name]: authSlice.reducer,
-        [authApi.reducerPath]: authApi.reducer,
-        [librariesApi.reducerPath]: librariesApi.reducer,
-        [booksApi.reducerPath]: booksApi.reducer,
-        [authorsApi.reducerPath]: authorsApi.reducer,
-        [articlesApi.reducerPath]: articlesApi.reducer,
-        [seriesApi.reducerPath]: seriesApi.reducer,
-        [categoriesApi.reducerPath]: categoriesApi.reducer,
-        [periodicalsApi.reducerPath]: periodicalsApi.reducer,
-        [issuesApi.reducerPath]: issuesApi.reducer,
-        [bookShelvesApi.reducerPath]: bookShelvesApi.reducer,
-        [bookmarksApi.reducerPath]: bookmarksApi.reducer,
-        [notesApi.reducerPath]: notesApi.reducer,
+        ...Object.fromEntries(apiSlices.map((api) => [api.reducerPath, api.reducer])),
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware()
-            .concat(authApi.middleware)
-            .concat(librariesApi.middleware)
-            .concat(booksApi.middleware)
-            .concat(authorsApi.middleware)
-            .concat(seriesApi.middleware)
-            .concat(categoriesApi.middleware)
-            .concat(articlesApi.middleware)
-            .concat(periodicalsApi.middleware)
-            .concat(issuesApi.middleware)
-            .concat(bookShelvesApi.middleware)
-            .concat(bookmarksApi.middleware)
-            .concat(notesApi.middleware)
+        getDefaultMiddleware().concat(apiSlices.map((api) => api.middleware)),
 });
