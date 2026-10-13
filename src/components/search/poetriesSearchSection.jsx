@@ -42,7 +42,7 @@ const PoetriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
                 label={t('header.poetry')}
                 description={t('poetries.description')}
                 leftSection={icon}
-                onClick={() => navigate(`/libraries/${libraryId}/poetry`)} />);
+                onClick={() => navigate(`/libraries/${libraryId}/explore/poetry`)} />);
         }
 
         return null;

@@ -7,12 +7,15 @@ import { notifications } from '@mantine/notifications';
 
 // Local imports
 import { IconFavorite, IconFavoriteFill } from '@/components/icon';
+import SignInFavoriteButton from '@/components/signInFavoriteButton';
+import useRequireLogin from '@/hooks/useRequireLogin';
 import { useAddArticleToFavoriteMutation, useRemoveArticleFromFavoriteMutation } from '@/store/slices/articles.api';
 //---------------------------------------
 
-const FavoriteButton = ({ article, size }) => {
+const FavoriteButton = ({ article, readonly, size }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const { isLoggedIn } = useRequireLogin();
     const [addArticleToFavorite, { isLoading: isAdding }] = useAddArticleToFavoriteMutation();
     const [removeArticleFromFavorite, { isLoading: isRemoving }] = useRemoveArticleFromFavoriteMutation();
 
@@ -59,6 +62,10 @@ const FavoriteButton = ({ article, size }) => {
         icon = (<IconFavorite height={size} style={{ color: theme.colors.dark[3] }} />);
     }
 
+    if (!icon && !isLoggedIn && !readonly) {
+        return <SignInFavoriteButton size={size} />;
+    }
+
     if (icon) {
         return (<ActionIcon variant="transparent" aria-label="favorite" onClick={onFavorite} loading={isAdding || isRemoving}>
             {icon}
@@ -77,6 +84,7 @@ FavoriteButton.propTypes = {
             remove_favorite: PropTypes.string,
         }),
     }),
+    readonly: PropTypes.bool,
     size: PropTypes.any,
 };
 

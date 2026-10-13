@@ -33,11 +33,11 @@ const LibraryHeader = () => {
                 </Container>
 
                 <div className={classes.controls}>
-                    <Button className={classes.control} variant="white" size="lg" component={Link} to={`/libraries/${library.id}/books`}>
+                    <Button className={classes.control} variant="white" size="lg" component={Link} to={`/libraries/${library.id}/explore/books`}>
                         {t('header.books')}
                     </Button>
                     <Space w="md" />
-                    <Button className={cx(classes.control, classes.secondaryControl)} size="lg" component={Link} to={`/libraries/${library.id}/writings`}>
+                    <Button className={cx(classes.control, classes.secondaryControl)} size="lg" component={Link} to={`/libraries/${library.id}/explore/writings`}>
                         {t('header.writings')}
                     </Button>
                 </div>

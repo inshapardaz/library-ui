@@ -1,0 +1,41 @@
+schema: spec-driven
+
+context: |
+  Project: Nawishta Library UI — reader-facing frontend of the Inshapardaz ebook library platform
+  (books, authors, series, periodicals, poetry, writings, bookshelves, readers).
+  Stack: React 18 (JS, no TS), Vite, Mantine 8, Redux Toolkit + RTK Query, react-router v6,
+  react-i18next (English + Urdu). Backend REST API and the login site are separate systems and
+  are out of scope; this repo only consumes them.
+
+  Current initiative: a full visual and UX redesign. The app currently looks like stock Mantine
+  and is meant to feel like a distinct, polished reading product. Behaviour, routes and API
+  contracts stay stable unless a change explicitly says otherwise.
+
+  Hard constraints for every change:
+  - Urdu (RTL, Nastaleeq-friendly typography) is a first-class language, equal to English (LTR).
+    Every screen must be specified and verified in both directions; use logical CSS properties.
+  - Light and dark modes are both required, plus the reader's own themes.
+  - Mobile-first; the audience is largely on phones and slow networks. Respect reduced motion.
+  - Accessibility target: WCAG 2.2 AA (contrast, focus, keyboard, screen reader labels).
+  - Keep Mantine as the component foundation; customise via the single theme in src/App.jsx and
+    CSS modules. No new UI framework or CSS-in-JS.
+  - All user-facing strings go through i18n in both src/i18n/en.js and src/i18n/ur.js.
+  - Checks: `npm run lint`, `npm run test:unit`, `npm test` (Playwright), `npm run build`.
+
+rules:
+  proposal:
+    - State the user-facing goal and what is explicitly out of scope
+    - Call out RTL/Urdu and dark-mode impact
+  specs:
+    - Use SHALL/MUST requirements with at least one #### Scenario each
+    - Describe observable behaviour and visual rules, not component internals
+  design:
+    - Record design tokens and Mantine theme changes here, with rationale
+  tasks:
+    - Group by screen or capability; each task is independently shippable and verifiable
+    - Include RTL and dark-mode verification in the task list
+
+operations:
+  apply:
+    guidance:
+      - Follow CLAUDE.md for branching, commit and PR conventions

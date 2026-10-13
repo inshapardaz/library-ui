@@ -24,7 +24,7 @@ const BookShelfListItem = ({ libraryId, bookShelf }) => {
         <Group gap="sm" wrap="nowrap">
             {icon}
             <Stack>
-                <Text component={Link} to={`/libraries/${libraryId}/books?bookShelf=${bookShelf.id}`} truncate="end" fw={500}>{bookShelf.name}</Text>
+                <Text component={Link} to={`/libraries/${libraryId}/explore/books?bookShelf=${bookShelf.id}`} truncate="end" fw={500}>{bookShelf.name}</Text>
                 <If condition={bookShelf?.description}
                     elseChildren={(<Text size="sm" fs="italic" c="dimmed" lineClamp={1}>
                         {t('series.noDescription')}

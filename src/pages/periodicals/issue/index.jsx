@@ -12,6 +12,7 @@ import { IconNames, IconVolumeNumber, IconIssueNumber, IconPages, IconIssueArtic
 import { getDateFormatFromFrequency } from '@/utils';
 import IssueArticlesList from "@/components/periodicals//issues/articles/issueArticlesList";
 import PageHeader from "@/components/pageHeader";
+import ShareButton from "@/components/detail/shareButton";
 import IconText from '@/components/iconText';
 import Error from '@/components/error';
 
@@ -78,9 +79,10 @@ const IssuePage = () => {
                 </Group>
             }
             details={periodical.description}
+            actions={[<ShareButton key="issue-share-button" title={`${periodical?.title} - ${title}`} />]}
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodical },
+                { title: t('header.periodicals'), href: `/libraries/${libraryId}/explore/periodicals`, icon: IconNames.Periodical },
                 { title: periodical?.title, href: `/libraries/${libraryId}/periodicals/${periodicalId}`, icon: IconNames.Periodical },
             ]} />
         <Card withBorder m="sm">

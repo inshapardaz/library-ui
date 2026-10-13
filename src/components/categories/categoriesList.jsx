@@ -20,7 +20,7 @@ const CategoriesList = ({ categories, size, filter = i => i, showIcon = true }) 
                 <IconCategory height={size} style={{ color: theme.colors.dark[2] }} />
             </If>
             {categories.filter(filter).map((category) => (
-                <Anchor key={category.id} component={Link} to={`/libraries/${libraryId}/books?category=${category.id}`}>
+                <Anchor key={category.id} component={Link} to={`/libraries/${libraryId}/explore/books?category=${category.id}`}>
                     <Pill>{category.name}</Pill >
                 </Anchor>
             ))}

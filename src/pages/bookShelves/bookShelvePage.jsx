@@ -63,7 +63,7 @@ const BookShelvePage = () => {
             details={bookShelf.description}
             breadcrumbs={[
                 { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.bookShelves'), href: `/libraries/${libraryId}/bookShelves`, icon: IconNames.BookShelf },
+                { title: t('header.bookShelves'), href: `/libraries/${libraryId}/my/shelves`, icon: IconNames.BookShelf },
             ]}
             actions={[
                 <BookShelfEditForm libraryId={libraryId} bookShelf={bookShelf} key="edit-book-shelf">

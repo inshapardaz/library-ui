@@ -20,7 +20,7 @@ import { notesApi } from "./slices/notes.api";
 
 // Every RTK Query api slice, in one place. Adding a new `*.api.js` slice only
 // requires adding it here rather than touching both `reducer` and `middleware`.
-const apiSlices = [
+export const apiSlices = [
     authApi,
     librariesApi,
     booksApi,

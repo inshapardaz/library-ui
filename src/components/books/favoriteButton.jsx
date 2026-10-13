@@ -7,12 +7,15 @@ import { notifications } from '@mantine/notifications';
 
 // Local imports
 import { IconFavorite, IconFavoriteFill } from '@/components/icon';
+import SignInFavoriteButton from '@/components/signInFavoriteButton';
+import useRequireLogin from '@/hooks/useRequireLogin';
 import { useAddBookToFavoriteMutation, useRemoveBookFromFavoriteMutation } from '@/store/slices/books.api';
 //---------------------------------------
 
 const FavoriteButton = ({ book, readonly, size }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
+    const { isLoggedIn } = useRequireLogin();
     const [addBookToFavorite, { isLoading: isAdding }] = useAddBookToFavoriteMutation();
     const [removeBookFromFavorite, { isLoading: isRemoving }] = useRemoveBookFromFavoriteMutation();
 
@@ -66,6 +69,10 @@ const FavoriteButton = ({ book, readonly, size }) => {
 
     if (book.links.create_favorite) {
         icon = (<IconFavorite height={size} style={{ color: theme.colors.dark[3] }} />);
+    }
+
+    if (!icon && !isLoggedIn && !readonly) {
+        return <SignInFavoriteButton size={size} />;
     }
 
     if (icon) {

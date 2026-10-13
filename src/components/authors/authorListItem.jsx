@@ -28,7 +28,7 @@ const AuthorListItem = ({ libraryId, author }) => {
                 <Text component={Link} to={`/libraries/${libraryId}/authors/${author.id}`} truncate="end" fw={500}>{author.name}</Text>
                 <Group mt="md">
                     <If condition={author.bookCount != null}>
-                        <IconText link={`/libraries/${libraryId}/books?author=${author.id}`}
+                        <IconText link={`/libraries/${libraryId}/explore/books?author=${author.id}`}
                             icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}
                             text={t('author.bookCount', { count: author.bookCount })} />
                     </If>
@@ -36,7 +36,7 @@ const AuthorListItem = ({ libraryId, author }) => {
                         <Divider orientation="vertical" />
                     </If>
                     <If condition={author.articleCount != null}>
-                        <IconText link={`/libraries/${libraryId}/writings?author=${author.id}`}
+                        <IconText link={`/libraries/${libraryId}/explore/writings?author=${author.id}`}
                             icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}
                             text={t('author.articleCount', { count: author.articleCount })} />
                     </If>
@@ -44,7 +44,7 @@ const AuthorListItem = ({ libraryId, author }) => {
                         <Divider orientation="vertical" />
                     </If>
                     <If condition={author.poetryCount != null}>
-                        <IconText link={`/libraries/${libraryId}/poetry?author=${author.id}`}
+                        <IconText link={`/libraries/${libraryId}/explore/poetry?author=${author.id}`}
                             icon={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}
                             text={t('author.poetryCount', { count: author.poetryCount })} />
                     </If>

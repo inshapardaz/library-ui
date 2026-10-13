@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -7,12 +6,8 @@ import {
     Card,
     Center,
     Container,
-    Divider,
     Grid,
-    Group,
-    Image,
     Skeleton,
-    Space,
     Stack,
     rem,
     useMantineTheme
@@ -26,9 +21,12 @@ import FavoriteButton from '@/components/books/favoriteButton';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import CategoriesList from '@/components/categories/categoriesList';
 import BookInfo from '@/components/books/bookInfo';
-import PageHeader from "@/components/pageHeader";
+import BookReadButton from '@/components/books/bookReadButton';
+import RelatedBooks from '@/components/books/relatedBooks';
+import DetailTemplate from '@/components/detail/detailTemplate';
+import ShareButton from '@/components/detail/shareButton';
+import AddToShelfButton from '@/components/bookShelves/addToShelfButton';
 import Error from '@/components/error';
-import If from '@/components/if';
 import { IconNames, IconBook } from '@/components/icon';
 //------------------------------------------------------
 
@@ -38,7 +36,6 @@ const BookPage = () => {
     const { t } = useTranslation();
     const { libraryId, bookId } = useParams();
     const theme = useMantineTheme();
-    const [imgError, setImgError] = useState(false);
 
     const {
         data: book,
@@ -82,60 +79,36 @@ const BookPage = () => {
         </Container>)
     }
 
-    const icon = <Center h={450}><IconBook width={250} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={320}><IconBook width={200} style={{ color: theme.colors.dark[1] }} /></Center>;
 
-    return (<Container fluid mt="sm">
-        <PageHeader title={book.title}
-            subTitle={
-                <Group visibleFrom='md'>
-                    <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
-                    <If condition={book?.seriesName}>
-                        <Divider orientation='vertical' />
-                    </If>
-                    <BookSeriesInfo libraryId={libraryId} book={book} />
-                </Group>
-            }
-            details={book.description}
-            breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.books'), href: `/libraries/${libraryId}/books`, icon: IconNames.Books },
-            ]}
-            actions={[
-                (<FavoriteButton key="book-fav-button" book={book} size={24} />),
-                (<CategoriesList key="book-categories-info" categories={book?.categories} size={24} showIcon={false} />)
-            ]} />
-        <Container size="responsive">
-            <Grid
-                mih={50}
-            >
-                <Grid.Col span="content">
-                    <If condition={book.links?.image && !imgError} elseChildren={icon}>
-                        <Image
-                            src={book?.links?.image}
-                            h={rem(400)}
-                            w="auto"
-                            radius="md"
-                            alt={book?.title}
-                            fit='contain'
-                            onError={() => setImgError(true)}
-                        />
-                    </If>
-                    <Stack hiddenFrom='md'>
-                        <Space h="md" />
-                        <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
-                        <BookSeriesInfo libraryId={libraryId} book={book} />
-                    </Stack>
-                    <Space h="md" />
-                    <BookInfo libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
-                </Grid.Col>
-                <Grid.Col span="auto">
-                    <Card withBorder>
-                        <BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} />
-                    </Card>
-                </Grid.Col>
-            </Grid>
-        </Container>
-    </Container>);
+    return (<DetailTemplate
+        title={book.title}
+        subTitle={book.description}
+        image={book?.links?.image}
+        imageAlt={book?.title}
+        fallbackIcon={icon}
+        breadcrumbs={[
+            { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+            { title: t('header.books'), href: `/libraries/${libraryId}/explore/books`, icon: IconNames.Books },
+        ]}
+        meta={
+            <Stack gap="xs">
+                <AuthorsAvatar libraryId={libraryId} authors={book?.authors} showNames />
+                <BookSeriesInfo libraryId={libraryId} book={book} />
+                <CategoriesList categories={book?.categories} size={24} showIcon={false} />
+            </Stack>
+        }
+        primaryAction={<BookReadButton libraryId={libraryId} book={book} />}
+        secondaryActions={[
+            <FavoriteButton key="book-fav-button" book={book} size={24} />,
+            <AddToShelfButton key="book-shelf-button" libraryId={libraryId} bookId={book.id} />,
+            <ShareButton key="book-share-button" title={book.title} />,
+        ]}
+        tabs={[
+            { value: 'about', content: <BookInfo book={book} /> },
+            { value: 'contents', content: <Card withBorder><BookChaptersList libraryId={libraryId} book={book} isLoading={{ loadingBook }} /></Card> },
+            { value: 'related', content: <RelatedBooks libraryId={libraryId} book={book} /> },
+        ]} />);
 }
 
 export default BookPage;

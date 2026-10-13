@@ -71,6 +71,26 @@ describe('axios.helpers response interceptor', () => {
         expect(axiosPublic.post).not.toHaveBeenCalled();
     });
 
+    it('does not refresh or redirect on a 401 for an anonymous request', async () => {
+        const error = {
+            response: { status: 401 },
+            config: { url: '/books', skipAuthRedirect: true },
+        };
+
+        await expect(responseErrorHandler(error)).rejects.toBe(error);
+
+        expect(axiosPublic.post).not.toHaveBeenCalled();
+        expect(window.location.href).toBe('');
+    });
+
+    it('does not refresh or redirect on a 403', async () => {
+        const error = { response: { status: 403 }, config: { url: '/libraries/3' } };
+
+        await expect(responseErrorHandler(error)).rejects.toBe(error);
+
+        expect(axiosPublic.post).not.toHaveBeenCalled();
+    });
+
     it('does not retry a request that already went through a refresh (_retry set)', async () => {
         const error = {
             response: { status: 401 },

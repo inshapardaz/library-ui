@@ -1,35 +1,33 @@
-import { Outlet, useParams } from "react-router-dom";
-
 // 3rd party libraries
 import { AppShell, rem } from '@mantine/core';
 
 // Local imports
 import AppFooter from "@/components/layout/appFooter";
-import AppHeader from "@/components/layout/appHeader";
-import LibraryHeader from "@/components/layout/libraryHeader";
-import { useGetLibraryQuery } from '@/store/slices/libraries.api';
-import { LibraryContext } from '@/contexts'
+import SiteHeader from "@/components/layout/siteHeader";
+import BottomTabBar from "@/components/layout/bottomTabBar";
+import { LibraryScope, LibraryOutlet } from './libraryScope';
 // -----------------------------------------
 
-const LayoutWithHeaderAndFooter = () => {
-    const { libraryId } = useParams();
-    const { data: library } = useGetLibraryQuery({ libraryId }, { skip: !libraryId });
-
+const Shell = () => {
     return (
-        <LibraryContext.Provider value={{ libraryId, library }}>
-            <AppShell>
-                <AppShell.Header>
-                    {libraryId && library ?
-                        <LibraryHeader library={library} /> :
-                        <AppHeader />
-                    }
-                </AppShell.Header>
-                <AppShell.Main pt={`calc(${rem(45)} + var(--mantine-spacing-md))`} pb='var(--mantine-spacing-md)' className="pageBackgound">
-                    <Outlet />
-                </AppShell.Main>
-                <AppFooter />
-            </AppShell>
-        </LibraryContext.Provider>)
+        // On phones the bottom tab bar (fixed) takes 60px, so the main area reserves that space.
+        <AppShell footer={{ height: { base: 60, sm: 0 } }}>
+            <AppShell.Header>
+                <SiteHeader />
+            </AppShell.Header>
+            <AppShell.Main pt={`calc(${rem(45)} + var(--mantine-spacing-md))`} pb='var(--mantine-spacing-md)' className="pageBackgound">
+                <LibraryOutlet />
+            </AppShell.Main>
+            <AppFooter />
+            <BottomTabBar />
+        </AppShell>
+    );
 }
+
+const LayoutWithHeaderAndFooter = () => (
+    <LibraryScope>
+        <Shell />
+    </LibraryScope>
+);
 
 export default LayoutWithHeaderAndFooter;

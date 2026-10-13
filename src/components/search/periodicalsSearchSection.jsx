@@ -44,7 +44,7 @@ const PeriodicalsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
                 label={t('header.periodicals')}
                 description={t('periodicals.description')}
                 leftSection={icon}
-                onClick={() => navigate(`/libraries/${libraryId}/periodicals`)} />);
+                onClick={() => navigate(`/libraries/${libraryId}/explore/periodicals`)} />);
         }
 
         return null;
