@@ -1,7 +1,7 @@
 ## MODIFIED Requirements
 
 ### Requirement: Header and footer layouts
-The app SHALL provide a redesigned header (brand, primary navigation, search, library switcher, language, theme and profile controls) and footer for browsing pages, and a minimal header-only layout for immersive reader pages.
+The app SHALL provide a redesigned header (brand, primary navigation, search, library switcher, skin switcher, language, Urdu font, theme and profile controls) and footer for browsing pages, and a minimal header-only layout for immersive reader pages.
 
 #### Scenario: Reading a book
 - **WHEN** a user opens `/libraries/12/books/5/read`
