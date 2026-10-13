@@ -787,6 +787,8 @@ const ur = {
         },
     },
     issue: {
+        readIssue: "شمارہ پڑھیں",
+        articlesTab: "مضامین",
         articleCount_zero: "مضمون موجود نہیں",
         articleCount_one: "1 مضمون",
         articleCount_other: "{{count}} مضامین",

@@ -11,12 +11,12 @@ Inshapardaz backend API (`API_URL` in [src/config.js](src/config.js)) and to a s
 for authentication (`MAIN_SITE`).
 
 - **Framework**: React 18 (JS, no TypeScript), built with Vite
-- **UI library**: [Mantine v7](https://mantine.dev/) (`@mantine/core`, `form`, `hooks`, `modals`,
+- **UI library**: [Mantine v8](https://mantine.dev/) (`@mantine/core`, `form`, `hooks`, `modals`,
   `notifications`, `spotlight`, `carousel`)
 - **State/data**: Redux Toolkit + RTK Query (one API slice per backend resource)
 - **Routing**: react-router-dom v6
 - **i18n**: react-i18next, English + Urdu (RTL via Mantine `DirectionProvider`)
-- **E2E tests**: Playwright (minimal coverage today — see Architecture notes)
+- **Tests**: Vitest (unit/component) and Playwright (end to end, against a mocked API)
 
 ## Commands
 
@@ -28,14 +28,15 @@ npm test              # playwright e2e tests
 npm run test:debug     # playwright UI mode
 ```
 
-There is no unit-test runner and no typecheck script — `lint` and `test` (Playwright) are the only
-automated checks. Run `npm run lint` after changes; run `npm test` when touching routed pages or
-flows Playwright already covers (currently just the home page, see
-[tests/specs/homePage.spec.js](tests/specs/homePage.spec.js)).
+There is no typecheck script. `lint`, `test:unit` (Vitest) and `test` (Playwright) are the automated
+checks. Run `npm run lint` and `npm run test:unit` after changes; run `npm test` when touching routed
+pages, navigation, access rules or appearance. The Playwright specs stub the API with
+[tests/support/mockApi.js](tests/support/mockApi.js), so no backend is needed. If the browser
+Playwright expects is not installed, point `PW_CHROMIUM_PATH` at an installed Chromium.
 
 ## Mantine — read this before touching UI code
 
-This app is built almost entirely from Mantine v7 components/hooks rather than custom CSS. Before
+This app is built almost entirely from Mantine v8 components/hooks rather than custom CSS. Before
 adding new UI, check whether Mantine already has the component/prop/hook you need instead of hand-rolling it.
 
 - Core docs: https://mantine.dev/core/package/
@@ -53,8 +54,15 @@ Conventions already in use — follow them rather than introducing new patterns:
 
 - Component-scoped styles live in a sibling `*.module.css` file (e.g. `appHeader.jsx` +
   `appHeader.module.css`), imported and used via CSS Modules, not styled-components or inline `sx`.
-- The single shared Mantine theme is created once in [src/App.jsx](src/App.jsx) via `createTheme`.
-  Add theme overrides there rather than per-component.
+- The single shared Mantine theme is built by `createAppTheme` in [src/theme/index.js](src/theme/index.js)
+  and passed to `MantineProvider` in [src/App.jsx](src/App.jsx). The primary colour is a palette
+  generated from the user's accent ([src/theme/accent.js](src/theme/accent.js)), so use the
+  `accent` colour (`c="accent"`, `--mantine-color-accent-*`, `--mantine-primary-color-filled`)
+  rather than hard-coded blues. Add theme overrides there rather than per-component.
+- Appearance choices (accent, Urdu font, colour mode) are user settings kept in local storage:
+  accent and Urdu font in [src/store/slices/uiSlice.js](src/store/slices/uiSlice.js), colour mode
+  by Mantine (default: follow the system). The Urdu typeface is the `data-urdu-font` attribute on
+  `<html>`, styled in [src/styles/appearance.css](src/styles/appearance.css).
 - App-wide providers are already wired in `App.jsx`: `MantineProvider`, `DirectionProvider` (RTL
   support for Urdu), `ModalsProvider`, `Notifications`. Use the existing `notifications` helpers in
   [src/utils/notifications.js](src/utils/notifications.js) (`error/success/warning/info`) instead of

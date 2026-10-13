@@ -32,7 +32,7 @@ const LibraryCard = ({ library }) => {
                     </Box>
                 </Group>
                 <Badge variant={library.isPublic ? 'light' : 'filled'} color={library.isPublic ? 'accent' : 'gray.1'}
-                    c={library.isPublic ? undefined : 'gray.7'}>
+                    c={library.isPublic ? undefined : 'gray.7'} style={{ flexShrink: 0 }}>
                     {library.isPublic ? t('landing.public') : t('landing.members')}
                 </Badge>
             </Group>

@@ -1,3 +1,5 @@
+> **Superseded** by `apply-nawishta-design`: the design is a themed Mantine UI with one look and a configurable accent, so headless Mantine and two skins are no longer pursued. Kept for history.
+
 ## Why
 
 The reader app looks like stock Mantine: default palette, system fonts, generic cards and header. It does not convey a premium reading product, and Urdu typography is an afterthought. A redesign needs a shared foundation (skinnable styling architecture, tokens, typography, shell) before individual screens are reworked, otherwise each screen will be restyled inconsistently.

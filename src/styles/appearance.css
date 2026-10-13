@@ -18,3 +18,9 @@
 :root[lang^='ur'][data-urdu-font='nastaleeq'] body {
     line-height: 2;
 }
+
+/* The page sits on the plain surface colour (white / dark), as in the design */
+:root {
+    --page-background: var(--mantine-color-body);
+    --page-background-dark: var(--mantine-color-body);
+}

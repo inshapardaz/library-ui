@@ -94,7 +94,8 @@ const AdvancedSearchPage = () => {
                         pageSize={pageSize}
                         showSearch={false}
                         showTitle={false}
-                        defaultView="list" />
+                        defaultView="list"
+                        viewToggleKey="advanced-search-view" />
                 </Box>
             </Flex>
         </Container>

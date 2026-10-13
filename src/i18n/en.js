@@ -760,6 +760,8 @@ const en = {
         },
     },
     issue: {
+        readIssue: "Read issue",
+        articlesTab: "Articles",
         articleCount_zero: "No article",
         articleCount_one: "1 article",
         articleCount_other: "{{count}} articles",
