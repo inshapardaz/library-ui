@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
 // UI libraries
-import { createTheme, DirectionProvider, Loader, MantineProvider } from '@mantine/core';
+import { DirectionProvider, Loader, MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 
@@ -15,7 +15,8 @@ import '@mantine/spotlight/styles.css';
 import '@mantine/carousel/styles.css';
 
 import Router from "./router";
-import { selectedLanguage } from "@/store/slices/uiSlice";
+import { createAppTheme } from '@/theme';
+import { selectedAccent, selectedLanguage, selectedUrduFont } from "@/store/slices/uiSlice";
 import { init } from '@/store/slices/authSlice';
 import If from '@/components/if';
 // ------------------------------------------------------------------
@@ -23,14 +24,17 @@ import If from '@/components/if';
 function App() {
     const { t } = useTranslation();
     const lang = useSelector(selectedLanguage);
+    const accent = useSelector(selectedAccent);
+    const urduFont = useSelector(selectedUrduFont);
+    const theme = useMemo(() => createAppTheme(accent), [accent]);
     const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
     const dispatch = useDispatch();
 
 
-    const theme = createTheme({
-        // fontFamily: 'MehrNastaleeq, Segoe UI, sans-serif',
-        scale: 0.9
-    });
+    // Picks the Urdu typeface (see styles/appearance.css); only has an effect while Urdu is active
+    useEffect(() => {
+        document.documentElement.setAttribute('data-urdu-font', urduFont);
+    }, [urduFont]);
 
     useEffect(() => {
         if (userLoadStatus === 'idle')
@@ -43,7 +47,7 @@ function App() {
                 <title>{t('app')}</title>
             </Helmet>
             <DirectionProvider >
-                <MantineProvider theme={theme}>
+                <MantineProvider theme={theme} defaultColorScheme="auto">
                     <Notifications limit={5} position="bottom-right" />
                     <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
                         <If condition={userLoadStatus === 'loading'}

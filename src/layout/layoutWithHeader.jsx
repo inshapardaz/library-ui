@@ -13,7 +13,7 @@ const Shell = () => {
             <AppShell.Header>
                 <SiteHeader />
             </AppShell.Header>
-            <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+            <AppShell.Main pt={`calc(${rem(64)} + var(--mantine-spacing-md))`}>
                 <LibraryOutlet />
             </AppShell.Main>
         </AppShell>

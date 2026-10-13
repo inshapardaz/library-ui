@@ -37,6 +37,7 @@ const LibrariesList = ({
         isError={isError}
         showViewToggle={true}
         viewToggleKey='library-list-view'
+        cols={{ base: 1, sm: 2, md: 3 }}
         cardRender={library => (<LibraryCard library={library} key={library.id} />)}
         listItemRender={library => (<LibraryListItem library={library} key={library.id} />)}
         onReload={refetch}

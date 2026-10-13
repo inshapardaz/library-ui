@@ -15,7 +15,7 @@ import { accountUrl } from '@/utils/returnUrl';
 
 // The primary action of a book: Read (with a format menu when there are several formats) for
 // signed-in readers, "Sign in to read" for everyone else, since reading needs a login.
-const BookReadButton = ({ libraryId, book }) => {
+const BookReadButton = ({ libraryId, book, resume = false }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.user);
@@ -54,12 +54,12 @@ const BookReadButton = ({ libraryId, book }) => {
 
     return (<>
         <If condition={readOptions.length === 1}>
-            <Button leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{t('book.actions.read.title')}</Button>
+            <Button leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{resume ? t('bookPage.resume') : t('book.actions.read.title')}</Button>
         </If>
 
         <If condition={readOptions.length > 1}>
             <Button.Group>
-                <Button leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{t('book.actions.read.title')}</Button>
+                <Button leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{resume ? t('bookPage.resume') : t('book.actions.read.title')}</Button>
                 <Menu position="bottom-end" withinPortal>
                     <Menu.Target>
                         <ActionIcon size={36} variant="filled"><IconChevronDown /></ActionIcon>
@@ -79,6 +79,7 @@ const BookReadButton = ({ libraryId, book }) => {
 
 BookReadButton.propTypes = {
     libraryId: PropTypes.string,
+    resume: PropTypes.bool,
     book: PropTypes.shape({
         id: PropTypes.number,
         pageCount: PropTypes.number,

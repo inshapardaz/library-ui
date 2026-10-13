@@ -9,8 +9,8 @@
     background-color: light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
 
     /* smaller-than is exclusive, so at exactly the sm breakpoint the header navigation
-       (visibleFrom="sm") shows and the tab bar does not */
-    @mixin smaller-than $mantine-breakpoint-sm {
+       (visibleFrom="md") shows and the tab bar does not */
+    @mixin smaller-than $mantine-breakpoint-md {
         display: flex;
     }
 }

@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 
 // Ui Library imports
-import { Anchor, Box, Breadcrumbs, Container, Group, Image, Stack, Tabs, Text, Title, rem } from '@mantine/core';
+import { Anchor, Box, Breadcrumbs, Container, Group, Stack, Tabs, Text, Title, rem } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 // Local imports
-import If from '@/components/if';
+import classes from './detailTemplate.module.css';
 import { Icon } from '@/components/icon';
 import { useState } from 'react';
 
@@ -33,6 +33,7 @@ const DetailTemplate = ({
     secondaryActions = [],
     tabs = [],
     tabParam = 'tab',
+    coverAspect = '2 / 3',
 }) => {
     const { t } = useTranslation();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -48,8 +49,8 @@ const DetailTemplate = ({
     };
 
     return (
-        <Container fluid mt="sm">
-            <Breadcrumbs mx="md" mb="md">
+        <Container size="lg" mt="md">
+            <Breadcrumbs mb="md">
                 {breadcrumbs.map((crumb) => (
                     <Anchor key={crumb.href} component={Link} to={crumb.href} size="sm">
                         {crumb.icon && <Icon name={crumb.icon} height={rem(14)} style={{ verticalAlign: 'middle' }} />}{' '}
@@ -58,12 +59,15 @@ const DetailTemplate = ({
                 ))}
             </Breadcrumbs>
 
-            <Container size="responsive">
-                <Group align="flex-start" wrap="wrap" gap="xl">
-                    <If condition={image && !imgError} elseChildren={fallbackIcon ? <Box>{fallbackIcon}</Box> : null}>
-                        <Image src={image} h={rem(320)} w="auto" radius="md" alt={imageAlt ?? title}
-                            fit="contain" onError={() => setImgError(true)} />
-                    </If>
+            <Container size="responsive" px={0}>
+                <Group align="flex-start" wrap="wrap" gap={rem(40)}>
+                    {(image || fallbackIcon) && (
+                        <Box className={classes.cover} style={{ aspectRatio: coverAspect }}>
+                            {image && !imgError
+                                ? <img src={image} alt={imageAlt ?? title} onError={() => setImgError(true)} />
+                                : fallbackIcon}
+                        </Box>
+                    )}
                     <Stack style={{ flex: 1, minWidth: rem(240) }} gap="sm">
                         <Title order={1}>{title}</Title>
                         {subTitle && <Text c="dimmed">{subTitle}</Text>}
@@ -115,6 +119,7 @@ DetailTemplate.propTypes = {
         content: PropTypes.node,
     })),
     tabParam: PropTypes.string,
+    coverAspect: PropTypes.string,
 };
 
 export default DetailTemplate;

@@ -34,6 +34,8 @@ const BooksList = ({
     showSearch = true,
     showTitle = true,
     searchMode = false,
+    defaultView = 'card',
+    viewToggleKey = 'books-list-view',
 }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -92,7 +94,8 @@ const BooksList = ({
         errorTitle={t('books.error.loading.title')}
         errorDetail={t('books.error.loading.detail')}
         showViewToggle={true}
-        viewToggleKey='books-list-view'
+        defaultView={defaultView}
+        viewToggleKey={viewToggleKey}
         cardRender={book => (<BookCard libraryId={libraryId} key={book.id} book={book} />)}
         listItemRender={book => (<BookListItem libraryId={libraryId} key={book.id} book={book} />)}
         onReload={refetch}
@@ -144,6 +147,8 @@ BooksList.propTypes = {
     showSearch: PropTypes.bool,
     showTitle: PropTypes.bool,
     searchMode: PropTypes.bool,
+    defaultView: PropTypes.oneOf(['card', 'list']),
+    viewToggleKey: PropTypes.string,
 }
 
 export default BooksList;

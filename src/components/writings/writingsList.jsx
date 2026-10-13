@@ -74,6 +74,7 @@ const WritingsList = ({
         errorTitle={t('writings.error.loading.title')}
         errorDetail={t('writings.error.loading.detail')}
         showViewToggle={true}
+        defaultView="list"
         viewToggleKey='writings-list-view'
         cardRender={writing => (<WritingCard libraryId={libraryId} key={writing.id} writing={writing} />)}
         listItemRender={writing => (<WritingListItem libraryId={libraryId} key={writing.id} writing={writing} />)}

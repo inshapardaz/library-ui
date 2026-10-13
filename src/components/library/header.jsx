@@ -3,46 +3,31 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Import
-import cx from 'clsx';
-import { Title, Text, Container, Button, Overlay, Space } from '@mantine/core';
+import { Button, Container, Group, Text, Title } from '@mantine/core';
 
 // Local import
-import classes from './header.module.css';
 import { LibraryContext } from '@/contexts'
 //-------------------------
 
+// The top of the library home: its name and description, and the way into its content.
 const LibraryHeader = () => {
     const { t } = useTranslation();
     const { library } = useContext(LibraryContext);
 
     if (!library) return null;
 
+    const base = `/libraries/${library.id}/explore`;
+
     return (
-        <div className={classes.wrapper}>
-            <Overlay color="#000" opacity={0.65} zIndex={1} />
-
-            <div className={classes.inner}>
-                <Title className={classes.title}>
-                    {library.name}
-                </Title>
-
-                <Container size={640}>
-                    <Text size="lg" className={classes.description}>
-                        {library.description}
-                    </Text>
-                </Container>
-
-                <div className={classes.controls}>
-                    <Button className={classes.control} variant="white" size="lg" component={Link} to={`/libraries/${library.id}/explore/books`}>
-                        {t('header.books')}
-                    </Button>
-                    <Space w="md" />
-                    <Button className={cx(classes.control, classes.secondaryControl)} size="lg" component={Link} to={`/libraries/${library.id}/explore/writings`}>
-                        {t('header.writings')}
-                    </Button>
-                </div>
-            </div>
-        </div>
+        <Container fluid px="lg" pt="lg">
+            <Title order={1}>{library.name}</Title>
+            {library.description && <Text size="lg" maw={640} mt="xs">{library.description}</Text>}
+            <Group mt="md">
+                <Button component={Link} to={`${base}/books`}>{t('header.books')}</Button>
+                <Button component={Link} to={`${base}/writings`} variant="light">{t('header.writings')}</Button>
+                <Button component={Link} to={`${base}/poetry`} variant="light">{t('header.poetry')}</Button>
+            </Group>
+        </Container>
     );
 }
 

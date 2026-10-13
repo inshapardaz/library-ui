@@ -11,7 +11,18 @@ test.describe('Public browsing', () => {
         await expect(page.getByText('Sign in to pick up where you left off', { exact: false })).toBeVisible();
     });
 
-    test('Explore is public and keeps the active tab in the URL', async ({ page }) => {
+    test('Explore is public and the header marks the open content type', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1/explore/poetry');
+
+        await expect(page.getByRole('link', { name: 'Poetry' })).toHaveAttribute('aria-current', 'page');
+        await page.getByRole('link', { name: 'Authors' }).click();
+        await expect(page).toHaveURL(/\/libraries\/1\/explore\/authors$/);
+        await expect(page.getByRole('link', { name: 'Authors' })).toHaveAttribute('aria-current', 'page');
+    });
+
+    test('on a phone the Explore tab strip switches content type', async ({ page }) => {
+        await page.setViewportSize({ width: 390, height: 800 });
         await mockApi(page);
         await page.goto('/libraries/1/explore/poetry');
 
@@ -123,7 +134,8 @@ test.describe('Responsive shell', () => {
         await page.setViewportSize({ width: 1280, height: 800 });
         await mockApi(page);
         await page.goto('/libraries/1');
-        await expect(page.getByRole('link', { name: 'Explore' }).first()).toBeVisible();
+        const header = page.getByRole('navigation', { name: 'Main navigation' });
+        await expect(header.getByRole('link', { name: 'Writings' })).toBeVisible();
         await expect(page.locator('nav[aria-label="Main navigation"]:visible')).toHaveCount(1);
     });
 
@@ -145,17 +157,15 @@ test.describe('Responsive shell', () => {
 });
 
 test.describe('Book detail', () => {
-    test('an anonymous visitor sees "Sign in to read" and the detail tabs', async ({ page }) => {
+    test('an anonymous visitor sees "Sign in to read", the chapters and the details', async ({ page }) => {
         await mockApi(page);
         await page.goto('/libraries/1/books/5');
 
         await expect(page.getByRole('heading', { name: 'Test Book' })).toBeVisible();
         await expect(page.getByRole('button', { name: 'Sign in to read' }).or(page.getByRole('link', { name: 'Sign in to read' }))).toBeVisible();
-        await expect(page.getByRole('tab', { name: 'About' })).toBeVisible();
-        await expect(page.getByRole('tab', { name: 'Contents' })).toBeVisible();
-
-        await page.getByRole('tab', { name: 'Related' }).click();
-        await expect(page).toHaveURL(/tab=related/);
+        await expect(page.getByRole('heading', { name: 'Chapters' })).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Details' })).toBeVisible();
+        await expect(page.getByText('The Calm Waters')).toBeVisible();
     });
 
     test('a signed-in reader gets the Read action', async ({ page }) => {
@@ -195,13 +205,78 @@ test.describe('Signed-out actions', () => {
 });
 
 test.describe('Tablet shell', () => {
-    test('at 768px the header navigation shows and the tab bar does not', async ({ page }) => {
+    test('below 992px the tab bar replaces the header navigation', async ({ page }) => {
         await page.setViewportSize({ width: 768, height: 900 });
         await mockApi(page);
         await page.goto('/libraries/1');
-        await expect(page.getByRole('link', { name: 'Explore' }).first()).toBeVisible();
+        await expect(page.getByRole('link', { name: 'Writings' })).toBeHidden();
         await expect(page.locator('nav[aria-label="Main navigation"]:visible')).toHaveCount(1);
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
         expect(overflow).toBeLessThanOrEqual(0);
+    });
+});
+
+test.describe('Appearance', () => {
+    test('the accent colour recolours the app and is remembered', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1');
+        const primary = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--mantine-primary-color-filled').trim());
+
+        expect(await primary()).toBe('#228be6');
+        await page.getByRole('button', { name: 'Appearance' }).click();
+        await page.getByRole('radio', { name: 'Orange' }).click();
+        await expect.poll(primary).toBe('#e8590c');
+
+        await page.reload();
+        await expect.poll(primary).toBe('#e8590c');
+        expect(await page.evaluate(() => window.localStorage.getItem('accent'))).toBe('#e8590c');
+    });
+
+    test('the Urdu font choice is applied to the document', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1');
+        await expect(page.locator('html')).toHaveAttribute('data-urdu-font', 'nastaleeq');
+
+        await page.getByRole('button', { name: 'Appearance' }).click();
+        await page.getByText('Naskh', { exact: true }).click();
+        await expect(page.locator('html')).toHaveAttribute('data-urdu-font', 'naskh');
+        expect(await page.evaluate(() => window.localStorage.getItem('urduFont'))).toBe('naskh');
+    });
+
+    test('dark mode can be chosen and follows the system by default', async ({ page }) => {
+        await mockApi(page);
+        await page.emulateMedia({ colorScheme: 'dark' });
+        await page.goto('/libraries/1');
+        await expect(page.locator('html')).toHaveAttribute('data-mantine-color-scheme', 'dark');
+
+        await page.getByRole('button', { name: 'Color mode' }).click();
+        await page.getByRole('menuitem', { name: 'Light' }).click();
+        await expect(page.locator('html')).toHaveAttribute('data-mantine-color-scheme', 'light');
+    });
+
+    test('the language button switches to Urdu and back', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1');
+        await page.getByRole('button', { name: 'Switch language' }).click();
+        await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+    });
+});
+
+test.describe('Advanced search', () => {
+    test('the form filters are kept in the URL', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1/search/advanced');
+
+        await page.getByLabel('Author').fill('Okonkwo');
+        await expect(page).toHaveURL(/author=Okonkwo/);
+        await page.getByRole('button', { name: 'Reset' }).click();
+        await expect(page).not.toHaveURL(/author=/);
+    });
+
+    test('the books sidebar links to it', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1/explore/books');
+        await page.getByRole('link', { name: 'Advanced search' }).click();
+        await expect(page).toHaveURL(/\/libraries\/1\/search\/advanced/);
     });
 });

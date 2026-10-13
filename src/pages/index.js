@@ -27,6 +27,7 @@ const IssueArticlePage = lazy(() => import("./periodicals/issue/article"));
 const BookShelvePage = lazy(() => import("./bookShelves/bookShelvePage"));
 
 const SearchPage = lazy(() => import("./searchPage"));
+const AdvancedSearchPage = lazy(() => import("./advancedSearchPage"));
 
 const Pages = {
     RootPage,
@@ -48,7 +49,8 @@ const Pages = {
     IssuePage,
     IssueArticlePage,
     BookShelvePage,
-    SearchPage
+    SearchPage,
+    AdvancedSearchPage
 };
 
 export default Pages;

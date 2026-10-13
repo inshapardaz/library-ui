@@ -40,7 +40,7 @@ const LastReadBooks = ({ libraryId }) => {
     } else if (books?.data && books.data.length > 0) {
         content = (<Carousel
             slideSize={{
-                base: '100%',
+                base: '46%',
                 sm: '50%',
                 md: '33.333333%',
                 lg: '20%',

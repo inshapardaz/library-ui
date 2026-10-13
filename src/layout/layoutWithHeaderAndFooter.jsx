@@ -11,11 +11,11 @@ import { LibraryScope, LibraryOutlet } from './libraryScope';
 const Shell = () => {
     return (
         // On phones the bottom tab bar (fixed) takes 60px, so the main area reserves that space.
-        <AppShell footer={{ height: { base: 60, sm: 0 } }}>
+        <AppShell footer={{ height: { base: 60, md: 0 } }}>
             <AppShell.Header>
                 <SiteHeader />
             </AppShell.Header>
-            <AppShell.Main pt={`calc(${rem(45)} + var(--mantine-spacing-md))`} pb='var(--mantine-spacing-md)' className="pageBackgound">
+            <AppShell.Main pt={`calc(${rem(64)} + var(--mantine-spacing-md))`} pb='var(--mantine-spacing-md)' className="pageBackgound">
                 <LibraryOutlet />
             </AppShell.Main>
             <AppFooter />

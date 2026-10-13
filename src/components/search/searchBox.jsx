@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 // UI Library imports
-import { ActionIcon, Button, Center, Loader, rem, Text } from "@mantine/core";
+import { ActionIcon, Button, Center, Group, Loader, rem, Text } from "@mantine/core";
 import { spotlight, Spotlight } from "@mantine/spotlight";
 
 // Local imports
@@ -108,21 +108,23 @@ const SearchBox = () => {
                     onDataStatusChange={(hasData) => handleDataStatus('periodicals', hasData)}
                 />
             </Spotlight.ActionsList>
-            <Button fullWidth
-                variant="outline"
-                size="sm"
-                mt="xs"
-                color="gray"
-                onClick={() => navigate(`/libraries/${libraryId}/search`)}>
-                {t('search.searchMore')}
-            </Button>
+            <Group grow mt="xs">
+                <Button variant="outline" size="sm" color="gray"
+                    onClick={() => navigate(`/libraries/${libraryId}/search`)}>
+                    {t('search.searchMore')}
+                </Button>
+                <Button variant="outline" size="sm" color="gray"
+                    onClick={() => navigate(`/libraries/${libraryId}/search/advanced`)}>
+                    {t('advancedSearch.title')}
+                </Button>
+            </Group>
         </Spotlight.Root >
         <ActionIcon onClick={spotlight.open}
-            variant="default"
-            size="xl"
-            aria-label="search"
+            variant="subtle"
+            size="lg"
+            aria-label={t('nav.search')}
         >
-            <IconSearch size={16} stroke={1.5} />
+            <IconSearch height={20} stroke={1.5} />
         </ActionIcon>
     </>)
 };
