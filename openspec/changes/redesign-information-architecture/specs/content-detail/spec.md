@@ -19,3 +19,14 @@ Favorite, share and (for books) add-to-shelf actions SHALL appear in the same pl
 #### Scenario: Poetry detail
 - **WHEN** a user opens a poem
 - **THEN** favorite and share appear in the same position as on a book page
+
+### Requirement: Anonymous primary action
+For an unauthenticated visitor the primary action SHALL read "Sign in to read" and lead to login with return to the same page, except for poetry and writings in libraries that allow public reading, where the normal Read action is shown.
+
+#### Scenario: Anonymous book
+- **WHEN** an unauthenticated visitor views a book
+- **THEN** the primary action is "Sign in to read"
+
+#### Scenario: Public poetry library
+- **WHEN** an unauthenticated visitor views a poem in a library that allows public reading of poetry
+- **THEN** the primary action is "Read"
