@@ -1,20 +1,20 @@
 ## 1. Discovery and decisions
 - [ ] 1.1 Confirm with the API owner: `allowPublicAccessToWritings` (boolean) is added to the GET library response
-- [ ] 1.3 Inventory every current route, header entry and deep-linkable query parameter (input to the redirect map)
-- [ ] 1.4 Decide whether reading history comes from existing last-read data or needs a backend ask
-- [ ] 1.5 Draw low-fidelity wireframes (mobile and desktop, LTR and RTL) for Home, Explore, My Library, More, detail template
+- [x] 1.3 Inventory every current route, header entry and deep-linkable query parameter (input to the redirect map)
+- [x] 1.4 Decide whether reading history comes from existing last-read data or needs a backend ask
+- [x] 1.5 Draw low-fidelity wireframes (mobile and desktop, LTR and RTL) for Home, Explore, My Library, More, detail template
 
 ## 2. Routing and access
-- [ ] 2.1 Define the new route tree and canonical URLs in `src/router.jsx`
-- [ ] 2.2 Implement legacy redirects with query preservation (books, authors, series, periodicals, writings, poetry, favorite and category filters)
-- [ ] 2.3 Split public vs protected routes; replace blanket `SecurePage` with route-level protection for My Library and the book readers
-- [ ] 2.3a Make browse requests anonymous-safe (no login redirect on 401); keep redirect for protected routes and actions
-- [ ] 2.3b Read the public-reading flag from the library response and gate poetry and writing readers accordingly (default: login required)
-- [ ] 2.4 Add action-level auth prompt (favorite, shelf, bookmark, note, progress) with return-to-page after login
-- [ ] 2.5 Persist last-used library in local storage (try/catch) and implement `/` behaviour by library count (0, 1, 2+), ignoring a remembered id not in the list
-- [ ] 2.5a Reset RTK Query caches on sign-in and sign-out so library and browse data reflect access
-- [ ] 2.5b Handle 403 on a private library by auth state: "Sign in to continue" screen when signed out (return to URL after login), 403 page when signed in
-- [ ] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 and 403 handling, 403 by auth state (signed out vs. signed in), the `allowPublicAccessToWritings` flag and library-count selection
+- [x] 2.1 Define the new route tree and canonical URLs in `src/router.jsx`
+- [x] 2.2 Implement legacy redirects with query preservation (books, authors, series, periodicals, writings, poetry, favorite and category filters)
+- [x] 2.3 Split public vs protected routes; replace blanket `SecurePage` with route-level protection for My Library and the book readers
+- [x] 2.3a Make browse requests anonymous-safe (no login redirect on 401); keep redirect for protected routes and actions
+- [x] 2.3b Read the public-reading flag from the library response and gate poetry and writing readers accordingly (default: login required)
+- [x] 2.4 Add action-level auth prompt (favorite, shelf, bookmark, note, progress) with return-to-page after login
+- [x] 2.5 Persist last-used library in local storage (try/catch) and implement `/` behaviour by library count (0, 1, 2+), ignoring a remembered id not in the list
+- [x] 2.5a Reset RTK Query caches on sign-in and sign-out so library and browse data reflect access
+- [x] 2.5b Handle 403 on a private library by auth state: "Sign in to continue" screen when signed out (return to URL after login), 403 page when signed in
+- [x] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 and 403 handling, 403 by auth state (signed out vs. signed in), the `allowPublicAccessToWritings` flag and library-count selection
 
 ## 3. Shell and navigation
 - [ ] 3.1 Single shell and header used inside and outside a library
@@ -24,21 +24,21 @@
 - [ ] 3.5 Remove category mega-menus and six-link content header
 
 ## 4. Explore
-- [ ] 4.1 Explore page with six tabs, URL-synced tab and filters
-- [ ] 4.2 Shared filter bar (category, sort) and type-specific filters
+- [x] 4.1 Explore page with six tabs, URL-synced tab and filters
+- [x] 4.2 Shared filter bar (category, sort) and type-specific filters
 - [ ] 4.3 Grid/list toggle with remembered preference, paging, empty and error states
-- [ ] 4.4 Migrate existing list pages and sidebars into Explore tabs; remove obsolete components
+- [x] 4.4 Migrate existing list pages and sidebars into Explore tabs; remove obsolete components
 
 ## 5. Home
-- [ ] 5.1 New Home sections: continue reading, new arrivals, writings, poetry, featured authors, category chips
-- [ ] 5.2 Anonymous variant with sign-in prompt in place of continue reading
+- [x] 5.1 New Home sections: continue reading, new arrivals, writings, poetry, featured authors, category chips
+- [x] 5.2 Anonymous variant with sign-in prompt in place of continue reading
 
 ## 6. My Library
-- [ ] 6.1 My Library hub page and section navigation
-- [ ] 6.2 Unified favorites across books, poetry, writings with type filter
-- [ ] 6.3 Bookshelves section (reuse existing pages)
+- [x] 6.1 My Library hub page and section navigation
+- [x] 6.2 Unified favorites across books, poetry, writings with type filter
+- [x] 6.3 Bookshelves section (reuse existing pages)
 - [ ] 6.4 Bookmarks and notes listing using existing APIs, opening reader at saved position
-- [ ] 6.5 Reading history section
+- [x] 6.5 Reading history section
 
 ## 7. Detail pages
 - [ ] 7.1 Shared detail template component (header, primary and secondary actions, tabs)

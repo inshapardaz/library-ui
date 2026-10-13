@@ -59,3 +59,100 @@ Current structure: `/` hero + library list; `/libraries/:libraryId/...` for ever
 
 - None outstanding.
 - Should reading history be stored (server) or derive from last-read data already available?
+
+## Appendix A: Route and parameter inventory (before this change)
+
+Routes (all under the library shell unless noted):
+```
+/                                           hero + library list
+/libraries                                  library list
+/libraries/:id                              library home (last read, latest, favorites)
+/libraries/:id/books | authors | series | periodicals | writings | poetry | bookShelves   lists
+/libraries/:id/books/:bookId                book detail
+/libraries/:id/authors/:authorId            author detail
+/libraries/:id/series/:seriesId             series detail
+/libraries/:id/bookShelves/:bookShelfId     shelf detail
+/libraries/:id/periodicals/:pid[/volumes/:v[/issues/:i[/articles/:a]]]
+/libraries/:id/poetry/:poetryId             poem (reader)        [header-only layout]
+/libraries/:id/writings/:articleId          writing (reader)     [header-only layout]
+/libraries/:id/books/:bookId/read           page-scan reader     [header-only layout]
+/libraries/:id/books/:bookId/ebook          ebook reader         [header-only layout]
+/libraries/:id/search                       global search
+/403 /500 *                                 error pages
+```
+Query parameters read by list pages: `query`, `sortBy`, `sortDirection`, `pageNumber`, `pageSize`; books also `series`, `author`, `category`, `bookShelf`, `favorite`, `read`; poetry/writings `author`, `category`, `favorite`, `read`; authors `authorType`; periodicals `category`, `frequency`. Readers: `page` (page-scan), `format` (ebook).
+
+Header entries before: Home, Libraries (switcher), Dictionary, Fonts, Tools, Library Editor (app header); category menus for Books, Writings, Poetry, plus Authors, Series, Periodicals, Book shelves, Search, language, dark mode, profile (library header).
+
+Redirect map (implemented in `src/utils/legacyRedirects.js`): list routes -> `/explore/:type`; `books|poetry|writings?favorite=true` -> `/my/favorites?type=`; `books?read=true` -> `/my/history`; `bookShelves` -> `/my/shelves`.
+
+## Appendix B: Reading history source (decision)
+
+History and "continue reading" use the existing `read=true` filter on the books (and articles) queries, sorted by most recent. No backend change is needed. Bookmarks and notes exist only per book in the API (`/my/books/:id/bookmarks|notes`), so My Library lists recently read books and loads each book's bookmarks and notes when it is expanded. Opening a reader at a specific bookmark is not possible today because the reader library (`@inshapardaz/qari`) has no initial-position input; readers resume from saved progress instead. A cross-book bookmarks/notes endpoint and an initial-position option would be the follow-up asks.
+
+## Appendix C: Low-fidelity wireframes
+
+Layouts are written for LTR; in RTL every horizontal arrangement mirrors (logical properties), tabs and tab bar order reverse, and directional icons flip.
+
+Mobile shell (320-480px)
+```
++-----------------------------+
+| [logo]  Library name   [Q]  |   header: brand, library, search
++-----------------------------+
+|                             |
+|   page content              |
+|                             |
++-----------------------------+
+| Home | Explore | Search | My Library | More |   bottom tab bar (hidden in readers)
++-----------------------------+
+```
+Desktop shell (>= 1024px)
+```
++-----------------------------------------------------------+
+| [logo] Library v | Home Explore My Library More | [Search] [lang][skin][theme][profile] |
++-----------------------------------------------------------+
+|  page content (max width, grid)                           |
++-----------------------------------------------------------+
+|  footer: tools links | language | copyright                |
++-----------------------------------------------------------+
+```
+Home
+```
+ [ Continue reading carousel ]   (anonymous: sign-in prompt card)
+ [ New arrivals     carousel ]
+ [ New writings     carousel ]
+ [ New poetry       carousel ]
+ [ Featured authors carousel ]
+ [ Browse by category: (chip)(chip)(chip)... ]
+```
+Explore
+```
+ Books | Writings | Poetry | Periodicals | Authors | Series     <- tabs
+ (All)(Fiction)(History)(...)   <- category chips      [Frequency v] (periodicals)
+ [Search ........] [sort v] [grid|list]       [Clear filters]
+ +------+ +------+ +------+ +------+
+ | card | | card | | card | | card |      pagination ...
+ +------+ +------+ +------+ +------+
+```
+My Library
+```
+ Continue reading | Favorites | Bookshelves | Bookmarks and notes | History
+ Favorites:  ( All | Books | Poetry | Writings )
+   Books    [card][card][card]  View all
+   Poetry   [card][card]        View all
+```
+More (sheet on mobile, menu on desktop)
+```
+ Switch library (hidden when only one)
+ Tools and resources: Dictionary, Fonts, Tools, Editor
+ Preferences: Language, Urdu font, Skin, Colour mode
+ Profile / Sign in
+```
+Detail template
+```
+ +--------+  Title
+ | cover  |  Author(s)  Series  Categories
+ +--------+  [ Read / Continue ] [ Favorite ] [ + Shelf ] [ Share ]
+ About | Contents | Related
+ ...tab content...
+```

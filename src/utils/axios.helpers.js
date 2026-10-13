@@ -37,7 +37,9 @@ axiosPrivate.interceptors.response.use(
     async error => {
         const originalRequest = error.config;
 
-        if (error.response.status === 401 && !originalRequest._retry) {
+        // Anonymous visitors browse public data: a 401 there must not trigger a token refresh
+        // or a redirect to login. See axiosBaseQuery for where this flag is set.
+        if (error.response?.status === 401 && !originalRequest._retry && !originalRequest.skipAuthRedirect) {
             await mutex.waitForUnlock(); // Ensure no other request is modifying the token
 
             if (!refreshTokenPromise) {

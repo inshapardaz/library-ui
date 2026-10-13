@@ -62,7 +62,7 @@ const LatestBooks = ({ libraryId }) => {
         <Stack>
             <Group justify="space-between">
                 <Title order={3}>{t('book.latestBooks')}</Title>
-                <Anchor component={Link} underline="hover" to={`/libraries/${libraryId}/books?sortBy=dateCreated&dortDirection=descending`}>{t('actions.viewAll')}</Anchor>
+                <Anchor component={Link} underline="hover" to={`/libraries/${libraryId}/explore/books?sortBy=dateCreated&sortDirection=descending`}>{t('actions.viewAll')}</Anchor>
             </Group>
             {content}
             <Divider my="md" />
