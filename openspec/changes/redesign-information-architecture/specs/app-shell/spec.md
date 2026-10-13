@@ -54,11 +54,11 @@ Whether poetry and writings can be read without login SHALL be controlled per li
 Private libraries SHALL be visible and accessible only to authorised members. Anonymous visitors SHALL see only public libraries, and library and browse data SHALL be refreshed when the user signs in or out.
 
 #### Scenario: Anonymous opens private library URL
-- **WHEN** an anonymous visitor opens a URL in a private library
+- **WHEN** an anonymous visitor opens a URL in a private library and the API returns 403
 - **THEN** a "Sign in to continue" screen is shown and the visitor returns to that URL after login
 
 #### Scenario: Signed-in non-member
-- **WHEN** a signed-in user who is not a member opens a URL in a private library
+- **WHEN** a signed-in user who is not a member opens a URL in a private library and the API returns 403
 - **THEN** the 403 page is shown
 
 #### Scenario: Sign in reveals more libraries

@@ -1,5 +1,5 @@
 ## 1. Discovery and decisions
-- [ ] 1.1 Confirm with the API owner: `allowPublicAccessToWritings` (boolean) is added to the GET library response, and the status codes returned for private libraries (anonymous vs. non-member)
+- [ ] 1.1 Confirm with the API owner: `allowPublicAccessToWritings` (boolean) is added to the GET library response
 - [ ] 1.3 Inventory every current route, header entry and deep-linkable query parameter (input to the redirect map)
 - [ ] 1.4 Decide whether reading history comes from existing last-read data or needs a backend ask
 - [ ] 1.5 Draw low-fidelity wireframes (mobile and desktop, LTR and RTL) for Home, Explore, My Library, More, detail template
@@ -13,8 +13,8 @@
 - [ ] 2.4 Add action-level auth prompt (favorite, shelf, bookmark, note, progress) with return-to-page after login
 - [ ] 2.5 Persist last-used library in local storage (try/catch) and implement `/` behaviour by library count (0, 1, 2+), ignoring a remembered id not in the list
 - [ ] 2.5a Reset RTK Query caches on sign-in and sign-out so library and browse data reflect access
-- [ ] 2.5b "Sign in to continue" screen for anonymous access to a private library, 403 page for non-members
-- [ ] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 handling, the `allowPublicAccessToWritings` flag and library-count selection
+- [ ] 2.5b Handle 403 on a private library by auth state: "Sign in to continue" screen when signed out (return to URL after login), 403 page when signed in
+- [ ] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 and 403 handling, 403 by auth state (signed out vs. signed in), the `allowPublicAccessToWritings` flag and library-count selection
 
 ## 3. Shell and navigation
 - [ ] 3.1 Single shell and header used inside and outside a library

@@ -40,7 +40,7 @@ Current structure: `/` hero + library list; `/libraries/:libraryId/...` for ever
    - Library and browse data depend on login state; RTK Query caches are reset on sign-in and sign-out so lists never show stale access.
    - An anonymous visitor opening a private library URL gets a "Sign in to continue" screen that returns them to that URL after login.
    - A signed-in user who is not a member gets the existing 403 page.
-   - The exact status codes the API uses for these cases (401/403/404) are confirmed in task 1.1; the client treats 401 as "sign in" and 403 as "no access".
+   - The API returns 403 for a private library both to anonymous visitors and to signed-in non-members, so status alone cannot distinguish them. On a 403 inside a library the client checks the auth state: not signed in shows "Sign in to continue"; signed in shows the 403 page. The browse request layer must therefore treat 403 as non-redirecting too.
 10. **One shell.** One header component and one tab bar serve library and non-library pages; the reader keeps its immersive header-only layout.
 11. **Detail template.** Header (cover/portrait, title, creators, series, categories), primary action (Read / Continue), secondary actions (Favorite, Add to shelf, Share), tabs About / Contents / Related. Related content: same author, same series, same category. Authors, series, poetry, writings and periodical issues reuse it.
 12. **More menu** groups: switch library, dictionary/fonts/tools/editor (external), language, skin, Urdu font, colour mode, profile, about.
@@ -48,7 +48,7 @@ Current structure: `/` hero + library list; `/libraries/:libraryId/...` for ever
 
 ## Risks / Trade-offs
 
-- The API already returns public data to anonymous callers; remaining risk is the new `allowPublicAccessToWritings` flag and the exact status codes for private libraries, both owned by the API team.
+- The API already returns public data to anonymous callers and 403 for private libraries; remaining dependency is the new `allowPublicAccessToWritings` flag owned by the API team.
 - Gating the reader moves the sign-in wall from the front door to the Read button; track drop-off and consider a preview later (out of scope here).
 - Merging list pages into tabs changes mental model for returning users → redirects plus a short first-run hint; keep old URLs working.
 - Aggregated favorites/history may need many requests or a new endpoint → start with per-type requests merged client-side; flag backend ask if too slow.
@@ -57,5 +57,5 @@ Current structure: `/` hero + library list; `/libraries/:libraryId/...` for ever
 
 ## Open Questions
 
-- Which status codes does the API return for a private library when anonymous (401?) and when signed in but not a member (403?)
+- None outstanding.
 - Should reading history be stored (server) or derive from last-read data already available?
