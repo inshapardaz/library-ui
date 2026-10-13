@@ -938,7 +938,7 @@ const helpers = {
                 querystring = querystring.slice(0, -1);
             }
 
-            return `/libraries/${libraryId}/series?${querystring}`;
+            return `/libraries/${libraryId}/explore/series?${querystring}`;
         }
 
         return null;

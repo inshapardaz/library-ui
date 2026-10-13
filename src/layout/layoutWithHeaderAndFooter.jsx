@@ -1,31 +1,25 @@
-import { useContext } from "react";
-
 // 3rd party libraries
 import { AppShell, rem } from '@mantine/core';
 
 // Local imports
 import AppFooter from "@/components/layout/appFooter";
-import AppHeader from "@/components/layout/appHeader";
-import LibraryHeader from "@/components/layout/libraryHeader";
-import { LibraryContext } from '@/contexts'
+import SiteHeader from "@/components/layout/siteHeader";
+import BottomTabBar from "@/components/layout/bottomTabBar";
 import { LibraryScope, LibraryOutlet } from './libraryScope';
 // -----------------------------------------
 
 const Shell = () => {
-    const { libraryId, library } = useContext(LibraryContext);
-
     return (
-        <AppShell>
+        // On phones the bottom tab bar (fixed) takes 60px, so the main area reserves that space.
+        <AppShell footer={{ height: { base: 60, sm: 0 } }}>
             <AppShell.Header>
-                {libraryId && library ?
-                    <LibraryHeader library={library} /> :
-                    <AppHeader />
-                }
+                <SiteHeader />
             </AppShell.Header>
             <AppShell.Main pt={`calc(${rem(45)} + var(--mantine-spacing-md))`} pb='var(--mantine-spacing-md)' className="pageBackgound">
                 <LibraryOutlet />
             </AppShell.Main>
             <AppFooter />
+            <BottomTabBar />
         </AppShell>
     );
 }

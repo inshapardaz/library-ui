@@ -6,11 +6,12 @@ import { Card, Container, Divider, Grid, Group, rem, Skeleton, useMantineTheme }
 
 // Local Imports
 import { useGetPeriodicalByIdQuery } from '@/store/slices/periodicals.api';
-import { IconNames, IconIssues } from '@/components/icon'
+import { IconNames, IconIssues, Icon } from '@/components/icon'
+import DetailTemplate from '@/components/detail/detailTemplate';
+import ShareButton from '@/components/detail/shareButton';
 import IssuesList from "@/components/periodicals/issues/issuessList";
 import FrequencyIcon from "@/components/periodicals/frequencyIcon";
 import PeriodicalSideBar from "@/components/periodicals/periodicalSideBar";
-import PageHeader from "@/components/pageHeader";
 import IconText from "@/components/iconText";
 import Error from '@/components/error';
 import If from '@/components/if'
@@ -63,42 +64,47 @@ const PeriodicalPage = () => {
         </Container>)
     }
 
-    return (<Container fluid mt="sm">
-        <PageHeader title={periodical.title}
-            imageLink={periodical.links?.image}
-            defaultIcon={IconNames.Periodical}
-            subTitle={
-                <Group>
-                    <FrequencyIcon frequency={periodical.frequency} showLabel c="dimmed" size="sm" height={16} style={{ color: theme.colors.gray[6] }} />
-                    <If condition={periodical.issueCount > 0}>
-                        <>
-                            <Divider orientation="vertical" />
-                            <IconText icon={<IconIssues height={16} style={{ color: theme.colors.dark[2] }} />} text={t('periodical.issueCount', { count: periodical.issueCount })} />
-                        </>
-                    </If>
-                </Group>
-            }
-            details={periodical.description}
-            breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.periodicals'), href: `/libraries/${libraryId}/periodicals`, icon: IconNames.Periodicals },
-            ]} />
-        <Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
-            <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
-                <PeriodicalSideBar libraryId={libraryId}
-                    periodicalId={periodicalId} />
-            </Grid.Col>
-            <Grid.Col span="auto">
-                <Card withBorder>
-                    <IssuesList libraryId={libraryId}
-                        periodicalId={periodicalId}
-                        volumeNumber={volumeNumber}
-                        frequency={periodical.frequency}
-                        showTitle={true} />
-                </Card>
-            </Grid.Col>
-        </Grid>
-    </Container>);
+    return (<DetailTemplate
+        title={periodical.title}
+        subTitle={periodical.description}
+        image={periodical.links?.image}
+        fallbackIcon={<Icon name={IconNames.Periodical} height={rem(160)} style={{ color: theme.colors.dark[1] }} />}
+        breadcrumbs={[
+            { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+            { title: t('header.periodicals'), href: `/libraries/${libraryId}/explore/periodicals`, icon: IconNames.Periodicals },
+        ]}
+        meta={
+            <Group>
+                <FrequencyIcon frequency={periodical.frequency} showLabel c="dimmed" size="sm" height={16} style={{ color: theme.colors.gray[6] }} />
+                <If condition={periodical.issueCount > 0}>
+                    <>
+                        <Divider orientation="vertical" />
+                        <IconText icon={<IconIssues height={16} style={{ color: theme.colors.dark[2] }} />} text={t('periodical.issueCount', { count: periodical.issueCount })} />
+                    </>
+                </If>
+            </Group>
+        }
+        secondaryActions={[<ShareButton key="periodical-share-button" title={periodical.title} />]}
+        tabs={[{
+            value: 'contents',
+            label: t('issues.title'),
+            content: (
+                <Grid type="container" breakpoints={{ xs: '100px', sm: '200px', md: '300px', lg: '400px', xl: '500px' }}>
+                    <Grid.Col span={{ md: 12, lg: 3, xl: 2 }} style={{ minWidth: rem(200) }}>
+                        <PeriodicalSideBar libraryId={libraryId}
+                            periodicalId={periodicalId} />
+                    </Grid.Col>
+                    <Grid.Col span="auto">
+                        <Card withBorder>
+                            <IssuesList libraryId={libraryId}
+                                periodicalId={periodicalId}
+                                volumeNumber={volumeNumber}
+                                frequency={periodical.frequency}
+                                showTitle={true} />
+                        </Card>
+                    </Grid.Col>
+                </Grid>)
+        }]} />);
 };
 
 export default PeriodicalPage;

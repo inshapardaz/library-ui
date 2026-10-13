@@ -29,7 +29,7 @@ const BookShelfCard = ({ libraryId, bookShelf }) => {
             </Card.Section>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <Text component={Link} to={`/libraries/${libraryId}/books?bookShelf=${bookShelf.id}`} truncate="end" fw={500}>{bookShelf.name}</Text>
+                <Text component={Link} to={`/libraries/${libraryId}/explore/books?bookShelf=${bookShelf.id}`} truncate="end" fw={500}>{bookShelf.name}</Text>
             </Group>
 
             <Group mt="md">

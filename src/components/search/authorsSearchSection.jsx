@@ -44,7 +44,7 @@ const AuthorsSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
                 label={t('header.authors')}
                 description={t('authors.description')}
                 leftSection={icon}
-                onClick={() => navigate(`/libraries/${libraryId}/authors`)} />);
+                onClick={() => navigate(`/libraries/${libraryId}/explore/authors`)} />);
         }
 
         return null;

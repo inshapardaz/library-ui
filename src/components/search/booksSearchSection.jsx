@@ -53,7 +53,7 @@ const BooksSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
                 label={t('header.books')}
                 description={t('books.description')}
                 leftSection={icon}
-                onClick={() => navigate(`/libraries/${libraryId}/books`)} />);
+                onClick={() => navigate(`/libraries/${libraryId}/explore/books`)} />);
         }
 
         return null;

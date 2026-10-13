@@ -17,13 +17,14 @@ import {
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetAuthorQuery } from '@/store/slices/authors.api';
-import { IconNames, IconBooks, IconWritings, IconPoetries } from '@/components/icon';
+import { IconNames, IconBooks, IconWritings, IconPoetries, Icon } from '@/components/icon';
+import DetailTemplate from '@/components/detail/detailTemplate';
+import ShareButton from '@/components/detail/shareButton';
 import { updateLinkToAuthorPage } from '@/utils';
 import BooksList from "@/components/books/booksList";
 import WritingsList from "@/components/writings/writingsList";
 import PoetryList from "@/components/poetry/poetryList";
 import Error from '@/components/error';
-import PageHeader from "@/components/pageHeader";
 
 //------------------------------------------------------
 
@@ -89,75 +90,57 @@ const AuthorPage = () => {
         </Container>)
     }
 
-    return (<Container fluid mt='md'>
-        <PageHeader title={author.name}
-            imageLink={author?.links?.image}
-            defaultIcon={IconNames.Author}
-            breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.authors'), href: `/libraries/${libraryId}/authors`, icon: IconNames.Author },
-            ]}
-            details={author.description} />
-
-        <Card withBorder>
-            <Tabs keepMounted={false} value={selectedTab} onChange={onTabChanged}>
-                <Tabs.List>
-                    <Tabs.Tab value="books" leftSection={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}>
-                        {t('author.booksTabLabel', { count: author.bookCount })}
-                    </Tabs.Tab>
-                    <Tabs.Tab value="writings" leftSection={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}>
-                        {t('author.writingsTabLabel', { count: author.articleCount })}
-                    </Tabs.Tab>
-                    <Tabs.Tab value="poetry" leftSection={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}>
-                        {t('author.poetryTabLabel', { count: author.poetryCount })}
-                    </Tabs.Tab>
-                </Tabs.List>
-                <Tabs.Panel value="books">
-                    <Box mt="md">
-                        <BooksList
-                            libraryId={libraryId}
-                            author={author?.id}
-                            query={query}
-                            sortBy={sortBy}
-                            sortDirection={sortDirection}
-                            pageNumber={pageNumber}
-                            pageSize={pageSize}
-                            showSearch
-                            showTitle={false} />
-                    </Box>
-                </Tabs.Panel>
-                <Tabs.Panel value="writings">
-                    <Box mt="md">
-                        <WritingsList
-                            libraryId={libraryId}
-                            author={author?.id}
-                            query={query}
-                            sortBy={sortBy}
-                            sortDirection={sortDirection}
-                            pageNumber={pageNumber}
-                            pageSize={pageSize}
-                            showSearch
-                            showTitle={false} />
-                    </Box>
-                </Tabs.Panel>
-                <Tabs.Panel value="poetry">
-                    <Box mt="md">
-                        <PoetryList
-                            libraryId={libraryId}
-                            author={author?.id}
-                            query={query}
-                            sortBy={sortBy}
-                            sortDirection={sortDirection}
-                            pageNumber={pageNumber}
-                            pageSize={pageSize}
-                            showSearch
-                            showTitle={false} />
-                    </Box>
-                </Tabs.Panel>
-            </Tabs>
-        </Card>
-
-    </Container >);
+    return (<DetailTemplate
+        title={author.name}
+        subTitle={author.description}
+        image={author?.links?.image}
+        fallbackIcon={<Icon name={IconNames.Author} height={rem(160)} style={{ color: theme.colors.dark[1] }} />}
+        breadcrumbs={[
+            { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+            { title: t('header.authors'), href: `/libraries/${libraryId}/explore/authors`, icon: IconNames.Author },
+        ]}
+        secondaryActions={[<ShareButton key="author-share-button" title={author.name} />]}
+        tabs={[{
+            value: 'contents',
+            label: t('detail.tabs.works'),
+            content: (
+                <Card withBorder>
+                    <Tabs keepMounted={false} value={selectedTab} onChange={onTabChanged}>
+                        <Tabs.List>
+                            <Tabs.Tab value="books" leftSection={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}>
+                                {t('author.booksTabLabel', { count: author.bookCount })}
+                            </Tabs.Tab>
+                            <Tabs.Tab value="writings" leftSection={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}>
+                                {t('author.writingsTabLabel', { count: author.articleCount })}
+                            </Tabs.Tab>
+                            <Tabs.Tab value="poetry" leftSection={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}>
+                                {t('author.poetryTabLabel', { count: author.poetryCount })}
+                            </Tabs.Tab>
+                        </Tabs.List>
+                        <Tabs.Panel value="books">
+                            <Box mt="md">
+                                <BooksList libraryId={libraryId} author={author?.id} query={query} sortBy={sortBy}
+                                    sortDirection={sortDirection} pageNumber={pageNumber} pageSize={pageSize}
+                                    showSearch showTitle={false} />
+                            </Box>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="writings">
+                            <Box mt="md">
+                                <WritingsList libraryId={libraryId} author={author?.id} query={query} sortBy={sortBy}
+                                    sortDirection={sortDirection} pageNumber={pageNumber} pageSize={pageSize}
+                                    showSearch showTitle={false} />
+                            </Box>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="poetry">
+                            <Box mt="md">
+                                <PoetryList libraryId={libraryId} author={author?.id} query={query} sortBy={sortBy}
+                                    sortDirection={sortDirection} pageNumber={pageNumber} pageSize={pageSize}
+                                    showSearch showTitle={false} />
+                            </Box>
+                        </Tabs.Panel>
+                    </Tabs>
+                </Card>)
+        }]} />);
 }
 
 export default AuthorPage;

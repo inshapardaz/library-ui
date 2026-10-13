@@ -21,8 +21,8 @@
 - [ ] 3.2 Restyle shared cards and list items (book, author, series, poetry, writing)
 
 ## 4. App shell
-- [ ] 4.1 Redesign header, mobile drawer navigation, library switcher
-- [ ] 4.2 Add skin switcher and Urdu font switcher to the header for all users
+- [ ] 4.1 Restyle the header, bottom tab bar, More sheet and library switcher built in `redesign-information-architecture` (destinations and structure are decided there)
+- [ ] 4.2 Add the skin switcher and Urdu font switcher to the More menu/sheet (and header) for all users
 - [ ] 4.3 Redesign footer
 - [ ] 4.4 Redesign 403/404/500 pages
 

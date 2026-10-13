@@ -44,7 +44,7 @@ const SeriesSearchSection = ({ t, navigate, libraryId, query, pageSize = 3,
                 label={t('header.series')}
                 description={t('series.description')}
                 leftSection={icon}
-                onClick={() => navigate(`/libraries/${libraryId}/series`)} />);
+                onClick={() => navigate(`/libraries/${libraryId}/explore/series`)} />);
         }
 
         return null;

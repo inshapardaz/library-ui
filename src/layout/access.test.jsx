@@ -89,6 +89,12 @@ describe('ReadingGate (poetry and writings)', () => {
         expect(screen.queryByText('poem')).not.toBeInTheDocument();
     });
 
+    it('waits for the library before deciding, instead of redirecting early', () => {
+        renderAt(route, { auth: { user: null, loadUserStatus: 'succeeded' }, library: undefined });
+        expect(screen.queryByText('poem')).not.toBeInTheDocument();
+        expect(window.location.href).not.toContain('/account/login');
+    });
+
     it('always lets a signed-in reader through', () => {
         renderAt(route, { auth: signedIn, library: {} });
         expect(screen.getByText('poem')).toBeInTheDocument();

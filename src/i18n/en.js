@@ -100,6 +100,24 @@ const en = {
         noLibrariesSignedOut: "Sign in to see your libraries.",
         chooseLibrary: "Choose a library",
     },
+    detail: {
+        tabs: {
+            about: "About",
+            contents: "Contents",
+            related: "Related",
+            works: "Works",
+        },
+        share: "Share",
+        linkCopied: "Link copied",
+        addToShelf: "Add to shelf",
+        noShelves: "You have no bookshelves yet",
+        related: {
+            sameAuthor: "More by this author",
+            sameSeries: "More in this series",
+            sameCategory: "More in this category",
+            empty: "Nothing related yet",
+        },
+    },
     login: {
         title: "Login",
         message: 'Welcome back!',

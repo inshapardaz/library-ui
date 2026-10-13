@@ -81,7 +81,8 @@ export const IconNames = {
     RemoveBookFromBookShelve: "removeBookFromBookShelve",
     Edit: "edit",
     Add: "add",
-    Delete: "delete"
+    Delete: "delete",
+    Share: "share"
 };
 //-------------------------------------
 
@@ -166,6 +167,7 @@ const iconTheme = {
         add: "circle-plus",
         edit: "edit",
         delete: "trash",
+        share: "share",
     }
 };
 //-------------------------------------
@@ -255,6 +257,7 @@ export const IconRemoveBookFromBookShelve = (props) => getIcon(IconNames.RemoveB
 export const IconAdd = (props) => getIcon(IconNames.Add, props)
 export const IconEdit = (props) => getIcon(IconNames.Edit, props)
 export const IconDelete = (props) => getIcon(IconNames.Delete, props)
+export const IconShare = (props) => getIcon(IconNames.Share, props)
 
 
 export const Icon = ({ name, ...rest }) => <IconifyIcon icon={getIconName(name)} {...rest} />

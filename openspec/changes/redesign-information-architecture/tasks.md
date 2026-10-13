@@ -17,16 +17,16 @@
 - [x] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 and 403 handling, 403 by auth state (signed out vs. signed in), the `allowPublicAccessToWritings` flag and library-count selection
 
 ## 3. Shell and navigation
-- [ ] 3.1 Single shell and header used inside and outside a library
-- [ ] 3.2 Mobile bottom tab bar (hidden in reader); desktop header navigation
-- [ ] 3.3 More menu (switch library, external tools, language, skin, Urdu font, theme, profile, about) and footer links
-- [ ] 3.4 Persistent search entry and Spotlight shortcut palette
-- [ ] 3.5 Remove category mega-menus and six-link content header
+- [x] 3.1 Single shell and header used inside and outside a library
+- [x] 3.2 Mobile bottom tab bar (hidden in reader); desktop header navigation
+- [x] 3.3 More menu (switch library, external tools, language, skin, Urdu font, theme, profile, about) and footer links
+- [x] 3.4 Persistent search entry and Spotlight shortcut palette
+- [x] 3.5 Remove category mega-menus and six-link content header
 
 ## 4. Explore
 - [x] 4.1 Explore page with six tabs, URL-synced tab and filters
 - [x] 4.2 Shared filter bar (category, sort) and type-specific filters
-- [ ] 4.3 Grid/list toggle with remembered preference, paging, empty and error states
+- [x] 4.3 Grid/list toggle with remembered preference, paging, empty and error states
 - [x] 4.4 Migrate existing list pages and sidebars into Explore tabs; remove obsolete components
 
 ## 5. Home
@@ -41,16 +41,16 @@
 - [x] 6.5 Reading history section
 
 ## 7. Detail pages
-- [ ] 7.1 Shared detail template component (header, primary and secondary actions, tabs)
+- [x] 7.1 Shared detail template component (header, primary and secondary actions, tabs)
 - [ ] 7.2 Apply to book, author, series, poetry, writing, periodical and issue pages
-- [ ] 7.3 Related tab (same author, series, category)
-- [ ] 7.4 "Sign in to read" primary action for anonymous visitors, honouring the poetry/writings flag
+- [x] 7.3 Related tab (same author, series, category)
+- [x] 7.4 "Sign in to read" primary action for anonymous visitors, honouring the poetry/writings flag
 
 ## 8. i18n and verification
-- [ ] 8.1 Add all new strings to `src/i18n/en.js` and `src/i18n/ur.js`
-- [ ] 8.2 Playwright: navigation, redirects, anonymous browsing, direct reader URL while signed out, protected actions, library persistence, `allowPublicAccessToWritings` on and off, private library as anonymous and as non-member
-- [ ] 8.3 RTL and mobile checks (320, 768, 1280px)
-- [ ] 8.4 `npm run lint`, `npm run test:unit`, `npm test`, `npm run build`
+- [x] 8.1 Add all new strings to `src/i18n/en.js` and `src/i18n/ur.js`
+- [x] 8.2 Playwright: navigation, redirects, anonymous browsing, direct reader URL while signed out, protected actions, library persistence, `allowPublicAccessToWritings` on and off, private library as anonymous and as non-member
+- [x] 8.3 RTL and mobile checks (320, 768, 1280px)
+- [x] 8.4 `npm run lint`, `npm run test:unit`, `npm test`, `npm run build`
 
 ## 9. Reconcile with redesign-foundation
-- [ ] 9.1 Align header content requirements between this change and `redesign-foundation`; update whichever is applied second
+- [x] 9.1 Align header content requirements between this change and `redesign-foundation`; update whichever is applied second

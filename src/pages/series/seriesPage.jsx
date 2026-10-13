@@ -6,16 +6,19 @@ import { useTranslation } from 'react-i18next';
 import {
     Card,
     Container,
+    rem,
     useMantineTheme
 } from '@mantine/core';
 
 // Local imports
 import { SortDirection } from "@/models";
 import { useGetSeriesByIdQuery } from '@/store/slices/series.api';
-import { IconNames, IconBooks } from '@/components/icon';
+import { IconNames, IconBooks, Icon } from '@/components/icon';
+import DetailTemplate from '@/components/detail/detailTemplate';
+import ShareButton from '@/components/detail/shareButton';
 import BooksList from "@/components/books/booksList";
 import IconText from "@/components/iconText";
-import PageHeader, { PageHeaderSkeleton } from "@/components/pageHeader";
+import { PageHeaderSkeleton } from "@/components/pageHeader";
 import If from "@/components/if";
 
 //------------------------------------------------------
@@ -48,34 +51,38 @@ const SeriesPage = () => {
         return "Error";
     }
 
-    return (<Container fluid mt='md'>
-        <PageHeader title={series.name}
-            imageLink={series?.links?.image}
-            defaultIcon={IconNames.Series}
-            subTitle={
-                <If condition={series.bookCount > 0}>
-                    <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('series.bookCount', { count: series.bookCount })} />
-                </If>
-            }
-            details={series.description}
-            breadcrumbs={[
-                { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
-                { title: t('header.series'), href: `/libraries/${libraryId}/series`, icon: IconNames.Series },
-            ]} />
-
-        <Card withBorder>
-            <BooksList
-                libraryId={libraryId}
-                series={series?.id}
-                query={query}
-                sortBy="seriesIndex"
-                sortDirection={sortDirection}
-                pageNumber={pageNumber}
-                pageSize={pageSize}
-                showSearch
-                showTitle={false} />
-        </Card>
-    </Container >);
+    return (<DetailTemplate
+        title={series.name}
+        subTitle={series.description}
+        image={series?.links?.image}
+        fallbackIcon={<Icon name={IconNames.Series} height={rem(160)} style={{ color: theme.colors.dark[1] }} />}
+        breadcrumbs={[
+            { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home },
+            { title: t('header.series'), href: `/libraries/${libraryId}/explore/series`, icon: IconNames.Series },
+        ]}
+        meta={
+            <If condition={series.bookCount > 0}>
+                <IconText icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />} text={t('series.bookCount', { count: series.bookCount })} />
+            </If>
+        }
+        secondaryActions={[<ShareButton key="series-share-button" title={series.name} />]}
+        tabs={[{
+            value: 'contents',
+            label: t('header.books'),
+            content: (
+                <Card withBorder>
+                    <BooksList
+                        libraryId={libraryId}
+                        series={series?.id}
+                        query={query}
+                        sortBy="seriesIndex"
+                        sortDirection={sortDirection}
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        showSearch
+                        showTitle={false} />
+                </Card>)
+        }]} />);
 }
 
 SeriesPage.propTypes = {

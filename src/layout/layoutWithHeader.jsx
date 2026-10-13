@@ -1,25 +1,17 @@
-import { useContext } from "react";
-
 // 3rd party libraries
 import { AppShell, rem } from '@mantine/core';
 
 // Local imports
-import AppHeader from "@/components/layout/appHeader";
-import LibraryHeader from "@/components/layout/libraryHeader";
-import { LibraryContext } from '@/contexts'
+import SiteHeader from "@/components/layout/siteHeader";
 import { LibraryScope, LibraryOutlet } from './libraryScope';
 // -----------------------------------------
 
+// Immersive layout for the readers: header only, no footer and no bottom tab bar.
 const Shell = () => {
-    const { libraryId, library } = useContext(LibraryContext);
-
     return (
         <AppShell>
             <AppShell.Header>
-                {libraryId && library ?
-                    <LibraryHeader library={library} /> :
-                    <AppHeader />
-                }
+                <SiteHeader />
             </AppShell.Header>
             <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
                 <LibraryOutlet />

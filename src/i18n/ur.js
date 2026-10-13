@@ -122,6 +122,24 @@ const ur = {
         noLibrariesSignedOut: "اپنی لائبریریاں دیکھنے کے لیے لاگ ان کریں۔",
         chooseLibrary: "لائبریری منتخب کریں",
     },
+    detail: {
+        tabs: {
+            about: "تعارف",
+            contents: "فہرست",
+            related: "متعلقہ",
+            works: "تخلیقات",
+        },
+        share: "شیئر کریں",
+        linkCopied: "لنک نقل ہو گیا",
+        addToShelf: "الماری میں شامل کریں",
+        noShelves: "آپ کی کوئی الماری نہیں ہے",
+        related: {
+            sameAuthor: "اسی مصنف کی مزید کتب",
+            sameSeries: "اسی سلسلے کی مزید کتب",
+            sameCategory: "اسی زمرے کی مزید کتب",
+            empty: "ابھی کچھ متعلقہ نہیں",
+        },
+    },
     login: {
         title: "داخل ہوں",
         message: 'خوش آمدید!',

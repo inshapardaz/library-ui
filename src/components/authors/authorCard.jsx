@@ -30,16 +30,16 @@ const AuthorCard = ({ libraryId, author }) => {
             </Group>
 
             <Group justify="space-between" mt="md" mb="xs">
-                <IconText link={`/libraries/${libraryId}/books?author=${author.id}`}
+                <IconText link={`/libraries/${libraryId}/explore/books?author=${author.id}`}
                     icon={<IconBooks height={16} style={{ color: theme.colors.dark[2] }} />}
                     text={author.bookCount} />
                 <Divider />
-                <IconText link={`/libraries/${libraryId}/writings?author=${author.id}`}
+                <IconText link={`/libraries/${libraryId}/explore/writings?author=${author.id}`}
                     icon={<IconWritings height={16} style={{ color: theme.colors.dark[2] }} />}
                     text={author.articleCount} />
                 <Divider />
                 <IconText
-                    link={`/libraries/${libraryId}/poetry?author=${author.id}`}
+                    link={`/libraries/${libraryId}/explore/poetry?author=${author.id}`}
                     icon={<IconPoetries height={16} style={{ color: theme.colors.dark[2] }} />}
                     text={author.poetryCount} />
             </Group>

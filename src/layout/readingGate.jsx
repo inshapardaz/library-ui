@@ -15,13 +15,19 @@ import ProtectedRoute from './protectedRoute';
 // or absent they behave like books and need a login.
 const ReadingGate = ({ type }) => {
     const user = useSelector((state) => state.auth.user);
-    const { library } = useContext(LibraryContext) ?? {};
+    const { library, error } = useContext(LibraryContext) ?? {};
 
-    if (!user && canReadWithoutLogin(library, type)) {
+    if (user) {
         return <Outlet />;
     }
 
-    return <ProtectedRoute />;
+    // The flag lives on the library response: until it has loaded (or failed) we cannot tell
+    // whether login is needed, and redirecting early would bounce visitors of public libraries.
+    if (!library && !error) {
+        return null;
+    }
+
+    return canReadWithoutLogin(library, type) ? <Outlet /> : <ProtectedRoute />;
 };
 
 ReadingGate.propTypes = {

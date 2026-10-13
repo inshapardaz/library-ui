@@ -13,6 +13,8 @@ import Error from '@/components/error';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import ReaderSetting from "@/components/reader/ebook/readerSettings";
 import MarkdownReader from "@/components/reader/ebook/markdownReader";
+import FavoriteButton from '@/components/writings/favoriteButton';
+import ShareButton from '@/components/detail/shareButton';
 //----------------------------------
 const getLanguage = (article, language) => {
     if (article && article.contents && article.contents[0]) {
@@ -92,7 +94,7 @@ const WritingPage = () => {
     }
 
     const items = [
-        (<Button variant="transparent" color="gray" size="compact-sm" component={Link} to={`/libraries/${libraryId}/writings`} leftSection={<IconWritings />} key='writings'>
+        (<Button variant="transparent" color="gray" size="compact-sm" component={Link} to={`/libraries/${libraryId}/explore/writings`} leftSection={<IconWritings />} key='writings'>
             {t('header.writings')}
         </Button>),
         (<Button variant="transparent" color="gray" size="compact-sm" onClick={open} leftSection={<IconWriting />} key="chapter">
@@ -111,6 +113,8 @@ const WritingPage = () => {
             </Group>
             <span />
             <Group wrap="nowrap">
+                <FavoriteButton article={article} size={24} />
+                <ShareButton title={article?.title} />
                 <ActionIcon onClick={openSetings} size={36} variant="default">
                     <IconSettings />
                 </ActionIcon>
