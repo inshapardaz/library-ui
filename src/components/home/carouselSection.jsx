@@ -32,7 +32,7 @@ const CarouselSection = ({ title, viewAllTo, result, render }) => {
     } else {
         content = (
             <Carousel
-                slideSize={{ base: '100%', sm: '50%', md: '33.333333%', lg: '20%' }}
+                slideSize={{ base: '46%', sm: '50%', md: '33.333333%', lg: '20%' }}
                 slideGap="md"
                 loop
                 align="start">
