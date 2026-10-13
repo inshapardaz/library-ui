@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -13,6 +13,12 @@ import ReadingGate from './readingGate';
 import ProtectedRoute from './protectedRoute';
 
 afterEach(cleanup);
+
+// jsdom cannot navigate; replace location so redirects can be observed without console noise.
+beforeEach(() => {
+    delete window.location;
+    window.location = { href: 'http://localhost/page' };
+});
 
 beforeAll(async () => {
     await i18n.changeLanguage('en');
@@ -80,8 +86,10 @@ describe('ReadingGate (poetry and writings)', () => {
     });
 
     it('requires login when the flag is false', () => {
-        renderAt(route, { auth: signedOut, library: { allowPublicAccessToWritings: false } });
+        const auth = { user: null, loadUserStatus: 'succeeded' };
+        renderAt(route, { auth, library: { allowPublicAccessToWritings: false } });
         expect(screen.queryByText('poem')).not.toBeInTheDocument();
+        expect(window.location.href).toContain('/account/login');
     });
 
     it('requires login when the flag is absent', () => {
@@ -90,7 +98,7 @@ describe('ReadingGate (poetry and writings)', () => {
     });
 
     it('waits for the library before deciding, instead of redirecting early', () => {
-        renderAt(route, { auth: { user: null, loadUserStatus: 'succeeded' }, library: undefined });
+        renderAt(route, { auth: { user: null, loadUserStatus: 'succeeded' }, library: null });
         expect(screen.queryByText('poem')).not.toBeInTheDocument();
         expect(window.location.href).not.toContain('/account/login');
     });
@@ -111,6 +119,12 @@ describe('ProtectedRoute', () => {
     it('renders nothing for an anonymous visitor', () => {
         renderAt(route, { auth: signedOut });
         expect(screen.queryByText('secret')).not.toBeInTheDocument();
+    });
+
+    it('sends a resolved anonymous visitor to login, returning to the same page', () => {
+        renderAt(route, { auth: { user: null, loadUserStatus: 'succeeded' } });
+        expect(window.location.href).toContain('/account/login?returnUrl=');
+        expect(window.location.href).toContain(encodeURIComponent('http://localhost/page'));
     });
 
     it('renders the page for a signed-in user', () => {
