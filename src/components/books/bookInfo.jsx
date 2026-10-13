@@ -2,60 +2,40 @@ import PropTypes from 'prop-types';
 import { useTranslation } from "react-i18next";
 
 // UI Library Imports
-import { useMantineTheme, Stack } from "@mantine/core";
-
-// Local Imports
-import {
-    IconPublisher,
-    IconLanguage,
-    IconWorld,
-    IconPages,
-    IconCopyright,
-    IconCalendar
-} from '@/components/icon';
-
-import IconText from '@/components/iconText';
-import If from '@/components/if';
+import { Stack, Text, Title } from "@mantine/core";
 //------------------------------------------------------
 
+// The book's details as "Label: value" lines (publisher, year, language, copyrights, pages).
 const BookInfo = ({ book }) => {
     const { t } = useTranslation();
-    const theme = useMantineTheme();
 
     if (!book) {
         return null;
     }
 
-    return (<Stack>
-        <If condition={book.yearPublished != null}>
-            <IconText size="sm" icon={<IconCalendar height={24} style={{ color: theme.colors.dark[2] }} />} text={book.yearPublished} />
-        </If>
-        <If condition={book.publisher != null}>
-            <IconText size="sm" icon={<IconPublisher height={24} style={{ color: theme.colors.dark[2] }} />} text={book.publisher} />
-        </If>
-        <If condition={book.language != null}>
-            <IconText size="sm" icon={<IconLanguage height={24} style={{ color: theme.colors.dark[2] }} />} text={t(`languages.${book.language}`)} />
-        </If>
-        <If condition={book.isPublic != null}>
-            <IconText size="sm" icon={<IconWorld height={24} style={{ color: theme.colors.dark[2] }} />} text={t("book.isPublic")} />
-        </If>
-        <If condition={book.copyrights != null}>
-            <IconText size="sm" icon={<IconCopyright height={24} style={{ color: theme.colors.dark[2] }} />} text={t(`copyrights.${book.copyrights}`)} />
-        </If>
-        <If condition={book.pageCount != null}>
-            <IconText size="sm" icon={<IconPages height={24} style={{ color: theme.colors.dark[2] }} />} text={t("book.pageCount", { count: book.pageCount })} />
-        </If>
+    const rows = [
+        [t('bookPage.publisher'), book.publisher],
+        [t('bookPage.year'), book.yearPublished],
+        [t('bookPage.language'), book.language ? t(`languages.${book.language}`) : null],
+        [t('bookPage.copyrights'), book.copyrights ? t(`copyrights.${book.copyrights}`) : null],
+        [t('bookPage.pageCount'), book.pageCount],
+    ].filter(([, value]) => value != null && value !== '');
 
-    </Stack>);
+    return (
+        <Stack gap="xs">
+            <Title order={3}>{t('bookPage.details')}</Title>
+            {rows.map(([label, value]) => (
+                <Text key={label} size="sm"><Text span fw={700}>{label}:</Text> {value}</Text>
+            ))}
+        </Stack>
+    );
 };
 
 BookInfo.propTypes = {
     book: PropTypes.shape({
-        id: PropTypes.number,
         publisher: PropTypes.string,
         yearPublished: PropTypes.number,
         language: PropTypes.string,
-        isPublic: PropTypes.bool,
         copyrights: PropTypes.string,
         pageCount: PropTypes.number
     })

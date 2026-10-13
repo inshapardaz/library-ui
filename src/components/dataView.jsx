@@ -34,6 +34,7 @@ const DataView = ({
     errorDetail = '',
     showViewToggle = true,
     viewToggleKey,
+    defaultView = 'card',
     showSearch,
     searchValue,
     showPagination = true,
@@ -49,7 +50,7 @@ const DataView = ({
 }) => {
     const [viewType, setViewType] = useLocalStorage({
         key: viewToggleKey,
-        defaultValue: 'card',
+        defaultValue: defaultView,
     });
 
     const toggleViewType = () =>
@@ -166,6 +167,7 @@ const DataView = ({
 }
 
 DataView.propTypes = {
+    defaultView: PropTypes.oneOf(['card', 'list']),
     title: PropTypes.string,
     actions: PropTypes.any,
     emptyText: PropTypes.string,

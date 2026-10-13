@@ -4,57 +4,39 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, useMantineTheme, Center, Image, Divider } from '@mantine/core';
+import { Box, Text } from '@mantine/core';
 import moment from "moment";
 
 // Local imports
 import { getDateFormatFromFrequency } from '@/utils';
-import { IconIssue, IconPages, IconIssueArticle } from '@/components/icon';
-import IconText from '@/components/iconText';
-import If from '@/components/if';
+import { IconIssue } from '@/components/icon';
+import classes from '@/components/books/bookCard.module.css';
 //---------------------------------------
-const IMAGE_HEIGHT = 400;
-const IMAGE_WIDTH = 200;
 
+// An issue as a cover tile labelled with its number, with its date and page count underneath.
 const IssueCard = ({ libraryId, issue, frequency }) => {
     const { t } = useTranslation();
-    const theme = useMantineTheme();
     const [imgError, setImgError] = useState(false);
-
-    const icon = <Center h={IMAGE_HEIGHT}><IconIssue width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
-    const title = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
+    const date = moment(issue.issueDate).format(getDateFormatFromFrequency(frequency));
+    const href = `/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.issueNumber}`;
 
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Card.Section>
-                <If condition={issue.links?.image && !imgError} elseChildren={icon}>
-                    <Image h={IMAGE_HEIGHT} radius="sm" src={issue?.links?.image} onError={() => setImgError(true)} />
-                </If>
-            </Card.Section>
-
-            <Group justify="space-between" mt="md" mb="xs">
-                <Text component={Link} to={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}/issues/${issue.issueNumber}`} truncate="end" fw={500}>{title}</Text>
-            </Group>
-
-
-            <Group>
-                <IconText size="sm" text={t('issue.volumeNumber.title', { volumeNumber: issue.volumeNumber })}
-                    link={`/libraries/${libraryId}/periodicals/${issue.periodicalId}/volumes/${issue.volumeNumber}`} />
-                <Divider orientation="vertical" />
-                <IconText size="sm" text={t('issue.issueNumber.title', { issueNumber: issue.issueNumber })} />
-            </Group>
-            <Group mt="md">
-                <If condition={issue.pageCount != null}>
-                    <IconText icon={<IconPages style={{ color: theme.colors.dark[2] }} />} text={issue.pageCount} />
-                </If>
-                <If condition={issue.articleCount != null}>
-                    <Divider orientation="vertical" />
-                    <IconText icon={<IconIssueArticle style={{ color: theme.colors.dark[2] }} />} text={issue.articleCount} />
-                </If>
-            </Group>
-        </Card>
-    )
-}
+        <Box>
+            <Link to={href} className={classes.cover} aria-label={date}>
+                {issue.links?.image && !imgError
+                    ? <img src={issue.links.image} alt="" loading="lazy" onError={() => setImgError(true)} />
+                    : (
+                        <Box ta="center" c="accent">
+                            <IconIssue width={32} />
+                            <Text fw={700} size="sm">{t('issue.issueNumber.title', { issueNumber: issue.issueNumber })}</Text>
+                        </Box>
+                    )}
+            </Link>
+            <Text component={Link} to={href} fw={600} size="sm" mt="xs" display="block" c="inherit" td="none">{date}</Text>
+            {issue.pageCount != null && <Text size="xs" c="dimmed">{t('issue.pageCount', { count: issue.pageCount })}</Text>}
+        </Box>
+    );
+};
 
 IssueCard.propTypes = {
     libraryId: PropTypes.string,
@@ -65,13 +47,11 @@ IssueCard.propTypes = {
         volumeNumber: PropTypes.number,
         issueDate: PropTypes.string,
         periodicalId: PropTypes.number,
-        periodicalName: PropTypes.string,
         pageCount: PropTypes.number,
-        articleCount: PropTypes.number,
         links: PropTypes.shape({
             image: PropTypes.string
         })
     })
 };
 
-export default IssueCard
+export default IssueCard;

@@ -6,6 +6,7 @@ import { store } from "@/store";
 import App from '@/App.jsx'
 import '@/i18n';
 import './style.css';
+import './styles/appearance.css';
 
 //---------------------------
 

@@ -1,0 +1,22 @@
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: rem(220px);
+  overflow: hidden;
+  border-radius: var(--mantine-radius-md);
+  background-color: light-dark(var(--mantine-color-accent-0), var(--mantine-color-dark-6));
+  box-shadow: var(--mantine-shadow-md);
+
+  /* smaller on phones so the title and the primary action stay above the fold */
+  @mixin smaller-than $mantine-breakpoint-sm {
+    width: rem(128px);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

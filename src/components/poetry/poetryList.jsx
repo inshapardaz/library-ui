@@ -74,6 +74,7 @@ const PoetryList = ({
         errorTitle={t('poetries.error.loading.title')}
         errorDetail={t('poetries.error.loading.detail')}
         showViewToggle={true}
+        defaultView="list"
         viewToggleKey='poetries-list-view'
         cardRender={poetry => (<PoetryCard libraryId={libraryId} key={poetry.id} poetry={poetry} />)}
         listItemRender={poetry => (<PoetryListItem libraryId={libraryId} key={poetry.id} poetry={poetry} />)}

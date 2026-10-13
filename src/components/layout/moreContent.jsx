@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 // Ui Library imports
-import { Divider, Group, NavLink, Stack, Text } from '@mantine/core';
+import { Box, Divider, Group, NavLink, Stack, Text } from '@mantine/core';
 
 // Local imports
 import { LibraryContext } from '@/contexts';
 import useLibraryCount from '@/hooks/useLibraryCount';
-import LanguageSwitch from './languageSwitch';
-import DarkModeToggle from './darkModeToggle';
+import ColorModeMenu from './colorModeMenu';
+import AppearancePanel from './appearancePanel';
+import LanguageToggle from './languageToggle';
 import Profile from './profile';
 import { IconLibrary, IconLibraryEditor, IconDictionary, IconFont, IconTools } from '@/components/icon';
 
@@ -52,10 +53,11 @@ const MoreContent = ({ compact = false, onNavigate = () => { } }) => {
                 <>
                     <Divider />
                     <Text size="xs" c="dimmed" px="sm">{t('nav.preferences')}</Text>
-                    <Group px="sm">
-                        <LanguageSwitch />
-                        <DarkModeToggle />
+                    <Group px="sm" justify="space-between">
+                        <LanguageToggle />
+                        <ColorModeMenu />
                     </Group>
+                    <Box px="sm"><AppearancePanel /></Box>
                     <Divider />
                     <Group justify="center" grow pb="xl" px="sm">
                         <Profile />

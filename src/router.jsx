@@ -48,6 +48,7 @@ const AppRoutes = () => {
                 <Route path="/libraries/:libraryId/explore" element={<LibraryExploreRedirect />} />
                 <Route path="/libraries/:libraryId/explore/:type" element={<Pages.ExplorePage />} />
                 <Route path="/libraries/:libraryId/search" element={<Pages.SearchPage />} />
+                <Route path="/libraries/:libraryId/search/advanced" element={<Pages.AdvancedSearchPage />} />
                 <Route path="/libraries/:libraryId/authors/:authorId" element={<Pages.AuthorPage />} />
                 <Route path="/libraries/:libraryId/series/:seriesId" element={<Pages.SeriesPage />} />
                 <Route path="/libraries/:libraryId/books/:bookId" element={<Pages.BookPage />} />

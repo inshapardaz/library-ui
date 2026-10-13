@@ -1,16 +1,18 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 // Ui library imports
-import { Button, Card, Container, Group, Select, Stack, Tabs } from "@mantine/core";
+import { Box, Container, Flex, Stack, Tabs, Title } from "@mantine/core";
 
 // Local Import
 import { SortDirection } from "@/models";
-import PeriodicalFrequency from "@/models/periodicalFrequency";
 import { EXPLORE_TYPES } from "@/utils/legacyRedirects";
-import PageHeader from "@/components/pageHeader";
 import CategoryChips from "@/components/explore/categoryChips";
+import ExploreSidebar from "@/components/explore/exploreSidebar";
+import { hasExploreSidebar } from "@/components/explore/exploreTypes";
 import BooksList from "@/components/books/booksList";
+import LastReadBooks from "@/components/books/lastReadBooks";
 import WritingsList from "@/components/writings/writingsList";
 import PoetryList from "@/components/poetry/poetryList";
 import PeriodicalsList from "@/components/periodicals/periodicalsList";
@@ -40,13 +42,16 @@ const TAB_LABEL_KEYS = {
 // Types whose list can be narrowed by category
 const CATEGORY_TYPES = ['books', 'writings', 'poetry', 'periodicals'];
 
-// One page for every content type. The active tab is the :type path segment and every filter
-// is a query parameter, so any view is linkable and the back button restores it.
+// One page for every content type. The active type is the :type path segment and every filter
+// is a query parameter, so any view is linkable and the back button restores it. On wide
+// screens the header navigation and the sidebar replace the tab strip and the category chips,
+// which stay for narrower screens.
 const ExplorePage = () => {
     const { t } = useTranslation();
     const { libraryId, type } = useParams();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+    const user = useSelector((state) => state.auth.user);
 
     if (!EXPLORE_TYPES.includes(type)) {
         return <Navigate to={`/libraries/${libraryId}/explore/books`} replace />;
@@ -54,36 +59,29 @@ const ExplorePage = () => {
 
     const query = searchParams.get("query");
     const category = searchParams.get("category");
-    const hasFilters = ['query', 'category', 'author', 'series', 'bookShelf', 'frequency', 'authorType']
-        .some((key) => searchParams.get(key));
+    const frequency = searchParams.get("frequency");
     const sortBy = searchParams.get("sortBy") ?? (type === 'periodicals' ? "title" : "name");
     const sortDirection = searchParams.get("sortDirection") ?? SortDirection.Ascending;
     const pageNumber = parseInt(searchParams.get("pageNumber") ?? "1", 10);
     const pageSize = parseInt(searchParams.get("pageSize") ?? "12", 10);
 
-    const selectCategory = (id) => {
+    // Sets (or, with an empty value, clears) one filter and goes back to the first page
+    const setParam = (key, value) => {
         const next = new URLSearchParams(searchParams);
-        if (id == null) next.delete('category'); else next.set('category', id);
+        if (value === null || value === undefined || value === '') next.delete(key); else next.set(key, value);
         next.delete('pageNumber');
         setSearchParams(next);
     };
 
-    const frequency = searchParams.get("frequency");
-    const selectFrequency = (value) => {
-        const next = new URLSearchParams(searchParams);
-        if (value) next.set('frequency', value); else next.delete('frequency');
-        next.delete('pageNumber');
-        setSearchParams(next);
-    };
-
-    const common = { libraryId, query, sortBy, sortDirection, pageNumber, pageSize, showSearch: true };
+    const common = { libraryId, query, sortBy, sortDirection, pageNumber, pageSize, showSearch: type !== 'books' };
 
     const lists = {
         books: <BooksList {...common} showTitle={false}
             author={searchParams.get("author")}
             category={category}
             bookShelf={searchParams.get("bookShelf")}
-            series={searchParams.get("series")} />,
+            series={searchParams.get("series")}
+            status={searchParams.get("status")} />,
         writings: <WritingsList {...common} showTitle={false}
             author={searchParams.get("author")}
             category={category} />,
@@ -98,16 +96,21 @@ const ExplorePage = () => {
         series: <SeriesList {...common} />,
     };
 
+    const sidebar = hasExploreSidebar(type) && (
+        <ExploreSidebar
+            libraryId={libraryId}
+            type={type}
+            category={category}
+            onCategory={(value) => setParam('category', value)}
+            query={query}
+            onQuery={(value) => setParam('query', value)}
+            frequency={frequency}
+            onFrequency={(value) => setParam('frequency', value)} />
+    );
+
     return (
-        <Container fluid>
-            <PageHeader
-                title={t('explore.title')}
-                subTitle={t('explore.description')}
-                defaultIcon={IconNames.Search}
-                breadcrumbs={[
-                    { title: t('header.home'), href: `/libraries/${libraryId}`, icon: IconNames.Home }
-                ]} />
-            <Stack mx="md" gap="md">
+        <Container fluid px="lg" pt="md">
+            <Stack gap="md" hiddenFrom="md" mb="md">
                 <Tabs value={type} onChange={(value) => navigate(`/libraries/${libraryId}/explore/${value}`)}>
                     <Tabs.List style={{ flexWrap: 'nowrap', overflowX: 'auto' }}>
                         {EXPLORE_TYPES.map((tab) => (
@@ -118,31 +121,20 @@ const ExplorePage = () => {
                     </Tabs.List>
                 </Tabs>
                 {CATEGORY_TYPES.includes(type) && (
-                    <CategoryChips libraryId={libraryId} type={type} selected={category} onSelect={selectCategory} />
+                    <CategoryChips libraryId={libraryId} type={type} selected={category}
+                        onSelect={(id) => setParam('category', id)} />
                 )}
-                {type === 'periodicals' && (
-                    <Select
-                        w={{ base: '100%', sm: 260 }}
-                        clearable
-                        placeholder={t('periodical.frequency.placeholder')}
-                        value={frequency}
-                        onChange={selectFrequency}
-                        data={Object.entries(PeriodicalFrequency)
-                            .filter(([key]) => key !== 'All')
-                            .map(([key, value]) => ({ value, label: t(`periodical.frequency.${key.toLowerCase()}`) }))} />
-                )}
-                {hasFilters && (
-                    <Group>
-                        <Button variant="subtle" size="compact-sm"
-                            onClick={() => navigate(`/libraries/${libraryId}/explore/${type}`)}>
-                            {t('explore.clearFilters')}
-                        </Button>
-                    </Group>
-                )}
-                <Card withBorder>
-                    {lists[type]}
-                </Card>
             </Stack>
+
+            <Flex gap="xl" align="flex-start">
+                {sidebar && <Box visibleFrom="md" w={240} style={{ flexShrink: 0 }}>{sidebar}</Box>}
+                <Stack gap="xl" style={{ flex: 1, minWidth: 0 }}>
+                    {type === 'books' && user && !query && !category && <LastReadBooks libraryId={libraryId} />}
+                    {type === 'books' && <Title order={2}>{t('exploreSidebar.library')}</Title>}
+                    {['authors', 'series', 'periodicals'].includes(type) && <Title order={2} visibleFrom="md">{t(TAB_LABEL_KEYS[type])}</Title>}
+                    {lists[type]}
+                </Stack>
+            </Flex>
         </Container>
     );
 };

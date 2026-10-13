@@ -82,7 +82,14 @@ export const IconNames = {
     Edit: "edit",
     Add: "add",
     Delete: "delete",
-    Share: "share"
+    Share: "share",
+    Monitor: "monitor",
+    Palette: "palette",
+    Check: "check",
+    Sliders: "sliders",
+    Bookmark: "bookmark",
+    File: "file",
+    Newspaper: "newspaper"
 };
 //-------------------------------------
 
@@ -168,6 +175,13 @@ const iconTheme = {
         edit: "edit",
         delete: "trash",
         share: "share",
+        monitor: "device-desktop",
+        palette: "palette",
+        check: "check",
+        sliders: "adjustments-horizontal",
+        bookmark: "bookmark",
+        file: "file-text",
+        newspaper: "news",
     }
 };
 //-------------------------------------
@@ -258,6 +272,13 @@ export const IconAdd = (props) => getIcon(IconNames.Add, props)
 export const IconEdit = (props) => getIcon(IconNames.Edit, props)
 export const IconDelete = (props) => getIcon(IconNames.Delete, props)
 export const IconShare = (props) => getIcon(IconNames.Share, props)
+export const IconMonitor = (props) => getIcon(IconNames.Monitor, props)
+export const IconPalette = (props) => getIcon(IconNames.Palette, props)
+export const IconCheck = (props) => getIcon(IconNames.Check, props)
+export const IconSliders = (props) => getIcon(IconNames.Sliders, props)
+export const IconBookmark = (props) => getIcon(IconNames.Bookmark, props)
+export const IconFile = (props) => getIcon(IconNames.File, props)
+export const IconNewspaper = (props) => getIcon(IconNames.Newspaper, props)
 
 
 export const Icon = ({ name, ...rest }) => <IconifyIcon icon={getIconName(name)} {...rest} />
