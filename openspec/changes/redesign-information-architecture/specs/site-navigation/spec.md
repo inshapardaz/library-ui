@@ -25,12 +25,24 @@ Every existing feature SHALL be reachable within two navigation actions from any
 - **WHEN** a user on Home wants to browse series
 - **THEN** choosing Explore and then the Series tab reaches the series list
 
-### Requirement: Library persistence
-The app SHALL remember the last used library and open it directly when the user returns to the site root, falling back to a library picker only when several libraries exist and none is remembered.
+### Requirement: Library selection by count
+The app SHALL decide the starting library from the list of libraries the API returns for the current user. With one library it SHALL open it directly and hide the library switcher; with several it SHALL open the remembered library, or show a picker once if none is remembered or the remembered one is not in the list; with none it SHALL show an empty state.
 
-#### Scenario: Returning user
-- **WHEN** a user whose last library was 12 opens `/`
-- **THEN** Home for library 12 is shown without a library selection step
+#### Scenario: Single library
+- **WHEN** the API returns exactly one library
+- **THEN** `/` shows Home for that library and no library switcher is shown
+
+#### Scenario: Returning user with several libraries
+- **WHEN** the API returns several libraries and the remembered library 12 is among them
+- **THEN** Home for library 12 is shown without a selection step
+
+#### Scenario: Remembered library no longer available
+- **WHEN** the remembered library is not in the returned list
+- **THEN** the library picker is shown
+
+#### Scenario: No libraries
+- **WHEN** the API returns no libraries to an anonymous visitor
+- **THEN** an empty state invites the visitor to sign in
 
 #### Scenario: Storage unavailable
 - **WHEN** local storage cannot be read

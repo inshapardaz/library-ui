@@ -12,7 +12,7 @@ The site structure mirrors the backend, not reader tasks. `/` is a hero whose on
 - Library selection becomes a switcher (under More / header) instead of a landing hurdle; the last used library is remembered and opened directly.
 - Content detail pages share one template (header, primary action, secondary actions, tabs for About / Contents / Related).
 - External sites (dictionary, fonts, tools, editor) move under **More** and the footer.
-- Browsing becomes public: Home, Explore, Search and detail pages work without login. Login or registration is required to **read** (page-scan reader, ebook reader) and for My Library, favorites, bookshelves, bookmarks, notes and progress. Whether poetry and writings can be read without login is configurable per library through a flag in the GET library API response. **BREAKING** (behavioural): previously unauthenticated users were always redirected to login.
+- Browsing becomes public: Home, Explore, Search and detail pages work without login. Login or registration is required to **read** (page-scan reader, ebook reader) and for My Library, favorites, bookshelves, bookmarks, notes and progress. Whether poetry and writings can be read without login is configurable per library through the `allowPublicAccessToWritings` flag in the GET library API response. Private (members-only) libraries are only visible after login. **BREAKING** (behavioural): previously unauthenticated users were always redirected to login.
 - Browse requests become anonymous-safe: a 401 on a browse request no longer redirects to login.
 - Introduce new canonical URLs; every existing URL keeps working through redirects. **BREAKING** for bookmarked/deep links only if redirects regress.
 
@@ -35,7 +35,7 @@ Out of scope: visual styling, skins and tokens (see `redesign-foundation`); read
 - `src/router.jsx` (new route tree, redirects), `src/layout/*` (single shell, public vs protected routes, `securePage.jsx`), `src/components/layout/*` (header, tab bar, footer).
 - `src/pages/*` (new Home, Explore, My Library pages; existing list pages become Explore tabs), `src/components/*` (shared filter bar, detail template).
 - `src/utils/axiosBaseQuery.js` / `axios.helpers.js` (anonymous-safe browse requests, no login redirect on 401), `src/store/slices/libraries.api.js` (new library flag).
-- RTK Query: possible new queries for aggregated favorites/history; backend capability for anonymous reads and the library flag must be agreed with the API owner.
+- RTK Query: possible new queries for aggregated favorites/history; the API owner must add `allowPublicAccessToWritings` to the GET library response; the API already returns only public data to anonymous calls.
 - i18n keys in both `en.js` and `ur.js`.
 - Playwright coverage for navigation, redirects and the public/protected split.
 - Sequencing with `redesign-foundation`: this change defines destinations and routes; that change defines how the shell looks. Header content requirements in both must be reconciled when either is applied.

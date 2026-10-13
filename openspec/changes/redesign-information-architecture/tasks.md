@@ -1,6 +1,5 @@
 ## 1. Discovery and decisions
-- [ ] 1.1 Confirm with the API owner that anonymous reads are supported for all browse endpoints (list any that are not) and agree the name and shape of the poetry/writings public-reading flag in the GET library response
-- [ ] 1.2 Decide library behaviour (count of libraries, default on first visit) and record in design.md
+- [ ] 1.1 Confirm with the API owner: `allowPublicAccessToWritings` (boolean) is added to the GET library response, and the status codes returned for private libraries (anonymous vs. non-member)
 - [ ] 1.3 Inventory every current route, header entry and deep-linkable query parameter (input to the redirect map)
 - [ ] 1.4 Decide whether reading history comes from existing last-read data or needs a backend ask
 - [ ] 1.5 Draw low-fidelity wireframes (mobile and desktop, LTR and RTL) for Home, Explore, My Library, More, detail template
@@ -12,8 +11,10 @@
 - [ ] 2.3a Make browse requests anonymous-safe (no login redirect on 401); keep redirect for protected routes and actions
 - [ ] 2.3b Read the public-reading flag from the library response and gate poetry and writing readers accordingly (default: login required)
 - [ ] 2.4 Add action-level auth prompt (favorite, shelf, bookmark, note, progress) with return-to-page after login
-- [ ] 2.5 Persist last-used library in local storage (try/catch) and implement `/` behaviour
-- [ ] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 handling and the public-reading flag
+- [ ] 2.5 Persist last-used library in local storage (try/catch) and implement `/` behaviour by library count (0, 1, 2+), ignoring a remembered id not in the list
+- [ ] 2.5a Reset RTK Query caches on sign-in and sign-out so library and browse data reflect access
+- [ ] 2.5b "Sign in to continue" screen for anonymous access to a private library, 403 page for non-members
+- [ ] 2.6 Unit tests for redirect mapping, library persistence, storage-unavailable fallback, anonymous-safe 401 handling, the `allowPublicAccessToWritings` flag and library-count selection
 
 ## 3. Shell and navigation
 - [ ] 3.1 Single shell and header used inside and outside a library
@@ -47,7 +48,7 @@
 
 ## 8. i18n and verification
 - [ ] 8.1 Add all new strings to `src/i18n/en.js` and `src/i18n/ur.js`
-- [ ] 8.2 Playwright: navigation, redirects, anonymous browsing, direct reader URL while signed out, protected actions, library persistence, poetry/writings flag on and off
+- [ ] 8.2 Playwright: navigation, redirects, anonymous browsing, direct reader URL while signed out, protected actions, library persistence, `allowPublicAccessToWritings` on and off, private library as anonymous and as non-member
 - [ ] 8.3 RTL and mobile checks (320, 768, 1280px)
 - [ ] 8.4 `npm run lint`, `npm run test:unit`, `npm test`, `npm run build`
 
