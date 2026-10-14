@@ -49,12 +49,38 @@ function App() {
         components: {
             Card: {
                 defaultProps: { withBorder: true, shadow: 'sm', radius: 'sm' },
+                styles: { root: { backgroundColor: 'var(--paper-card)', borderColor: 'var(--nw-line)' } },
             },
             Button: {
                 defaultProps: { radius: 'sm' },
             },
             Badge: {
                 defaultProps: { radius: 'sm' },
+            },
+            Menu: {
+                styles: { dropdown: { backgroundColor: 'var(--paper-card)', borderColor: 'var(--nw-line)' } },
+            },
+            Popover: {
+                styles: { dropdown: { backgroundColor: 'var(--paper-card)', borderColor: 'var(--nw-line)' } },
+            },
+            Drawer: {
+                styles: { content: { backgroundColor: 'var(--paper)' }, header: { backgroundColor: 'var(--paper)' } },
+            },
+            Modal: {
+                styles: { content: { backgroundColor: 'var(--paper)' }, header: { backgroundColor: 'var(--paper)' } },
+            },
+            Divider: {
+                styles: { root: { borderColor: 'var(--nw-line)' } },
+            },
+            Skeleton: {
+                styles: { root: { '--skeleton-color': 'var(--paper-deep)' } },
+            },
+            SegmentedControl: {
+                styles: {
+                    root: { backgroundColor: 'var(--paper-deep)' },
+                    indicator: { backgroundColor: 'var(--spine)' },
+                    label: { '&[data-active]': { color: 'var(--paper)' } },
+                },
             },
         },
     });

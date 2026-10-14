@@ -2,7 +2,7 @@
     background-color:  light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
     position: fixed;
     bottom: 0;
-    top: 60px;
+    top: var(--app-shell-header-height, 60px);
     left: 0;
     right: 0;
     display: flex;

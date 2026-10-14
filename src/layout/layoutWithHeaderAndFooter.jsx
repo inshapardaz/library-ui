@@ -17,14 +17,14 @@ const LayoutWithHeaderAndFooter = () => {
 
     return (
         <LibraryContext.Provider value={{ libraryId, library }}>
-            <AppShell header={{ height: { base: 60, sm: 108 } }}>
+            <AppShell header={{ height: { base: 60, sm: 108 } }} padding="md">
                 <AppShell.Header>
                     {libraryId && library ?
                         <LibraryHeader library={library} /> :
                         <AppHeader />
                     }
                 </AppShell.Header>
-                <AppShell.Main pt='var(--mantine-spacing-md)' pb='var(--mantine-spacing-md)' className="pageBackgound">
+                <AppShell.Main className="pageBackgound">
                     <Outlet />
                 </AppShell.Main>
                 <AppFooter />

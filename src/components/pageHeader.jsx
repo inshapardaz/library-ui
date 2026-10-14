@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Ui library import
-import { Anchor, Box, Breadcrumbs, Divider, Flex, Group, Image, rem, Skeleton, Spoiler, Stack, Text, Title, useMantineTheme } from '@mantine/core';
+import { Anchor, Box, Breadcrumbs, Divider, Flex, Group, Image, rem, Skeleton, Spoiler, Stack, Text, Title } from '@mantine/core';
 
 // Local import
 import If from '@/components/if';
 import { Icon } from './icon';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import classes from './pageHeader.module.css';
 //----------------------------------
 export const PageHeaderSkeleton = () => {
     return (<Flex
@@ -30,44 +31,11 @@ export const PageHeaderSkeleton = () => {
 //----------------------------------
 const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcrumbs = [], actions = [] }) => {
     const { t } = useTranslation();
-    const theme = useMantineTheme();
     const [imgError, setImgError] = useState(false);
 
-    return (<Flex
-        mih={50}
-        m="md"
-        gap="md"
-        justify="flex-start"
-        align="flex-end"
-        direction="row"
-        wrap="wrap"
-    >
-        <Box visibleFrom='sm'>
-            <If condition={imageLink && !imgError}
-                elseChildren={<Icon name={defaultIcon} height={rem(64)} style={{ color: theme.colors.dark[1] }} />}>
-                <Image
-                    src={imageLink}
-                    h={96}
-                    w="auto"
-                    radius="md"
-                    alt={title}
-                    fit="contain"
-                    onError={() => setImgError(true)}
-                />
-            </If>
-        </Box>
-        <Stack>
-            <Group>
-                <Title order={2}>{title}</Title>
-                {actions}
-            </Group>
-            <If condition={subTitle}>
-                <Title order={4}>{subTitle}</Title>
-            </If>
-        </Stack>
-        <span style={{ flex: '1' }} />
-        <If condition={breadcrumbs}>
-            <Breadcrumbs>
+    return (<div className={classes.band}>
+        <If condition={breadcrumbs && breadcrumbs.length > 0}>
+            <Breadcrumbs className={classes.crumbs}>
                 {breadcrumbs.map((item, index) => (
                     <Anchor component={Link} to={item.href} key={`breadcrumb-${index}`} underline="hover" c="dimmed">
                         <Group wrap='nowrap' gap='xs'>
@@ -80,15 +48,47 @@ const PageHeader = ({ title, subTitle, details, imageLink, defaultIcon, breadcru
                 ))}
             </Breadcrumbs>
         </If>
-        <If condition={details}>
-            <Box style={{ width: '100%' }}>
-                <Divider />
-                <Spoiler maxHeight={60} showLabel={t('actions.showMore')} hideLabel={t('actions.hide')}>
-                    <Text c="dimmed">{details}</Text>
-                </Spoiler>
+        <Flex
+            mih={50}
+            gap="md"
+            justify="flex-start"
+            align="flex-end"
+            direction="row"
+            wrap="wrap"
+        >
+            <Box visibleFrom='sm'>
+                <If condition={imageLink && !imgError}
+                    elseChildren={<span className={classes.mono}><Icon name={defaultIcon} height={rem(28)} /></span>}>
+                    <Image
+                        src={imageLink}
+                        h={96}
+                        w="auto"
+                        radius="md"
+                        alt={title}
+                        fit="contain"
+                        onError={() => setImgError(true)}
+                    />
+                </If>
             </Box>
-        </If>
-    </Flex>);
+            <Stack gap={4}>
+                <Group>
+                    <Title order={2}>{title}</Title>
+                    {actions}
+                </Group>
+                <If condition={subTitle}>
+                    <Title order={4} c="dimmed" fw={400}>{subTitle}</Title>
+                </If>
+            </Stack>
+            <If condition={details}>
+                <Box style={{ width: '100%' }}>
+                    <Divider />
+                    <Spoiler maxHeight={60} showLabel={t('actions.showMore')} hideLabel={t('actions.hide')}>
+                        <Text c="dimmed">{details}</Text>
+                    </Spoiler>
+                </Box>
+            </If>
+        </Flex>
+    </div>);
 }
 
 PageHeader.propTypes = {
