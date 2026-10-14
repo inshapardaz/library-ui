@@ -1,17 +1,22 @@
 import { Badge, Card, Chip, Pagination, Tabs, createTheme } from '@mantine/core';
-import { makeAccentPalette } from './accent';
+import { makeAccentPalette, DEFAULT_ACCENT } from './accent';
 
-// The app's look, taken from the Nawishta design: Mantine's own gray scale, Open Sans, a
-// small radius scale and a user-chosen accent colour (see ./accent.js). The accent is the only
-// part that changes at runtime, so the theme is rebuilt from it.
+// The app's look, taken from the Nawishta paper/spine redesign: a warm paper surface, a dark
+// spine-green for navigation/branding and gold as the fixed accent (buttons, links, active
+// states - generated from DEFAULT_ACCENT via the same palette utility the old colour picker
+// used). There is no runtime accent choice any more; the theme is static.
 
 const FONT_FALLBACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
 
-export const createAppTheme = (accent) => createTheme({
+// The spine green used for the header/footer/nav chrome (see styles/appearance.css for the
+// --spine/--paper/--gold custom properties those components are built from).
+const SPINE = ['#eaf1ee', '#cfe0d9', '#a9c9bd', '#7fb09d', '#5a9882', '#3d7f69', '#2a6654', '#1f4a40', '#163831', '#0f2621'];
+
+export const createAppTheme = () => createTheme({
     scale: 0.94,
     primaryColor: 'accent',
     primaryShade: { light: 6, dark: 5 },
-    colors: { accent: makeAccentPalette(accent) },
+    colors: { accent: makeAccentPalette(DEFAULT_ACCENT), spine: SPINE },
     fontFamily: `"Open Sans Variable", "Open Sans", ${FONT_FALLBACK}`,
     headings: {
         fontFamily: `"Open Sans Variable", "Open Sans", ${FONT_FALLBACK}`,

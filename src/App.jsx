@@ -16,7 +16,7 @@ import '@mantine/carousel/styles.css';
 
 import Router from "./router";
 import { createAppTheme } from '@/theme';
-import { selectedAccent, selectedLanguage, selectedUrduFont } from "@/store/slices/uiSlice";
+import { selectedLanguage, selectedUrduFont } from "@/store/slices/uiSlice";
 import { init } from '@/store/slices/authSlice';
 import If from '@/components/if';
 // ------------------------------------------------------------------
@@ -24,9 +24,8 @@ import If from '@/components/if';
 function App() {
     const { t } = useTranslation();
     const lang = useSelector(selectedLanguage);
-    const accent = useSelector(selectedAccent);
     const urduFont = useSelector(selectedUrduFont);
-    const theme = useMemo(() => createAppTheme(accent), [accent]);
+    const theme = useMemo(() => createAppTheme(), []);
     const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
     const dispatch = useDispatch();
 

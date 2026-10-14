@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ActionIcon, Popover } from '@mantine/core';
 
 // Local Imports
-import { IconPalette } from '@/components/icon';
+import { IconFont } from '@/components/icon';
 import AppearancePanel from './appearancePanel';
 //----------------------------------------------
 
@@ -15,7 +15,7 @@ const AppearanceMenu = () => {
         <Popover position="bottom-end" shadow="md" withinPortal>
             <Popover.Target>
                 <ActionIcon variant="subtle" size="lg" aria-label={t('appearance.title')}>
-                    <IconPalette height={20} />
+                    <IconFont height={20} />
                 </ActionIcon>
             </Popover.Target>
             <Popover.Dropdown>
