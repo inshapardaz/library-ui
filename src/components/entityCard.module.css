@@ -1,3 +1,8 @@
+.card {
+  background-color: var(--paper-card);
+  border-color: var(--nw-line);
+}
+
 .tile {
   display: flex;
   align-items: center;

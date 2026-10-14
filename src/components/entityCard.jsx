@@ -15,7 +15,7 @@ const EntityCard = ({ to, name, image, icon, aspect = '1', meta }) => {
     const [imgError, setImgError] = useState(false);
 
     return (
-        <Card padding={0} shadow="xs" h="100%" style={{ overflow: 'hidden' }}>
+        <Card padding={0} shadow="xs" h="100%" className={classes.card} style={{ overflow: 'hidden' }}>
             <Link to={to} className={classes.tile} style={{ aspectRatio: aspect }} aria-label={name}>
                 {image && !imgError
                     ? <img src={image} alt="" loading="lazy" onError={() => setImgError(true)} />

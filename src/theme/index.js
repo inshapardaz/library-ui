@@ -1,4 +1,4 @@
-import { Badge, Card, Chip, Pagination, Tabs, createTheme } from '@mantine/core';
+import { Badge, Card, Chip, Divider, Menu, Pagination, Popover, Skeleton, Tabs, createTheme } from '@mantine/core';
 import { makeAccentPalette, DEFAULT_ACCENT } from './accent';
 
 // The app's look, taken from the Nawishta paper/spine redesign: a warm paper surface, a dark
@@ -38,5 +38,9 @@ export const createAppTheme = () => createTheme({
         Chip: Chip.extend({ defaultProps: { radius: 'xl' } }),
         Pagination: Pagination.extend({ defaultProps: { radius: 'xl' } }),
         Tabs: Tabs.extend({ defaultProps: { color: 'accent' } }),
+        Menu: Menu.extend({ styles: { dropdown: { backgroundColor: 'var(--paper-card)', borderColor: 'var(--nw-line)' } } }),
+        Popover: Popover.extend({ styles: { dropdown: { backgroundColor: 'var(--paper-card)', borderColor: 'var(--nw-line)' } } }),
+        Divider: Divider.extend({ styles: { root: { borderColor: 'var(--nw-line)' } } }),
+        Skeleton: Skeleton.extend({ styles: { root: { '--skeleton-color': 'var(--paper-deep)' } } }),
     },
 });
