@@ -1,15 +1,38 @@
 :root {
-    --reader-theme-white-background: white;
-    --reader-theme-white-foreground: #15141a;
-    --reader-theme-dark-background: #343434;
-    --reader-theme-dark-foreground: white;
-    --reader-theme-sepia-background: #f4ecd8;
-    --reader-theme-sepia-foreground: #5b4636;
+    /* Nawishta paper/spine palette */
+    --ink: #241f17;
+    --ink-soft: #5a5140;
+    --paper: #f3ead8;
+    --paper-deep: #e9ddc2;
+    --paper-card: #fbf6ea;
+    --spine: #163831;
+    --spine-light: #1f4a40;
+    --spine-dark: #0f2621;
+    --gold: #b8863a;
+    --gold-soft: #e4c990;
+    --oxblood: #7c2c29;
+    --nw-line: rgba(36, 31, 23, .14);
+
+    --reader-theme-white-background: var(--paper-card);
+    --reader-theme-white-foreground: var(--ink);
+    --reader-theme-dark-background: var(--spine-dark);
+    --reader-theme-dark-foreground: #e9e2ce;
+    --reader-theme-sepia-background: #f0e4c8;
+    --reader-theme-sepia-foreground: #4a3f2c;
     --reader-theme-grey-background: #d7d7db;
     --reader-theme-grey-foreground: #15141a;
 
-    --page-background: var(--mantine-color-gray-0);
-    --page-background-dark: var(--mantine-color-gray-8);
+    --page-background: var(--paper);
+    --page-background-dark: var(--spine-dark);
+}
+
+:where([data-mantine-color-scheme="dark"]) {
+    --ink: #ede6d4;
+    --ink-soft: #c9bea3;
+    --paper: #1b2420;
+    --paper-deep: #202b26;
+    --paper-card: #22302b;
+    --nw-line: rgba(237, 230, 212, .12);
 }
 
 .markdownReaderTheme--White {
@@ -38,4 +61,9 @@
     @mixin where-dark {
         background-color: var(--page-background-dark);
     }
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
 }
