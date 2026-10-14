@@ -19,8 +19,37 @@
     line-height: 2;
 }
 
-/* The page sits on the plain surface colour (white / dark), as in the design */
+/* Nawishta paper/spine palette (see nawishta-redesign-mockup.html). These are the fixed
+   chrome colours (nav/footer/cards) -- independent of Mantine's `accent` colour, which is the
+   gold shade used for buttons/links/active states (see theme/accent.js). */
 :root {
-    --page-background: var(--mantine-color-body);
-    --page-background-dark: var(--mantine-color-body);
+    --ink: #241f17;
+    --ink-soft: #5a5140;
+    --paper: #f3ead8;
+    --paper-deep: #e9ddc2;
+    --paper-card: #fbf6ea;
+    --spine: #163831;
+    --spine-light: #1f4a40;
+    --spine-dark: #0f2621;
+    --gold: #b8863a;
+    --gold-soft: #e4c990;
+    --oxblood: #7c2c29;
+    --nw-line: rgba(36, 31, 23, .14);
+
+    --page-background: var(--paper);
+    --page-background-dark: var(--spine-dark);
+}
+
+:where([data-mantine-color-scheme="dark"]) {
+    --ink: #ede6d4;
+    --ink-soft: #c9bea3;
+    --paper: #1b2420;
+    --paper-deep: #202b26;
+    --paper-card: #22302b;
+    --nw-line: rgba(237, 230, 212, .12);
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--ink);
 }
