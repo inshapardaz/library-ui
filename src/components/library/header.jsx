@@ -33,7 +33,7 @@ const LibraryHeader = () => {
                 </Container>
 
                 <div className={classes.controls}>
-                    <Button className={classes.control} variant="white" size="lg" component={Link} to={`/libraries/${library.id}/books`}>
+                    <Button className={classes.control} size="lg" component={Link} to={`/libraries/${library.id}/books`}>
                         {t('header.books')}
                     </Button>
                     <Space w="md" />

@@ -1,0 +1,22 @@
+.chip {
+    background-color: var(--paper-card);
+    border: rem(1px) solid var(--nw-line);
+    border-inline-start: rem(4px) solid var(--gold);
+    border-radius: 3px;
+    padding: rem(10px) rem(16px);
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-sm);
+    text-decoration: none;
+    color: var(--ink);
+
+    @mixin hover {
+        border-inline-start-color: var(--oxblood);
+        background-color: var(--paper-deep);
+    }
+}
+
+.count {
+    color: var(--ink-soft);
+    font-size: var(--mantine-font-size-xs);
+}

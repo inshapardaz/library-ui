@@ -1,13 +1,17 @@
 .wrapper {
   position: relative;
-  padding-top: rem(180px);
-  padding-bottom: rem(130px);
-  background-image: url(https://images.unsplash.com/photo-1534580250660-88e8789d3e85?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80);
+  padding-top: rem(110px);
+  padding-bottom: rem(90px);
+  background-image:
+    radial-gradient(1200px 500px at 15% -10%, rgba(184, 134, 58, .35), transparent 60%),
+    linear-gradient(155deg, rgba(22, 56, 49, .88) 0%, rgba(15, 38, 33, .94) 78%),
+    url(https://images.unsplash.com/photo-1534580250660-88e8789d3e85?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80);
   background-size: cover;
   background-position: center;
+  background-blend-mode: normal, normal, luminosity;
 
   @media (max-width: $mantine-breakpoint-xs) {
-    padding-top: rem(80px);
+    padding-top: rem(70px);
     padding-bottom: rem(50px);
   }
 }
@@ -18,17 +22,13 @@
 }
 
 .title {
-  font-weight: 800;
+  font-weight: 600;
   font-size: rem(40px);
-  letter-spacing: rem(-1px);
   padding-left: var(--mantine-spacing-md);
   padding-right: var(--mantine-spacing-md);
-  color: var(--mantine-color-white);
+  color: var(--paper-card);
   margin-bottom: var(--mantine-spacing-xs);
   text-align: center;
-  font-family:
-    Greycliff CF,
-    var(--mantine-font-family);
 
   @media (max-width: $mantine-breakpoint-xs) {
     font-size: rem(28px);
@@ -36,12 +36,8 @@
   }
 }
 
-.highlight {
-  color: var(--mantine-color-primary-4);
-}
-
 .description {
-  color: var(--mantine-color-gray-0);
+  color: var(--paper-deep);
   text-align: center;
 
   @media (max-width: $mantine-breakpoint-xs) {
@@ -65,6 +61,12 @@
 .control {
   height: rem(42px);
   font-size: var(--mantine-font-size-md);
+  background-color: var(--gold);
+  color: var(--spine-dark);
+
+  @mixin hover {
+    background-color: var(--gold-soft);
+  }
 
   &:not(:first-of-type) {
     margin-left: var(--mantine-spacing-md);
@@ -79,10 +81,12 @@
 }
 
 .secondaryControl {
-  color: var(--mantine-color-white);
-  background-color: rgba(255, 255, 255, 0.4);
+  color: var(--paper-card);
+  background-color: rgba(255, 255, 255, 0.12);
+  border: rem(1px) solid rgba(243, 234, 216, .4);
 
   @mixin hover {
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--gold-soft);
   }
 }

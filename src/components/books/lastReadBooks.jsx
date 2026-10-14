@@ -12,6 +12,7 @@ import { useGetBooksQuery } from '@/store/slices/books.api';
 import { SortDirection } from "@/models";
 import { IconRefreshAlert } from '@/components/icon';
 import BookCard from './bookCard';
+import classes from './shelfSection.module.css';
 //------------------------------
 const LastReadBooks = ({ libraryId }) => {
     const { t } = useTranslation();
@@ -61,7 +62,7 @@ const LastReadBooks = ({ libraryId }) => {
         <Stack>
             <Group justify="space-between">
                 <Title order={3}>{t('book.lastRead')}</Title>
-                <Anchor component={Link} underline="hover" to={`/libraries/${libraryId}/books?read=true`}>{t('actions.viewAll')}</Anchor>
+                <Anchor className={classes.viewAll} component={Link} underline="hover" to={`/libraries/${libraryId}/books?read=true`}>{t('actions.viewAll')}</Anchor>
             </Group>
             {content}
             <Divider my="md" />

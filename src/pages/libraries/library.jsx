@@ -9,6 +9,7 @@ import LatestBooks from "@/components/books/latestBooks";
 import FavioriteBooks from "@/components/books/favoriteBooks";
 // import SuggestedBooks from "@/components/books/suggestedBooks";
 import LastReadBooks from "@/components/books/lastReadBooks";
+import CategoryChips from "@/components/library/categoryChips";
 //---------------------------------------------
 
 const LibraryPage = () => {
@@ -27,6 +28,7 @@ const LibraryPage = () => {
                                         <LatestBooks libraryId={libraryId} />
                                         <FavioriteBooks libraryId={libraryId} />
                                         {/* <SuggestedBooks libraryId={libraryId} /> */}
+                                        <CategoryChips libraryId={libraryId} />
                                 </Stack>
                         </Container>
                 </Stack>);

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 // ui library
-import { Overlay, Container, Title, Button, Text, Card } from '@mantine/core';
+import { Container, Title, Button, Text, Card } from '@mantine/core';
 import LibrariesList from "@/components/library/librariesList";
 
 // Local imports
@@ -13,12 +13,8 @@ const HomePage = () => {
     const { t } = useTranslation();
     return (<>
         <div className={classes.hero}>
-            <Overlay
-                gradient="linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, .65) 40%)"
-                opacity={1}
-                zIndex={0}
-            />
             <Container className={classes.container} size="md">
+                <Text className={classes.eyebrow}>{t('header.libraries')}</Text>
                 <Title className={classes.title}>
                     {t('app')}
                 </Title>
@@ -26,7 +22,7 @@ const HomePage = () => {
                     {t('slogan')}
                 </Text>
 
-                <Button variant="gradient" size="xl" radius="xl" className={classes.control}
+                <Button size="xl" radius="sm" className={classes.control}
                     component="a" href="#libraries-list">
                     {t('actions.seeMore')}
                 </Button>
