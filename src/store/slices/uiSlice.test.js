@@ -15,43 +15,24 @@ describe('uiSlice appearance settings', () => {
         vi.restoreAllMocks();
     });
 
-    it('starts with the default accent and Nastaleeq', async () => {
+    it('starts with Nastaleeq by default', async () => {
         const { uiSlice } = await load();
         const state = uiSlice.reducer(undefined, { type: 'init' });
-        expect(state.accent).toBe('#228be6');
         expect(state.urduFont).toBe('nastaleeq');
     });
 
     it('restores saved choices from local storage', async () => {
-        window.localStorage.setItem('accent', '#e8590c');
         window.localStorage.setItem('urduFont', 'naskh');
         const { uiSlice } = await load();
         const state = uiSlice.reducer(undefined, { type: 'init' });
-        expect(state.accent).toBe('#e8590c');
         expect(state.urduFont).toBe('naskh');
     });
 
     it('ignores saved values that are not valid', async () => {
-        window.localStorage.setItem('accent', 'not-a-colour');
         window.localStorage.setItem('urduFont', 'comic-sans');
         const { uiSlice } = await load();
         const state = uiSlice.reducer(undefined, { type: 'init' });
-        expect(state.accent).toBe('#228be6');
         expect(state.urduFont).toBe('nastaleeq');
-    });
-
-    it('setAccent updates the state and remembers the colour', async () => {
-        const { uiSlice, setAccent } = await load();
-        const state = uiSlice.reducer(undefined, setAccent('#7950f2'));
-        expect(state.accent).toBe('#7950f2');
-        expect(window.localStorage.getItem('accent')).toBe('#7950f2');
-    });
-
-    it('setAccent rejects an invalid colour', async () => {
-        const { uiSlice, setAccent } = await load();
-        const state = uiSlice.reducer(undefined, setAccent('red'));
-        expect(state.accent).toBe('#228be6');
-        expect(window.localStorage.getItem('accent')).toBeNull();
     });
 
     it('setUrduFont updates the state, remembers it and rejects unknown fonts', async () => {
@@ -67,9 +48,9 @@ describe('uiSlice appearance settings', () => {
         const boom = () => { throw new Error('blocked'); };
         vi.spyOn(Storage.prototype, 'getItem').mockImplementation(boom);
         vi.spyOn(Storage.prototype, 'setItem').mockImplementation(boom);
-        const { uiSlice, setAccent } = await load();
+        const { uiSlice, setUrduFont } = await load();
         const initial = uiSlice.reducer(undefined, { type: 'init' });
-        expect(initial.accent).toBe('#228be6');
-        expect(() => uiSlice.reducer(initial, setAccent('#0ca678'))).not.toThrow();
+        expect(initial.urduFont).toBe('nastaleeq');
+        expect(() => uiSlice.reducer(initial, setUrduFont('naskh'))).not.toThrow();
     });
 });

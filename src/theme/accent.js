@@ -1,7 +1,9 @@
-// The accent colour is user-chosen (appearance menu), so Mantine's palette for it is generated
-// from a single hex value: five tints, the colour itself, and three shades.
+// The app's fixed accent colour (the Nawishta paper/spine design's gold). Mantine's palette for
+// it is generated from a single hex value: five tints, the colour itself, and three shades.
+// ACCENT_PRESETS/isValidAccent are kept around as general-purpose palette utilities even though
+// the app no longer exposes a colour picker for them.
 
-export const DEFAULT_ACCENT = '#228be6';
+export const DEFAULT_ACCENT = '#b8863a';
 
 export const ACCENT_PRESETS = [
     { key: 'blue', hex: '#228be6' },

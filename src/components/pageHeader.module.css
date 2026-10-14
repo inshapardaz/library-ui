@@ -1,0 +1,26 @@
+.band {
+    background-color: var(--paper-deep);
+    border-bottom: rem(1px) solid var(--nw-line);
+    padding: var(--mantine-spacing-xl) var(--mantine-spacing-md);
+    margin: calc(var(--mantine-spacing-md) * -1) calc(var(--mantine-spacing-md) * -1) var(--mantine-spacing-md);
+}
+
+.crumbs {
+    margin-bottom: var(--mantine-spacing-sm);
+}
+
+.crumbs a {
+    color: var(--ink-soft);
+}
+
+.mono {
+    width: rem(52px);
+    height: rem(52px);
+    border-radius: 50%;
+    background-color: var(--spine);
+    color: var(--gold-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}

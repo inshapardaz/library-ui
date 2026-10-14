@@ -3,9 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 // 3rd party imports
 import Cookies from 'js-cookie'
 
-// Local imports
-import { DEFAULT_ACCENT, isValidAccent } from '@/theme/accent';
-
 //----------------------------------------
 
 // Appearance choices live in local storage. It can throw (private mode, blocked site data), so
@@ -26,7 +23,6 @@ const writeSetting = (key, value) => {
 };
 
 export const URDU_FONTS = ['nastaleeq', 'naskh'];
-const storedAccent = readSetting('accent');
 const storedUrduFont = readSetting('urduFont');
 
 const detectedLanguage = window.localStorage.i18nextLng ?? "ur";
@@ -59,7 +55,6 @@ export const uiSlice = createSlice({
     name: "ui",
     initialState: {
         mode: window.localStorage.uiMode ?? "light",
-        accent: isValidAccent(storedAccent) ? storedAccent : DEFAULT_ACCENT,
         urduFont: URDU_FONTS.includes(storedUrduFont) ? storedUrduFont : 'nastaleeq',
         locale: detectedLanguage,
         readerFont: Cookies.get('reader-font') ?? 'AdobeArabic',
@@ -85,11 +80,6 @@ export const uiSlice = createSlice({
                 document.querySelector("html").setAttribute("lang", lang.locale);
                 document.querySelector("body").setAttribute("dir", lang.dir);
             }
-        },
-        setAccent: (state, action) => {
-            if (!isValidAccent(action.payload)) return;
-            state.accent = action.payload;
-            writeSetting('accent', action.payload);
         },
         setUrduFont: (state, action) => {
             if (!URDU_FONTS.includes(action.payload)) return;
@@ -124,7 +114,6 @@ export const {
     toggleUiMode,
     setLocale,
     setUiMode,
-    setAccent,
     setUrduFont,
     setReaderFont,
     setReaderFontSize,
@@ -133,5 +122,4 @@ export const {
     setReaderLineHeight
 } = uiSlice.actions;
 export const selectedLanguage = (state) => languages[state.ui.locale];
-export const selectedAccent = (state) => state.ui.accent;
 export const selectedUrduFont = (state) => state.ui.urduFont;

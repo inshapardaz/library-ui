@@ -1,14 +1,21 @@
 .reader {
-    background-color:  light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+    background-color: var(--paper);
     position: fixed;
     bottom: 0;
-    top: 60px;
+    top: rem(64px);
     left: 0;
     right: 0;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     align-content: stretch;
+}
+
+.imageReaderHeader {
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+    border-bottom: rem(1px) solid var(--nw-line);
+    background-color: var(--paper-card);
+    color: var(--ink-soft);
 }
 
 .contents {

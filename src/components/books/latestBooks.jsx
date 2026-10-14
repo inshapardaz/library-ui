@@ -12,6 +12,7 @@ import { useGetBooksQuery } from '@/store/slices/books.api';
 import { IconRefreshAlert } from '@/components/icon';
 import BookCard from './bookCard';
 import { SortDirection } from "@/models";
+import classes from '@/components/home/shelfSection.module.css';
 
 //------------------------------
 const LatestBooks = ({ libraryId }) => {
@@ -62,7 +63,7 @@ const LatestBooks = ({ libraryId }) => {
         <Stack>
             <Group justify="space-between">
                 <Title order={3}>{t('book.latestBooks')}</Title>
-                <Anchor component={Link} underline="hover" to={`/libraries/${libraryId}/explore/books?sortBy=dateCreated&sortDirection=descending`}>{t('actions.viewAll')}</Anchor>
+                <Anchor className={classes.viewAll} component={Link} underline="hover" to={`/libraries/${libraryId}/explore/books?sortBy=dateCreated&sortDirection=descending`}>{t('actions.viewAll')}</Anchor>
             </Group>
             {content}
             <Divider my="md" />

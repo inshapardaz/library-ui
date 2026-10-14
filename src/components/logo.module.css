@@ -1,7 +1,19 @@
 .logo {
-    height: 32px;
-    width: 32px;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    display: block;
+    background: conic-gradient(from 45deg, var(--gold), #e0b567, var(--oxblood), var(--gold));
+    padding: 3px;
+}
+
+.logoInner {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: var(--spine-dark);
     background-image: url('@/assets/images/logo.png');
-    background-size: contain;
+    background-size: 70%;
     background-repeat: no-repeat;
+    background-position: center;
 }

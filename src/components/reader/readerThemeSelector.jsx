@@ -18,26 +18,26 @@ const ReaderThemeSelector = () => {
 
     const themes = [{
         value: "White",
-        label: (<Stack align="center">
-            <ColorSwatch color="var(--reader-theme-white-background)" />
+        label: (<Stack align="center" gap={4}>
+            <ColorSwatch color="var(--reader-theme-white-background)" withShadow={false} style={{ border: '2px solid var(--nw-line)' }} />
             {t('reader.themes.white')}
         </Stack>)
     }, {
         value: "Dark",
-        label: (<Stack align="center">
-            <ColorSwatch color="var(--reader-theme-dark-background)" />
+        label: (<Stack align="center" gap={4}>
+            <ColorSwatch color="var(--reader-theme-dark-background)" withShadow={false} style={{ border: '2px solid var(--nw-line)' }} />
             {t('reader.themes.dark')}
         </Stack>)
     }, {
         value: "Sepia",
-        label: (<Stack align="center">
-            <ColorSwatch color="var(--reader-theme-sepia-background)" />
+        label: (<Stack align="center" gap={4}>
+            <ColorSwatch color="var(--reader-theme-sepia-background)" withShadow={false} style={{ border: '2px solid var(--nw-line)' }} />
             {t('reader.themes.sepia')}
         </Stack>)
     }, {
         value: "Grey",
-        label: (<Stack align="center">
-            <ColorSwatch color="var(--reader-theme-grey-background)" />
+        label: (<Stack align="center" gap={4}>
+            <ColorSwatch color="var(--reader-theme-grey-background)" withShadow={false} style={{ border: '2px solid var(--nw-line)' }} />
             {t('reader.themes.grey')}
         </Stack>)
     }];
