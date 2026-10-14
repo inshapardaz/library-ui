@@ -8,6 +8,7 @@ import { Carousel } from '@mantine/carousel';
 
 // Local imports
 import { IconRefreshAlert } from '@/components/icon';
+import classes from './shelfSection.module.css';
 
 //------------------------------
 
@@ -47,7 +48,7 @@ const CarouselSection = ({ title, viewAllTo, result, render }) => {
             <Stack>
                 <Group justify="space-between">
                     <Title order={3}>{title}</Title>
-                    {viewAllTo && <Anchor component={Link} underline="hover" to={viewAllTo}>{t('actions.viewAll')}</Anchor>}
+                    {viewAllTo && <Anchor className={classes.viewAll} component={Link} underline="hover" to={viewAllTo}>{t('actions.viewAll')}</Anchor>}
                 </Group>
                 {content}
                 <Divider my="md" />

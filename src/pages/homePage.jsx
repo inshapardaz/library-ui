@@ -30,7 +30,7 @@ const HomePage = () => {
         <Container size="lg" py="xl">
             <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl" mb="xl">
                 <Stack gap="md" justify="center">
-                    <Badge variant="light" color="violet" size="lg" w="fit-content">{t('landing.badge')}</Badge>
+                    <Badge variant="light" color="accent" size="lg" w="fit-content">{t('landing.badge')}</Badge>
                     <Title order={1} fz={{ base: 36, md: 52 }} lh={1.2}>{t('landing.title')}</Title>
                     <Text size="lg" maw={520}>{t('slogan')}</Text>
                     <Group>
