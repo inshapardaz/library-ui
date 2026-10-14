@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 
 // UI library imports
 import {
-    Avatar,
     Center,
-    List,
     Skeleton,
     Space,
     Stack,
@@ -16,6 +14,7 @@ import {
 } from '@mantine/core';
 import { useGetBookChaptersQuery } from '@/store/slices/books.api';
 import Error from '@/components/error';
+import classes from './bookChaptersList.module.css';
 //------------------------------------------------------
 
 const PRIMARY_COL_HEIGHT = rem(300);
@@ -49,17 +48,17 @@ const BookChaptersList = ({ libraryId, book, isLoading }) => {
     return (<Stack>
         <Title order={3}>{t('book.chapters')}</Title>
         <Space h="md" />
-        <List size="lg" spacing="md"> {chapters.data.map((chapter =>
-            <List.Item key={chapter.id}
-                icon={
-                    <Avatar color="cyan" radius="xl">{chapter.chapterNumber}</Avatar>
-                }>
-                <Text component={Link} to={`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber}`}>
-                    {chapter.title}
+        <div className={classes.list}>
+            {chapters.data.map((chapter) => (
+                <Text key={chapter.id}
+                    component={Link}
+                    to={`/libraries/${libraryId}/books/${book.id}/ebook?chapter=${chapter.chapterNumber}`}
+                    className={classes.row}>
+                    <span className={classes.num}>{chapter.chapterNumber}</span>
+                    <span>{chapter.title}</span>
                 </Text>
-            </List.Item>
-        ))}
-        </List>
+            ))}
+        </div>
     </Stack>
     );
 }

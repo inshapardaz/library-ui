@@ -1,0 +1,7 @@
+.badge {
+    font-size: var(--mantine-font-size-xs);
+    padding: rem(6px) rem(12px);
+    border-radius: 999px;
+    border: rem(1px) solid var(--nw-line);
+    background-color: var(--paper-card);
+}

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
 
 // UI Library Imports
-import { useMantineTheme, Stack, Button, Menu, ActionIcon } from "@mantine/core";
+import { useMantineTheme, Stack, Group, Button, Menu, ActionIcon } from "@mantine/core";
 
 // Local Imports
 import {
@@ -21,6 +21,7 @@ import {
 import IconText from '@/components/iconText';
 import If from '@/components/if';
 import BookFormat from '@/models/bookFormat';
+import classes from './bookInfo.module.css';
 //------------------------------------------------------
 
 const BookInfo = ({ libraryId, book }) => {
@@ -53,24 +54,26 @@ const BookInfo = ({ libraryId, book }) => {
     };
 
     return (<Stack>
-        <If condition={book.yearPublished != null}>
-            <IconText size="sm" icon={<IconCalendar height={24} style={{ color: theme.colors.dark[2] }} />} text={book.yearPublished} />
-        </If>
-        <If condition={book.publisher != null}>
-            <IconText size="sm" icon={<IconPublisher height={24} style={{ color: theme.colors.dark[2] }} />} text={book.publisher} />
-        </If>
-        <If condition={book.language != null}>
-            <IconText size="sm" icon={<IconLanguage height={24} style={{ color: theme.colors.dark[2] }} />} text={t(`languages.${book.language}`)} />
-        </If>
-        <If condition={book.isPublic != null}>
-            <IconText size="sm" icon={<IconWorld height={24} style={{ color: theme.colors.dark[2] }} />} text={t("book.isPublic")} />
-        </If>
-        <If condition={book.copyrights != null}>
-            <IconText size="sm" icon={<IconCopyright height={24} style={{ color: theme.colors.dark[2] }} />} text={t(`copyrights.${book.copyrights}`)} />
-        </If>
-        <If condition={book.pageCount != null}>
-            <IconText size="sm" icon={<IconPages height={24} style={{ color: theme.colors.dark[2] }} />} text={t("book.pageCount", { count: book.pageCount })} />
-        </If>
+        <Group gap="xs">
+            <If condition={book.yearPublished != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconCalendar height={16} style={{ color: theme.colors.dark[2] }} />} text={book.yearPublished} />
+            </If>
+            <If condition={book.publisher != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconPublisher height={16} style={{ color: theme.colors.dark[2] }} />} text={book.publisher} />
+            </If>
+            <If condition={book.language != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconLanguage height={16} style={{ color: theme.colors.dark[2] }} />} text={t(`languages.${book.language}`)} />
+            </If>
+            <If condition={book.isPublic != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconWorld height={16} style={{ color: theme.colors.dark[2] }} />} text={t("book.isPublic")} />
+            </If>
+            <If condition={book.copyrights != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconCopyright height={16} style={{ color: theme.colors.dark[2] }} />} text={t(`copyrights.${book.copyrights}`)} />
+            </If>
+            <If condition={book.pageCount != null}>
+                <IconText className={classes.badge} size="sm" icon={<IconPages height={16} style={{ color: theme.colors.dark[2] }} />} text={t("book.pageCount", { count: book.pageCount })} />
+            </If>
+        </Group>
 
         <If condition={readOptions.length === 1}>
             <Button fullWidth leftSection={readOptions[0]?.icon} onClick={() => goToOption(readOptions[0])}>{t('book.actions.read.title')}</Button>

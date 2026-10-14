@@ -1,0 +1,30 @@
+.list {
+    border-top: rem(1px) solid var(--nw-line);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-md);
+    padding: rem(14px) rem(4px);
+    border-bottom: rem(1px) solid var(--nw-line);
+    text-decoration: none;
+    color: var(--ink);
+
+    @mixin hover {
+        background-color: var(--paper-card);
+    }
+}
+
+.num {
+    width: rem(32px);
+    height: rem(32px);
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--paper-deep);
+    color: var(--spine);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
