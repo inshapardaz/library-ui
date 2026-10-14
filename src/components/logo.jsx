@@ -13,13 +13,13 @@ const Logo = ({ showName = false, title }) => {
     const { t } = useTranslation()
     if (showName) {
         return (
-            <Group>
-                <i className={classes.logo} />
+            <Group gap="xs">
+                <i className={classes.logo}><i className={classes.logoInner} /></i>
                 <Title order={4} visibleFrom="sm">{title ? title : t('app')}</Title>
             </Group>);
     }
 
-    return (<i className={classes.logo} />);
+    return (<i className={classes.logo}><i className={classes.logoInner} /></i>);
 }
 
 Logo.propTypes = {

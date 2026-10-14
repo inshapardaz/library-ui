@@ -19,6 +19,10 @@ const en = {
     },
     footer: {
         copyrights: "Copyrights Nawishta. All rights reserved.",
+        discover: "Discover",
+        community: "Community",
+        resources: "Resources",
+        about: "About Nawishta, the biggest urdu digital library",
     },
     actions: {
         seeMore: "See More...",

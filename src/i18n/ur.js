@@ -43,6 +43,10 @@ const ur = {
     },
     footer: {
         copyrights: "نوشتہ۔ تمام حقوق محفوظ ہیں",
+        discover: "دریافت کریں",
+        community: "برادری",
+        resources: "وسائل",
+        about: "اردو کی سب سے بڑی ڈیجیٹل لائبریری",
     },
     actions: {
         seeMore: "مزید دیکھیں۔۔۔",

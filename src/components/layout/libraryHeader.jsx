@@ -38,79 +38,77 @@ const LibraryHeader = ({ library }) => {
     return (
         <Box>
             <header className={classes.header}>
-                <Group justify="space-between" h="100%" wrap="nowrap">
-                    <Group h="100%" gap={0}>
-                        <LibrarySwitcher className={classes.link} library={library}>
-                            <Logo />
-                            <Space w="md" />
-                            <Text visibleFrom="lg" size="sm" truncate="end">
-                                {library.name}
-                            </Text>
-                        </LibrarySwitcher>
-                    </Group>
+                <Group justify="space-between" wrap="nowrap" className={classes.navPrimary}>
+                    <LibrarySwitcher className={classes.pillBtn} library={library}>
+                        <Logo />
+                        <Text visibleFrom="sm" size="sm" truncate="end">
+                            {library.name}
+                        </Text>
+                    </LibrarySwitcher>
 
-                    <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
-                        <CategoriesMenu library={library}
-                            className={classes.link}
-                            target='books'
-                            allLabel={t('books.allBooks')}
-                            countFunc={i => i.bookCount}
-                            title={t('header.books')}
-                            icon={<IconBooks height="24px" />}
-                        />
-                        <CategoriesMenu library={library}
-                            className={classes.link}
-                            target='writings'
-                            allLabel={t('writings.all')}
-                            countFunc={i => i.articleCount}
-                            title={t('header.writings')}
-                            icon={<IconWritings height="24px" />} />
-                        <CategoriesMenu library={library}
-                            className={classes.link}
-                            target='poetry'
-                            allLabel={t('poetries.all')}
-                            countFunc={i => i.poetryCount}
-                            title={t('header.poetry')}
-                            icon={<IconPoetries height="24px" />} />
-                        <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
-                            <IconAuthors height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg" size="sm">
-                                {t('header.authors')}
-                            </Text>
-                        </NavLink >
-                        <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
-                            <IconSeries height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg" size="sm">
-                                {t('header.series')}
-                            </Text>
-                        </NavLink >
-                        <NavLink to={`/libraries/${library.id}/bookshelves`} className={classes.link}>
-                            <IconBookShelve height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg" size="sm">
-                                {t('header.bookShelves')}
-                            </Text>
-                        </NavLink >
-                        <CategoriesMenu library={library}
-                            className={classes.link}
-                            target='periodicals'
-                            allLabel={t('periodicals.all')}
-                            countFunc={i => i.periodicalCount}
-                            title={t('header.periodicals')}
-                            icon={<IconPeriodicals height="24px" />} />
-                    </Group>
-                    <Group visibleFrom="sm">
+                    <Group visibleFrom="sm" style={{ flex: 1, maxWidth: 420 }}>
                         <SearchBox />
                     </Group>
+
                     <Group visibleFrom="sm" wrap="nowrap">
                         <LanguageSwitch />
                         <DarkModeToggle />
                         <Profile />
                     </Group>
 
-                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" color="var(--paper-card)" />
+                </Group>
+                <Group gap={0} wrap="nowrap" className={classes.navSections}>
+                    <CategoriesMenu library={library}
+                        className={classes.link}
+                        target='books'
+                        allLabel={t('books.allBooks')}
+                        countFunc={i => i.bookCount}
+                        title={t('header.books')}
+                        icon={<span className={classes.monogram}><IconBooks height="14px" /></span>}
+                    />
+                    <NavLink to={`/libraries/${library.id}/writings`} className={classes.link}>
+                        <span className={classes.monogram}><IconWritings height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.writings')}
+                        </Text>
+                    </NavLink >
+                    <NavLink to={`/libraries/${library.id}/poetry`} className={classes.link}>
+                        <span className={classes.monogram}><IconPoetries height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.poetry')}
+                        </Text>
+                    </NavLink >
+                    <NavLink to={`/libraries/${library.id}/authors`} className={classes.link}>
+                        <span className={classes.monogram}><IconAuthors height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.authors')}
+                        </Text>
+                    </NavLink >
+                    <NavLink to={`/libraries/${library.id}/series`} className={classes.link}>
+                        <span className={classes.monogram}><IconSeries height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.series')}
+                        </Text>
+                    </NavLink >
+                    <NavLink to={`/libraries/${library.id}/bookshelves`} className={classes.link}>
+                        <span className={classes.monogram}><IconBookShelve height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.bookShelves')}
+                        </Text>
+                    </NavLink >
+                    <CategoriesMenu library={library}
+                        className={classes.link}
+                        target='periodicals'
+                        allLabel={t('periodicals.all')}
+                        countFunc={i => i.periodicalCount}
+                        title={t('header.periodicals')}
+                        icon={<span className={classes.monogram}><IconPeriodicals height="14px" /></span>} />
                 </Group>
             </header>
 

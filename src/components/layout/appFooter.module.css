@@ -1,22 +1,59 @@
 .footer {
-    border-top: rem(1px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5)) ;
-    filter: drop-shadow(var(--mantine-shadow-sm))
-  }
-  
-  .inner {
+    background-color: var(--spine-dark);
+    color: var(--paper-deep);
+    padding-top: calc(var(--mantine-spacing-xl) * 1.5);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(4, 1fr);
+    gap: var(--mantine-spacing-xl);
+    padding-bottom: var(--mantine-spacing-xl);
+    border-bottom: rem(1px) solid rgba(243, 234, 216, .15);
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.about {
+    font-size: var(--mantine-font-size-sm);
+    line-height: 1.8;
+    color: rgba(243, 234, 216, .7);
+    max-width: 34ch;
+}
+
+.colTitle {
+    font-size: var(--mantine-font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--gold-soft);
+    margin-bottom: var(--mantine-spacing-sm);
+}
+
+.colLink {
+    display: block;
+    font-size: var(--mantine-font-size-sm);
+    color: rgba(243, 234, 216, .85);
+    margin-bottom: var(--mantine-spacing-xs);
+    text-decoration: none;
+
+    @mixin hover {
+        color: var(--gold-soft);
+    }
+}
+
+.inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: var(--mantine-spacing-xl);
-    padding-bottom: var(--mantine-spacing-xl);
-  
+    padding-top: var(--mantine-spacing-md);
+    padding-bottom: var(--mantine-spacing-md);
+    font-size: var(--mantine-font-size-xs);
+    color: rgba(243, 234, 216, .55);
+
     @media (max-width: $mantine-breakpoint-xs) {
-      flex-direction: column;
+        flex-direction: column;
+        gap: var(--mantine-spacing-sm);
     }
-  }
-  
-  .links {
-    @media (max-width: $mantine-breakpoint-xs) {
-      margin-top: var(--mantine-spacing-md);
-    }
-  }
+}

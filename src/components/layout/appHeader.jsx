@@ -34,50 +34,17 @@ const AppHeader = () => {
     return (
         <Box>
             <header className={classes.header}>
-                <Group justify="space-between" h="100%" wrap="nowrap">
-                    <Group h="100%" gap={0}>
-                        <NavLink to={`/`} className={classes.link}>
-                            <Logo />
-                            <Space w="md" />
-                            {t('app')}
-                        </NavLink >
-                    </Group>
-                    <Group h="100%" gap={0} visibleFrom="sm" wrap="nowrap">
-                        <Link to="/" className={classes.link}>
-                            <IconHome height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.home')}
-                            </Text>
-                        </Link>
-                        <LibrarySwitcher className={classes.link}>
-                            <IconLibrary height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.libraries')}
-                            </Text>
+                <Group justify="space-between" wrap="nowrap" className={classes.navPrimary}>
+                    <NavLink to={`/`} className={classes.brand} style={{ display: 'flex', alignItems: 'center' }}>
+                        <Logo />
+                        <Space w="sm" />
+                        {t('app')}
+                    </NavLink >
+                    <Group wrap="nowrap" visibleFrom="sm">
+                        <LibrarySwitcher className={classes.pillBtn}>
+                            <IconLibrary height="18px" />
+                            <Text size="sm">{t('header.libraries')}</Text>
                         </LibrarySwitcher>
-                        <Link to="https://dictionary.nawishta.co.uk" className={classes.link}>
-                            <IconDictionary height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.dictionaries')}
-                            </Text>
-                        </Link>
-                        <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
-                            <IconFont height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.fonts')}
-                            </Text>
-                        </Link>
-                        <Link to="https://tools.nawishta.co.uk" className={classes.link}>
-                            <IconTools height="24px" />
-                            <Space w="md" />
-                            <Text visibleFrom="lg">
-                                {t('header.tools')}
-                            </Text>
-                        </Link>
                     </Group>
                     <Group visibleFrom="sm" wrap="nowrap">
                         <LanguageSwitch />
@@ -85,7 +52,37 @@ const AppHeader = () => {
                         <Profile />
                     </Group>
 
-                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
+                    <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" color="var(--paper-card)" />
+                </Group>
+                <Group gap={0} wrap="nowrap" className={classes.navSections}>
+                    <Link to="/" className={classes.link}>
+                        <span className={classes.monogram}><IconHome height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.home')}
+                        </Text>
+                    </Link>
+                    <Link to="https://dictionary.nawishta.co.uk" className={classes.link}>
+                        <span className={classes.monogram}><IconDictionary height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.dictionaries')}
+                        </Text>
+                    </Link>
+                    <Link to="https://fonts.nawishta.co.uk" className={classes.link}>
+                        <span className={classes.monogram}><IconFont height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.fonts')}
+                        </Text>
+                    </Link>
+                    <Link to="https://tools.nawishta.co.uk" className={classes.link}>
+                        <span className={classes.monogram}><IconTools height="14px" /></span>
+                        <Space w="xs" />
+                        <Text size="sm">
+                            {t('header.tools')}
+                        </Text>
+                    </Link>
                 </Group>
             </header>
 

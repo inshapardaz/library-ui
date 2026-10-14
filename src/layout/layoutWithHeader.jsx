@@ -1,7 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 
 // 3rd party libraries
-import { AppShell, rem } from '@mantine/core';
+import { AppShell } from '@mantine/core';
 
 // Local imports
 import AppHeader from "@/components/layout/appHeader";
@@ -16,14 +16,14 @@ const LayoutWithHeader = () => {
 
     return (
         <LibraryContext.Provider value={{ libraryId, library }}>
-            <AppShell>
+            <AppShell header={{ height: { base: 60, sm: 108 } }}>
                 <AppShell.Header>
                     {libraryId && library ?
                         <LibraryHeader library={library} /> :
                         <AppHeader />
                     }
                 </AppShell.Header>
-                <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+                <AppShell.Main pt='var(--mantine-spacing-md)'>
                     <Outlet />
                 </AppShell.Main>
             </AppShell>
