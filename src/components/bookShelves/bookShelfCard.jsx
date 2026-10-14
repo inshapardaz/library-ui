@@ -11,16 +11,16 @@ import IconText from '@/components/iconText';
 import If from '@/components/if';
 import BookShelfEditForm from './bookShelfEditForm';
 import BookShelfDeleteButton from './bookShelfDeleteButton';
+import cardClasses from '@/components/contentCard.module.css';
 //---------------------------------------
 
 const IMAGE_HEIGHT = 225;
-const IMAGE_WIDTH = 150;
 
 const BookShelfCard = ({ libraryId, bookShelf }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center h={IMAGE_HEIGHT}><IconBookShelve width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT}><span className={cardClasses.stackIcon}><IconBookShelve width={22} /></span></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>

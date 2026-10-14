@@ -15,48 +15,35 @@ const LibraryCard = ({ library }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
 
-    const icon = <Center> <IconLibrary height={200} style={{ color: theme.colors.dark[2] }} /></Center>;
-
     return (<Card
         className={classes.card}
         shadow="sm" padding="lg" radius="md" withBorder
         component={Link}
         to={`/libraries/${library.id}`}
     >
-        {library?.links?.image ?
-            (<div
-                className={classes.image}
-                style={{
-                    backgroundImage:
-                        `url(${library?.links?.image})`,
-                }}
-            />) :
-            (<div className={classes.image}>
-                {icon}
-            </div>)}
-
         <div className={classes.content}>
-            <div>
-                <Text size="lg" className={classes.title} fw={500}>
-                    {library.name}
-                </Text>
+            {library?.links?.image ?
+                <span className={classes.icon} style={{ backgroundImage: `url(${library.links.image})`, backgroundSize: 'cover' }} /> :
+                <span className={classes.icon}>
+                    <IconLibrary height={18} />
+                </span>}
 
-                <Group justify="space-between" gap="xs">
+            <Text size="lg" className={classes.title} fw={500}>
+                {library.name}
+            </Text>
 
-                    <Group gap="lg">
-                        <Center>
-                            <IconWorld
-                                height={16}
-                                stroke={1.5}
-                                style={{ color: theme.colors.dark[2] }}
-                            />
-                            <Text size="sm" className={classes.bodyText}>
-                                {t(`languages.${library.language}`)}
-                            </Text>
-                        </Center>
-                    </Group>
-                </Group>
-            </div>
+            <Group gap="lg">
+                <Center>
+                    <IconWorld
+                        height={16}
+                        stroke={1.5}
+                        style={{ color: theme.colors.dark[2] }}
+                    />
+                    <Text size="sm" className={classes.bodyText}>
+                        {t(`languages.${library.language}`)}
+                    </Text>
+                </Center>
+            </Group>
         </div>
     </Card >)
 }

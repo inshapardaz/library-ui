@@ -9,13 +9,14 @@ import { Card, Text, Group, Divider, useMantineTheme, Image, Center } from '@man
 import { IconBooks, IconWritings, IconAuthor, IconPoetries } from '@/components/icon';
 import IconText from '../iconText';
 import If from '@/components/if';
+import cardClasses from '@/components/contentCard.module.css';
 //---------------------------------------
 
 const AuthorCard = ({ libraryId, author }) => {
     const theme = useMantineTheme();
     const [imgError, setImgError] = useState(false);
 
-    const icon = <Center h={225}><IconAuthor width={125} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={225}><span className={cardClasses.authorPhoto} style={{ width: 90, height: 90 }}><IconAuthor width={50} /></span></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>

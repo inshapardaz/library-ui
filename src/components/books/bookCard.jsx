@@ -4,30 +4,36 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library import
-import { Card, Text, Group, Tooltip, useMantineTheme, Center, Image, Divider } from '@mantine/core';
+import { Card, Text, Group, Tooltip, useMantineTheme, Image, Divider } from '@mantine/core';
 
 // Local imports
-import { IconBook, IconPages, IconChapters } from '@/components/icon';
+import { IconPages, IconChapters } from '@/components/icon';
 import AuthorsAvatar from '@/components/authors/authorsAvatar';
 import FavoriteButton from '@/components/books/favoriteButton';
 import BookRemoveFromShelfButton from '@/components/bookShelves/bookRemoveFromShelfButton';
 import IconText from '@/components/iconText';
 import If from '@/components/if';
+import cardClasses from '@/components/contentCard.module.css';
+import variantIndex from '@/utils/colorVariant';
 //---------------------------------------
 
 const IMAGE_HEIGHT = 450;
-const IMAGE_WIDTH = 150;
 
 const BookCard = ({ libraryId, book }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     const [imgError, setImgError] = useState(false);
-    const icon = <Center h={IMAGE_HEIGHT}><IconBook width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const cover = (
+        <div className={`${cardClasses.coverMini} ${cardClasses['c' + variantIndex(book.id)]}`}>
+            <div className={cardClasses.coverOrnament}>✦</div>
+            <Text className={cardClasses.coverTitle} lineClamp={3}>{book.title}</Text>
+        </div>
+    );
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
             <Card.Section>
-                <If condition={book.links?.image && !imgError} elseChildren={icon}>
+                <If condition={book.links?.image && !imgError} elseChildren={cover}>
                     <Image h={IMAGE_HEIGHT} fit='fit' radius="sm" src={book?.links?.image} onError={() => setImgError(true)} />
                 </If>
             </Card.Section>

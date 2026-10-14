@@ -10,17 +10,17 @@ import { Card, Text, Group, useMantineTheme, Center, Image } from '@mantine/core
 import { IconSeries, IconBooks } from '@/components/icon';
 import IconText from '../iconText';
 import If from '@/components/if';
+import cardClasses from '@/components/contentCard.module.css';
 //---------------------------------------
 
 const IMAGE_HEIGHT = 225;
-const IMAGE_WIDTH = 150;
 
 const SeriesCard = ({ libraryId, series }) => {
     const { t } = useTranslation();
     const theme = useMantineTheme();
     const [imgError, setImgError] = useState(false);
 
-    const icon = <Center h={IMAGE_HEIGHT}><IconSeries width={IMAGE_WIDTH} style={{ color: theme.colors.dark[1] }} /></Center>;
+    const icon = <Center h={IMAGE_HEIGHT}><span className={cardClasses.stackIcon}><IconSeries width={22} /></span></Center>;
 
     return (
         <Card shadow="sm" padding="lg" radius="md" withBorder>
