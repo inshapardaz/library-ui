@@ -14,12 +14,12 @@ const Logo = ({ showName = false, title }) => {
     if (showName) {
         return (
             <Group gap="xs">
-                <i className={classes.logo}><i className={classes.logoInner} /></i>
+                <i className={classes.logo} />
                 <Title order={4} visibleFrom="sm">{title ? title : t('app')}</Title>
             </Group>);
     }
 
-    return (<i className={classes.logo}><i className={classes.logoInner} /></i>);
+    return (<i className={classes.logo} />);
 }
 
 Logo.propTypes = {

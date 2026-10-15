@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 // 3rd party imports
 import Cookies from 'js-cookie'
 
+// Local imports
+import { THEMES, DEFAULT_THEME } from '@/theme'
+
 //----------------------------------------
 
 // Appearance choices live in local storage. It can throw (private mode, blocked site data), so
@@ -24,6 +27,10 @@ const writeSetting = (key, value) => {
 
 export const URDU_FONTS = ['nastaleeq', 'naskh'];
 const storedUrduFont = readSetting('urduFont');
+const storedTheme = readSetting('uiTheme');
+const initialTheme = THEMES.includes(storedTheme) ? storedTheme : DEFAULT_THEME;
+// Set before first render so the page never flashes the wrong palette.
+document.documentElement.setAttribute('data-nw-theme', initialTheme);
 
 const detectedLanguage = window.localStorage.i18nextLng ?? "ur";
 
@@ -55,6 +62,7 @@ export const uiSlice = createSlice({
     name: "ui",
     initialState: {
         mode: window.localStorage.uiMode ?? "light",
+        theme: initialTheme,
         urduFont: URDU_FONTS.includes(storedUrduFont) ? storedUrduFont : 'nastaleeq',
         locale: detectedLanguage,
         readerFont: Cookies.get('reader-font') ?? 'AdobeArabic',
@@ -80,6 +88,12 @@ export const uiSlice = createSlice({
                 document.querySelector("html").setAttribute("lang", lang.locale);
                 document.querySelector("body").setAttribute("dir", lang.dir);
             }
+        },
+        setTheme: (state, action) => {
+            if (!THEMES.includes(action.payload)) return;
+            state.theme = action.payload;
+            writeSetting('uiTheme', action.payload);
+            document.documentElement.setAttribute('data-nw-theme', action.payload);
         },
         setUrduFont: (state, action) => {
             if (!URDU_FONTS.includes(action.payload)) return;
@@ -115,6 +129,7 @@ export const {
     setLocale,
     setUiMode,
     setUrduFont,
+    setTheme,
     setReaderFont,
     setReaderFontSize,
     setReaderTheme,
@@ -122,4 +137,5 @@ export const {
     setReaderLineHeight
 } = uiSlice.actions;
 export const selectedLanguage = (state) => languages[state.ui.locale];
+export const selectedTheme = (state) => state.ui.theme;
 export const selectedUrduFont = (state) => state.ui.urduFont;

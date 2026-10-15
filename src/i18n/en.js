@@ -119,6 +119,12 @@ const en = {
         },
     },
     appearance: {
+        theme: "Theme",
+        themes: {
+            nawishta: "Nawishta",
+            white: "White",
+            black: "Black",
+        },
         title: "Appearance",
         accent: "Accent color",
         customAccent: "Custom color",

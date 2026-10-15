@@ -1,6 +1,6 @@
 .footer {
-    background-color: var(--spine-dark);
-    border-top: rem(3px) solid var(--gold);
+    background-color: var(--nw-chrome-footer-bg);
+    border-top: rem(3px) solid var(--nw-chrome-rule);
   }
 
   .inner {
@@ -16,14 +16,14 @@
   }
 
   .inner :global(.mantine-Title-root) {
-    color: var(--paper-card);
+    color: var(--nw-chrome-fg);
   }
 
   .inner :global(.mantine-Anchor-root) {
-    color: var(--paper-deep);
+    color: var(--nw-chrome-fg-soft);
 
     @mixin hover {
-      color: var(--gold-soft);
+      color: var(--nw-chrome-highlight);
     }
   }
 

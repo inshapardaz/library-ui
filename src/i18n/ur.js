@@ -141,6 +141,12 @@ const ur = {
         },
     },
     appearance: {
+        theme: "انداز",
+        themes: {
+            nawishta: "نوشتہ",
+            white: "سفید",
+            black: "سیاہ",
+        },
         title: "ظاہری شکل",
         accent: "نمایاں رنگ",
         customAccent: "اپنی پسند کا رنگ",

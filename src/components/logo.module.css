@@ -1,19 +1,11 @@
+/* The logo is a transparent PNG, drawn straight on the surface behind it (no frame or disc). */
 .logo {
-    height: 36px;
-    width: 36px;
-    border-radius: 50%;
+    height: 38px;
+    width: 40px;
     display: block;
-    background: conic-gradient(from 45deg, var(--gold), #e0b567, var(--oxblood), var(--gold));
-    padding: 3px;
-}
-
-.logoInner {
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    background-color: var(--spine-dark);
+    flex-shrink: 0;
     background-image: url('@/assets/images/logo.png');
-    background-size: 70%;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }

@@ -17,8 +17,8 @@
     width: rem(52px);
     height: rem(52px);
     border-radius: 50%;
-    background-color: var(--spine);
-    color: var(--gold-soft);
+    background-color: var(--nw-mono-bg);
+    color: var(--nw-mono-fg);
     display: flex;
     align-items: center;
     justify-content: center;

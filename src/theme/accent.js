@@ -5,6 +5,9 @@
 
 export const DEFAULT_ACCENT = '#b8863a';
 
+// Accent for the plain white/black themes: a neutral blue.
+export const PLAIN_ACCENT = '#1c7ed6';
+
 export const ACCENT_PRESETS = [
     { key: 'blue', hex: '#228be6' },
     { key: 'violet', hex: '#7950f2' },

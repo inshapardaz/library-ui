@@ -5,7 +5,7 @@
     z-index: 100;
     display: none;
     height: rem(60px);
-    border-top: rem(3px) solid var(--gold);
+    border-top: rem(3px) solid var(--nw-chrome-rule);
     background-color: var(--paper-card);
 
     /* smaller-than is exclusive, so at exactly the sm breakpoint the header navigation
@@ -26,7 +26,7 @@
     color: var(--ink-soft);
 
     &[aria-current='page'] {
-        color: var(--oxblood);
+        color: var(--nw-accent-ink);
         font-weight: 600;
     }
 }

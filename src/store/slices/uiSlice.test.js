@@ -53,4 +53,30 @@ describe('uiSlice appearance settings', () => {
         expect(initial.urduFont).toBe('nastaleeq');
         expect(() => uiSlice.reducer(initial, setUrduFont('naskh'))).not.toThrow();
     });
+
+    it('starts with the Nawishta theme and applies it to <html>', async () => {
+        const { uiSlice } = await load();
+        const state = uiSlice.reducer(undefined, { type: 'init' });
+        expect(state.theme).toBe('nawishta');
+        expect(document.documentElement.getAttribute('data-nw-theme')).toBe('nawishta');
+    });
+
+    it('restores a saved theme and ignores unknown ones', async () => {
+        window.localStorage.setItem('uiTheme', 'black');
+        let { uiSlice } = await load();
+        expect(uiSlice.reducer(undefined, { type: 'init' }).theme).toBe('black');
+        window.localStorage.setItem('uiTheme', 'neon');
+        ({ uiSlice } = await load());
+        expect(uiSlice.reducer(undefined, { type: 'init' }).theme).toBe('nawishta');
+    });
+
+    it('setTheme updates the state, remembers it and rejects unknown themes', async () => {
+        const { uiSlice, setTheme } = await load();
+        let state = uiSlice.reducer(undefined, setTheme('white'));
+        expect(state.theme).toBe('white');
+        expect(window.localStorage.getItem('uiTheme')).toBe('white');
+        expect(document.documentElement.getAttribute('data-nw-theme')).toBe('white');
+        state = uiSlice.reducer(state, setTheme('neon'));
+        expect(state.theme).toBe('white');
+    });
 });
