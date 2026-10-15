@@ -1,15 +1,12 @@
 :root {
     --reader-theme-white-background: var(--paper-card);
     --reader-theme-white-foreground: var(--ink);
-    --reader-theme-dark-background: var(--spine-dark);
+    --reader-theme-dark-background: var(--nw-reader-dark);
     --reader-theme-dark-foreground: #e9e2ce;
     --reader-theme-sepia-background: #f0e4c8;
     --reader-theme-sepia-foreground: #4a3f2c;
     --reader-theme-grey-background: #d7d7db;
     --reader-theme-grey-foreground: #15141a;
-
-    --page-background: var(--mantine-color-gray-0);
-    --page-background-dark: var(--mantine-color-gray-8);
 }
 
 .markdownReaderTheme--White {

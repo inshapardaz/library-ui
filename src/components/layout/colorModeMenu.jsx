@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 // Ui Library Imports
 import { ActionIcon, Menu, useMantineColorScheme } from '@mantine/core';
 
 // Local Imports
+import { selectedTheme } from '@/store/slices/uiSlice';
 import { IconCheck, IconMoon, IconMonitor, IconSun } from '@/components/icon';
 //----------------------------------------------
 
@@ -15,17 +17,19 @@ const MODES = [
 
 const LABEL_KEYS = { light: 'appearance.light', dark: 'appearance.dark', auto: 'appearance.system' };
 
-// Light, dark or follow the system. Mantine keeps the choice in local storage and applies it
+// Light, dark or follow the system (Nawishta theme only: the plain white/black themes fix the
+// colour scheme, so the menu is disabled there). Mantine keeps the choice in local storage and applies it
 // before first paint.
 const ColorModeMenu = () => {
     const { t } = useTranslation();
+    const isNawishta = useSelector(selectedTheme) === 'nawishta';
     const { colorScheme, setColorScheme } = useMantineColorScheme();
     const Current = MODES.find((mode) => mode.value === colorScheme)?.icon ?? IconMonitor;
 
     return (
         <Menu position="bottom-end" withinPortal>
             <Menu.Target>
-                <ActionIcon variant="subtle" size="lg" aria-label={t('appearance.mode')}>
+                <ActionIcon variant="subtle" size="lg" disabled={!isNawishta} aria-label={t('appearance.mode')}>
                     <Current height={20} />
                 </ActionIcon>
             </Menu.Target>

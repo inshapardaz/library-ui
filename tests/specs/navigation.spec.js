@@ -217,19 +217,25 @@ test.describe('Tablet shell', () => {
 });
 
 test.describe('Appearance', () => {
-    test('the accent colour recolours the app and is remembered', async ({ page }) => {
+    test('the theme can be switched, pins the colour scheme and is remembered', async ({ page }) => {
         await mockApi(page);
         await page.goto('/libraries/1');
-        const primary = () => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--mantine-primary-color-filled').trim());
+        const html = page.locator('html');
+        await expect(html).toHaveAttribute('data-nw-theme', 'nawishta');
 
-        expect(await primary()).toBe('#228be6');
         await page.getByRole('button', { name: 'Appearance' }).click();
-        await page.getByRole('radio', { name: 'Orange' }).click();
-        await expect.poll(primary).toBe('#e8590c');
+        await page.getByText('Black', { exact: true }).click();
+        await expect(html).toHaveAttribute('data-nw-theme', 'black');
+        await expect(html).toHaveAttribute('data-mantine-color-scheme', 'dark');
+        await expect(page.getByRole('button', { name: 'Color mode' })).toBeDisabled();
 
         await page.reload();
-        await expect.poll(primary).toBe('#e8590c');
-        expect(await page.evaluate(() => window.localStorage.getItem('accent'))).toBe('#e8590c');
+        await expect(html).toHaveAttribute('data-nw-theme', 'black');
+
+        await page.getByRole('button', { name: 'Appearance' }).click();
+        await page.getByText('White', { exact: true }).click();
+        await expect(html).toHaveAttribute('data-nw-theme', 'white');
+        await expect(html).toHaveAttribute('data-mantine-color-scheme', 'light');
     });
 
     test('the Urdu font choice is applied to the document', async ({ page }) => {

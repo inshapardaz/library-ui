@@ -1,8 +1,8 @@
 .header {
   height: rem(64px);
   padding-inline: var(--mantine-spacing-lg);
-  background-color: var(--spine);
-  border-bottom: rem(3px) solid var(--gold);
+  background-color: var(--nw-chrome-bg);
+  border-bottom: rem(3px) solid var(--nw-chrome-rule);
 }
 
 .brand {
@@ -11,7 +11,7 @@
   height: 100%;
   flex-shrink: 0;
   text-decoration: none;
-  color: var(--paper-card);
+  color: var(--nw-chrome-fg);
   cursor: pointer;
 }
 
@@ -33,7 +33,7 @@
   padding-inline: var(--mantine-spacing-sm);
   text-decoration: none;
   white-space: nowrap;
-  color: var(--paper-deep);
+  color: var(--nw-chrome-fg-soft);
   font-size: var(--mantine-font-size-md);
   cursor: pointer;
   border-bottom: rem(2px) solid transparent;
@@ -41,13 +41,13 @@
   transition: color 120ms ease;
 
   &[aria-current='page'] {
-    color: var(--gold-soft);
+    color: var(--nw-chrome-highlight);
     font-weight: 600;
-    border-bottom-color: var(--gold-soft);
+    border-bottom-color: var(--nw-chrome-highlight);
   }
 
   @mixin hover {
-    color: var(--gold-soft);
+    color: var(--nw-chrome-highlight);
   }
 }
 
@@ -55,6 +55,14 @@
    bar, so they need light text/icon colour regardless of each component's own default. */
 .header :global(.mantine-ActionIcon-root),
 .header :global(.mantine-UnstyledButton-root) {
-  --ai-color: var(--paper-card);
-  color: var(--paper-card);
+  --ai-color: var(--nw-chrome-fg);
+  color: var(--nw-chrome-fg);
+}
+
+/* The outlined "Login" button: transparent on the bar, in the bar's text colour */
+.header :global(.mantine-Button-root[data-variant='default']) {
+  --button-bg: transparent;
+  --button-hover: rgba(128, 128, 128, 0.18);
+  --button-color: var(--nw-chrome-fg);
+  --button-bd: rem(1px) solid var(--nw-chrome-fg-soft);
 }

@@ -12,7 +12,7 @@
   text-align: center;
   border-radius: var(--mantine-radius-md);
   height: rem(90px);
-  border-inline-start: rem(4px) solid var(--gold);
+  border-inline-start: rem(4px) solid var(--nw-cta-bg);
   background-color: var(--paper-card);
   transition:
     box-shadow 150ms ease,
@@ -22,7 +22,7 @@
   @mixin hover {
     box-shadow: var(--mantine-shadow-md);
     transform: scale(1.05);
-    border-inline-start-color: var(--oxblood);
+    border-inline-start-color: var(--nw-accent-ink);
   }
 }
 

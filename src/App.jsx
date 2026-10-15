@@ -15,8 +15,8 @@ import '@mantine/spotlight/styles.css';
 import '@mantine/carousel/styles.css';
 
 import Router from "./router";
-import { createAppTheme } from '@/theme';
-import { selectedLanguage, selectedUrduFont } from "@/store/slices/uiSlice";
+import { createAppTheme, FORCED_COLOR_SCHEME } from '@/theme';
+import { selectedLanguage, selectedTheme, selectedUrduFont } from "@/store/slices/uiSlice";
 import { init } from '@/store/slices/authSlice';
 import If from '@/components/if';
 // ------------------------------------------------------------------
@@ -25,10 +25,16 @@ function App() {
     const { t } = useTranslation();
     const lang = useSelector(selectedLanguage);
     const urduFont = useSelector(selectedUrduFont);
-    const theme = useMemo(() => createAppTheme(), []);
+    const themeName = useSelector(selectedTheme);
+    const theme = useMemo(() => createAppTheme(themeName), [themeName]);
     const userLoadStatus = useSelector((state) => state?.auth?.loadUserStatus)
     const dispatch = useDispatch();
 
+
+    // The palette (see styles/appearance.css)
+    useEffect(() => {
+        document.documentElement.setAttribute('data-nw-theme', themeName);
+    }, [themeName]);
 
     // Picks the Urdu typeface (see styles/appearance.css); only has an effect while Urdu is active
     useEffect(() => {
@@ -46,7 +52,7 @@ function App() {
                 <title>{t('app')}</title>
             </Helmet>
             <DirectionProvider >
-                <MantineProvider theme={theme} defaultColorScheme="auto">
+                <MantineProvider theme={theme} defaultColorScheme="auto" forceColorScheme={FORCED_COLOR_SCHEME[themeName]}>
                     <Notifications limit={5} position="bottom-right" />
                     <ModalsProvider labels={{ confirm: t('actions.yes'), cancel: t('actions.no') }}>
                         <If condition={userLoadStatus === 'loading'}

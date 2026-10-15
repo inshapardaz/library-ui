@@ -1,32 +1,31 @@
 .wrapper {
-    background: radial-gradient(1200px 500px at 15% -10%, rgba(184, 134, 58, .35), transparent 60%),
-        linear-gradient(155deg, var(--spine) 0%, var(--spine-dark) 78%);
+    background: var(--nw-hero-bg);
 }
 
 .title {
-    color: var(--paper-card);
+    color: var(--nw-hero-fg);
 }
 
 .description {
-    color: var(--paper-deep);
+    color: var(--nw-hero-fg-soft);
 }
 
 .control {
-    background-color: var(--gold);
-    color: var(--spine-dark);
+    background-color: var(--nw-cta-bg);
+    color: var(--nw-cta-fg);
 
     @mixin hover {
-        background-color: var(--gold-soft);
+        background-color: var(--nw-cta-bg-hover);
     }
 }
 
 .secondaryControl {
-    color: var(--paper-card);
-    background-color: rgba(255, 255, 255, .1);
-    border: rem(1px) solid rgba(243, 234, 216, .35);
+    color: var(--nw-hero-fg);
+    background-color: transparent;
+    border: rem(1px) solid var(--nw-hero-fg-soft);
 
     @mixin hover {
-        background-color: rgba(255, 255, 255, .18);
-        color: var(--gold-soft);
+        background-color: rgba(128, 128, 128, .15);
+        color: var(--nw-hero-highlight);
     }
 }
