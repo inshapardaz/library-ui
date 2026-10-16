@@ -45,6 +45,14 @@ const en = {
         sortAscending: "Ascending",
         sortDescending: "Descending",
     },
+    apps: {
+        title: "Nawishta apps",
+        logo: "Nawishta home",
+        home: "Home",
+        libraries: "Libraries",
+        editor: "Library editor",
+        dictionary: "Dictionary and tools",
+    },
     nav: {
         home: "Home",
         explore: "Explore",

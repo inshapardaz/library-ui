@@ -18,6 +18,7 @@ import MoreContent from './moreContent';
 import BooksMenu from './booksMenu';
 import ColorModeMenu from './colorModeMenu';
 import AppearanceMenu from './appearanceMenu';
+import AppSwitcher from './appSwitcher';
 import LanguageToggle from './languageToggle';
 
 //----------------------------------------------
@@ -44,12 +45,9 @@ const SiteHeader = () => {
     const base = `/libraries/${libraryId}`;
 
     const brand = (
-        <>
-            <Logo />
-            <Text fw={700} fz={20} c="accent" truncate="end" maw={220} ms="xs">
-                {inLibrary ? library.name : t('app')}
-            </Text>
-        </>
+        <Text fw={700} fz={20} c="accent" truncate="end" maw={220} ms="xs">
+            {inLibrary ? library.name : t('app')}
+        </Text>
     );
 
     return (
@@ -57,6 +55,7 @@ const SiteHeader = () => {
             <header className={classes.header}>
                 <Group justify="space-between" h="100%" wrap="nowrap" gap="md">
                     <Group h="100%" gap="lg" wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
+                        <Logo home />
                         {inLibrary && count > 1
                             ? <LibrarySwitcher className={classes.brand} library={library}>{brand}</LibrarySwitcher>
                             : <NavLink to={inLibrary ? base : '/'} className={classes.brand} end>{brand}</NavLink>}
@@ -79,6 +78,7 @@ const SiteHeader = () => {
                             <ColorModeMenu />
                             <AppearanceMenu />
                         </Group>
+                        <AppSwitcher />
                         <LanguageToggle />
                         {inLibrary && <SearchBox />}
                         <Box visibleFrom="md"><Profile /></Box>

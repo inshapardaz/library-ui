@@ -216,6 +216,23 @@ test.describe('Tablet shell', () => {
     });
 });
 
+test.describe('App links', () => {
+    test('the logo goes to the main site home page', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1');
+        await expect(page.getByRole('link', { name: 'Nawishta home' })).toHaveAttribute('href', 'http://localhost:4200');
+    });
+
+    test('the app switcher lists the other apps', async ({ page }) => {
+        await mockApi(page);
+        await page.goto('/libraries/1');
+        await page.getByRole('button', { name: 'Nawishta apps' }).click();
+        await expect(page.getByRole('menuitem', { name: 'Library editor' })).toHaveAttribute('href', 'http://localhost:4300');
+        await expect(page.getByRole('menuitem', { name: 'Dictionary and tools' })).toHaveAttribute('href', 'http://localhost:4500');
+        await expect(page.getByRole('menuitem', { name: 'Libraries' })).toHaveAttribute('aria-current', 'true');
+    });
+});
+
 test.describe('Appearance', () => {
     test('the theme can be switched, pins the colour scheme and is remembered', async ({ page }) => {
         await mockApi(page);
