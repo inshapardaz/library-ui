@@ -1,47 +1,35 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+// @vitest-environment jsdom
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-describe('config', () => {
-    beforeEach(() => {
-        vi.resetModules();
-        delete window.__ENV__;
-    });
+const load = async (env) => {
+    vi.resetModules();
+    window.__ENV__ = env;
+    return import('./config');
+};
 
+describe('config app links', () => {
     afterEach(() => {
         delete window.__ENV__;
-        vi.unstubAllEnvs();
     });
 
-    it('uses runtime values from window.__ENV__', async () => {
-        window.__ENV__ = {
-            NODE_ENV: 'production',
-            API_URL: 'https://api.example.com',
-            MAIN_SITE: 'https://www.example.com',
-        };
-        vi.stubEnv('VITE_API_URL', 'http://build-time-api');
-
-        const config = await import('./config');
-
-        expect(config.NODE_ENV).toBe('production');
-        expect(config.API_URL).toBe('https://api.example.com');
-        expect(config.MAIN_SITE).toBe('https://www.example.com');
-    });
-
-    it('falls back to VITE_* build-time values when runtime values are missing or empty', async () => {
-        window.__ENV__ = { API_URL: '' };
-        vi.stubEnv('VITE_API_URL', 'http://build-time-api');
-        vi.stubEnv('VITE_MAIN_SITE', 'http://build-time-site');
-
-        const config = await import('./config');
-
-        expect(config.API_URL).toBe('http://build-time-api');
-        expect(config.MAIN_SITE).toBe('http://build-time-site');
-    });
-
-    it('falls back to localhost defaults when nothing is configured', async () => {
-        const config = await import('./config');
-
-        expect(config.NODE_ENV).toBe('local');
-        expect(config.API_URL).toBe('http://localhost:4000');
+    it('defaults to the local dev servers', async () => {
+        const config = await load({});
         expect(config.MAIN_SITE).toBe('http://localhost:4200');
+        expect(config.LIBRARIES_URL).toBe('http://localhost:4400');
+        expect(config.LIBRARY_EDITOR_URL).toBe('http://localhost:4300');
+        expect(config.DICTIONARY_URL).toBe('http://localhost:4500');
+    });
+
+    it('takes the runtime values written by the container', async () => {
+        const config = await load({
+            MAIN_SITE: 'https://www.nawishta.co.uk',
+            LIBRARIES_URL: 'https://libraries.nawishta.co.uk',
+            LIBRARY_EDITOR_URL: 'https://editor.nawishta.co.uk',
+            DICTIONARY_URL: 'https://dictionary.nawishta.co.uk',
+        });
+        expect(config.MAIN_SITE).toBe('https://www.nawishta.co.uk');
+        expect(config.LIBRARIES_URL).toBe('https://libraries.nawishta.co.uk');
+        expect(config.LIBRARY_EDITOR_URL).toBe('https://editor.nawishta.co.uk');
+        expect(config.DICTIONARY_URL).toBe('https://dictionary.nawishta.co.uk');
     });
 });

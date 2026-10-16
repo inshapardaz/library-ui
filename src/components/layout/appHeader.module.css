@@ -61,8 +61,11 @@
 
 /* The outlined "Login" button: transparent on the bar, in the bar's text colour */
 .header :global(.mantine-Button-root[data-variant='default']) {
-  --button-bg: transparent;
-  --button-hover: rgba(128, 128, 128, 0.18);
-  --button-color: var(--nw-chrome-fg);
-  --button-bd: rem(1px) solid var(--nw-chrome-fg-soft);
+  background-color: transparent;
+  color: var(--nw-chrome-fg);
+  border-color: var(--nw-chrome-fg-soft);
+
+  @mixin hover {
+    background-color: rgba(128, 128, 128, 0.18);
+  }
 }

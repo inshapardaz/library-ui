@@ -8,6 +8,7 @@ export const IconNames = {
     LibraryEdit: "libraryEdit",
     Dictionary: "dictionary",
     Font: "font",
+    Apps: "apps",
     Tools: "tools",
     Moon: "moon",
     Sun: "sun",
@@ -100,6 +101,7 @@ const iconTheme = {
         libraryEdit: "home-edit",
         dictionary: "notebook",
         font: "typography",
+        apps: "apps",
         tools: "tools",
         moon: "moon",
         sun: "sun",
@@ -196,6 +198,7 @@ export const IconLibrary = (props) => getIcon(IconNames.Library, props)
 export const IconLibraryEditor = (props) => getIcon(IconNames.LibraryEdit, props)
 export const IconDictionary = (props) => getIcon(IconNames.Dictionary, props)
 export const IconFont = (props) => getIcon(IconNames.Font, props)
+export const IconApps = (props) => getIcon(IconNames.Apps, props)
 export const IconTools = (props) => getIcon(IconNames.Tools, props)
 export const IconMoon = (props) => getIcon(IconNames.Moon, props)
 export const IconSun = (props) => getIcon(IconNames.Sun, props)

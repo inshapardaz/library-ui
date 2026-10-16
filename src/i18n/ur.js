@@ -67,6 +67,14 @@ const ur = {
         showMore: "مزید دیکھیں",
         hide: "چھپائیں"
     },
+    apps: {
+        title: "نوشتہ ایپس",
+        logo: "نوشتہ کا صفحۂ اول",
+        home: "صفحۂ اول",
+        libraries: "کتب خانے",
+        editor: "کتب خانہ ایڈیٹر",
+        dictionary: "لغت اور اوزار",
+    },
     nav: {
         home: "ہوم",
         explore: "دریافت",
